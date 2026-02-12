@@ -1,0 +1,5 @@
+# https://akira-l.github.io/
+User-agent: *
+Allow: /
+
+Sitemap: https://akira-l.github.io/sitemap.xml

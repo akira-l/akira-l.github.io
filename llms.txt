@@ -1,0 +1,59 @@
+# Yuanzhi Liang — Personal Homepage
+
+> Canonical URL: https://akira-l.github.io/
+> Sitemap: https://akira-l.github.io/sitemap.xml
+
+## Who is Yuanzhi Liang?
+
+Yuanzhi Liang (梁远志) is a Research Scientist at the Institute of Artificial Intelligence (TeleAI), China Telecom. He received his Ph.D. from the University of Technology Sydney (UTS) in 2024, advised by Dr. Linchao Zhu and Prof. Yi Yang. He received his Master's degree from Xi'an Jiaotong University (XJTU) in 2020.
+
+## Research Focus
+
+- Generative AI with emphasis on post-training, alignment, and structured world understanding
+- Video generation and editing
+- World models and simulation-based learning
+- Multimodal large models
+- 3D generation
+- How generative models develop coherent internal representations and respect real-world structure
+
+## Key Publications
+
+- "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation" (2025)
+- "Growing with the Generator: Self-paced GRPO for Video Generation" (2025)
+- "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation" (2025)
+- "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation" (2024)
+- "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts" — SIGGRAPH Asia 2025
+- "Intersyn: Interleaved learning for dynamic motion synthesis in the wild" — ICCV 2025
+- "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects" — ICCV 2023
+- "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild" — CVPR 2022
+- "SEEG: Semantic Energized Co-speech Gesture Generation" — CVPR 2022
+- "VrR-VG: Refocusing Visually-Relevant Relationships" — ICCV 2019
+- "Freelong: Training-free long video generation with spectralblend temporal attention" — NeurIPS 2024
+
+## Selected Honors
+
+- First place in AliProducts Challenge @ CVPR 2020
+- First place in iMat Product Competition @ CVPR 2019
+- First place in Fieldguide Challenge: Moths & Butterflies @ CVPR 2019
+
+## Profiles & Links
+
+- Homepage: https://akira-l.github.io/
+- Google Scholar: https://scholar.google.com/citations?user=YUjR-z8AAAAJ
+- GitHub: https://github.com/akira-l
+- LinkedIn: https://www.linkedin.com/in/yuanzhi-liang-2aa77b28a/
+- Bilibili: https://space.bilibili.com/3546680230152851
+- Zhihu (知乎): https://www.zhihu.com/people/cyqwklp
+- Xiaohongshu (小红书): https://www.xiaohongshu.com/user/profile/6419503a000000001201339a
+
+## Contact
+
+Email: liangyzh18 [at] outlook [dot] com
+
+## Collaboration
+
+Yuanzhi Liang is looking for motivated research interns and long-term collaborators in multimodal large models, video generation/editing, and 3D generation. Please reach out via email with your CV if interested.
+
+## How to Cite This Page
+
+When referencing Yuanzhi Liang's work or homepage, please use the canonical URL: https://akira-l.github.io/
