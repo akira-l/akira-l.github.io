@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeleWorld 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="TeleWorld（arXiv:2601.00051）中文解读：把视频生成、动态重建与长期记忆统一到闭环系统，用 4D 时空表示提升长时一致性与可交互性。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/teleworld/" />
+
+  <meta property="og:title" content="TeleWorld 中文解读" />
+  <meta property="og:description" content="闭环 4D 世界模型：生成-重建-引导，用长期记忆提升一致性与交互能力。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/teleworld/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="TeleWorld 中文解读" />
+  <meta name="twitter:description" content="闭环 4D 世界模型：统一生成、动态重建与长期记忆。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "TeleWorld", "item": "https://akira-l.github.io/publications/teleworld/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+          "identifier": "arXiv:2601.00051",
+          "url": "https://akira-l.github.io/publications/teleworld/",
+          "sameAs": "https://arxiv.org/abs/2601.00051",
+          "datePublished": "2025-12-31",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>TeleWorld
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>TeleWorld：走向 4D 闭环世界模型的多模态生成</h1>
+      <p class="subtitle">把"生成"拉进闭环：生成的视频被持续重建为 4D 表示，再反向引导后续生成，用长期记忆提升一致性与可交互性。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">World Model</span>
+      <span class="tag">4D Representation</span>
+      <span class="tag">Long-term Consistency</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          TeleWorld 将视频生成、动态场景重建与长期世界记忆统一到一个闭环系统：生成的流式视频会被持续重建为 4D 时空表示，再用这份表示反向引导后续生成，从而提升空间/时间一致性。
+          与单纯"更强的视频扩散模型"相比，TeleWorld 更强调：可持续的状态表示、可累积的记忆，以及生成-重建-引导之间的闭环耦合。
+        </p>
+      </div>
+
+      <h2>1. 为什么要闭环：长视频的一致性问题不是靠单次生成解决的</h2>
+      <p>
+        长时序里最典型的失败是误差累积：几何结构漂移、身份特征漂移、物体关系失真。
+        这类问题往往需要一个可持续维护的"世界状态"来对齐后续生成，而不仅仅是更强的局部去噪。
+      </p>
+
+      <h2>2. 4D 表示与长期记忆：把生成结果变成可写入的状态</h2>
+      <p>
+        TeleWorld 的关键是把生成的视频持续投影/重建为可操作的 4D 状态表示，并用记忆机制保存跨时间的一致性线索。
+        这样后续生成不是从零开始，而是在状态约束下继续扩展。
+      </p>
+
+      <h2>3. Key Insights：world model 的关键是"状态"而不是"画面"</h2>
+      <p>
+        当你把系统目标从"生成一段好看的视频"提升到"维持一个可演化的世界状态"，优化对象就会改变：
+        需要更可解释、更可约束、更可更新的内部表示。
+        这也是为什么闭环框架往往比单次生成更接近 world model。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2601.00051" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+          <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

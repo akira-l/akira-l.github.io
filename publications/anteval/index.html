@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AntEval 论文解读：量化多 Agent 对话的"信息量与表现力" | Yuanzhi Liang</title>
+  <meta name="description" content="AntEval 中文解读：多 Agent 对话常见问题是'客套话很多、信息量很少'。AntEval 提出评测框架，从 Informativeness（信息量）与 Expressiveness（意图/隐含语义表达）两维度量化互动质量，并用 TRPG 的 Skill Check 构造可标注的评测环境。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/anteval/" />
+
+  <meta property="og:title" content="AntEval 论文解读：量化多 Agent 对话的'信息量与表现力'" />
+  <meta property="og:description" content="用 Informativeness/Expressiveness 两维度评估多 Agent 社交互动质量，借助 TRPG Skill Check 提供天然意图标注。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/anteval/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/notes/anteval/cover.webp" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AntEval 论文解读：量化多 Agent 对话的'信息量与表现力'" />
+  <meta name="twitter:description" content="用 Informativeness/Expressiveness 两维度评估多 Agent 社交互动质量。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/notes/anteval/cover.webp" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "AntEval", "item": "https://akira-l.github.io/publications/anteval/" }
+          ]
+        },
+        {
+          "@type": "Article",
+          "name": "AntEval: Quantitatively Evaluating Informativeness and Expressiveness of Agent Social Interactions",
+          "url": "https://akira-l.github.io/publications/anteval/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>AntEval
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>AntEval：评估多 Agent 社交互动的"信息量与表现力"</h1>
+      <p class="subtitle">多 Agent 聊天最常见失败模式：话很多，但没传递新信息；看似自然，但缺乏真实意图。AntEval 把这两个维度拆开量化。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Multi-Agent</span>
+      <span class="tag">Evaluation</span>
+      <span class="tag">TRPG</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          AntEval 关注的是"如何评估多 Agent 对话质量"，而不是直接改进 Agent。
+          作者将社交互动质量拆成两条主轴：
+          Informativeness（信息量）：对话是否真的传递了可用的新信息，而不是礼貌寒暄；
+          Expressiveness（表现力）：对话是否表达了真实意图/态度/隐含语义，并能被他人理解。
+          方法上，信息量通过让各 Agent 总结 key points 并计算一致性来衡量；表现力则借助 TRPG 场景中的 Skill Check：引入一个 Virtual DM 根据对话预测意图判定，与真人对话的可预测性差距越小，说明互动越接近真实。
+        </p>
+      </div>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/anteval/local-03.webp" alt="AntEval figure" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>1. 痛点：多 Agent "聊得像在客套"</h2>
+      <p>
+        多 Agent 系统很容易产生大量礼貌寒暄，看起来流畅但缺乏内容。传统评估往往只看任务是否完成，却无法反映互动是否真实、有信息价值。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/anteval/cover.webp" alt="AntEval framework" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>2. 两个维度：信息量 vs 表现力</h2>
+      <p>
+        Informativeness 更像"知识同步效率"；Expressiveness 更像"意图沟通能力"。
+        把两者分开非常关键，因为两种失败模式不同：
+        有的对话信息量低但很自然；有的对话信息量高但过于直白（像把意图写在台词里）。
+      </p>
+
+      <h2>3. 为什么用 TRPG：Skill Check 提供天然意图标注</h2>
+      <p>
+        TRPG 场景里，玩家行为背后通常对应明确的 skill check（说服/潜行/调查等）。
+        这相当于为"隐含意图"提供可量化的监督信号，使得 Expressiveness 的评估可落地。
+      </p>
+
+      <h2>4. Key Insights：评估比优化更先行，且必须可诊断</h2>
+      <p>
+        对多 Agent 而言，任务完成只是结果指标，无法诊断“为什么能/不能完成”。
+        AntEval 的拆维度思路更像给系统做体检：信息同步是否发生、意图沟通是否成立。
+        这种可诊断性会直接影响后续的训练策略与数据构造。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        AntEval proposes a quantitative evaluation framework for social interactions among multiple agents.
+        It targets a common failure mode: conversations that are fluent but low in informational content and weak in intention expression.
+      </p>
+
+      <h3>Dimensions</h3>
+      <p>
+        The framework separates interaction quality into two axes.
+        Informativeness measures whether agents exchange actionable new information rather than polite filler.
+        Expressiveness measures whether latent intentions and social signals are communicated in a way that others can infer.
+      </p>
+
+      <h3>Why TRPG Helps</h3>
+      <p>
+        TRPG-style scenarios provide structured, interpretable intention signals via skill checks.
+        This makes expressiveness measurable without relying on purely subjective judgments.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        For multi-agent systems, outcome-only metrics are insufficient.
+        Diagnostics that disentangle information exchange from intention expression are crucial for guiding data collection and training.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2401.06509" target="_blank" rel="noopener">arXiv</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

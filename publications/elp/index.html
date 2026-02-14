@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELP 论文解读：在线线性探针如何提升野外识别泛化 | Yuanzhi Liang</title>
+  <meta name="description" content="Episodic Linear Probe（CVPR 2022）中文解读：用周期性重置的弱分类器在线测量特征可分性，把'被识别但不可分（recognized but not discriminative）'变成训练信号，缓解过拟合并提升泛化。包含：机制、ELP-SR 正则、为什么有效与适用边界。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/elp/" />
+
+  <meta property="og:title" content="ELP 论文解读：在线线性探针如何提升野外识别泛化" />
+  <meta property="og:description" content="CVPR 2022：用周期性重置的弱分类器检测特征质量，把'被识别但不可分'变成可优化信号。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/elp/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/notes/elp/cover.webp" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ELP 论文解读：在线线性探针如何提升野外识别泛化" />
+  <meta name="twitter:description" content="CVPR 2022：周期性重置弱分类器在线评估特征可分性，缓解过拟合，提升泛化。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/notes/elp/cover.webp" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "ELP", "item": "https://akira-l.github.io/publications/elp/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild",
+          "url": "https://akira-l.github.io/publications/elp/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }],
+          "datePublished": "2022-06-01",
+          "isPartOf": { "@type": "Periodical", "name": "CVPR" }
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>ELP
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>ELP：Episodic Linear Probe</h1>
+      <p class="subtitle">用一个"永远比主分类器弱一点"的线性探针，在线监测特征质量，并把它变成可优化的训练信号，提升野外识别泛化。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Generalization</span>
+      <span class="tag">Representation</span>
+      <span class="tag">Regularization</span>
+    </div>
+
+
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          Episodic Linear Probe（ELP）提出一种在线评估特征可分性的方法：在训练过程中维护一个弱分类器（线性 probe），并周期性重置其参数，使其不会逐渐"追上"主分类器。
+          如果某个样本的表征很好，主分类器与弱分类器都会给出一致且稳定的预测；如果样本被主分类器识别但弱分类器分不出来，则意味着该样本处于"recognized but not discriminative"的区域，模型更可能是在记忆/走捷径而非形成稳健特征。
+          ELP 用这种差异构造 ELP-SR 正则信号，把特征质量显式纳入优化目标，从而缓解过拟合并提升泛化。
+        </p>
+      </div>
+
+      <h2>1. 研究动机：高置信度不等于高质量表征</h2>
+      <p>
+        很多训练中会出现"训练集准确率很高，但测试泛化一般"的现象。原因之一是：模型可能只是记住了训练样本的捷径特征；这类特征在主分类器上仍能给出高置信度，但并不形成可迁移的判别结构。
+      </p>
+
+      <h2>2. 关键概念：Recognized but Not Discriminative</h2>
+      <p>
+        论文把一类样本定义为"被识别但不可分"：主分类器能做对，但这个正确性并不稳，换一个更弱、更简单的判别器就无法维持。
+        这类样本通常更容易导致模型过拟合。
+      </p>
+      
+      <figure class="note-figure">
+        <img src="../../img/notes/elp/cover.webp" alt="ELP figure" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>3. ELP 的机制：一个周期性重置的弱分类器</h2>
+      <p>
+        做法非常简单：在主分类器之外增加一个结构相同但"看起来更弱"的线性 probe（用 detach 的特征训练），并周期性把 probe 重新初始化（episodic re-initialization）。
+        关键点是：probe 永远不会积累成强判别器，因此可以稳定地作为"特征质量测量仪"。
+      </p>
+
+      <h2>4. ELP-SR：把测量变成训练信号</h2>
+      <p>
+        有了在线测量，下一步就是正则化：让主分类器与 probe 的预测更一致，迫使表征不仅对主分类器有效，也对简单判别器可分。
+        这本质上是在优化"类内更紧凑、类间更分离"的几何结构，而不是只优化训练集上的正确率。
+      </p>
+
+      <h2>5. Key Insights：ELP 提供了低成本、可控的"表征诊断信号"</h2>
+      <p>
+        很多方法试图用困难样本挖掘或复杂正则去改泛化，但困难样本的定义常常不稳定。
+        ELP 给出一种更结构化的定义：困难不等于低置信度，而是“在弱判别器下仍不可分”。
+        这对构建更稳定的训练信号很关键。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        Episodic Linear Probe (ELP) improves recognition in the wild by adding an online diagnostic for feature quality during training.
+        The method maintains a linear probe that is periodically re-initialized, ensuring it remains weaker than the main classifier.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        High confidence on training data does not necessarily indicate a transferable representation.
+        Models can become correct by memorizing shortcuts that do not yield linearly separable, robust features.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Use the episodic probe as a stable reference: samples that the main classifier recognizes but the probe cannot separate are treated as "recognized but not discriminative."
+        ELP-SR regularizes training to reduce this gap, encouraging features that remain separable even for a weak classifier.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        A periodically reset probe provides a low-cost way to detect representation collapse toward shortcuts.
+        The approach is attractive when stronger augmentation or larger models still overfit due to unstable training signals.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

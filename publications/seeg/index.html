@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEEG 论文解读：语音驱动手势生成的语义增强 | Yuanzhi Liang</title>
+  <meta name="description" content="SEEG（CVPR 2022）中文解读：把 co-speech gesture 分解为节奏手势与语义手势，分别学习再融合，解决'模型只会跟节奏摆'的问题。包含：任务难点、结构化解耦、语义监督的实现方式与关键洞察。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/seeg/" />
+
+  <meta property="og:title" content="SEEG 论文解读：语音驱动手势生成的语义增强" />
+  <meta property="og:description" content="CVPR 2022：解耦节奏与语义两类手势，避免模型被易学的节奏信号主导。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/seeg/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/notes/seeg/cover.webp" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="SEEG 论文解读：语音驱动手势生成的语义增强" />
+  <meta name="twitter:description" content="CVPR 2022：解耦节奏与语义两类手势，避免模型只学会跟节奏摆。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/notes/seeg/cover.webp" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "SEEG", "item": "https://akira-l.github.io/publications/seeg/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "SEEG: Semantic Energized Co-speech Gesture Generation",
+          "url": "https://akira-l.github.io/publications/seeg/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }],
+          "datePublished": "2022-06-01",
+          "isPartOf": { "@type": "Periodical", "name": "CVPR" }
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>SEEG
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>SEEG：Semantic Energized Co-Speech Gesture Generation</h1>
+      <p class="subtitle">语音驱动手势生成的核心矛盾：节奏很容易学，语义很难学。SEEG 用结构化解耦让"语义手势"真正被学到。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Co-speech Gesture</span>
+      <span class="tag">Speech-to-Motion</span>
+      <span class="tag">Disentanglement</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          SEEG 研究 co-speech gesture generation：从语音/文本生成与讲话同步的手势序列。作者指出手势可以分成两类信号：
+          （1）Beat gesture（节奏手势）：与语音节拍强相关，结构简单、易学习；
+          （2）Semantic gesture（语义手势）：承载信息表达，受文化/个体风格影响大，时间对齐也更不稳定。
+          传统端到端训练往往被"更容易学的节奏信号"主导，导致生成结果动作流畅但语义贫乏。
+          SEEG 通过结构化解耦：分别学习节奏分支与语义分支，再融合生成完整手势，并用一个间接语义监督机制（语义子集 + 手势语义分类器）保证语义手势被真正优化。
+        </p>
+      </div>
+
+      <h2>1. 任务背景：为什么语音驱动手势总是"跟节奏摆"</h2>
+      <p>
+        在语音驱动动作生成里，节奏对齐是强、稳定、可预测的信号；但"语义对应什么手势"没有唯一标准，且受说话者风格与语境影响。
+        结果是：端到端模型很容易学到 beat gesture，却很难学到 semantic gesture。
+      </p>
+
+      <h2>2. 关键观点：把手势拆成两类信号再学习</h2>
+      <p>
+        SEEG 的拆分不是为了更复杂，而是为了避免优化目标被简单信号劫持：
+        用独立分支分别吸收节奏与语义信息，让语义能力有"专属容量"和"专属梯度"。
+      </p>
+
+      <h2>3. 语义监督怎么做：不用硬定义规则，而是用“可学习的语义分类器”</h2>
+      <p>
+        直接规定“这句话必须做这个手势”几乎不可行。SEEG 的思路更工程化：
+        先从训练数据里选一个包含典型语义类别的小子集（例如计数、强调、态度表达等），
+        再训练一个手势语义分类器，把“生成手势”和“真实手势”的语义类别对齐，作为间接监督。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/seeg/method.webp" alt="SEEG figure" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>4. Key Insights：典型的“易学信号遮蔽难学信号”问题</h2>
+      <p>
+        SEEG 的价值在于把问题讲清楚：不是模型不够大，而是训练信号的结构导致优化倾向。
+        类似现象也出现在很多多模态/序列任务中：越稳定、越可预测的信号越容易主导学习。
+        解决方法往往不是堆模型，而是把目标拆解、把梯度路径拆开、再通过可控机制做融合。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/seeg/gestures.webp" alt="SEEG gestures" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        SEEG targets co-speech gesture generation: producing human-like gestures synchronized with speech.
+        A common failure mode in end-to-end training is that models learn beat gestures (rhythmic motion aligned with prosody) but underfit semantic gestures that carry communicative meaning.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Beat cues are stable and easy to predict from audio, while semantic gestures are diverse, weakly aligned in time, and vary across speakers.
+        Joint training is therefore dominated by the easier beat signal.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        SEEG disentangles gesture generation into rhythm and semantic branches, then fuses them.
+        A learnable semantic supervision mechanism (via a semantic subset and a gesture-semantic classifier) ensures the semantic branch receives a meaningful optimization signal.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        When a stable signal dominates training, splitting the objective and separating gradient paths often improves learning of the harder factor.
+        For gesture generation, explicit semantic capacity and supervision are critical for avoiding "rhythm-only" outputs.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_SEEG_Semantic_Energized_Co-Speech_Gesture_Generation_CVPR_2022_paper.html" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+          <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

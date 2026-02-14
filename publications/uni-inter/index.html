@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uni-Inter 解读：统一 3D 交互动作生成的表示与空间 | Yuanzhi Liang</title>
+  <meta name="description" content="Uni-Inter 中文解读：动作生成里，人-物、人-人、人-场景往往各用一套模型。Uni-Inter 的核心是统一交互表示：把所有参与者放进统一体素空间（UIV），预测概率分布而非单点坐标，提升跨交互场景的兼容性与泛化。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/uni-inter/" />
+
+  <meta property="og:title" content="Uni-Inter 解读：统一 3D 交互动作生成的表示与空间" />
+  <meta property="og:description" content="统一体素表示 + 概率场预测，让同一模型覆盖多类交互并更好泛化。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/uni-inter/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Uni-Inter 解读：统一 3D 交互动作生成的表示与空间" />
+  <meta name="twitter:description" content="统一体素空间与概率场预测，让交互动作生成不再一任务一模型。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "Uni-Inter", "item": "https://akira-l.github.io/publications/uni-inter/" }
+          ]
+        },
+        {
+          "@type": "Article",
+          "name": "Uni-Inter (paper note)",
+          "url": "https://akira-l.github.io/publications/uni-inter/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Uni-Inter
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>Uni-Inter：统一 3D 交互动作生成</h1>
+      <p class="subtitle">把交互问题从"人是主语"改写成"所有参与者共享同一空间表示"，让同一框架覆盖人-物、人-人、人-场景。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Motion Synthesis</span>
+      <span class="tag">Human Interaction</span>
+      <span class="tag">Unified Representation</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          Uni-Inter 讨论的不是单一动作类别，而是交互动作生成的"碎片化"问题：不同交互（人-物、人-人、人-场景）常用不同表示、不同数据、不同模型。
+          论文的核心是统一交互表示：将所有参与者映射到统一体素空间（UIV），避免为不同对象写不同专用分支；并采用概率分布/概率场的预测，而非单点坐标预测，让动作生成更自然、容错更好。
+          这种统一表示与预测形式提升了跨交互场景的兼容性，并有利于对未见交互类型的泛化。
+        </p>
+      </div>
+
+      <h2>1. 痛点：为什么交互动作生成总是"一任务一模型"</h2>
+      <p>
+        交互带来的差异非常大：对象类型不同、接触约束不同、空间参考系不同。
+        传统做法往往为每类交互设计专用表示与网络，导致输出不兼容、数据难共享、调参流程割裂。
+      </p>
+
+      <h2>2. 统一表示：万物皆在同一体素空间</h2>
+      <p>
+        统一体素空间的关键价值是“对齐”：把人、物体、场景都放进同一坐标系，模型不再依赖人为的主语/宾语划分。
+        一旦空间关系被统一，很多交互问题就能用一致的方式建模。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/uni-inter/teaser.png" alt="Uni-Inter teaser" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>3. 概率场预测：用‘模糊正确’替代‘精确错误’</h2>
+      <p>
+        交互动作本质上允许一定空间容错。预测概率分布而不是单点坐标，能更稳定地表达多解性，也更符合真实动作的自然性。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/uni-inter/method_cmp.png" alt="Uni-Inter method comparison" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>4. Key Insights：统一框架的价值不只在指标，更在工程与数据闭环</h2>
+      <p>
+        当输出与表示统一后，数据更容易共享，训练与评测更容易标准化。
+        对长期迭代的动作系统来说，这种“工程可持续性”往往比一次性的 SOTA 更重要。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        Uni-Inter aims to unify 3D human motion synthesis across diverse interaction contexts, including human-object, human-human, and human-scene interactions.
+        Many prior approaches build separate representations and models per interaction type, making outputs incompatible and limiting data reuse.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Map all participants into a unified voxel space and predict interaction-relevant distributions rather than single-point targets.
+        This representation reduces task-specific branching and provides a common interface across interaction settings.
+      </p>
+
+      <h3>Why This Helps</h3>
+      <p>
+        A shared spatial representation improves alignment across entities and interaction types.
+        Distribution-based prediction naturally handles multi-modality and tolerances in contact and motion, which are common in realistic interactions.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Unification benefits not only accuracy but also engineering scalability: shared data pipelines, shared evaluation, and easier incremental improvements.
+        For long-term systems, a stable unified interface can be more valuable than task-specific improvements.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://dl.acm.org/doi/full/10.1145/3757377.3763954" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IcoCap 解读：用"正激励噪声"提升视频理解 | Yuanzhi Liang</title>
+  <meta name="description" content="IcoCap 中文解读：视频 caption/理解里，简单把图像数据加进来往往不灵。IcoCap 通过 Image-Video Compounding 构造更强但可控的冗余干扰，迫使模型学会时间整合与抗干扰，可视为一种'正激励噪声（pi-noise）注入'。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/icocap/" />
+
+  <meta property="og:title" content="IcoCap 解读：用'正激励噪声'提升视频理解" />
+  <meta property="og:description" content="把图像当作可控的强冗余干扰，迫使模型学会时间整合与抗干扰（pi-noise 视角）。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/icocap/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="IcoCap 解读：用'正激励噪声'提升视频理解" />
+  <meta name="twitter:description" content="Image-Video Compounding：可控冗余干扰迫使模型学会抗干扰与时间整合。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "IcoCap", "item": "https://akira-l.github.io/publications/icocap/" }
+          ]
+        },
+        {
+          "@type": "Article",
+          "name": "IcoCap (paper note)",
+          "url": "https://akira-l.github.io/publications/icocap/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>IcoCap
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>IcoCap：把图像当作"正激励噪声"，提升视频理解</h1>
+      <p class="subtitle">直觉误区：图像更清晰、标注更稳定，所以加图像数据就能救视频任务。IcoCap 的结论更反直觉：关键不是加数据，而是构造更好的"可控干扰"。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Video Captioning</span>
+      <span class="tag">Data Compounding</span>
+      <span class="tag">pi-noise</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          IcoCap 的核心不是"把图像和视频一起训"，而是 Image-Video Compounding：把高语义密度的图像帧以可控方式复合进视频序列，构造更强冗余与更难对齐的训练样本。
+          这样会制造一种看似噪声但长期有益的干扰：模型不能偷懒只盯最清晰单帧，而必须学会跨帧整合与抑制诱导帧。
+          从正激励噪声（pi-noise）的视角，这是一种"受控的强干扰注入"，用于降低任务的捷径解并强化真正需要的时序语义能力。
+        </p>
+      </div>
+
+      <h2>1. 为什么"多加图像数据"不一定有效</h2>
+      <p>
+        图像语义密度高、对齐强、噪声小；视频天然冗余多、对齐弱。
+        直接混合训练往往让模型更偏好学习"更容易"的图像信号，而视频任务里真正困难的时间整合与抗冗余并没有被强化。
+      </p>
+
+      <h2>2. IcoCap 的关键动作：制造强但可控的冗余干扰</h2>
+      <p>
+        复合图像帧会引入“强诱导”：模型会很想只描述那张清晰图片。
+        但训练目标仍要求总结整段视频的语义，因此优化过程会迫使模型学会抑制诱导帧、整合多帧证据。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/icocap/motivation.png" alt="IcoCap motivation" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>3. pi-noise 视角：噪声不一定是坏事</h2>
+      <p>
+        关键区分在于噪声是否可控、是否把学习压力推向更本质的能力。
+        IcoCap 不是随机噪声，而是语义很强、很诱人的帧——这类干扰能暴露并惩罚"只看单帧"的捷径。
+      </p>
+
+      <h2>4. Key Insights：很多"聪明的数据增强"都可以用 pi-noise 理解</h2>
+      <p>
+        当一个增强策略让任务变难，但同时迫使模型学习更稳健的因果证据时，它就更像是正激励噪声。
+        这种视角对设计视频理解/对齐/偏好优化的数据与奖励很有帮助。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        IcoCap explores a counterintuitive route to improve video understanding and captioning: injecting structured, semantically strong distractions rather than merely adding more clean data.
+        The method uses image-video compounding to create harder training examples that force temporal integration.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Video models can over-rely on a few salient frames and ignore temporal evidence.
+        Naively mixing image data may reinforce single-frame shortcuts instead of improving temporal reasoning.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Compound images into videos to produce strong but controllable redundancy.
+        The compounded frames act as tempting signals that can mislead a shortcut model, encouraging the model to learn robust aggregation over time.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Carefully designed distractions can improve robustness when they expose and penalize shortcut solutions.
+        For video tasks, training signals that require multi-frame evidence are often more valuable than simply increasing data volume.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://ieeexplore.ieee.org/abstract/document/10272675" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

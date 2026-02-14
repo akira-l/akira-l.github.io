@@ -1,0 +1,527 @@
+/* ================================================================
+   screen.css — Shared styles for /publications/ and note pages.
+   Uses the same Bootstrap "navbar-inverse" dark-bar look as the
+   homepage so every page feels like the same site.
+   ================================================================ */
+
+:root {
+  --ink: #222;
+  --muted: #666;
+  --light: #999;
+  --bg: #f5f5f5;
+  --card: #fff;
+  --accent: #0f766e;
+  --accent-light: rgba(15, 118, 110, 0.08);
+  --border: #e0e0e0;
+  --radius: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.07);
+  --nav-bg: #222;
+  --nav-text: #9d9d9d;
+  --nav-text-hi: #fff;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---- Bootstrap navbar fit for pub pages ---- */
+body.pub-page { padding-top: 60px; }
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+  font-weight: 600;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: #fff;
+}
+
+/* ---- Reset for pub pages (don't collide with Bootstrap on homepage) ---- */
+body.pub-page {
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+body.pub-page *, body.pub-page *::before, body.pub-page *::after {
+  box-sizing: border-box;
+}
+
+/* ---- Top navbar (mirrors Bootstrap navbar-inverse) ---- */
+.pub-nav {
+  background: var(--nav-bg);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.pub-nav a {
+  text-decoration: none;
+}
+
+.pub-nav-brand {
+  color: var(--nav-text-hi);
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 24px;
+  white-space: nowrap;
+}
+
+.pub-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pub-nav-links a {
+  color: var(--nav-text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  transition: color .15s, background .15s;
+}
+
+.pub-nav-links a:hover,
+.pub-nav-links a.active {
+  color: var(--nav-text-hi);
+  background: rgba(255,255,255,0.08);
+}
+
+/* ---- Container ---- */
+.pub-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 18px 60px;
+}
+
+/* ---- Page header ---- */
+.pub-page-header {
+  margin-bottom: 24px;
+}
+
+.pub-page-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.pub-page-header p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ---- Search bar (publications list) ---- */
+.pub-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pub-search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--card);
+  outline: none;
+}
+
+.pub-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.pub-search-count {
+  font-size: 13px;
+  color: var(--light);
+  white-space: nowrap;
+}
+
+/* ---- Year section ---- */
+.pub-year-section {
+  margin-bottom: 20px;
+}
+
+.pub-year-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+
+.pub-year-title .badge {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--light);
+  margin-left: 6px;
+}
+
+/* ---- Paper card (list) ---- */
+.pub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pub-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s;
+}
+
+.pub-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.pub-item h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.pub-item .meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.pub-item .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pub-item .links a {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: var(--card);
+  transition: all .15s;
+}
+
+.pub-item .links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.pub-item .links a.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.pub-item .links a.primary:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+/* ---- Footer ---- */
+.pub-page-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--light);
+}
+
+.pub-page-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.pub-page-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ================================================================
+   Note / Article pages
+   ================================================================ */
+
+.note-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 18px 60px;
+}
+
+/* Breadcrumb */
+.note-breadcrumb {
+  font-size: 13px;
+  color: var(--light);
+  margin-bottom: 16px;
+}
+
+.note-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.note-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.note-breadcrumb span {
+  margin: 0 6px;
+}
+
+/* Note header */
+.note-header {
+  margin-bottom: 24px;
+}
+
+.note-header .kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.note-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.note-header .subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.note-tags .tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--card);
+  text-decoration: none;
+}
+
+/* Cover image */
+.note-cover-wrap {
+  margin-bottom: 24px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.note-cover-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Inline figures inside article */
+.note-figure {
+  margin: 16px 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.note-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.note-figure figcaption {
+  min-height: 18px;
+  font-size: 12px;
+  color: var(--light);
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  background: #fafafa;
+}
+
+.note-cover-wrap figcaption {
+  font-size: 12px;
+  color: var(--light);
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  background: #fafafa;
+}
+
+/* Article body */
+.note-body {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 24px 20px;
+  box-shadow: var(--shadow-sm);
+  overflow-x: hidden;
+}
+
+.note-body h2 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 28px 0 10px;
+  color: var(--ink);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.note-body h2:first-child {
+  margin-top: 0;
+}
+
+.note-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 8px;
+  color: var(--ink);
+}
+
+.note-body p {
+  margin: 0 0 14px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.note-body ul, .note-body ol {
+  margin: 0 0 14px 20px;
+  line-height: 1.75;
+}
+
+.note-body a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.note-body a:hover {
+  text-decoration: underline;
+}
+
+/* Callout / TL;DR box */
+.note-callout {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 16px;
+  margin: 0 0 20px;
+}
+
+.note-callout strong {
+  display: block;
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.note-callout p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Divider */
+.note-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* Links row at bottom of article */
+.note-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.note-links a {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: var(--card);
+}
+
+.note-links a.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.note-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.note-links a.primary:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  .pub-nav {
+    padding: 0 12px;
+  }
+  .pub-nav-links a {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .note-body {
+    padding: 16px 14px 14px;
+  }
+  .note-header h1 {
+    font-size: 22px;
+  }
+}

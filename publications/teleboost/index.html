@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeleBoost 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="TeleBoost（arXiv:2602.07595）中文解读：面向视频生成的系统化后训练与对齐框架，强调可控性、稳定性与长时一致性。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/teleboost/" />
+
+  <meta property="og:title" content="TeleBoost 中文解读" />
+  <meta property="og:description" content="面向视频生成的系统化后训练与对齐框架：从监督塑形到奖励驱动与偏好优化的稳定堆栈。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/teleboost/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="TeleBoost 中文解读" />
+  <meta name="twitter:description" content="视频生成的系统化后训练与对齐框架：强调稳定、可控与长时鲁棒。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "TeleBoost", "item": "https://akira-l.github.io/publications/teleboost/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+          "identifier": "arXiv:2602.07595",
+          "url": "https://akira-l.github.io/publications/teleboost/",
+          "sameAs": "https://arxiv.org/abs/2602.07595",
+          "datePublished": "2026-02-07",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>TeleBoost
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>TeleBoost：视频生成的系统化后训练与对齐</h1>
+      <p class="subtitle">把"后训练"从单一算法（GRPO/DPO）拉回到系统工程：数据、奖励、信用分配、loss 细节与训练系统共同决定稳定性与可控性。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Video Generation</span>
+      <span class="tag">Post-training</span>
+      <span class="tag">Alignment</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          TeleBoost 将视频生成的 post-training 组织为"稳定约束的优化堆栈"：先用监督信号做策略塑形，再引入奖励驱动的强化学习，最后用偏好数据做更细的对齐与修正。
+          重点不是某个技巧，而是把长时序视频里的失败模式（误差累积、提示偏离、控制失真）当作诊断对象，按阶段逐步收敛。
+          从工程视角看，post-training 更像是一个高度耦合系统：输入数据结构、reward 表达能力、advantage/credit assignment、loss 细节与训练系统规模都会改变最终优化行为。
+        </p>
+      </div>
+
+      <h2>1. 为什么要把"后训练"当成系统工程</h2>
+      <p>
+        在视频生成里，单纯替换一个 RL 算法很难稳定地带来提升。真实瓶颈往往出在：奖励信号不稳定、长时序误差累积、控制目标与视觉质量之间的冲突，以及训练/采样流程的工程细节。
+      </p>
+
+      <h2>2. 关键直觉：先把模型"塑形"，再做奖励优化，再做偏好对齐</h2>
+      <p>
+        这是一条更稳的路线：监督信号提供底层可控性与基本结构，奖励用于推动目标指标，偏好对齐用于修正细粒度主观质量与人类偏好。
+      </p>
+
+      <h2>3. Key Insights：post-training 更像在放大 pre-train 的上限</h2>
+      <p>
+        在相同的后训练设置下，不同预训练基座会表现出完全不同的响应：有的稳定受益，有的收益有限，甚至会出现退化。
+        这意味着 post-training 更像是在"放大已有能力"而非凭空创造新能力；其上限在很大程度上由 pre-train 决定。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        TeleBoost studies post-training for video generation models with a practical goal: improving controllability, prompt adherence, and long-horizon stability without sacrificing visual fidelity.
+        The key message is that video post-training behaves like a coupled system. Stable gains depend on how data, objectives (rewards or preferences), and sequence-level credit assignment interact during optimization.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Long video generation amplifies small errors into visible failures: identity drift, spatial inconsistency, motion collapse, and gradual prompt deviation. Simple fine-tuning often trades one failure mode for another.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Organize post-training as a staged stack. Use supervised signals to stabilize the model and shape basic controllability.
+        Then apply reward-driven optimization to push explicit target behaviors.
+        Finally, use preference signals to refine subjective quality and alignment aspects that are difficult to encode as a scalar reward.
+      </p>
+
+      <h3>Why This Helps</h3>
+      <p>
+        Staging reduces instability. Early supervision constrains the model to produce plausible trajectories.
+        Reward optimization then operates in a safer region, reducing reward hacking and collapse.
+        Preference optimization provides a flexible correction layer for subtle artifacts and alignment mismatches.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Evaluate failures by category (coherence, controllability, fidelity) and select interventions that target the dominant failure mode.
+        In long-horizon settings, reward design and sequence-level credit assignment can matter as much as the optimizer choice.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2602.07595" target="_blank" rel="noopener">PDF</a>
+        <a href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener">Project</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+          <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

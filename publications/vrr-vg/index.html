@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VrR-VG 论文解读：筛掉"看都不用看图"的关系偏差 | Yuanzhi Liang</title>
+  <meta name="description" content="VrR-VG（ICCV 2019）中文解读：视觉关系/scene graph 数据里存在大量'视觉无关关系'偏差，模型不看图也能猜。论文用一个只看框与类别的偏差模型筛掉这类关系，保留真正需要视觉证据的关系，从而学到更有用的表征。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/vrr-vg/" />
+
+  <meta property="og:title" content="VrR-VG 论文解读：筛掉'看都不用看图'的关系偏差" />
+  <meta property="og:description" content="ICCV 2019：用偏差模型筛掉视觉无关关系，让关系学习真正依赖视觉证据。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/vrr-vg/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/notes/vrr-vg/cover.webp" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="VrR-VG 论文解读：筛掉'看都不用看图'的关系偏差" />
+  <meta name="twitter:description" content="ICCV 2019：过滤视觉无关关系，逼模型学到真正有用的关系表征。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/notes/vrr-vg/cover.webp" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "VrR-VG", "item": "https://akira-l.github.io/publications/vrr-vg/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "VrR-VG: Refocusing Visually-Relevant Relationships",
+          "url": "https://akira-l.github.io/publications/vrr-vg/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }],
+          "datePublished": "2019-10-01",
+          "isPartOf": { "@type": "Periodical", "name": "ICCV" }
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>VrR-VG
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>VrR-VG：Refocusing Visually-Relevant Relationships</h1>
+      <p class="subtitle">关系学习的致命偏差：有些关系不需要看图就能猜。VrR-VG 用偏差模型先筛掉这些"视觉无关关系"。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Scene Graph</span>
+      <span class="tag">Bias</span>
+      <span class="tag">Debias Learning</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          场景图/视觉关系建模的数据中存在大量偏差：
+          只看检测框的相对位置就能猜关系（例如 A 在 B 上方→on），或只看类别标签就能猜关系（人+衣服→wear）。
+          这类关系被称为 visually-irrelevant relationships：模型即使不看图像内容也能得到不错的关系预测。
+          VrR-VG 的核心做法是训练一个"作弊模型"——仅输入框与类别、不输入图像内容——来识别哪些关系是可被这种偏差预测出来的。
+          然后把这些样本从训练数据中剔除，留下真正需要视觉证据才能判断的 visually-relevant relationships，从而提升关系学习对表征的增益。
+        </p>
+      </div>
+
+      <h2>1. 为什么这个问题严重：模型学到的是偏见，不是视觉语义</h2>
+      <p>
+        关系学习常被当作提升视觉表征的辅助任务，但如果训练信号主要来自"位置/标签捷径"，模型会更倾向于记忆统计规律。
+        最终你得到的是一个很会猜数据集分布、但不真正理解视觉内容的系统。
+      </p>
+
+      <h2>2. 偏差长什么样：两类典型捷径</h2>
+      <p>
+        常见偏差包括：
+        （1）空间位置偏差：框在上方就猜 on；
+        （2）标签语义偏差：人-衣服就猜 wear。
+        两者共同点是：不依赖像素证据。
+      </p>
+
+      <figure class="note-figure">
+        <img src="../../img/notes/vrr-vg/vrrvg_cmp.webp" alt="VrR-VG comparison" loading="lazy" />
+        <figcaption></figcaption>
+      </figure>
+
+      <h2>3. VrR-VG 的反直觉但有效策略：先学"怎么作弊"，再过滤数据</h2>
+      <p>
+        VrR-VG 的关键在于数据过滤而不是更复杂的模型：用一个只看框与类别的小网络，衡量关系是否可由偏差解释。
+        能被解释的关系就被认为对学习视觉语义帮助有限（甚至有害），从训练集中剔除。
+      </p>
+
+      <h2>4. Key Insights：一种通用的"反事实数据诊断"思路</h2>
+      <p>
+        VrR-VG 的范式可以迁移到很多任务：
+        先构造一个“不该成功但会因为偏差而成功”的基线（只用捷径信息），
+        再用它标记/过滤训练信号，从而把学习压力推回到真正的因果证据上。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        VrR-VG addresses dataset bias in visual relationship learning and scene graph prediction.
+        Many relationship labels can be predicted without looking at pixels, using only object categories and bounding-box geometry.
+        Training on such shortcuts limits representation learning and harms generalization.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Train a bias-only model that ignores visual appearance and predicts relationships from labels and box configurations.
+        Relationships that are easy for this bias model are treated as visually irrelevant and filtered out.
+        The remaining training signal emphasizes visually grounded relationships that require image evidence.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Building an explicit "shortcut baseline" is an effective way to diagnose and reduce spurious correlations.
+        Filtering or reweighting based on shortcut predictability can make auxiliary tasks more useful for representation learning.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

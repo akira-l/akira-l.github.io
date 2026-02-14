@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MHEM 解读：为什么越挖困难样本越容易过拟合 | Yuanzhi Liang</title>
+  <meta name="description" content="MHEM（TNNLS 2022）中文解读：困难样本很重要，但过度强调会放大标注噪声与极端异常，反而降低泛化。MHEM 用'适度'难例挖掘，通过自适应权重函数控制极端难例的影响，形成强而简单的 baseline。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/mhem/" />
+
+  <meta property="og:title" content="MHEM 解读：为什么越挖困难样本越容易过拟合" />
+  <meta property="og:description" content="TNNLS 2022：困难样本要罚，但不能罚太狠；用自适应权重抑制极端难例。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/mhem/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="MHEM 解读：为什么越挖困难样本越容易过拟合" />
+  <meta name="twitter:description" content="困难样本要关注，但要控制极端难例的影响。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "MHEM", "item": "https://akira-l.github.io/publications/mhem/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Penalizing the Hard Example But Not Too Much",
+          "url": "https://akira-l.github.io/publications/mhem/",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }],
+          "datePublished": "2022-01-01",
+          "isPartOf": { "@type": "Periodical", "name": "TNNLS" }
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>MHEM
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>MHEM：Penalizing the Hard Example, but Not Too Much</h1>
+      <p class="subtitle">困难样本挖掘不是越狠越好：在细粒度分类里，极端难例往往是噪声或异常，过度强调会加速过拟合。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Hard Example Mining</span>
+      <span class="tag">Overfitting</span>
+      <span class="tag">FGVC</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          MHEM（Moderate Hard Example Mining）提出一个反直觉但实用的观点：困难样本需要关注，但如果关注得太多，模型会被标注噪声、极端异常样本牵着走，导致泛化下降。
+          MHEM 用一种自适应权重函数重新加权样本损失：普通难例得到充分学习，但当样本极端困难时，权重增幅逐渐放缓，从而避免极端难例主导梯度更新。
+          它几乎不增加模型复杂度，却在细粒度分类等场景中形成很强的 baseline。
+        </p>
+      </div>
+
+      <h2>1. 为什么会"越挖困难样本越过拟合"</h2>
+      <p>
+        在 FGVC 等任务里，训练集很容易被模型记住；所谓"最困难的样本"里往往混入：标注错误、极端视角、遮挡异常。
+        这些样本确实损失大，但它们不一定提供可泛化的判别规律。
+      </p>
+
+      <h2>2. MHEM 的核心：困难样本要罚，但不能罚太狠</h2>
+      <p>
+        传统 hard mining 常将损失与权重近似线性绑定：越难→越大权重。
+        MHEM 引入"饱和式"的增幅：极端难例的影响被抑制，让优化节奏更稳。
+      </p>
+
+      <h2>3. 为什么“极端难例”经常是噪声而不是信息</h2>
+      <p>
+        在细粒度分类中，“难”可能来自两类因素：
+        （1）信息性困难：确实存在细微但稳定的区分线索，需要更强表征才能分开；
+        （2）非信息性困难：标注错误、严重遮挡、极端视角、类别边界本身模糊，导致样本在输入空间与标签空间出现不一致。
+        后者在训练早期会产生很大的损失与梯度，但这些梯度并不指向可泛化的判别结构，反而更像在迫使模型记忆异常模式。
+      </p>
+
+      <h2>4. MHEM 在做什么：重加权函数的“增益饱和”</h2>
+      <p>
+        MHEM 的思路可以理解为：仍然关注 hard examples，但当样本“难到异常”时，继续线性放大权重会让优化被极少数样本主导。
+        因此，MHEM 采用一种对难度更温和的权重增长方式：随着难度上升，权重增幅逐渐放缓（saturating growth），从而限制极端难例对梯度的占比。
+        这会把学习重心放回到“多数可学习难例”，让模型优先形成稳定的类间结构。
+      </p>
+
+      <h2>5. 与常见做法的关系：focal loss、OHEM、curriculum</h2>
+      <p>
+        许多方法试图通过 hard mining 或 focal loss 强调困难样本，但它们的默认行为往往是“越难越重要”。
+        MHEM 的差异在于：它并不否认困难样本的重要性，而是把“困难样本的有效性”也纳入考虑——极端难例不一定带来更好的泛化。
+        从训练动态的角度看，这更接近一种“可控的 curriculum”：让难例贡献存在上限，避免训练节奏被噪声打乱。
+      </p>
+
+      <h2>6. Key Insights：这是在做"学习节奏控制"</h2>
+      <p>
+        从优化角度看，MHEM 相当于控制梯度由谁主导：
+        让模型先建立稳健的类间结构，再逐步吸收真正有价值的难例信息。
+        这类方法通常比堆模块更稳定。
+      </p>
+
+      <h2>7. 实践建议：什么时候值得用 MHEM</h2>
+      <p>
+        MHEM 特别适合以下场景：
+        细粒度分类（类间差异小、数据噪声更显著）、训练集较小或标注质量参差、以及传统 hard mining 容易引发不稳定训练的设置。
+        如果训练数据极干净且难例主要是信息性困难，MHEM 的收益可能会降低；但在更现实的数据条件下，它常能提供更稳的 baseline。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        MHEM (Moderate Hard Example Mining) addresses a recurring pitfall of hard example mining: aggressively upweighting the hardest samples can amplify label noise, outliers, and ambiguous cases, which often reduces generalization.
+        Instead of treating "harder" as "always more informative," MHEM controls how much influence extremely hard samples can have during optimization.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        In fine-grained recognition, large losses frequently come from mislabeled images, heavy occlusions, extreme viewpoints, or near-duplicate categories.
+        Over-emphasizing these cases can dominate gradients and push the model toward memorizing exceptions.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Reweight training examples with a saturating growth rule: moderately hard examples receive more attention, while extremely hard examples are prevented from dominating the update.
+        This keeps training focused on learnable structure rather than pathological cases.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        MHEM is most useful when hard mining is unstable or when data quality is imperfect.
+        It can serve as a strong baseline because it improves robustness without adding architectural complexity.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://ieeexplore.ieee.org/abstract/document/9956020/" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>
