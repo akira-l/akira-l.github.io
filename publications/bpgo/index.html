@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BPGO 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="BPGO（arXiv:2511.18919）中文解读：通过贝叶斯先验建模奖励不确定性，让 GRPO 在视觉生成后训练中'信任该信任的，忽略该忽略的'。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/bpgo/" />
+
+  <meta property="og:title" content="BPGO 中文解读" />
+  <meta property="og:description" content="贝叶斯先验引导的优化：在 GRPO 上引入奖励不确定性建模，自适应调节优化信任度。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/bpgo/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="BPGO 中文解读" />
+  <meta name="twitter:description" content="贝叶斯先验引导优化：让 GRPO 学会区分可信与不可信的奖励信号。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "BPGO", "item": "https://akira-l.github.io/publications/bpgo/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+          "identifier": "arXiv:2511.18919",
+          "url": "https://akira-l.github.io/publications/bpgo/",
+          "sameAs": "https://arxiv.org/abs/2511.18919",
+          "datePublished": "2025-11-27",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>BPGO
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>BPGO：贝叶斯先验引导的视觉生成优化</h1>
+      <p class="subtitle">视觉生成中文本-视觉对应关系的多义性让奖励模型产生不确定且弱区分的信号。BPGO 通过贝叶斯先验显式建模这种不确定性，自适应调节优化信任度。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Visual Generation</span>
+      <span class="tag">Post-training</span>
+      <span class="tag">Bayesian Optimization</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          BPGO（Bayesian Prior-Guided Optimization）关注 GRPO 在视觉生成后训练中面临的根本限制：文本与视觉之间的多对多对应关系。
+          同一个 prompt 可以对应多种合理的视觉输出，同一张图/视频也可能支持多种正确解读。这种歧义性导致奖励模型产生不确定且弱区分的信号，使 GRPO 容易过拟合噪声奖励、同时浪费可靠反馈。
+          BPGO 引入语义先验锚点（semantic prior anchor），通过贝叶斯框架显式建模奖励不确定性，在两个层面自适应调节优化信任：组间贝叶斯信任分配（强调与先验一致的组，降权歧义组）和组内先验锚定重归一化（放大可信偏差、压缩不确定评分）。
+          在图像和视频生成任务上，BPGO 一致性地提升了语义对齐、感知保真度，并加速收敛。
+        </p>
+      </div>
+
+      <h2>1. 问题：奖励信号的歧义性是 GRPO 的隐性瓶颈</h2>
+      <p>
+        在视觉生成场景里，"正确答案"往往不唯一。一个 prompt "a cat sitting on a table" 可以对应无数种合理的视觉实现，而奖励模型需要在这些同样合理的输出之间给出区分性评分。
+        这种文本-视觉对应的歧义性使得奖励信号天然带有不确定性：对于某些组，奖励差异反映的是真实质量差别；对于另一些组，差异只是噪声。
+        标准 GRPO 对所有组一视同仁，既过拟合了噪声信号，又浪费了可靠信号的利用效率。
+      </p>
+
+      <h2>2. 核心思路：用贝叶斯先验区分"可信"与"不可信"的奖励</h2>
+      <p>
+        BPGO 的关键设计是引入一个语义先验锚点，作为衡量奖励可信度的参考基线。
+        在组间层面，采用贝叶斯信任分配：如果某组的奖励分布与语义先验一致（即模型对该 prompt 的生成与先验期望吻合），则赋予更高的优化权重；如果某组的奖励分布与先验冲突（可能是歧义或噪声导致），则降低其权重。
+        在组内层面，用先验锚定的重归一化：对于偏离先验但方向可信的样本，放大其优势信号；对于评分不确定的样本，压缩其影响。
+      </p>
+
+      <h2>3. 为什么有效：选择性信任比均匀更新更高效</h2>
+      <p>
+        标准 GRPO 的隐含假设是"所有组的奖励信号同等可靠"，但在视觉生成中这个假设不成立。
+        BPGO 通过显式建模可信度，把有限的优化预算集中在信号可靠的方向上，同时降低噪声信号的干扰。
+        这类似于带有注意力机制的优化：不是让所有梯度等权更新，而是让模型"看清"哪些反馈值得信赖再做调整。
+        实验表明这种选择性策略不仅提升最终质量，还加速了收敛。
+      </p>
+
+      <h2>4. Key Insights：后训练需要对奖励信号做"元推理"</h2>
+      <p>
+        在视觉生成的 RL 后训练中，奖励本身可能是不可靠的。仅仅优化奖励值（无论用 GRPO 还是其他方法）都面临"奖励噪声"的系统性风险。
+        BPGO 的启示在于：后训练不仅要利用奖励信号，还需要对奖励的可信度做推理。
+        贝叶斯先验提供了一种原则性的不确定性建模框架，使优化器能区分"信号"和"噪声"，而不是盲目跟随评分。
+        这一思路对视觉生成之外的 RL 后训练场景同样具有参考意义。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        BPGO (Bayesian Prior-Guided Optimization) addresses a fundamental challenge in applying GRPO to visual generation: the many-to-many ambiguity between text prompts and valid visual outputs. This ambiguity causes reward models to produce uncertain and weakly discriminative signals, leading GRPO to overfit noisy feedback while underutilizing reliable signals.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        A single prompt can describe diverse valid visual outputs, and a single image or video may support multiple correct interpretations. Standard GRPO treats all reward signals as equally reliable, but in visual generation this assumption is frequently violated. The result is wasted optimization on noisy groups and underexploitation of informative ones.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Introduce a semantic prior anchor and use Bayesian reasoning to model reward uncertainty explicitly. At the inter-group level, Bayesian trust allocation emphasizes groups whose reward distributions are consistent with the prior and down-weights ambiguous ones. At the intra-group level, prior-anchored renormalization sharpens sample distinctions by expanding confident deviations and compressing uncertain scores.
+      </p>
+
+      <h3>Why This Helps</h3>
+      <p>
+        Selective trust is more efficient than uniform updates. By concentrating optimization budget on reliable signals and suppressing noisy ones, BPGO achieves stronger alignment, better perceptual fidelity, and faster convergence compared to standard GRPO.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Post-training should not blindly follow reward signals. Modeling reward uncertainty—reasoning about which feedback to trust—can be as important as the reward design itself. The Bayesian framework provides a principled way to achieve this, and the idea extends beyond visual generation to other RL post-training scenarios.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2511.18919" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2511.18919" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+          <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

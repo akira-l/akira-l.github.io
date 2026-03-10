@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ViPO 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="ViPO（arXiv:2511.18719）中文解读：将 GRPO 的标量奖励提升为像素级结构化优势，让视觉生成的后训练信号从'整体打分'走向'区域感知'。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/vipo/" />
+
+  <meta property="og:title" content="ViPO 中文解读" />
+  <meta property="og:description" content="视觉偏好策略优化：把 GRPO 的标量反馈拆成像素级优势图，让优化压力集中在感知关键区域。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/vipo/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ViPO 中文解读" />
+  <meta name="twitter:description" content="将标量奖励提升为像素级结构化优势，让视觉生成后训练更精细。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "ViPO", "item": "https://akira-l.github.io/publications/vipo/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+          "identifier": "arXiv:2511.18719",
+          "url": "https://akira-l.github.io/publications/vipo/",
+          "sameAs": "https://arxiv.org/abs/2511.18719",
+          "datePublished": "2025-11-27",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>ViPO
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>ViPO：视觉偏好策略优化</h1>
+      <p class="subtitle">把 GRPO 的"每样本一个标量"提升为像素级结构化优势图，让优化压力自动落到感知关键区域，而非均匀分摊到整张图/视频。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Visual Generation</span>
+      <span class="tag">Post-training</span>
+      <span class="tag">GRPO</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          ViPO（Visual Preference Policy Optimization）针对视觉生成中 GRPO 的核心瓶颈：标量奖励无法区分图像/视频内部哪些区域好、哪些区域差，导致梯度信号在空间上被"摊薄"，局部伪影难以被修正。
+          ViPO 引入感知结构化模块（Perceptual Structuring Module），利用预训练视觉 backbone 构建空间与时序感知的优势图（advantage map），把优化压力重新分配到感知重要区域，同时保持标准 GRPO 的训练稳定性。
+          在图像与视频生成基准上，ViPO 一致优于 vanilla GRPO，提升域内对齐与域外泛化。该方法与模型架构无关、开销轻量、完全兼容现有 GRPO 训练流程。
+        </p>
+      </div>
+
+      <h2>1. 问题：标量奖励对视觉内容的监督太粗</h2>
+      <p>
+        现有 GRPO 管线给每个样本一个标量奖励，把图像或视频当成整体来评分。这种粗粒度监督忽略了视觉内容丰富的空间和时序结构：一张图里可能大部分区域质量很好，但某个局部有明显伪影；一段视频可能前半段流畅但后半段运动崩溃。标量奖励无法区分这些差异，优化信号被"摊薄"，导致局部问题难以被针对性修正。
+      </p>
+
+      <h2>2. 核心思路：从标量反馈到像素级优势图</h2>
+      <p>
+        ViPO 的关键改动是在 GRPO 的奖励信号之上叠加一个空间/时序感知的优势重分配机制。
+        具体做法是引入感知结构化模块（PSM），利用预训练视觉模型提取特征，构建结构化的优势图，让模型知道"哪些区域应该用力优化，哪些区域已经足够好"。
+        这不是重新设计奖励函数，而是在现有标量奖励的基础上做空间级的信用分配。
+      </p>
+
+      <h2>3. 为什么有效：把感知重要性注入优化梯度</h2>
+      <p>
+        视觉内容的质量问题往往是局部的：面部细节走形、物体边缘模糊、运动轨迹不连续。标量奖励只能给出"这个样本整体偏好较低"的信号，无法告诉优化器问题出在哪里。
+        ViPO 通过优势图把梯度压力导向问题区域，使得同样的训练预算产生更有效的修正。
+        同时保留标准 GRPO 的组内相对排序机制，确保训练稳定性不受影响。
+      </p>
+
+      <h2>4. Key Insights：视觉生成的 RL 信号需要结构化</h2>
+      <p>
+        在语言模型的 RLHF/GRPO 中，token 级的信用分配已经是公认的重要方向。但在视觉生成领域，空间/时序级别的信用分配还很少被重视。
+        ViPO 表明，即使不改变奖励模型本身，仅在优化端引入结构化的信号分配，就能显著提升对齐质量和泛化能力。
+        这意味着视觉生成后训练的瓶颈可能不只在奖励设计，还在于信号的传递方式。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        ViPO (Visual Preference Policy Optimization) addresses a fundamental limitation in applying GRPO to visual generation: scalar rewards treat each image or video as a monolithic entity, ignoring the rich spatial and temporal structure of visual content. This coarse supervision dilutes gradient signals and makes it difficult to correct localized artifacts.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Existing GRPO pipelines assign a single scalar reward per sample, providing no spatial information about which regions are good or bad. Localized artifacts (face distortions, edge blurring, motion inconsistencies) receive the same gradient weight as well-generated regions.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Lift scalar feedback into structured, pixel-level advantages. A Perceptual Structuring Module uses pretrained vision backbones to construct spatially and temporally aware advantage maps. These maps redistribute optimization pressure toward perceptually important regions while preserving standard GRPO stability.
+      </p>
+
+      <h3>Why This Helps</h3>
+      <p>
+        By concentrating gradient pressure on problematic regions, the same training budget produces more effective corrections. The approach is architecture-agnostic, lightweight, and fully compatible with existing GRPO pipelines, requiring no changes to the reward model itself.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Structured credit assignment matters for visual RL just as token-level credit assignment matters for language RL. Even without improving the reward model, better signal routing at the optimization level can significantly improve alignment quality and out-of-domain generalization.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2511.18719" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2511.18719" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+          <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>
