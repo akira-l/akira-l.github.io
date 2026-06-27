@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaxMotion 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="LaxMotion 中文解读：重点讨论 3D human motion generation 中 supervision granularity 的选择。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/laxmotion/" />
+  <meta property="og:title" content="LaxMotion 中文解读" />
+  <meta property="og:description" content="更粗、更宽松的 supervision 有时比逐点精确监督更适合 3D human motion generation。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/laxmotion/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="LaxMotion 中文解读" />
+  <meta name="twitter:description" content="Rethinking supervision granularity for 3D human motion generation." />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+      "identifier": "arXiv:2511.11368",
+      "url": "https://akira-l.github.io/publications/laxmotion/",
+      "sameAs": "https://arxiv.org/abs/2511.11368",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>LaxMotion
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>LaxMotion：重新思考 3D Human Motion 的监督粒度</h1>
+      <p class="subtitle">LaxMotion 的重心很聚焦：不是“没有 3D label 怎么办”，而是“到底需要多细的监督才是合适的”。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">3D Human Motion</span>
+      <span class="tag">Weak Supervision</span>
+      <span class="tag">Supervision Granularity</span>
+      <span class="tag">ECCV 2026</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          LaxMotion 的关键观点是：3D human motion generation 不一定需要逐帧、逐关节、逐坐标的强监督。
+          人体动作天然存在多解性，同一个 2D observation 或文本意图可以对应多种合理 3D motion；过细的监督反而会把模型锁进单一解，削弱生成多样性与泛化。
+          论文通过放宽 supervision granularity，让模型在结构一致、运动合理的范围内学习，而不是被每一个局部细节强行对齐。
+        </p>
+      </div>
+
+      <h2>1. 问题：强监督并不总是更强</h2>
+      <p>
+        在 3D motion 里，精确坐标标签成本高，而且未必唯一。
+        如果训练目标要求生成结果严格贴合某个 single ground truth，模型可能学到的是标注集的窄分布，而不是动作空间的真实可行范围。
+      </p>
+
+      <h2>2. 核心思路：把监督从“点”放宽到“结构”</h2>
+      <p>
+        LaxMotion 关注监督粒度：哪些地方必须对齐，哪些地方可以只要求语义、姿态或动态结构一致。
+        这种更宽松的监督让模型保留合理自由度，同时仍然受到 2D observation 与 motion prior 的约束。
+      </p>
+
+      <h2>3. Key Insights：生成任务需要容纳多解性</h2>
+      <p>
+        对 recognition 来说，越细的 label 往往越有用；但对 generation 来说，过细 label 可能会误把一个可能答案当成唯一答案。
+        LaxMotion 的 insight 是把 supervision granularity 当成建模选择：监督太粗会漂，太细会僵，合适的“laxness”反而更接近真实 motion 分布。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        LaxMotion revisits how much supervision is actually needed for 3D human motion generation. The paper argues that overly fine-grained supervision can be counterproductive because human motion is inherently multi-modal.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        A single 2D view or intent can correspond to many plausible 3D motions. Forcing the model to match one exact trajectory may reduce diversity and generalization, especially when precise 3D labels are expensive or ambiguous.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Relax supervision from exact coordinates toward structural and motion-level consistency. This keeps the model constrained by meaningful cues while preserving freedom to generate plausible alternatives.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        For generative motion tasks, supervision should match the uncertainty of the problem. The right granularity can improve learning more than simply adding stronger labels.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2511.11368" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

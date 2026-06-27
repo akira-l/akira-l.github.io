@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaRoS 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="Rethinking Reward Signals in Video GRPO 中文解读：重新审视 Video GRPO 中 reward score 如何变成优化 target，以及为什么目标校准比盲目追分更重要。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/taros/" />
+  <meta property="og:title" content="TaRoS 中文解读" />
+  <meta property="og:description" content="Video GRPO 中，reward score 一旦被直接当成 target，优化目标可能偏移。TaRoS 关注 reward signal 的校准与稳健转换。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/taros/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="TaRoS 中文解读" />
+  <meta name="twitter:description" content="当 reward score 变成 target，Video GRPO 需要更稳健的信号校准。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "identifier": "arXiv:2511.19356",
+      "url": "https://akira-l.github.io/publications/taros/",
+      "sameAs": "https://arxiv.org/abs/2511.19356",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>TaRoS
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>TaRoS：当 Video GRPO 把分数当成目标</h1>
+      <p class="subtitle">正式题目把论文重点说得很清楚：reward signal 的形状，会直接决定 Video GRPO 到底在优化什么。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Video Generation</span>
+      <span class="tag">GRPO</span>
+      <span class="tag">Reward Signal</span>
+      <span class="tag">ECCV 2026</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          这篇论文重新审视 Video GRPO 里一个容易被忽略的问题：reward model 给出的 score 并不天然等于优化 target。
+          如果把 raw score 或 softmax 后的相对分数直接拿来驱动更新，模型可能学会追逐奖励模型的校准偏差，而不是生成更好的视频。
+          TaRoS 的核心是把 reward signal 做成更稳健的训练目标：强调相对偏好、目标校准和随 generator 质量变化的自适应信号，让 GRPO 在视频生成中少一点“追分”，多一点真实改进。
+        </p>
+      </div>
+
+      <h2>1. 问题：reward score 不等于可靠 target</h2>
+      <p>
+        在视频生成中，reward model 通常只能给出整体或片段级分数。
+        这些分数带有校准误差：有些视频虽然 reward 高，但可能是奖励模型偏好的模板；有些视频质量真实提升，却不一定被分数线性反映。
+        当 GRPO 把分数差异直接转成 advantage，优化器会放大奖励模型自己的偏见。
+      </p>
+
+      <h2>2. 核心思路：先校准信号，再做策略更新</h2>
+      <p>
+        TaRoS 关注 reward-to-target 的转换过程。它不是简单换一个 reward model，而是让 reward signal 更符合视频生成的训练动态：
+        相对偏好比绝对分数更稳，目标强度需要随 generator 当前能力调整，且训练信号不能让模型过早过拟合某一类高分模式。
+      </p>
+
+      <h2>3. Key Insights：Video RL 的危险在于“看起来可优化”</h2>
+      <p>
+        一个分数可以被优化，并不代表它就是好目标。Video generation 的质量是多因素的：语义、运动、身份、物理、审美与时序一致性互相牵制。
+        TaRoS 的 insight 是把 reward signal 本身当成需要设计的对象。
+        对视觉后训练来说，reward 的“表达方式”常常和 reward 的“来源”一样重要。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        TaRoS studies a subtle but important issue in applying GRPO to video generation: reward scores are not automatically reliable optimization targets. A score can reflect calibration bias, reward-model shortcuts, or weak sensitivity to real visual improvements.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        If raw or softmaxed reward scores are used directly as training targets, GRPO may optimize the reward model's scoring artifacts instead of improving temporal coherence, prompt adherence, and visual quality.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Calibrate reward signals before policy updates. The method emphasizes robust target construction, relative preference information, and self-paced adaptation as the generator improves.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        In video post-training, reward design includes not only which model scores outputs, but also how those scores are transformed into optimization pressure. Better signal shaping can be as important as a stronger reward model.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2511.19356" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

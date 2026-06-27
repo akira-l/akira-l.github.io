@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InterSyn 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="InterSyn 中文解读：通过 interleaved learning 建模 dynamic motion synthesis in the wild，把人物动作与动态上下文放在同一个训练节奏里学习。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/intersyn/" />
+  <meta property="og:title" content="InterSyn 中文解读" />
+  <meta property="og:description" content="Dynamic motion synthesis 的关键是动作与上下文的交替耦合，而不是先生成动作再补环境。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/intersyn/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="InterSyn 中文解读" />
+  <meta name="twitter:description" content="Interleaved learning for dynamic motion synthesis in the wild." />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild",
+      "url": "https://akira-l.github.io/publications/intersyn/",
+      "sameAs": "https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>InterSyn
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>InterSyn：面向真实动态场景的交错式动作合成</h1>
+      <p class="subtitle">“in the wild”的 motion synthesis 不能把人和上下文拆开学。InterSyn 用 interleaved learning 让动作、环境与交互线索轮流对齐。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Motion Synthesis</span>
+      <span class="tag">Dynamic Context</span>
+      <span class="tag">Interleaved Learning</span>
+      <span class="tag">ICCV 2025</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          InterSyn 关注 dynamic motion synthesis in the wild：真实动作不是孤立骨架序列，而是和场景、物体、其他动态元素持续互相影响。
+          如果先生成人体动作，再后处理环境约束，很容易出现接触不稳、运动不合时宜、上下文不一致。
+          InterSyn 的关键是 interleaved learning：让 motion 与 context 在训练过程中交替提供约束，使模型学到“动作如何响应环境”，也学到“环境如何限制动作”。
+        </p>
+      </div>
+
+      <h2>1. 问题：真实动态场景不是静态背景</h2>
+      <p>
+        传统 motion synthesis 往往假设场景条件固定，或者把 context 当作一次性输入。
+        但真实场景里，人在移动，物体可能也在变化，交互关系会随时间更新。
+        这种动态性让单向条件生成很难保持长期合理。
+      </p>
+
+      <h2>2. 核心思路：交错学习动作与上下文</h2>
+      <p>
+        Interleaved learning 的直觉是：动作生成和上下文理解不应该分成两个互不相干的阶段。
+        训练中让两类信号交替介入，可以减少“动作看起来像，但放进场景就不对”的问题。
+      </p>
+
+      <h2>3. Key Insights：动作生成需要环境节奏</h2>
+      <p>
+        好的 motion 不只由骨架轨迹决定，也由它在何时何地发生决定。
+        InterSyn 的 insight 是把 context 当成动态约束，而不是静态标签。
+        对虚拟人、机器人和世界模型来说，这种耦合学习比单独提升骨架质量更接近真实需求。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        InterSyn targets dynamic motion synthesis in the wild, where human motion must remain coherent with changing contexts rather than a fixed background.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Generating motion first and applying context constraints afterward often leads to unstable contacts, mismatched timing, or physically implausible interactions.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Use interleaved learning so that motion and context constrain each other during training. The model learns not only how humans move, but also how motion should respond to dynamic surroundings.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Motion quality should be evaluated together with contextual consistency. For embodied agents and world models, dynamic constraints are part of the motion, not an external cleanup step.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener">Paper</a>
+        <a href="https://myy888.github.io/InterSyn/" target="_blank" rel="noopener">Project</a>
+        <a href="https://arxiv.org/abs/2508.10297" target="_blank" rel="noopener">arXiv</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

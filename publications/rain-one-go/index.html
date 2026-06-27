@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Removing Raindrops and Rain Streaks 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="Removing Raindrops and Rain Streaks in One Go 中文解读：同时处理贴附在镜头上的 raindrops 与空中 rain streaks，避免两阶段去雨的误差累积。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/rain-one-go/" />
+  <meta property="og:title" content="Removing Raindrops and Rain Streaks 中文解读" />
+  <meta property="og:description" content="One-go rain removal 的关键是同时识别两类雨退化，而不是先后串联两个去雨模型。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/rain-one-go/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Removing Raindrops and Rain Streaks 中文解读" />
+  <meta name="twitter:description" content="Jointly removing raindrops and rain streaks in one go." />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "Removing Raindrops and Rain Streaks in One Go",
+      "url": "https://akira-l.github.io/publications/rain-one-go/",
+      "sameAs": "https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Rain Removal
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>Removing Raindrops and Rain Streaks in One Go</h1>
+      <p class="subtitle">雨天图像里有两种很不同的退化：镜头上的 raindrops 和空中的 rain streaks。把它们分开处理，常常会把一个问题变成两个问题。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Image Restoration</span>
+      <span class="tag">Rain Removal</span>
+      <span class="tag">CVPR 2021</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          这篇论文的核心是 “one go”：同时去除 raindrops 和 rain streaks。
+          两类雨退化的形态差异很大：raindrops 通常是局部遮挡和折射，rain streaks 更像细长、方向性的纹理噪声。
+          如果用两个模型串联处理，第一阶段的残留和误删会被第二阶段放大。联合建模能让网络同时判断“哪里是遮挡、哪里是纹理、哪里是真实结构”，减少误修复。
+        </p>
+      </div>
+
+      <h2>1. 问题：雨不是一种噪声</h2>
+      <p>
+        镜头上的水滴会遮挡背景、扭曲局部纹理；空中的雨线则通常细、密、有方向。
+        它们在图像里的统计特性不同，却常常同时出现。
+        单一去雨假设很容易漏掉其中一类，或者把真实细节误当成雨。
+      </p>
+
+      <h2>2. 核心思路：联合识别与联合恢复</h2>
+      <p>
+        “in one go” 的意义不只是省步骤，而是避免两阶段 pipeline 的 error propagation。
+        模型需要同时学习两类退化的空间分布，并在恢复背景时保留真实边缘与纹理。
+      </p>
+
+      <h2>3. Key Insights：restoration 里的退化类型要一起看</h2>
+      <p>
+        图像恢复常被拆成很多子任务，但真实世界的退化往往混在一起。
+        当退化之间会互相遮挡、互相伪装时，联合建模比串联模块更稳。
+        这也是该工作对后续 real-world restoration 的启发。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        This work addresses rain removal under mixed degradations: adherent raindrops on the lens and directional rain streaks in the scene.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Raindrops and rain streaks have different visual statistics. A two-stage pipeline can propagate residual artifacts or remove valid image details.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Remove both degradations jointly so the model can distinguish occlusion, streak-like noise, and real image structure in one restoration process.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Real-world restoration benefits from modeling mixed degradations together, especially when different artifacts can imitate or mask each other.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

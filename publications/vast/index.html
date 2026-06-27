@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAST 1.0 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="VAST 1.0 中文解读：面向 controllable and consistent video generation 的统一框架，把多种控制信号与一致性约束放进同一生成体系。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/vast/" />
+  <meta property="og:title" content="VAST 1.0 中文解读" />
+  <meta property="og:description" content="Controllable video generation 的难点不只是加条件，而是让条件、运动和身份长期一致。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/vast/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="VAST 1.0 中文解读" />
+  <meta name="twitter:description" content="A unified framework for controllable and consistent video generation." />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation",
+      "identifier": "arXiv:2412.16677",
+      "url": "https://akira-l.github.io/publications/vast/",
+      "sameAs": "https://arxiv.org/abs/2412.16677",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>VAST
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>VAST 1.0：可控且一致的视频生成统一框架</h1>
+      <p class="subtitle">视频生成的控制问题，难点不是“能不能接入条件”，而是多个条件同时存在时，模型能不能长期保持一致。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Video Generation</span>
+      <span class="tag">Controllability</span>
+      <span class="tag">Consistency</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          VAST 1.0 的目标是把 controllable video generation 里常见的控制信号与一致性约束放进一个统一框架。
+          单一条件控制往往看起来不错，但真实应用需要同时处理文本、主体、运动、布局、风格等线索；这些线索一旦冲突，视频就容易出现身份漂移、运动断裂或局部内容不服从。
+          VAST 的价值在于强调“统一接口 + 一致性维护”：让多种控制信息以兼容方式进入生成过程，并把长期时序一致性作为系统目标。
+        </p>
+      </div>
+
+      <h2>1. 问题：控制越多，冲突越多</h2>
+      <p>
+        对视频模型来说，控制条件不是孤立存在的。文本希望改语义，图像希望锁身份，轨迹希望控制运动，参考风格希望约束外观。
+        如果每个能力都用单独模块叠上去，系统很容易变成“能跑但不好调”的拼装结构。
+      </p>
+
+      <h2>2. 核心思路：统一条件接口与一致性约束</h2>
+      <p>
+        VAST 1.0 试图用统一框架组织这些控制信号，让不同条件在同一生成流程里协同，而不是互相抢控制权。
+        一致性不只是视觉指标，而是贯穿身份、物体关系、时序运动和 prompt semantics 的系统约束。
+      </p>
+
+      <h2>3. Key Insights：视频控制是系统问题</h2>
+      <p>
+        单个 control trick 很容易在 demo 上成立，但真实长视频要求条件之间稳定组合。
+        VAST 的 insight 是把 video controllability 从“功能点”提升到“接口设计”：当接口统一后，模型能力更容易扩展，后续 alignment 和 evaluation 也更清楚。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        VAST 1.0 presents a unified view of controllable and consistent video generation. The main challenge is not merely adding more conditions, but making multiple controls compatible over time.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Text prompts, reference images, motion constraints, layouts, and styles can compete with each other. When these controls are handled by separate patches, videos often suffer from identity drift, motion discontinuity, or weakened prompt adherence.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Use a unified framework that organizes diverse control signals and treats temporal consistency as a first-class objective. This makes the system easier to extend and reason about.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Controllable video generation is a systems problem. Strong individual modules matter, but the interface among conditions determines whether the generated video remains coherent.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2412.16677" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2412.16677" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

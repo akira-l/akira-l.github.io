@@ -102,6 +102,27 @@
       </p>
 
       <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        TeleWorld frames video generation as a closed-loop world modeling problem. Instead of treating each generated clip as a final output, the system continuously reconstructs generated streams into a 4D spatiotemporal state and uses that state to guide future synthesis.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Long videos fail through accumulated drift: geometry shifts, identities blur, and object relations become inconsistent. These failures are difficult to solve with a one-shot denoising model because the model lacks a persistent world state.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Maintain an editable 4D memory that connects generation, reconstruction, and guidance. The generated video writes back into a structured state, and that state constrains the next segment, making later generation less dependent on short-term visual cues alone.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        The important shift is from "making frames" to "maintaining state." A usable world model needs representations that can be updated, constrained, and reused across time; visual quality is only one part of that loop.
+      </p>
+
+      <div class="note-divider"></div>
       <h2>Links</h2>
       <div class="note-links">
         <a class="primary" href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener">arXiv</a>

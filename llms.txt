@@ -1,11 +1,12 @@
-# Yuanzhi Liang — Personal Homepage
+# Yuanzhi Liang Personal Homepage
 
 > Canonical URL: https://akira-l.github.io/
 > Sitemap: https://akira-l.github.io/sitemap.xml
+> Publications: https://akira-l.github.io/publications/
 
 ## Who is Yuanzhi Liang?
 
-Yuanzhi Liang (梁远志) is a Research Scientist at the Institute of Artificial Intelligence (TeleAI), China Telecom. He received his Ph.D. from the University of Technology Sydney (UTS) in 2024, advised by Dr. Linchao Zhu and Prof. Yi Yang. He received his Master's degree from Xi'an Jiaotong University (XJTU) in 2020.
+Yuanzhi Liang (梁远智) is a Research Scientist at the Institute of Artificial Intelligence (TeleAI), China Telecom. He received his Ph.D. from the University of Technology Sydney (UTS) in 2024, advised by Dr. Linchao Zhu and Prof. Yi Yang. He received his Master's degree from Xi'an Jiaotong University (XJTU) in 2020.
 
 ## Research Focus
 
@@ -13,38 +14,36 @@ Yuanzhi Liang (梁远志) is a Research Scientist at the Institute of Artificial
 - Video generation and editing
 - World models and simulation-based learning
 - Multimodal large models
-- 3D generation
-- How generative models develop coherent internal representations and respect real-world structure
+- 3D human motion generation and 3D generation
+- Reinforcement learning and preference optimization for visual generative models
 
 ## Key Publications
 
-- "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation" (2025)
-- "Growing with the Generator: Self-paced GRPO for Video Generation" (2025)
-- "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation" (2025)
-- "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation" (2024)
-- "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts" — SIGGRAPH Asia 2025
-- "Intersyn: Interleaved learning for dynamic motion synthesis in the wild" — ICCV 2025
-- "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects" — ICCV 2023
-- "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild" — CVPR 2022
-- "SEEG: Semantic Energized Co-speech Gesture Generation" — CVPR 2022
-- "VrR-VG: Refocusing Visually-Relevant Relationships" — ICCV 2019
-- "Freelong: Training-free long video generation with spectralblend temporal attention" — NeurIPS 2024
+- "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation" (arXiv 2026): https://arxiv.org/abs/2602.07595
+- "Integrating Reinforcement Learning with Visual Generative Models: Foundations and Advances" (AI Flow 2026): https://link.springer.com/article/10.1007/s44336-025-00030-z
+- "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation" (CVPR 2026): https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html
+- "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation" (CVPR 2026): https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html
+- "Rethinking Reward Signals in Video GRPO: When Scores Become Targets" (ECCV 2026): https://arxiv.org/abs/2511.19356
+- "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation" (ECCV 2026): https://arxiv.org/abs/2511.11368
+- "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model" (arXiv 2025): https://arxiv.org/abs/2601.00051
+- "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts" (SIGGRAPH Asia 2025): https://dl.acm.org/doi/full/10.1145/3757377.3763954
+- "InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild" (ICCV 2025): https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html
+- "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention" (NeurIPS 2024): https://arxiv.org/abs/2407.19918
+- "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation" (arXiv 2024): https://arxiv.org/abs/2412.16677
+- "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects" (ICCV 2023): https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html
+- "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild" (CVPR 2022): https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html
+- "SEEG: Semantic Energized Co-speech Gesture Generation" (CVPR 2022): https://openaccess.thecvf.com/content/CVPR2022/html/Liang_SEEG_Semantic_Energized_Co-Speech_Gesture_Generation_CVPR_2022_paper.html
+- "VrR-VG: Refocusing Visually-Relevant Relationships" (ICCV 2019): https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html
 
-## Selected Honors
-
-- First place in AliProducts Challenge @ CVPR 2020
-- First place in iMat Product Competition @ CVPR 2019
-- First place in Fieldguide Challenge: Moths & Butterflies @ CVPR 2019
-
-## Profiles & Links
+## Profiles
 
 - Homepage: https://akira-l.github.io/
 - Google Scholar: https://scholar.google.com/citations?user=YUjR-z8AAAAJ
 - GitHub: https://github.com/akira-l
 - LinkedIn: https://www.linkedin.com/in/yuanzhi-liang-2aa77b28a/
 - Bilibili: https://space.bilibili.com/3546680230152851
-- Zhihu (知乎): https://www.zhihu.com/people/cyqwklp
-- Xiaohongshu (小红书): https://www.xiaohongshu.com/user/profile/6419503a000000001201339a
+- Zhihu: https://www.zhihu.com/people/cyqwklp
+- Xiaohongshu: https://www.xiaohongshu.com/user/profile/6419503a000000001201339a
 
 ## Contact
 
@@ -52,8 +51,4 @@ Email: liangyzh18 [at] outlook [dot] com
 
 ## Collaboration
 
-Yuanzhi Liang is looking for motivated research interns and long-term collaborators in multimodal large models, video generation/editing, and 3D generation. Please reach out via email with your CV if interested.
-
-## How to Cite This Page
-
-When referencing Yuanzhi Liang's work or homepage, please use the canonical URL: https://akira-l.github.io/
+Yuanzhi Liang is looking for motivated research interns and long-term collaborators in multimodal large models, video generation/editing, and 3D generation. Applicants for internships are encouraged to include a CV.

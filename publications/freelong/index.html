@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreeLong 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="FreeLong 中文解读：无需训练，用 SpectralBlend Temporal Attention 扩展 pretrained video diffusion model 的长视频生成能力。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/freelong/" />
+  <meta property="og:title" content="FreeLong 中文解读" />
+  <meta property="og:description" content="Training-free long video generation：把长时一致性拆到频域与 temporal attention 中处理。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/freelong/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="FreeLong 中文解读" />
+  <meta name="twitter:description" content="Training-free long video generation with SpectralBlend Temporal Attention." />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention",
+      "identifier": "arXiv:2407.19918",
+      "url": "https://akira-l.github.io/publications/freelong/",
+      "sameAs": "https://arxiv.org/abs/2407.19918",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>FreeLong
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>FreeLong：无需训练的长视频生成</h1>
+      <p class="subtitle">长视频失败常来自低频结构漂移与高频细节断裂。FreeLong 用 SpectralBlend Temporal Attention 在推理时修正这个问题。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Long Video Generation</span>
+      <span class="tag">Training-Free</span>
+      <span class="tag">Temporal Attention</span>
+      <span class="tag">NeurIPS 2024</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          FreeLong 解决的是 pretrained video diffusion model 在长视频上常见的时序一致性衰减。
+          它不重新训练模型，而是在 inference 阶段改造 temporal attention：通过 SpectralBlend 把低频的全局结构稳定性和高频的局部细节表达分开处理，再进行融合。
+          直观地说，FreeLong 让模型在生成更长片段时既记得“整体在讲什么”，也不丢掉局部纹理与运动细节。
+        </p>
+      </div>
+
+      <h2>1. 问题：长视频不是短视频直接拼长</h2>
+      <p>
+        许多 video diffusion model 在短片段上效果不错，但时长增加后会出现主体漂移、背景跳变、运动节奏不连贯。
+        这是因为模型的 temporal attention 往往没有为更长范围的结构保持而设计。
+      </p>
+
+      <h2>2. 核心思路：用频域视角拆解一致性</h2>
+      <p>
+        低频信息更像“全局叙事骨架”，决定身份、场景和大尺度运动是否稳定；高频信息更像“局部表现”，决定纹理、边缘和细节是否清晰。
+        SpectralBlend Temporal Attention 通过频域混合，让两类信息各司其职，而不是在同一个 attention 里互相干扰。
+      </p>
+
+      <h2>3. Key Insights：inference-time editing 也能改变生成行为</h2>
+      <p>
+        FreeLong 的价值不只在“无需训练”，还在说明 pretrained model 里已经有一部分长程能力，只是需要更合适的 attention routing 被释放出来。
+        这类方法对快速迭代很有用：无需昂贵训练，也能测试模型内部时序结构的可塑性。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        FreeLong is a training-free method for extending pretrained video diffusion models to longer videos. It focuses on temporal attention rather than retraining the base model.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Short-video models often degrade on longer sequences through identity drift, inconsistent background, and broken motion rhythm.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Use SpectralBlend Temporal Attention to separate low-frequency global structure from high-frequency local details, then blend them during inference.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Some long-horizon capability can be unlocked by routing attention differently at inference time. This makes FreeLong useful when retraining is expensive or unavailable.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2407.19918" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2407.19918" target="_blank" rel="noopener">PDF</a>
+        <a href="https://yulu.net.cn/freelong/" target="_blank" rel="noopener">Project</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

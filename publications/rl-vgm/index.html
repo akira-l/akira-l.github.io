@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RL for Visual Generative Models 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="Integrating Reinforcement Learning with Visual Generative Models 中文解读：梳理 RL 如何进入图像、视频与 3D 生成，从奖励建模、偏好优化到系统级 alignment。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/rl-vgm/" />
+  <meta property="og:title" content="RL for Visual Generative Models 中文解读" />
+  <meta property="og:description" content="一篇关于 visual generative models 与 reinforcement learning 结合方式的 survey：重点不是堆算法名，而是理解奖励、策略优化与生成系统之间的接口。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/rl-vgm/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="RL for Visual Generative Models 中文解读" />
+  <meta name="twitter:description" content="从奖励、偏好与策略优化角度理解视觉生成模型的后训练。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "Integrating Reinforcement Learning with Visual Generative Models: Foundations and Advances",
+      "url": "https://akira-l.github.io/publications/rl-vgm/",
+      "sameAs": "https://link.springer.com/article/10.1007/s44336-025-00030-z",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>RL-VGM
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>RL for Visual Generative Models：从奖励到后训练系统</h1>
+      <p class="subtitle">这篇 survey 讨论 RL 如何进入 visual generative models：不是把生成模型简单改成 policy，而是重新组织 reward、preference、credit assignment 与 evaluation。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Survey</span>
+      <span class="tag">Reinforcement Learning</span>
+      <span class="tag">Visual Generation</span>
+      <span class="tag">Alignment</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          视觉生成里的 RL 不是“让模型追一个分数”这么简单。图像、视频和 3D 输出都带有丰富结构，一个 reward 可能同时混合语义对齐、视觉质量、物理合理性、人类偏好和安全约束。
+          这篇 survey 的价值在于把这些线索系统化：先解释 RL 与 generative modeling 的接口，再整理 reward modeling、preference optimization、policy gradient、diffusion/flow matching 后训练、evaluation 与应用场景。
+          核心 insight 是：RL 在视觉生成中更像一种“目标组织语言”，它把难以直接写成 supervised label 的偏好转成可优化信号，但信号是否可靠、是否可分配、是否会被 reward hacking，决定了后训练上限。
+        </p>
+      </div>
+
+      <h2>1. 问题：视觉生成缺的不是更多 loss，而是更好的目标表达</h2>
+      <p>
+        Supervised training 很擅长复刻数据分布，却不总能表达“哪一个结果更好”。例如一段视频可能语义正确但运动不稳，一张图可能好看但 prompt adherence 不够。
+        RL 的切入点是把这些偏好写成可反馈的 reward 或 preference，让模型在生成空间里做定向改进。
+      </p>
+
+      <h2>2. 关键框架：reward、policy 与生成过程的接口</h2>
+      <p>
+        对 diffusion 和 video generation 来说，policy 不是传统意义上的离散动作策略，而是一个逐步生成轨迹。
+        因此，reward 设计只是第一步；更难的是如何把最终反馈分配到空间、时间和去噪步骤上。
+        这也是为什么 GRPO、DPO、reward-weighted regression、preference fine-tuning 等路线会在视觉生成中呈现不同稳定性。
+      </p>
+
+      <h2>3. Key Insights：后训练的瓶颈常在“信号可信度”</h2>
+      <p>
+        视觉 reward 很容易不稳定：奖励模型可能偏向审美模板，可能漏掉局部伪影，也可能把短期高分误判为长期一致性。
+        所以 visual RL 的核心不是盲目最大化 reward，而是判断 reward 什么时候可靠、应该作用到哪里、是否和真实人类偏好一致。
+        从这个角度看，好的后训练系统更像信号工程，而不只是优化器选择。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        This survey organizes the rapidly growing intersection between reinforcement learning and visual generative models. The central point is that RL provides a way to optimize goals that are difficult to encode as supervised labels, such as human preference, controllability, temporal consistency, and physical plausibility.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Visual outputs are structured and ambiguous. A single scalar reward often mixes multiple concerns, and optimizing it naively can produce reward hacking, weak localization of errors, or unstable training.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Treat RL as an interface between generative trajectories and feedback signals. The practical challenge is not only designing rewards, but also routing feedback across pixels, frames, denoising steps, and samples.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Strong visual post-training systems need reliable reward modeling, careful credit assignment, and evaluation that goes beyond a single score. The survey is useful as a map of the design space and as a vocabulary for comparing different alignment methods.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener">Paper</a>
+        <a href="https://arxiv.org/abs/2508.10316" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2508.10316" target="_blank" rel="noopener">PDF</a>
+        <a href="https://visgenrlsurvey.liangyzh18.workers.dev/" target="_blank" rel="noopener">Project</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

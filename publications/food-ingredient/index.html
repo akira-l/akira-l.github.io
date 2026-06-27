@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food and Ingredient Joint Learning 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="Food and Ingredient Joint Learning for Fine-Grained Recognition 中文解读：把菜品识别与 ingredient prediction 联合建模，用成分线索增强细粒度识别。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/food-ingredient/" />
+  <meta property="og:title" content="Food and Ingredient Joint Learning 中文解读" />
+  <meta property="og:description" content="细粒度食物识别不能只看菜名，ingredient supervision 提供了更可解释的中间语义。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/food-ingredient/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Food and Ingredient Joint Learning 中文解读" />
+  <meta name="twitter:description" content="Jointly learning food categories and ingredient semantics for fine-grained recognition." />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "url": "https://akira-l.github.io/publications/food-ingredient/",
+      "sameAs": "https://doi.org/10.1109/TCSVT.2020.3020079",
+      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Food Ingredient
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>Food and Ingredient Joint Learning：用成分理解细粒度食物</h1>
+      <p class="subtitle">食物识别的难点在于类间差异小、类内变化大。Ingredient semantics 提供了比类别名更细、更可解释的监督。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Fine-Grained Recognition</span>
+      <span class="tag">Food Recognition</span>
+      <span class="tag">Ingredient Learning</span>
+      <span class="tag">TCSVT</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          这篇论文把 food category recognition 和 ingredient prediction 联合起来做。
+          直觉很直接：很多菜品外观相似，仅靠整体图像很难分；但 ingredient 是更细粒度的语义线索，可以帮助模型理解“为什么这是这道菜”。
+          联合学习让类别监督和成分监督互相补充：类别提供全局目标，ingredient 提供局部/语义解释，从而提升 fine-grained recognition 的鲁棒性。
+        </p>
+      </div>
+
+      <h2>1. 问题：食物类别名太粗</h2>
+      <p>
+        食物图像常有遮挡、摆盘变化、光照变化，而且同一类别内部差异很大。
+        只用菜名做监督，模型容易抓住背景、容器或拍摄风格等 shortcut。
+        Ingredient labels 能提供更贴近食物本身的中间语义。
+      </p>
+
+      <h2>2. 核心思路：类别与成分联合优化</h2>
+      <p>
+        联合学习把两个任务放在一起：预测 food category，同时预测 ingredients。
+        这样模型不仅学习“这是什么菜”，也学习“它由哪些可见或隐含成分构成”。
+        成分任务相当于给细粒度识别增加了一层语义 regularization。
+      </p>
+
+      <h2>3. Key Insights：可解释中间语义能提升泛化</h2>
+      <p>
+        Fine-grained recognition 不是只堆更深 backbone。
+        当类别之间差异很细时，引入更接近人类判断过程的中间语义，往往能减少 shortcut 并提升可解释性。
+        Ingredient supervision 正是这种中间语义的自然来源。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        This work improves fine-grained food recognition by jointly learning food categories and ingredient semantics.
+      </p>
+
+      <h3>Problem</h3>
+      <p>
+        Food categories are visually diverse within each class and often similar across classes. Category labels alone can encourage shortcuts based on background, plating, or imaging style.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Use ingredient prediction as a complementary task. Food labels provide the global classification objective, while ingredient labels provide interpretable semantic cues that support finer discrimination.
+      </p>
+
+      <h3>Practical Takeaways</h3>
+      <p>
+        Fine-grained recognition can benefit from intermediate semantic supervision. The model becomes less dependent on superficial visual cues and more aligned with human reasoning about food.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>
