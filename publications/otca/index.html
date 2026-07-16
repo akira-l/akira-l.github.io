@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTCA 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="Learning to Credit the Right Steps 中文解读：OTCA 将 visual GRPO 的全局 reward 拆成 timestep-aware、objective-aware 的 credit，让每一步接收更合适的优化信号。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/otca/" />
+  <meta property="og:title" content="OTCA 中文解读" />
+  <meta property="og:description" content="Visual GRPO 不只要知道结果好不好，还要知道哪一步、哪个 objective 应该为结果负责。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/otca/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="OTCA 中文解读" />
+  <meta name="twitter:description" content="把 coarse reward 改造成与 denoising trajectory 对齐的 structured credit。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "OTCA", "item": "https://akira-l.github.io/publications/otca/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+          "identifier": "arXiv:2604.19234",
+          "url": "https://akira-l.github.io/publications/otca/",
+          "sameAs": "https://arxiv.org/abs/2604.19234",
+          "datePublished": "2026-04-21",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>OTCA
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>OTCA：把 credit 分给真正起作用的 step</h1>
+      <p class="subtitle">Visual GRPO 的问题不只是 reward 准不准，还包括 reward 在什么时间、以什么组合进入优化。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Visual Generation</span>
+      <span class="tag">GRPO</span>
+      <span class="tag">Credit Assignment</span>
+      <span class="tag">ACM MM 2026</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          Visual GRPO 往往先把 visual quality、motion consistency、text alignment 等 reward 压成一个分数，再把同一个 advantage 发给所有 denoising step。这样做省事，却混淆了两个不同的问题：最终结果主要由哪些 step 推动，以及每个 step 此时更该听哪个 objective。
+          OTCA 用 Trajectory-Level Credit Decomposition 判断不同 step 对最终结果的相对贡献，再用 Multi-Objective Credit Allocation 在 advantage space 中协调多个 reward。得到的训练信号同时回答“该更新多大”和“该朝哪个目标更新”，让 coarse trajectory reward 变成与生成过程对齐的 structured credit。
+        </p>
+      </div>
+
+      <h2>1. 问题：同一个 reward，不该平均归给每一步</h2>
+      <p>
+        Diffusion 或 flow model 是逐步完成生成的。早期 step 更多决定全局布局，后期 step 往往补充纹理和局部细节；在 video generation 中，不同阶段对 motion、identity 和画面质量的影响也并不相同。
+        但标准 visual GRPO 通常把 trajectory-level advantage 原样广播到整条 denoising trajectory。只要最终样本得分高，每一步都被同等鼓励，真正关键的 transition 和偶然搭便车的 transition 无法区分，优化方差也随之增加。
+      </p>
+
+      <h2>2. TCD：沿 trajectory 估计每一步的贡献</h2>
+      <p>
+        Trajectory-Level Credit Decomposition（TCD）比较相邻 latent 与最终 denoised latent 的对齐变化。某一步让中间状态明显靠近最终结果，就获得更高的 temporal weight；贡献较弱的 step 则少分一些 credit。
+        这个估计直接利用 GRPO 已经采样出的 trajectory，不依赖额外的 value model。重点不是声称得到了严格的因果归因，而是为“一刀切”的 advantage 提供一个稳定、低开销的 step-wise proxy。
+      </p>
+
+      <h2>3. MOCA：在 advantage space 协调多个 objective</h2>
+      <p>
+        多个 reward 并不总是同向：更强的 motion 可能牺牲局部清晰度，更高的 aesthetic score 也未必带来更好的 text alignment。
+        Multi-Objective Credit Allocation（MOCA）不为每个 objective 单独计算并保存一套大模型 gradient，而是在 advantage space 求解动态组合权重。这样既保留了 conflict-aware 的多目标优化思路，也避免了 gradient-space 方法在大规模生成模型上的昂贵开销。
+      </p>
+
+      <h2>4. Key Insight：reward 要在正确的时间表达正确的偏好</h2>
+      <p>
+        更强的 reward model 只能改善“如何评价结果”，不能自动解决“如何把评价传回生成过程”。OTCA 把 temporal credit 和 objective credit 放在同一个框架里：先判断哪一步值得更强更新，再决定这一步该由哪些 reward 共同塑形。
+        这说明 visual post-training 的一个关键瓶颈并非 reward 数量不足，而是 supervision 的组织方式过于粗糙。把 credit 放对位置，往往比继续叠加分数更有效。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        OTCA addresses a structural weakness in visual GRPO. Multiple rewards are commonly collapsed into one scalar advantage and broadcast uniformly across the denoising trajectory, even though different steps play different roles and different objectives may conflict.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Trajectory-Level Credit Decomposition estimates a temporal weight from how much each transition moves the latent state toward the final denoised result. Multi-Objective Credit Allocation then combines heterogeneous rewards in advantage space, avoiding the cost of storing separate gradients for large generative models.
+      </p>
+
+      <h3>Why This Helps</h3>
+      <p>
+        The effective advantage encodes both update strength and objective composition at each timestep. Policy updates therefore follow the structure of the generation process instead of treating every denoising step as equally responsible for the final score.
+      </p>
+
+      <h3>Practical Takeaway</h3>
+      <p>
+        Better reward models are only part of visual alignment. The route by which reward becomes credit matters just as much: supervision must reach the right step with the right objective mixture.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2604.19234" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

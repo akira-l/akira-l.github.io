@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embodied Brains Roadmap 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="From World Action Models to Embodied Brains 中文解读：从 WAM 的 consequence prediction 出发，讨论 embodied brain、physical harness、共享 contracts 与 closed-loop physical learning 如何共同演进。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/embodied-brains/" />
+  <meta property="og:title" content="From World Action Models to Embodied Brains 中文解读" />
+  <meta property="og:description" content="Physical intelligence 的扩展不只依赖更大的模型，还需要明确的预测、执行和经验接口。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/embodied-brains/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Embodied Brains Roadmap 中文解读" />
+  <meta name="twitter:description" content="从 WAM prototype 走向可复用、可验证、可持续学习的 physical-intelligence stack。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "Embodied Brains Roadmap", "item": "https://akira-l.github.io/publications/embodied-brains/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence",
+          "identifier": "arXiv:2607.11689",
+          "url": "https://akira-l.github.io/publications/embodied-brains/",
+          "sameAs": "https://arxiv.org/abs/2607.11689",
+          "datePublished": "2026-07-13",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Embodied Brains Roadmap
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>从 World Action Models 到 Embodied Brains</h1>
+      <p class="subtitle">Physical intelligence 要真正扩展，模型不仅要预测或行动，还要让预测、执行与经验在不同 embodiment 之间保持可理解、可验证、可复用。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">World Action Models</span>
+      <span class="tag">Embodied AI</span>
+      <span class="tag">Physical Intelligence</span>
+      <span class="tag">Roadmap</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          World Action Models（WAMs）让 embodied agent 能够回答一个比“下一步做什么”更基础的问题：如果采取某个 intervention，物理世界可能发生什么。但现有系统的预测变量、action space、controller、dataset 和 runtime 往往各自成套，能力很难跨平台复用，实验结果也难以积累。
+          这篇 roadmap 将长期目标定义为 embodied brain：它理解 multimodal physical context、比较候选 intervention，并输出 intended state transition 或 capability request，而不是直接绑定某台机器人的 actuator command。随后由 physical harness 完成工具选择、控制适配、执行验证和 trace 记录。核心主张是，模型、harness、data/task contracts 与 closed-loop post-training 必须共同演进，physical intelligence 才能从单个 demo 变成可持续改进的系统能力。
+        </p>
+      </div>
+
+      <h2>1. 扩展瓶颈不只在模型大小</h2>
+      <p>
+        更多参数和更多 trajectory 可以增强模型能力，却不会自动统一不同机器人的坐标系、控制频率、action semantics 和 evaluation protocol。
+        论文把这些问题归纳为三组相互牵连的缺口：model and representation gap、objective and standardization gap，以及 ecosystem and systems gap。它们之所以需要一起处理，是因为 representation 决定哪些结果可被监督，评价标准决定哪些经验可信，系统接口又决定这些经验能否被其他组件继续利用。
+      </p>
+
+      <h2>2. WAM 提供 consequence，embodied brain 形成 intent</h2>
+      <p>
+        WAM 的关键并不在输出必须是 video、geometry 还是 latent，而在于它能否显式提供与决策有关的 consequence：某个 action 或 tool call 会带来怎样的状态变化，预测在哪个 horizon 和 reference frame 下成立，以及不确定性和适用条件是什么。
+        Embodied brain 的范围更大。它整合观察、任务和候选 intervention，形成可被下游执行系统理解的 intent。当前 WAM 可以视为这种 predictive capability 的 prototype，但并不等同于完整的 embodied brain，也不预设未来只能采用某一种架构。
+      </p>
+
+      <h2>3. Physical harness 把通用推理落到具体 embodiment</h2>
+      <p>
+        从 intent 到执行之间不能靠隐式约定。Physical harness 负责解析 capability，连接 tool model 与 controller，处理 embodiment-specific constraints，并检查执行结果。
+        这种分工不是简单追求模块化，而是为了让失败能够定位：问题究竟来自 physical reasoning、action grounding、controller，还是环境本身。只要责任边界可检查，端到端训练仍然可以使用；关键是中间语义不能再次被藏回不可比较的系统实现里。
+      </p>
+
+      <h2>4. Key Insight：让 interaction 变成可复用的经验</h2>
+      <p>
+        真实 interaction 的价值不只是一条成功率记录。论文提出用 Embodiment、Task 与 Trace Cards 保存任务条件、转换过程、执行状态、verifier 输出和最终结果，再通过分层 evaluation 决定哪些 trace 可以进入 closed-loop post-training。
+        这条路线把“模型自己从经验中学习”落到可操作的系统问题上：先让每次 interaction 的语义和责任可追溯，再谈规模化积累。对 open-world physical intelligence 而言，共享 contract 不是外围工程，而是模型能力能够跨任务、工具和 embodiment 生长的前提。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        This roadmap argues that scaling physical intelligence requires more than larger models or more robot trajectories. Existing action-centric and predictive systems expose incompatible action spaces, variables, datasets, and runtimes, which makes capabilities difficult to compare, reuse, and improve cumulatively.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        A World Action Model exposes decision-relevant consequences of candidate interventions. The broader embodied brain reasons over multimodal physical context and communicates an intended state transition or capability request. A physical harness grounds that intent into tools and controllers, verifies execution, and records the outcome.
+      </p>
+
+      <h3>Why This Matters</h3>
+      <p>
+        Separating general physical reasoning from embodiment-specific execution makes model roles, failures, and interfaces independently testable. Shared prediction, task, and trace contracts also turn heterogeneous interactions into comparable training and evaluation records.
+      </p>
+
+      <h3>Practical Takeaway</h3>
+      <p>
+        Open-world physical intelligence is a co-evolution problem. Brain models, harnesses, tools, data construction, evaluation, and closed-loop post-training must improve through explicit interfaces; otherwise, scaling produces larger isolated systems rather than reusable intelligence.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2607.11689" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/html/2607.11689v1" target="_blank" rel="noopener">HTML</a>
+        <a href="https://arxiv.org/pdf/2607.11689" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>

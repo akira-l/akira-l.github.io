@@ -19,6 +19,9 @@ Yuanzhi Liang (梁远智) is a Research Scientist at the Institute of Artificial
 
 ## Key Publications
 
+- "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence" (arXiv 2026): https://arxiv.org/abs/2607.11689
+- "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation" (ACM MM 2026): https://arxiv.org/abs/2604.19234
+- "Reward-Aware Trajectory Shaping for Few-step Visual Generation" (ACM MM 2026): https://arxiv.org/abs/2604.14910
 - "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation" (arXiv 2026): https://arxiv.org/abs/2602.07595
 - "Integrating Reinforcement Learning with Visual Generative Models: Foundations and Advances" (AI Flow 2026): https://link.springer.com/article/10.1007/s44336-025-00030-z
 - "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation" (CVPR 2026): https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html

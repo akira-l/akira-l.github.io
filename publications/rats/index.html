@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RATS 中文解读 | Yuanzhi Liang</title>
+  <meta name="description" content="Reward-Aware Trajectory Shaping 中文解读：RATS 用 reward-aware gate 动态调节 teacher guidance，让 few-step generator 学习 teacher 的有效经验，同时保留超越 teacher 的空间。" />
+  <link rel="canonical" href="https://akira-l.github.io/publications/rats/" />
+  <meta property="og:title" content="RATS 中文解读" />
+  <meta property="og:description" content="Teacher 是有条件的 guidance，而不是 few-step student 永远不能越过的上限。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://akira-l.github.io/publications/rats/" />
+  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="RATS 中文解读" />
+  <meta name="twitter:description" content="用 relative reward 决定 few-step student 此刻该跟 teacher 多紧。" />
+  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
+  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
+            { "@type": "ListItem", "position": 3, "name": "RATS", "item": "https://akira-l.github.io/publications/rats/" }
+          ]
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+          "identifier": "arXiv:2604.14910",
+          "url": "https://akira-l.github.io/publications/rats/",
+          "sameAs": "https://arxiv.org/abs/2604.14910",
+          "datePublished": "2026-04-16",
+          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+        }
+      ]
+    }
+  </script>
+</head>
+<body class="pub-page">
+  <nav class="pub-nav">
+    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
+    <ul class="pub-nav-links">
+      <li><a href="../../index.html#about">Biography</a></li>
+      <li><a href="../index.html" class="active">Publications</a></li>
+      <li><a href="../../index.html#publication">Highlights</a></li>
+    </ul>
+  </nav>
+
+  <div class="note-container">
+    <div class="note-breadcrumb">
+      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>RATS
+    </div>
+
+    <div class="note-header">
+      <div class="kicker">Paper Note</div>
+      <h1>RATS：让 few-step student 有选择地跟随 teacher</h1>
+      <p class="subtitle">压缩 sampling step 不必等于机械模仿；teacher 应在有帮助时提供轨迹先验，在限制 student 时及时退场。</p>
+    </div>
+
+    <div class="note-tags">
+      <span class="tag">Few-step Generation</span>
+      <span class="tag">Distillation</span>
+      <span class="tag">Preference Alignment</span>
+      <span class="tag">ACM MM 2026</span>
+    </div>
+
+    <article class="note-body">
+      <div class="note-callout">
+        <strong>TL;DR</strong>
+        <p>
+          Few-step generation 通常靠 distillation，把几十步的 denoising trajectory 压缩到极少几步。它能换来速度，却也把 student 的目标锁成“复现 teacher”：teacher 的局限自然成了 student 的上限。单独加入 terminal reward 又很难告诉压缩后的每一步该怎么改。
+          RATS 把两者接起来：用 sigma-aligned multi-horizon matching 提供中间轨迹 guidance，再用 reward-aware gate 比较 teacher 与 student 的相对 reward。Teacher 更好时就多跟一点；student 追平或超过时便放松约束。最终 inference 仍只运行 few-step student，没有额外测试开销。
+        </p>
+      </div>
+
+      <h2>1. 两种常见方案，各自卡在一端</h2>
+      <p>
+        Static distillation 给出了清晰的中间监督，但 student 只能逼近既定 teacher。Reward-only optimization 允许 student 朝偏好目标继续提升，却只在完整 rollout 结束后看到分数；当 sampling 被压到极少 step，每一步承担的生成责任更重，terminal reward 的 credit 更难准确传回去。
+        RATS 处理的不是单纯的加速问题，而是“高效生成如何继续做 preference alignment”。
+      </p>
+
+      <h2>2. Multi-horizon matching：先把两条轨迹对齐</h2>
+      <p>
+        Teacher 和 student 的 step 数不同，不能按序号直接比较。RATS 按 noise level 对齐若干关键 horizon，让 few-step student 在相近的 denoising 阶段参考 multi-step teacher 的 latent prediction。
+        这些中间锚点比单个终点更有信息，也比强行匹配整条轨迹更贴合压缩后的采样日程。Teacher 采用 EMA 更新，只在训练阶段参与。
+      </p>
+
+      <h2>3. Reward-aware gate：决定此刻该听 teacher 多少</h2>
+      <p>
+        轨迹匹配并非固定强度。RATS 比较同一 prompt 和 noise 下 teacher、student 的 reward：teacher 得分更高时，gate 增强 trajectory shaping；student 已经追平或超过时，gate 自动减弱 teacher constraint，让 reward objective 继续推动 student。
+        这种机制保留了 distillation 的稳定先验，也避免 teacher guidance 在训练后期变成阻力。
+      </p>
+
+      <h2>4. Key Insight：teacher 更适合作为条件约束</h2>
+      <p>
+        传统 distillation 默认 teacher 始终正确，RATS 则把“是否值得模仿”变成一个随训练动态变化的问题。真正有价值的不是复制 teacher 的每一步，而是提取其中与当前 preference objective 一致的知识。
+        这也给 efficient generation 一个更一般的启发：压缩模型不必永远追赶固定上限；只要 guidance 能感知目标与能力差距，student 就可以在保持效率的同时继续优化质量。
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>English Summary</h2>
+      <p>
+        RATS targets the teacher-bounded nature of few-step generation. Static distillation provides useful intermediate supervision but limits the student to imitation, while reward-only training offers freedom to improve but supplies only delayed terminal guidance over a highly compressed trajectory.
+      </p>
+
+      <h3>Core Idea</h3>
+      <p>
+        Sigma-aligned multi-horizon matching connects key stages of the few-step student and multi-step EMA teacher. A reward-aware gate then adjusts shaping strength from their relative reward: stronger teacher performance increases guidance, whereas a competitive student is allowed to deviate.
+      </p>
+
+      <h3>Why This Helps</h3>
+      <p>
+        The student receives informative trajectory priors when they are useful without being permanently constrained by the teacher. The teacher is used only during training, so deployment keeps the original few-step inference cost.
+      </p>
+
+      <h3>Practical Takeaway</h3>
+      <p>
+        In preference-aligned distillation, a teacher is most useful as a conditional source of knowledge rather than a fixed target. Guidance should weaken once imitation stops serving the reward objective.
+      </p>
+
+      <div class="note-divider"></div>
+      <h2>Links</h2>
+      <div class="note-links">
+        <a class="primary" href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://arxiv.org/pdf/2604.14910" target="_blank" rel="noopener">PDF</a>
+      </div>
+    </article>
+
+    <footer class="pub-page-footer">
+      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
+    </footer>
+  </div>
+</body>
+</html>
