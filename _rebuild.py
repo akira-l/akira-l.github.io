@@ -793,7 +793,7 @@ def render_collection(papers: list[dict[str, Any]], language: str) -> str:
   <link rel="alternate" type="application/atom+xml" title="Yuanzhi Liang research updates" href="/feed.xml">
   <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="Publication catalog" href="/publications/catalog.json">
   <link rel="alternate" type="application/json" title="Full research records" href="/publications/records.json">
-  <link rel="alternate" type="text/plain" title="AI retrieval guide" href="/llms.txt">
+  <link rel="alternate" type="text/plain" title="Plain-text publication index" href="/llms.txt">
   <link rel="license" href="{CC_BY_URL}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{esc(title)}">
@@ -1112,7 +1112,7 @@ def llms_txt(papers: list[dict[str, Any]]) -> str:
         f"- [中文论文目录]({BASE_URL}/zh/publications/): Chinese explainers.",
         f"- [CSL-JSON catalog]({BASE_URL}/publications/catalog.json): machine-readable bibliography.",
         f"- [Full JSON research records]({BASE_URL}/publications/records.json): metadata, abstracts, summaries, scope, and source mappings.",
-        f"- [Full retrieval corpus]({BASE_URL}/llms-full.txt): abstracts and source-checked summaries.",
+        f"- [Full publication corpus]({BASE_URL}/llms-full.txt): abstracts and source-checked summaries.",
         f"- [Atom feed]({BASE_URL}/feed.xml): update discovery.",
         "",
         "## Research records",
@@ -1294,7 +1294,7 @@ def robots_txt() -> str:
     ]
     blocks = [f"User-agent: {agent}\nAllow: /" for agent in agents]
     return (
-        "# Public research site: search, retrieval, user-fetch, and model-training crawlers are allowed.\n"
+        "# Crawler access policy.\n"
         + "\n\n".join(blocks)
         + f"\n\nSitemap: {BASE_URL}/sitemap.xml\n"
     )

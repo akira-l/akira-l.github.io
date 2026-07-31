@@ -1,8 +1,7 @@
 # akira-l.github.io
 
-Personal research site for Yuanzhi Liang (梁远智), including bilingual,
-source-checked publication records intended for readers, scholarly search
-engines, and retrieval-based AI systems.
+Personal academic website for Yuanzhi Liang (梁远智), with bilingual
+publication pages, source-checked paper summaries, and downloadable citations.
 
 ## Publication workflow
 
@@ -20,8 +19,7 @@ The build uses only Python's standard library and generates:
 - `/publications/` and 23 English research records;
 - `/zh/publications/` and 23 Chinese research records;
 - per-paper BibTeX, RIS, and CSL-JSON;
-- `/publications/catalog.json`, `/feed.xml`, `/sitemap.xml`;
-- `/llms.txt`, `/llms-full.txt`, and `/robots.txt`; and
+- bibliographic catalogs, update feeds, a sitemap, and discovery files; and
 - `AUTHOR_REVIEW.md` and the record-by-record `CITATION_AUDIT.md`.
 
 Do not hand-edit generated publication HTML or citation files; the next build
@@ -76,8 +74,9 @@ Original site commentary is CC BY 4.0. Paper abstracts, figures, titles, and
 bibliographic material are expressly excluded and retain their original rights.
 See `LICENSE-CONTENT.md`.
 
-## SEO/GEO operations
+## Site maintenance
 
-Technical decisions, crawler policy, search-console setup, external academic
-identity cleanup, monitoring, and the no-spam/no-prompt-injection policy are
-documented in `SEO-GEO.md`.
+Generated output, publication data, and citation exports are checked on every
+pull request and push by `.github/workflows/site-checks.yml`. Keep visible copy,
+structured metadata, and source records consistent; do not add hidden text or
+crawler-only scientific claims.

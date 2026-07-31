@@ -1,4 +1,4 @@
-# Public research site: search, retrieval, user-fetch, and model-training crawlers are allowed.
+# Crawler access policy.
 User-agent: *
 Allow: /
 

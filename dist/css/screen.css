@@ -526,7 +526,7 @@ body.pub-page *, body.pub-page *::before, body.pub-page *::after {
   }
 }
 
-/* ---- Research-record additions (SEO/GEO content layer) ---- */
+/* ---- Publication page additions ---- */
 .skip-link {
   position: fixed;
   top: 8px;

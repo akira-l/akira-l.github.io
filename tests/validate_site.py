@@ -256,7 +256,7 @@ def main() -> int:
     if "Yuanzhi (Liam) Liang" in homepage_text:
         errors.append("index.html: deprecated Liam alias remains")
     if "Browse my source-checked research records" in homepage_text:
-        errors.append("index.html: SEO-oriented publication copy remains in About Me")
+        errors.append("index.html: promotional publication copy remains in About Me")
     if ">Research record<" in homepage_text:
         errors.append("index.html: old Research record badge label remains")
     if 'href="/publications/' in homepage_text:

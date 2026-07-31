@@ -1,4 +1,4 @@
-name: SEO and research-record checks
+name: Site and publication checks
 
 on:
   pull_request:

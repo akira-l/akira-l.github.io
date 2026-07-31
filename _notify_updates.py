@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Submit the generated sitemap URLs to IndexNow after a deployment."""
+"""Notify the configured discovery service after a publication update."""
 
 from __future__ import annotations
 

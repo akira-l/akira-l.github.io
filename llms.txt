@@ -11,7 +11,7 @@ Use the local research-record links below for structured metadata, official abst
 - [中文论文目录](https://akira-l.github.io/zh/publications/): Chinese explainers.
 - [CSL-JSON catalog](https://akira-l.github.io/publications/catalog.json): machine-readable bibliography.
 - [Full JSON research records](https://akira-l.github.io/publications/records.json): metadata, abstracts, summaries, scope, and source mappings.
-- [Full retrieval corpus](https://akira-l.github.io/llms-full.txt): abstracts and source-checked summaries.
+- [Full publication corpus](https://akira-l.github.io/llms-full.txt): abstracts and source-checked summaries.
 - [Atom feed](https://akira-l.github.io/feed.xml): update discovery.
 
 ## Research records
