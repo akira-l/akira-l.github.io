@@ -1,140 +1,295 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OTCA 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="Learning to Credit the Right Steps 中文解读：OTCA 将 visual GRPO 的全局 reward 拆成 timestep-aware、objective-aware 的 credit，让每一步接收更合适的优化信号。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/otca/" />
-  <meta property="og:title" content="OTCA 中文解读" />
-  <meta property="og:description" content="Visual GRPO 不只要知道结果好不好，还要知道哪一步、哪个 objective 应该为结果负责。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/otca/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="OTCA 中文解读" />
-  <meta name="twitter:description" content="把 coarse reward 改造成与 denoising trajectory 对齐的 structured credit。" />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/otca/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/otca/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/otca/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/otca/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/otca/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/otca/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/otca/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/otca/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation">
+  <meta name="citation_author" content="Rui Li">
+  <meta name="citation_author" content="Ke Hao">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Haibin Huang">
+  <meta name="citation_author" content="Chi Zhang">
+  <meta name="citation_author" content="Yun Gu">
+  <meta name="citation_author" content="XueLong Li">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/otca/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="visual generation; GRPO; credit assignment; multi-objective optimization; diffusion models">
+  <meta name="citation_abstract" content="Reinforcement learning, particularly Group Relative Policy Optimization (GRPO), has emerged as an effective framework for post-training visual generative models with human preference signals. However, its effectiveness is fundamentally limited by coarse reward credit assignment. In modern visual generation, multiple reward models are often used to capture heterogeneous objectives, such as visual quality, motion consistency, and text alignment. Existing GRPO pipelines typically collapse these rewards into a single static scalar and propagate it uniformly across the entire diffusion trajectory. This design ignores the stage-specific roles of different denoising steps and produces mistimed or incompatible optimization signals. To address this issue, we propose Objective-aware Trajectory Credit Assignment (OTCA), a structured framework for fine-grained GRPO training. OTCA consists of two key components. Trajectory-Level Credit Decomposition estimates the relative importance of different denoising steps. Multi-Objective Credit Allocation adaptively weights and combines multiple reward signals throughout the denoising process. By jointly modeling temporal credit and objective-level credit, OTCA converts coarse reward supervision into a structured, timestep-aware training signal that better matches the iterative nature of diffusion-based generation. Extensive experiments show that OTCA consistently improves both image and video generation quality across evaluation metrics.">
+  <meta name="citation_conference_title" content="34th ACM International Conference on Multimedia (ACM Multimedia 2026)">
+  <meta name="citation_publisher" content="ACM">
+  <meta name="citation_arxiv_id" content="2604.19234">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/otca/#explainer",
+      "url": "https://akira-l.github.io/publications/otca/",
+      "headline": "Paper explainer: Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "description": "OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2604.19234",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/otca/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/otca/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/otca/#paper",
+      "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "headline": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "abstract": "Reinforcement learning, particularly Group Relative Policy Optimization (GRPO), has emerged as an effective framework for post-training visual generative models with human preference signals. However, its effectiveness is fundamentally limited by coarse reward credit assignment. In modern visual generation, multiple reward models are often used to capture heterogeneous objectives, such as visual quality, motion consistency, and text alignment. Existing GRPO pipelines typically collapse these rewards into a single static scalar and propagate it uniformly across the entire diffusion trajectory. This design ignores the stage-specific roles of different denoising steps and produces mistimed or incompatible optimization signals. To address this issue, we propose Objective-aware Trajectory Credit Assignment (OTCA), a structured framework for fine-grained GRPO training. OTCA consists of two key components. Trajectory-Level Credit Decomposition estimates the relative importance of different denoising steps. Multi-Objective Credit Allocation adaptively weights and combines multiple reward signals throughout the denoising process. By jointly modeling temporal credit and objective-level credit, OTCA converts coarse reward supervision into a structured, timestep-aware training signal that better matches the iterative nature of diffusion-based generation. Extensive experiments show that OTCA consistently improves both image and video generation quality across evaluation metrics.",
+      "author": [
         {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
-            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
-            { "@type": "ListItem", "position": 3, "name": "OTCA", "item": "https://akira-l.github.io/publications/otca/" }
-          ]
+          "@type": "Person",
+          "name": "Rui Li"
         },
         {
-          "@type": "ScholarlyArticle",
-          "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
-          "identifier": "arXiv:2604.19234",
-          "url": "https://akira-l.github.io/publications/otca/",
-          "sameAs": "https://arxiv.org/abs/2604.19234",
-          "datePublished": "2026-04-21",
-          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yun Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "credit assignment",
+        "multi-objective optimization",
+        "diffusion models"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2604.19234",
+          "url": "https://arxiv.org/abs/2604.19234"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2604.19234",
+        "https://arxiv.org/pdf/2604.19234"
+      ],
+      "url": "https://arxiv.org/abs/2604.19234",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "34th ACM International Conference on Multimedia (ACM Multimedia 2026)"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ACM"
+      },
+      "creativeWorkStatus": "Forthcoming",
+      "dateModified": "2026-04-27"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/otca/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "OTCA",
+          "item": "https://akira-l.github.io/publications/otca/"
         }
       ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">OTCA</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>OTCA
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>OTCA：把 credit 分给真正起作用的 step</h1>
-      <p class="subtitle">Visual GRPO 的问题不只是 reward 准不准，还包括 reward 在什么时间、以什么组合进入优化。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Visual Generation</span>
-      <span class="tag">GRPO</span>
-      <span class="tag">Credit Assignment</span>
-      <span class="tag">ACM MM 2026</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          Visual GRPO 往往先把 visual quality、motion consistency、text alignment 等 reward 压成一个分数，再把同一个 advantage 发给所有 denoising step。这样做省事，却混淆了两个不同的问题：最终结果主要由哪些 step 推动，以及每个 step 此时更该听哪个 objective。
-          OTCA 用 Trajectory-Level Credit Decomposition 判断不同 step 对最终结果的相对贡献，再用 Multi-Objective Credit Allocation 在 advantage space 中协调多个 reward。得到的训练信号同时回答“该更新多大”和“该朝哪个目标更新”，让 coarse trajectory reward 变成与生成过程对齐的 structured credit。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</h1>
+      <p class="paper-authors"><strong>Authors:</strong> Rui Li, Ke Hao, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Haibin Huang, Chi Zhang, Yun Gu, XueLong Li</p>
+      <p class="paper-venue">ACM Multimedia 2026 (accepted) · 2026 · forthcoming</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">visual generation</span><span class="tag">GRPO</span><span class="tag">credit assignment</span><span class="tag">multi-objective optimization</span><span class="tag">diffusion models</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/otca/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2604.19234" target="_blank" rel="noopener noreferrer">PDF</a>
       </div>
+    </header>
 
-      <h2>1. 问题：同一个 reward，不该平均归给每一步</h2>
-      <p>
-        Diffusion 或 flow model 是逐步完成生成的。早期 step 更多决定全局布局，后期 step 往往补充纹理和局部细节；在 video generation 中，不同阶段对 motion、identity 和画面质量的影响也并不相同。
-        但标准 visual GRPO 通常把 trajectory-level advantage 原样广播到整条 denoising trajectory。只要最终样本得分高，每一步都被同等鼓励，真正关键的 transition 和偶然搭便车的 transition 无法区分，优化方差也随之增加。
-      </p>
-
-      <h2>2. TCD：沿 trajectory 估计每一步的贡献</h2>
-      <p>
-        Trajectory-Level Credit Decomposition（TCD）比较相邻 latent 与最终 denoised latent 的对齐变化。某一步让中间状态明显靠近最终结果，就获得更高的 temporal weight；贡献较弱的 step 则少分一些 credit。
-        这个估计直接利用 GRPO 已经采样出的 trajectory，不依赖额外的 value model。重点不是声称得到了严格的因果归因，而是为“一刀切”的 advantage 提供一个稳定、低开销的 step-wise proxy。
-      </p>
-
-      <h2>3. MOCA：在 advantage space 协调多个 objective</h2>
-      <p>
-        多个 reward 并不总是同向：更强的 motion 可能牺牲局部清晰度，更高的 aesthetic score 也未必带来更好的 text alignment。
-        Multi-Objective Credit Allocation（MOCA）不为每个 objective 单独计算并保存一套大模型 gradient，而是在 advantage space 求解动态组合权重。这样既保留了 conflict-aware 的多目标优化思路，也避免了 gradient-space 方法在大规模生成模型上的昂贵开销。
-      </p>
-
-      <h2>4. Key Insight：reward 要在正确的时间表达正确的偏好</h2>
-      <p>
-        更强的 reward model 只能改善“如何评价结果”，不能自动解决“如何把评价传回生成过程”。OTCA 把 temporal credit 和 objective credit 放在同一个框架里：先判断哪一步值得更强更新，再决定这一步该由哪些 reward 共同塑形。
-        这说明 visual post-training 的一个关键瓶颈并非 reward 数量不足，而是 supervision 的组织方式过于粗糙。把 credit 放对位置，往往比继续叠加分数更有效。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        OTCA addresses a structural weakness in visual GRPO. Multiple rewards are commonly collapsed into one scalar advantage and broadcast uniformly across the denoising trajectory, even though different steps play different roles and different objectives may conflict.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Trajectory-Level Credit Decomposition estimates a temporal weight from how much each transition moves the latent state toward the final denoised result. Multi-Objective Credit Allocation then combines heterogeneous rewards in advantage space, avoiding the cost of storing separate gradients for large generative models.
-      </p>
-
-      <h3>Why This Helps</h3>
-      <p>
-        The effective advantage encodes both update strength and objective composition at each timestep. Policy updates therefore follow the structure of the generation process instead of treating every denoising step as equally responsible for the final score.
-      </p>
-
-      <h3>Practical Takeaway</h3>
-      <p>
-        Better reward models are only part of visual alignment. The route by which reward becomes credit matters just as much: supervision must reach the right step with the right objective mixture.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://arxiv.org/pdf/2604.19234" target="_blank" rel="noopener">PDF</a>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Rui Li, Ke Hao, Yuanzhi Liang, Haibin Huang, Chi Zhang, Yun Gu, and XueLong Li</dd>
+          <dt>Recommended paper citation</dt><dd>Rui Li, Ke Hao, Yuanzhi Liang, Haibin Huang, Chi Zhang, Yun Gu, and XueLong Li. “Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation.” 34th ACM International Conference on Multimedia (ACM Multimedia 2026) (2026, forthcoming). arXiv:2604.19234.</dd>
+<dt>Bibliographic note</dt><dd>The status “accepted at ACM Multimedia 2026” is author-supplied. The paper-level proceedings record, DOI, pagination, and final ACM citation were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.</dd>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2026-04-21</dd><dt>arXiv last revised</dt><dd>2026-04-27</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Visual GRPO commonly collapses heterogeneous rewards into one scalar and applies it uniformly to every denoising step, even though different stages play different roles and different objectives may become relevant at different times.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Trajectory-Level Credit Decomposition estimates the relative importance of denoising steps instead of assigning equal credit across the trajectory.</li><li>Multi-Objective Credit Allocation adaptively weights and combines heterogeneous rewards during denoising.</li><li>The joint formulation produces a timestep-aware, objective-aware signal aligned with iterative diffusion generation.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>The authors report consistent improvements for both image and video generation across evaluation metrics. This page intentionally does not restate numerical gains; consult the paper&#x27;s experimental tables for model-, dataset-, and metric-specific comparisons.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>The method is formulated for GRPO-style post-training of diffusion-based visual generators and still relies on the coverage and validity of the underlying reward models. Accepted-conference metadata should be updated when final proceedings metadata becomes available.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>OTCA is best positioned as a fine-grained credit-assignment method for visual-generation RL. It differs from methods that only aggregate multiple rewards or only reweight samples by jointly structuring credit over denoising time and reward objectives.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Li et al. propose Objective-aware Trajectory Credit Assignment (OTCA), which decomposes credit across denoising steps and adaptively allocates multiple reward objectives to provide structured supervision for GRPO-based image and video generation.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Reinforcement learning, particularly Group Relative Policy Optimization (GRPO), has emerged as an effective framework for post-training visual generative models with human preference signals. However, its effectiveness is fundamentally limited by coarse reward credit assignment. In modern visual generation, multiple reward models are often used to capture heterogeneous objectives, such as visual quality, motion consistency, and text alignment. Existing GRPO pipelines typically collapse these rewards into a single static scalar and propagate it uniformly across the entire diffusion trajectory. This design ignores the stage-specific roles of different denoising steps and produces mistimed or incompatible optimization signals. To address this issue, we propose Objective-aware Trajectory Credit Assignment (OTCA), a structured framework for fine-grained GRPO training. OTCA consists of two key components. Trajectory-Level Credit Decomposition estimates the relative importance of different denoising steps. Multi-Objective Credit Allocation adaptively weights and combines multiple reward signals throughout the denoising process. By jointly modeling temporal credit and objective-level credit, OTCA converts coarse reward supervision into a structured, timestep-aware training signal that better matches the iterative nature of diffusion-based generation. Extensive experiments show that OTCA consistently improves both image and video generation quality across evaluation metrics.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; method sections on Trajectory-Level Credit Decomposition and Multi-Objective Credit Allocation</td></tr><tr><td>Evaluation statement</td><td>Abstract; image and video experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2604.19234v2).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Rui Li, Ke Hao, Yuanzhi Liang, Haibin Huang, Chi Zhang, Yun Gu, and XueLong Li. “Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation.” 34th ACM International Conference on Multimedia (ACM Multimedia 2026) (2026, forthcoming). arXiv:2604.19234.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/otca/citation.bib">BibTeX</a><a href="/publications/otca/citation.ris">RIS</a><a href="/publications/otca/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2604.19234" target="_blank" rel="noopener noreferrer">PDF</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "slug": "rl-vgm",
+  "canonical_url": "https://akira-l.github.io/publications/rl-vgm/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/rl-vgm/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/rl-vgm/"
+  },
+  "title": "Integrating reinforcement learning with visual generative models: foundations and advances",
+  "short_title": "RL for Visual Generative Models",
+  "authors": [
+    "Yuanzhi Liang",
+    "Yijie Fang",
+    "Rui Li",
+    "Ziqi Ni",
+    "Ruijie Su",
+    "Chi Zhang"
+  ],
+  "publication": {
+    "kind": "journal",
+    "venue": "Vicinagearth",
+    "citation_container_title": "Vicinagearth",
+    "status": "published",
+    "year": 2026,
+    "publication_date": "2026-01-29",
+    "publisher": "Springer Nature",
+    "volume": "3",
+    "issue": "1",
+    "article_number": "2"
+  },
+  "identifiers": {
+    "doi": "10.1007/s44336-025-00030-z",
+    "arxiv": "2508.10316",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-08-14",
+    "last_revised": "2026-01-19"
+  },
+  "keywords": [
+    "reinforcement learning",
+    "visual generative models",
+    "image generation",
+    "video generation",
+    "3D and 4D generation",
+    "survey"
+  ],
+  "official_abstract": "Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "Springer journal article",
+    "url": "https://link.springer.com/article/10.1007/s44336-025-00030-z",
+    "version": "Version of record, published 2026-01-29",
+    "method_locator": "Abstract; sections on RL evolution and image, video, and 3D/4D generation",
+    "evidence_locator": "Abstract; domain survey tables and discussion sections"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "bibliographic_note": "This citation describes the six-author Vicinagearth version of record. arXiv:2508.10316v3 lists Ke Hao as an additional third author, so the arXiv identifier is retained only as a related version and is not mixed into the journal citation exports.",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.",
+      "problem": "Likelihood and reconstruction objectives are useful training surrogates but can diverge from perceptual quality, semantic accuracy, physical realism, controllability, and human preferences across visual generation tasks.",
+      "contributions": [
+        "Traces the evolution of RL from classical control toward a general optimization and alignment framework.",
+        "Systematizes RL integrations across image, video, and 3D/4D generation.",
+        "Identifies cross-domain challenges and future directions at the intersection of RL and visual generative modeling."
+      ],
+      "evidence": "As a survey, the paper synthesizes and categorizes prior literature rather than claiming a new model's benchmark improvement. Its tables, taxonomy, domain sections, and discussion of open problems are the relevant evidence.",
+      "limitations": "The area changes rapidly, so coverage is bounded by the review's search period and inclusion criteria. Readers should use the version of record and its bibliography to verify whether later methods alter the taxonomy or conclusions.",
+      "positioning": "This work can serve as a high-level citation for the overall role of RL in visual generation and as a navigation source for domain-specific literature in images, videos, and 3D/4D content.",
+      "citation_ready": "Liang et al. survey reinforcement learning for visual generative models, organizing methods across image, video, and 3D/4D generation and framing RL as a general mechanism for optimizing preference-driven, non-differentiable, and structured objectives."
+    },
+    "zh-CN": {
+      "summary": "这篇综述系统整理图像、视频与 3D/4D 生成中的 reinforcement learning，并把 RL 视为连接不可微目标、偏好反馈、时间结构和高层目标的通用优化接口，而不仅是某种 fine-tuning 算法。",
+      "problem": "Likelihood 和 reconstruction loss 是常用代理目标，但它们可能与视觉质量、语义准确性、物理真实性、可控性和人类偏好不一致。",
+      "contributions": [
+        "梳理 RL 从经典控制到通用优化与对齐框架的演化。",
+        "系统组织 RL 在图像、视频和 3D/4D 生成中的集成方式。",
+        "总结跨领域共同挑战以及 RL 与视觉生成交叉方向的未来问题。"
+      ],
+      "evidence": "作为综述，本文的证据来自对既有文献的分类、归纳和比较，而不是某个新模型的单一 benchmark 提升；应重点参考其 taxonomy、领域章节、表格和开放问题讨论。",
+      "limitations": "该方向变化很快，覆盖范围受检索时间和纳入标准约束。后续使用时应以正式版本及其参考文献为入口，检查新工作是否改变已有分类或结论。",
+      "positioning": "这项工作可作为“RL 在视觉生成中的总体角色”的高层引用，也可作为进入图像、视频和 3D/4D 各子方向文献的导航来源。",
+      "citation_ready": "Liang 等系统综述了视觉生成模型中的 reinforcement learning，覆盖图像、视频和 3D/4D 生成，并将 RL 概括为优化偏好驱动、不可微和结构化目标的通用机制。"
+    }
+  },
+  "citation": {
+    "id": "liang2026rlvisualgeneration",
+    "type": "article-journal",
+    "title": "Integrating reinforcement learning with visual generative models: foundations and advances",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Yijie",
+        "family": "Fang"
+      },
+      {
+        "given": "Rui",
+        "family": "Li"
+      },
+      {
+        "given": "Ziqi",
+        "family": "Ni"
+      },
+      {
+        "given": "Ruijie",
+        "family": "Su"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      }
+    ],
+    "container-title": "Vicinagearth",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          29
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1007/s44336-025-00030-z",
+    "abstract": "Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.",
+    "keyword": "reinforcement learning, visual generative models, image generation, video generation, 3D and 4D generation, survey",
+    "publisher": "Springer Nature",
+    "DOI": "10.1007/s44336-025-00030-z",
+    "volume": "3",
+    "issue": "1",
+    "page": "2"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://link.springer.com/article/10.1007/s44336-025-00030-z"
+    },
+    {
+      "label": "Project",
+      "url": "https://visgenrlsurvey.liangyzh18.workers.dev/"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2508.10316"
+    }
+  ]
+}

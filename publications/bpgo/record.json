@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "slug": "bpgo",
+  "canonical_url": "https://akira-l.github.io/publications/bpgo/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/bpgo/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/bpgo/"
+  },
+  "title": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+  "short_title": "BPGO",
+  "authors": [
+    "Ruiying Liu",
+    "Yuanzhi Liang",
+    "Haibin Huang",
+    "Tianshu Yu",
+    "Chi Zhang"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026)",
+    "citation_container_title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    "status": "published",
+    "year": 2026,
+    "publication_date": "2026",
+    "pages": "34408-34417"
+  },
+  "identifiers": {
+    "arxiv": "2511.18919",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-11-24",
+    "last_revised": "2025-11-24"
+  },
+  "keywords": [
+    "visual generation",
+    "GRPO",
+    "reward uncertainty",
+    "Bayesian prior",
+    "semantic alignment"
+  ],
+  "official_abstract": "Group Relative Policy Optimization (GRPO) has emerged as an effective and lightweight framework for post-training visual generative models. However, its performance is fundamentally limited by the ambiguity of textual visual correspondence: a single prompt may validly describe diverse visual outputs, and a single image or video may support multiple equally correct interpretations. This many to many relationship leads reward models to generate uncertain and weakly discriminative signals, causing GRPO to underutilize reliable feedback and overfit noisy ones. We introduce Bayesian Prior-Guided Optimization (BPGO), a novel extension of GRPO that explicitly models reward uncertainty through a semantic prior anchor. BPGO adaptively modulates optimization trust at two levels: inter-group Bayesian trust allocation emphasizes updates from groups consistent with the prior while down-weighting ambiguous ones, and intra-group prior-anchored renormalization sharpens sample distinctions by expanding confident deviations and compressing uncertain scores. Across both image and video generation tasks, BPGO delivers consistently stronger semantic alignment, enhanced perceptual fidelity, and faster convergence than standard GRPO and recent variants.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "CVF open-access paper",
+    "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+    "version": "CVPR 2026 open-access version; arXiv:2511.18919v1 checked for first-posted metadata",
+    "method_locator": "Abstract; inter-group trust allocation and intra-group renormalization sections",
+    "evidence_locator": "Abstract; image and video experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "BPGO treats visual-reward scores as uncertain rather than equally trustworthy: a semantic prior anchors inter-group trust allocation and intra-group renormalization so that GRPO emphasizes confident feedback and suppresses ambiguous signals.",
+      "problem": "Text and visual content have a many-to-many relationship, so reward models may assign uncertain or weakly discriminative scores; standard GRPO can then underuse reliable feedback and overfit noisy comparisons.",
+      "contributions": [
+        "Introduces a semantic prior anchor to model uncertainty in visual-generation rewards.",
+        "Allocates trust across groups according to consistency with the prior.",
+        "Renormalizes scores within each group to expand confident deviations and compress uncertain ones."
+      ],
+      "evidence": "The paper reports stronger semantic alignment, perceptual fidelity, and convergence than standard GRPO and recent variants on image and video generation. Exact baselines, metrics, and numerical differences should be cited from the official experiments.",
+      "limitations": "BPGO's behavior depends on the suitability of its semantic prior and the reward models it calibrates. A prior can reduce ambiguity without establishing that every retained signal matches human judgment in all domains.",
+      "positioning": "BPGO is a reward-uncertainty and trust-allocation extension of GRPO. It is distinct from methods that only change reward granularity or temporal credit because it calibrates which group- and sample-level feedback should be trusted.",
+      "citation_ready": "Liu et al. introduce Bayesian Prior-Guided Optimization (BPGO), using a semantic prior to allocate trust across GRPO groups and renormalize within-group rewards for more reliable image and video generation post-training."
+    },
+    "zh-CN": {
+      "summary": "BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。",
+      "problem": "文本和视觉内容之间是多对多关系，reward model 容易产生不确定或区分度弱的分数，标准 GRPO 可能因此低估可靠反馈并过拟合噪声比较。",
+      "contributions": [
+        "引入 semantic prior anchor，显式建模视觉生成 reward 的不确定性。",
+        "根据各组与先验的一致性在 group 之间分配优化信任。",
+        "在 group 内重新归一化分数，放大可信偏差并压缩不确定分数。"
+      ],
+      "evidence": "论文报告在图像和视频生成中，相比标准 GRPO 及近期变体取得更强的语义对齐、感知质量和收敛速度。准确 baseline、指标和数值差异应引用正式实验。",
+      "limitations": "BPGO 的行为依赖 semantic prior 是否合适以及底层 reward model 的质量。先验能够减少歧义，但不能证明所有保留信号在所有领域都符合人类判断。",
+      "positioning": "BPGO 是 GRPO 的 reward uncertainty 与 trust allocation 扩展。它区别于只提高 reward 粒度或只做时间 credit 的方法，重点校准哪些 group 和 sample 级反馈值得信任。",
+      "citation_ready": "Liu 等提出 Bayesian Prior-Guided Optimization（BPGO），利用 semantic prior 在 GRPO group 之间分配信任并重整组内奖励，以提高图像和视频生成后训练信号的可靠性。"
+    }
+  },
+  "citation": {
+    "id": "liu2026bpgo",
+    "type": "paper-conference",
+    "title": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+    "author": [
+      {
+        "given": "Ruiying",
+        "family": "Liu"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Tianshu",
+        "family": "Yu"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      }
+    ],
+    "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "URL": "https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+    "abstract": "Group Relative Policy Optimization (GRPO) has emerged as an effective and lightweight framework for post-training visual generative models. However, its performance is fundamentally limited by the ambiguity of textual visual correspondence: a single prompt may validly describe diverse visual outputs, and a single image or video may support multiple equally correct interpretations. This many to many relationship leads reward models to generate uncertain and weakly discriminative signals, causing GRPO to underutilize reliable feedback and overfit noisy ones. We introduce Bayesian Prior-Guided Optimization (BPGO), a novel extension of GRPO that explicitly models reward uncertainty through a semantic prior anchor. BPGO adaptively modulates optimization trust at two levels: inter-group Bayesian trust allocation emphasizes updates from groups consistent with the prior while down-weighting ambiguous ones, and intra-group prior-anchored renormalization sharpens sample distinctions by expanding confident deviations and compressing uncertain scores. Across both image and video generation tasks, BPGO delivers consistently stronger semantic alignment, enhanced perceptual fidelity, and faster convergence than standard GRPO and recent variants.",
+    "keyword": "visual generation, GRPO, reward uncertainty, Bayesian prior, semantic alignment",
+    "page": "34408-34417"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2511.18919"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2511.18919"
+    }
+  ]
+}

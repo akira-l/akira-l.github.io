@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seeing What Matters: Visual Preference Policy Optimization for Visual Generation 中文解读 | 梁远智</title>
+  <meta name="description" content="ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/vipo/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vipo/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vipo/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vipo/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/vipo/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/vipo/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/vipo/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Seeing What Matters: Visual Preference Policy Optimization for Visual Generation 中文解读 | 梁远智">
+  <meta property="og:description" content="ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/vipo/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Seeing What Matters: Visual Preference Policy Optimization for Visual Generation 中文解读 | 梁远智">
+  <meta name="twitter:description" content="ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/vipo/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/vipo/",
+      "headline": "论文解读：Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+      "description": "ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/vipo/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/vipo/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/vipo/#paper",
+      "name": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+      "headline": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+      "abstract": "Reinforcement learning (RL) has become a powerful tool for post-training visual generative models, with Group Relative Policy Optimization (GRPO) increasingly used to align generators with human preferences. However, existing GRPO pipelines rely on a single scalar reward per sample, treating each image or video as a holistic entity and ignoring the rich spatial and temporal structure of visual content. This coarse supervision hinders the correction of localized artifacts and the modeling of fine-grained perceptual cues. We introduce Visual Preference Policy Optimization (ViPO), a GRPO variant that lifts scalar feedback into structured, pixel-level advantages. ViPO employs a Perceptual Structuring Module that uses pretrained vision backbones to construct spatially and temporally aware advantage maps, redistributing optimization pressure toward perceptually important regions while preserving the stability of standard GRPO. Across both image and video benchmarks, ViPO consistently outperforms vanilla GRPO, improving in-domain alignment with human-preference rewards and enhancing generalization on out-of-domain evaluations. The method is architecture-agnostic, lightweight, and fully compatible with existing GRPO training pipelines, providing a more expressive and informative learning signal for visual generation.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "pixel-level advantage",
+        "preference optimization",
+        "structured feedback"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2511.18719",
+          "url": "https://arxiv.org/abs/2511.18719"
+        }
+      ],
+      "sameAs": [
+        "https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+        "https://arxiv.org/abs/2511.18719",
+        "https://arxiv.org/pdf/2511.18719"
+      ],
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition"
+      },
+      "pagination": "27260-27269"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/vipo/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ViPO",
+          "item": "https://akira-l.github.io/zh/publications/vipo/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">ViPO</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>Seeing What Matters: Visual Preference Policy Optimization for Visual Generation</h1>
+      <p class="paper-authors"><strong>作者:</strong> Ziqi Ni, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · 页 27260-27269</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">visual generation</span><span class="tag">GRPO</span><span class="tag">pixel-level advantage</span><span class="tag">preference optimization</span><span class="tag">structured feedback</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/vipo/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.18719" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.18719" target="_blank" rel="noopener noreferrer">PDF</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Ziqi Ni, Yuanzhi Liang, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, and Xuelong Li</dd>
+          <dt>推荐论文引用</dt><dd>Ziqi Ni, Yuanzhi Liang, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, and Xuelong Li. “Seeing What Matters: Visual Preference Policy Optimization for Visual Generation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2026), 27260-27269.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>arXiv 首次提交</dt><dd>2025-11-24</dd><dt>arXiv 最近修订</dt><dd>2026-05-15</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>标量奖励把整张图像或整段视频视为不可分割的整体，GRPO 因而难以针对局部伪影或细粒度时空线索进行定向优化。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>提出把标量反馈提升为像素级结构化 advantage 的 GRPO 变体。</li><li>利用预训练视觉 backbone 构建具有空间和时间感知能力的 advantage map。</li><li>保持 architecture-agnostic、轻量并兼容现有 GRPO pipeline。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>论文报告在图像和视频 benchmark 上优于 vanilla GRPO，同时改善域内偏好对齐与域外泛化。准确奖励、数据集、backbone 和提升幅度应以正式论文表格为准。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>结构化 advantage map 由预训练视觉特征诱导，因此受这些 backbone 表征能力的影响；像素级优化也不能自动保证每个 reward model 都可靠或具备真实的局部因果性。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>ViPO 属于提高生成模型 RL 反馈粒度的工作。其关键不是替换生成器或改变 GRPO 总体框架，而是对 advantage 进行时空重分配。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Ni 等提出 Visual Preference Policy Optimization（ViPO），通过 perceptual structuring module 将标量奖励转换为具备时空感知的像素级优势，用于基于 GRPO 的图像和视频生成。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Reinforcement learning (RL) has become a powerful tool for post-training visual generative models, with Group Relative Policy Optimization (GRPO) increasingly used to align generators with human preferences. However, existing GRPO pipelines rely on a single scalar reward per sample, treating each image or video as a holistic entity and ignoring the rich spatial and temporal structure of visual content. This coarse supervision hinders the correction of localized artifacts and the modeling of fine-grained perceptual cues. We introduce Visual Preference Policy Optimization (ViPO), a GRPO variant that lifts scalar feedback into structured, pixel-level advantages. ViPO employs a Perceptual Structuring Module that uses pretrained vision backbones to construct spatially and temporally aware advantage maps, redistributing optimization pressure toward perceptually important regions while preserving the stability of standard GRPO. Across both image and video benchmarks, ViPO consistently outperforms vanilla GRPO, improving in-domain alignment with human-preference rewards and enhancing generalization on out-of-domain evaluations. The method is architecture-agnostic, lightweight, and fully compatible with existing GRPO training pipelines, providing a more expressive and informative learning signal for visual generation.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; Perceptual Structuring Module section</td></tr><tr><td>评测结论</td><td>Abstract; image and video benchmark sections</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">CVF open-access paper</a> (CVPR 2026 open-access version; arXiv:2511.18719v4 checked for revision date).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Ziqi Ni, Yuanzhi Liang, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, and Xuelong Li. “Seeing What Matters: Visual Preference Policy Optimization for Visual Generation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2026), 27260-27269.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/vipo/citation.bib">BibTeX</a><a href="/publications/vipo/citation.ris">RIS</a><a href="/publications/vipo/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.18719" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.18719" target="_blank" rel="noopener noreferrer">PDF</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects 中文解读 | 梁远智</title>
+  <meta name="description" content="MAAL 用单阶段 autoencoder pipeline 学习 3D articulated object affordance，其中 MultiModal Energized Encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/maal/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/maal/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/maal/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/maal/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/maal/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/maal/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/maal/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects 中文解读 | 梁远智">
+  <meta property="og:description" content="MAAL 用单阶段 autoencoder pipeline 学习 3D articulated object affordance，其中 MultiModal Energized Encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/maal/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects 中文解读 | 梁远智">
+  <meta name="twitter:description" content="MAAL 用单阶段 autoencoder pipeline 学习 3D articulated object affordance，其中 MultiModal Energized Encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/maal/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/maal/",
+      "headline": "论文解读：MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects",
+      "description": "MAAL 用单阶段 autoencoder pipeline 学习 3D articulated object affordance，其中 MultiModal Energized Encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/ICCV51070.2023.00027",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/maal/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/maal/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/maal/#paper",
+      "name": "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects",
+      "headline": "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects",
+      "abstract": "Inferring affordance for 3D articulated objects is a challenging and practical problem. It is a primary problem for applying robots to real-world scenarios. The exploration can be summarized as figuring out where to act and how to act. Correspondingly, the task mainly requires producing actionability scores, action proposals, and success likelihood scores according to the given 3D object information and robotic information. Current works usually directly process multi-modal inputs with early fusion and apply critic networks to produce scores, which leads to insufficient multi-modal learning ability and inefficiently iterative training in multiple stages. This paper proposes a novel Multimodality-Aware Autoencoder-based affordance Learning (MAAL) for the 3D object affordance problem. It is an efficient pipeline, trained in one go, and only requires a few positive samples in training data. More importantly, MAAL contains a MultiModal Energized Encoder (MME) for better multi-modal learning. It comprehensively models all multi-modal inputs from 3D objects and robotic actions. Jointly considering information from multiple modalities, the encoder further learns interactions between robots and objects. MME empowers the better multi-modal learning ability for understanding object affordance. Experimental results and visualizations, based on a large-scale dataset PartNet-Mobility, show the effectiveness of MAAL in learning multi-modal data and solving the 3D articulated object affordance problem.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2023",
+      "inLanguage": "en",
+      "keywords": [
+        "3D affordance learning",
+        "articulated objects",
+        "multimodal learning",
+        "autoencoder",
+        "robotic interaction"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/ICCV51070.2023.00027",
+          "url": "https://doi.org/10.1109/ICCV51070.2023.00027"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/ICCV51070.2023.00027",
+        "https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html",
+        "https://openaccess.thecvf.com/content/ICCV2023/papers/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.pdf"
+      ],
+      "url": "https://doi.org/10.1109/ICCV51070.2023.00027",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "2023 IEEE/CVF International Conference on Computer Vision (ICCV)"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "217-227"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/maal/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "MAAL",
+          "item": "https://akira-l.github.io/zh/publications/maal/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">MAAL</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects</h1>
+      <p class="paper-authors"><strong>作者:</strong> <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Xiaohan Wang, Linchao Zhu, Yi Yang</p>
+      <p class="paper-venue">IEEE/CVF International Conference on Computer Vision (ICCV 2023) · 2023 · 页 217-227</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">3D affordance learning</span><span class="tag">articulated objects</span><span class="tag">multimodal learning</span><span class="tag">autoencoder</span><span class="tag">robotic interaction</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/maal/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://doi.org/10.1109/ICCV51070.2023.00027" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html" target="_blank" rel="noopener noreferrer">Open access</a><a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Yuanzhi Liang, Xiaohan Wang, Linchao Zhu, and Yi Yang</dd>
+          <dt>推荐论文引用</dt><dd>Yuanzhi Liang, Xiaohan Wang, Linchao Zhu, and Yi Yang. “MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects.” 2023 IEEE/CVF International Conference on Computer Vision (ICCV) (2023), 217-227. https://doi.org/10.1109/ICCV51070.2023.00027.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>MAAL 用单阶段 autoencoder pipeline 学习 3D articulated object affordance，其中 MultiModal Energized Encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>Affordance prediction 需要从异构的物体与动作信息中判断机器人可以在哪里、以何种方式操作；early fusion 与多阶段 critic pipeline 对这些模态的利用可能不充分且训练低效。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>将 3D articulated-object affordance learning 重写为一次训练完成的 multimodality-aware autoencoder pipeline。</li><li>提出 MultiModal Energized Encoder，联合建模物体与机器人动作模态。</li><li>面向数据效率，只需少量成功交互样本进行训练。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>PartNet-Mobility 上的实验和可视化支持其多模态学习与 affordance prediction 结论；准确任务定义、actionability 指标和比较应引用 ICCV 正式论文。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>论文展示范围是 PartNet-Mobility 设置下的 articulated-object affordance learning；摘要并未证明它在未建模的真实传感、操作硬件或物体类别上同样有效。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>MAAL 同时改变了 affordance learning 的训练流程和多模态表示，以一次训练的 autoencoder formulation 替代 early-fusion、多阶段打分。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Liang 等提出 MAAL，通过 MultiModal Energized Encoder 联合表示三维物体与机器人动作信息，并以单阶段 autoencoder 框架学习 articulated-object affordance。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Inferring affordance for 3D articulated objects is a challenging and practical problem. It is a primary problem for applying robots to real-world scenarios. The exploration can be summarized as figuring out where to act and how to act. Correspondingly, the task mainly requires producing actionability scores, action proposals, and success likelihood scores according to the given 3D object information and robotic information. Current works usually directly process multi-modal inputs with early fusion and apply critic networks to produce scores, which leads to insufficient multi-modal learning ability and inefficiently iterative training in multiple stages. This paper proposes a novel Multimodality-Aware Autoencoder-based affordance Learning (MAAL) for the 3D object affordance problem. It is an efficient pipeline, trained in one go, and only requires a few positive samples in training data. More importantly, MAAL contains a MultiModal Energized Encoder (MME) for better multi-modal learning. It comprehensively models all multi-modal inputs from 3D objects and robotic actions. Jointly considering information from multiple modalities, the encoder further learns interactions between robots and objects. MME empowers the better multi-modal learning ability for understanding object affordance. Experimental results and visualizations, based on a large-scale dataset PartNet-Mobility, show the effectiveness of MAAL in learning multi-modal data and solving the 3D articulated object affordance problem.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; MAAL and MultiModal Energized Encoder sections</td></tr><tr><td>评测结论</td><td>Abstract; PartNet-Mobility experiments and visualizations</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://doi.org/10.1109/ICCV51070.2023.00027" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (ICCV 2023 version of record; CVF open-access copy cross-checked).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Yuanzhi Liang, Xiaohan Wang, Linchao Zhu, and Yi Yang. “MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects.” 2023 IEEE/CVF International Conference on Computer Vision (ICCV) (2023), 217-227. https://doi.org/10.1109/ICCV51070.2023.00027.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/maal/citation.bib">BibTeX</a><a href="/publications/maal/citation.ris">RIS</a><a href="/publications/maal/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/ICCV51070.2023.00027" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html" target="_blank" rel="noopener noreferrer">Open access</a><a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+TY  - RPRT
+TI  - VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation
+AU  - Zhang, Chi
+AU  - Liang, Yuanzhi
+AU  - Qiu, Xi
+AU  - Yi, Fangqiu
+AU  - Li, Xuelong
+PY  - 2024
+DA  - 2024/12/21
+T2  - arXiv
+AN  - arXiv:2412.16677
+DB  - arXiv
+M3  - Preprint
+UR  - https://arxiv.org/abs/2412.16677
+AB  - Generating high-quality videos from textual descriptions poses challenges in maintaining temporal coherence and control over subject motion. We propose VAST (Video As Storyboard from Text), a two-stage framework to address these challenges and enable high-quality video generation. In the first stage, StoryForge transforms textual descriptions into detailed storyboards, capturing human poses and object layouts to represent the structural essence of the scene. In the second stage, VisionForge generates videos from these storyboards, producing high-quality videos with smooth motion, temporal consistency, and spatial coherence. By decoupling text understanding from video generation, VAST enables precise control over subject dynamics and scene composition. Experiments on the VBench benchmark demonstrate that VAST outperforms existing methods in both visual quality and semantic expression, setting a new standard for dynamic and coherent video generation.
+ER  -

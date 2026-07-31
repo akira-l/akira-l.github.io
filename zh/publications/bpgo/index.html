@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation 中文解读 | 梁远智</title>
+  <meta name="description" content="BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/bpgo/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/bpgo/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/bpgo/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/bpgo/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/bpgo/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/bpgo/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/bpgo/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation 中文解读 | 梁远智">
+  <meta property="og:description" content="BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/bpgo/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation 中文解读 | 梁远智">
+  <meta name="twitter:description" content="BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/bpgo/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/bpgo/",
+      "headline": "论文解读：Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+      "description": "BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/bpgo/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/bpgo/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/bpgo/#paper",
+      "name": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+      "headline": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+      "abstract": "Group Relative Policy Optimization (GRPO) has emerged as an effective and lightweight framework for post-training visual generative models. However, its performance is fundamentally limited by the ambiguity of textual visual correspondence: a single prompt may validly describe diverse visual outputs, and a single image or video may support multiple equally correct interpretations. This many to many relationship leads reward models to generate uncertain and weakly discriminative signals, causing GRPO to underutilize reliable feedback and overfit noisy ones. We introduce Bayesian Prior-Guided Optimization (BPGO), a novel extension of GRPO that explicitly models reward uncertainty through a semantic prior anchor. BPGO adaptively modulates optimization trust at two levels: inter-group Bayesian trust allocation emphasizes updates from groups consistent with the prior while down-weighting ambiguous ones, and intra-group prior-anchored renormalization sharpens sample distinctions by expanding confident deviations and compressing uncertain scores. Across both image and video generation tasks, BPGO delivers consistently stronger semantic alignment, enhanced perceptual fidelity, and faster convergence than standard GRPO and recent variants.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Tianshu Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "reward uncertainty",
+        "Bayesian prior",
+        "semantic alignment"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2511.18919",
+          "url": "https://arxiv.org/abs/2511.18919"
+        }
+      ],
+      "sameAs": [
+        "https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+        "https://arxiv.org/abs/2511.18919",
+        "https://arxiv.org/pdf/2511.18919"
+      ],
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition"
+      },
+      "pagination": "34408-34417"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/bpgo/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "BPGO",
+          "item": "https://akira-l.github.io/zh/publications/bpgo/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">BPGO</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation</h1>
+      <p class="paper-authors"><strong>作者:</strong> Ruiying Liu, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Haibin Huang, Tianshu Yu, Chi Zhang</p>
+      <p class="paper-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · 页 34408-34417</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">visual generation</span><span class="tag">GRPO</span><span class="tag">reward uncertainty</span><span class="tag">Bayesian prior</span><span class="tag">semantic alignment</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/bpgo/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.18919" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.18919" target="_blank" rel="noopener noreferrer">PDF</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Ruiying Liu, Yuanzhi Liang, Haibin Huang, Tianshu Yu, and Chi Zhang</dd>
+          <dt>推荐论文引用</dt><dd>Ruiying Liu, Yuanzhi Liang, Haibin Huang, Tianshu Yu, and Chi Zhang. “Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2026), 34408-34417.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>arXiv 首次提交</dt><dd>2025-11-24</dd><dt>arXiv 最近修订</dt><dd>2025-11-24</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>文本和视觉内容之间是多对多关系，reward model 容易产生不确定或区分度弱的分数，标准 GRPO 可能因此低估可靠反馈并过拟合噪声比较。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>引入 semantic prior anchor，显式建模视觉生成 reward 的不确定性。</li><li>根据各组与先验的一致性在 group 之间分配优化信任。</li><li>在 group 内重新归一化分数，放大可信偏差并压缩不确定分数。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>论文报告在图像和视频生成中，相比标准 GRPO 及近期变体取得更强的语义对齐、感知质量和收敛速度。准确 baseline、指标和数值差异应引用正式实验。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>BPGO 的行为依赖 semantic prior 是否合适以及底层 reward model 的质量。先验能够减少歧义，但不能证明所有保留信号在所有领域都符合人类判断。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>BPGO 是 GRPO 的 reward uncertainty 与 trust allocation 扩展。它区别于只提高 reward 粒度或只做时间 credit 的方法，重点校准哪些 group 和 sample 级反馈值得信任。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Liu 等提出 Bayesian Prior-Guided Optimization（BPGO），利用 semantic prior 在 GRPO group 之间分配信任并重整组内奖励，以提高图像和视频生成后训练信号的可靠性。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Group Relative Policy Optimization (GRPO) has emerged as an effective and lightweight framework for post-training visual generative models. However, its performance is fundamentally limited by the ambiguity of textual visual correspondence: a single prompt may validly describe diverse visual outputs, and a single image or video may support multiple equally correct interpretations. This many to many relationship leads reward models to generate uncertain and weakly discriminative signals, causing GRPO to underutilize reliable feedback and overfit noisy ones. We introduce Bayesian Prior-Guided Optimization (BPGO), a novel extension of GRPO that explicitly models reward uncertainty through a semantic prior anchor. BPGO adaptively modulates optimization trust at two levels: inter-group Bayesian trust allocation emphasizes updates from groups consistent with the prior while down-weighting ambiguous ones, and intra-group prior-anchored renormalization sharpens sample distinctions by expanding confident deviations and compressing uncertain scores. Across both image and video generation tasks, BPGO delivers consistently stronger semantic alignment, enhanced perceptual fidelity, and faster convergence than standard GRPO and recent variants.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; inter-group trust allocation and intra-group renormalization sections</td></tr><tr><td>评测结论</td><td>Abstract; image and video experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">CVF open-access paper</a> (CVPR 2026 open-access version; arXiv:2511.18919v1 checked for first-posted metadata).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Ruiying Liu, Yuanzhi Liang, Haibin Huang, Tianshu Yu, and Chi Zhang. “Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2026), 34408-34417.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/bpgo/citation.bib">BibTeX</a><a href="/publications/bpgo/citation.ris">RIS</a><a href="/publications/bpgo/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.18919" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.18919" target="_blank" rel="noopener noreferrer">PDF</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

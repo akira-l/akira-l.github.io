@@ -1,0 +1,47 @@
+{
+  "id": "liu2025uniinter",
+  "type": "paper-conference",
+  "title": "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts",
+  "author": [
+    {
+      "given": "Sheng",
+      "family": "Liu"
+    },
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Jiepeng",
+      "family": "Wang"
+    },
+    {
+      "given": "Sidan",
+      "family": "Du"
+    },
+    {
+      "given": "Chi",
+      "family": "Zhang"
+    },
+    {
+      "given": "Xuelong",
+      "family": "Li"
+    }
+  ],
+  "container-title": "Proceedings of the SIGGRAPH Asia 2025 Conference Papers",
+  "issued": {
+    "date-parts": [
+      [
+        2025,
+        12,
+        14
+      ]
+    ]
+  },
+  "URL": "https://doi.org/10.1145/3757377.3763954",
+  "abstract": "We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.",
+  "keyword": "3D human motion, human-object interaction, human-human interaction, human-scene interaction, unified representation",
+  "publisher": "ACM",
+  "DOI": "10.1145/3757377.3763954",
+  "page": "1-11"
+}

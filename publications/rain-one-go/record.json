@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "slug": "rain-one-go",
+  "canonical_url": "https://akira-l.github.io/publications/rain-one-go/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/rain-one-go/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/rain-one-go/"
+  },
+  "title": "Removing Raindrops and Rain Streaks in One Go",
+  "short_title": "Rain-One-Go",
+  "authors": [
+    "Ruijie Quan",
+    "Xin Yu",
+    "Yuanzhi Liang",
+    "Yi Yang"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2021)",
+    "citation_container_title": "2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "status": "published",
+    "year": 2021,
+    "publication_date": "2021",
+    "publisher": "IEEE",
+    "pages": "9143-9152",
+    "alternate_pagination": {
+      "pages": "9147-9156",
+      "version": "CVF open-access copy",
+      "url": "https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html"
+    }
+  },
+  "identifiers": {
+    "doi": "10.1109/CVPR46437.2021.00903"
+  },
+  "arxiv_dates": {},
+  "keywords": [
+    "image deraining",
+    "raindrop removal",
+    "rain streak removal",
+    "neural architecture search",
+    "RainDS"
+  ],
+  "official_abstract": "Existing rain-removal algorithms often tackle either rain streak removal or raindrop removal, and thus may fail to handle real-world rainy scenes. Besides, the lack of real-world deraining datasets comprising different types of rain and their corresponding rain-free ground-truth also impedes deraining algorithm development. In this paper, we aim to address real-world deraining problems from two aspects. First, we propose a complementary cascaded network architecture, namely CCN, to remove rain streaks and raindrops in a unified framework. Specifically, our CCN removes raindrops and rain streaks in a complementary fashion, i.e., raindrop removal followed by rain streak removal and vice versa, and then fuses the results via an attention based fusion module. Considering significant shape and structure differences between rain streaks and raindrops, it is difficult to manually design a sophisticated network to remove them effectively. Thus, we employ neural architecture search to adaptively find optimal architectures within our specified deraining search space. Second, we present a new real-world rain dataset, namely RainDS, to prosper the development of deraining algorithms in practical scenarios. RainDS consists of rain images in different types and their corresponding rain-free ground-truth, including rain streak only, raindrop only, and both of them. Extensive experimental results on both existing benchmarks and RainDS demonstrate that our method outperforms the state-of-the-art.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "IEEE version of record",
+    "url": "https://doi.org/10.1109/CVPR46437.2021.00903",
+    "version": "CVPR 2021 version of record; CVF open-access copy has alternate pagination 9147-9156",
+    "method_locator": "Abstract; complementary cascaded network, attention fusion, and NAS sections",
+    "evidence_locator": "Abstract; existing benchmarks and RainDS experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "The method uses a complementary cascaded network with both raindrop→streak and streak→raindrop branches, fuses their outputs with attention, searches deraining blocks with neural architecture search, and introduces the real-world RainDS dataset.",
+      "problem": "Methods designed for only rain streaks or only lens raindrops do not cover mixed real-world rain, while paired real/rain-free data for multiple degradation types is scarce.",
+      "contributions": [
+        "Introduces a complementary cascaded network that performs the two removal orders in parallel.",
+        "Fuses complementary branch results through an attention-based module and searches deraining architectures automatically.",
+        "Introduces RainDS with streak-only, raindrop-only, and combined rain images plus rain-free ground truth."
+      ],
+      "evidence": "Experiments on existing benchmarks and RainDS report performance above the compared state of the art. Exact metrics and train/test conditions should be cited from the CVPR paper.",
+      "limitations": "The framework and RainDS address the rain types represented in the search space and dataset. Generalization to other weather effects, sensors, or unpaired deployment domains is a separate question.",
+      "positioning": "This is not simply a one-pass joint restoration network: its key design is complementary cascades in both degradation-removal orders, attention fusion, architecture search, and a new real-world dataset.",
+      "citation_ready": "Quan et al. jointly address raindrops and rain streaks with a complementary cascaded network that fuses both removal orders, uses neural architecture search for deraining blocks, and introduces the RainDS dataset."
+    },
+    "zh-CN": {
+      "summary": "该方法包含 raindrop→streak 和 streak→raindrop 两条互补级联分支，以 attention 融合输出，用 neural architecture search 搜索去雨模块，并提出真实世界 RainDS 数据集。",
+      "problem": "只处理雨丝或只处理镜头雨滴的方法难以覆盖两者同时出现的真实场景，而包含多种雨退化及对应无雨真值的成对真实数据也很少。",
+      "contributions": [
+        "提出 complementary cascaded network，并行执行两种去除顺序。",
+        "通过 attention 模块融合互补分支，并自动搜索 deraining architecture。",
+        "提出 RainDS，包含 rain-streak-only、raindrop-only 和两者同时出现的图像及无雨 ground truth。"
+      ],
+      "evidence": "现有 benchmark 与 RainDS 上的实验报告优于对比 state of the art；准确指标和训练/测试条件应引用 CVPR 论文。",
+      "limitations": "框架和 RainDS 覆盖的是搜索空间与数据集中表示的雨类型；对其他天气退化、传感器或无配对部署域的泛化仍是独立问题。",
+      "positioning": "这不只是笼统的一次联合恢复网络，其关键是两种退化去除顺序的互补级联、attention fusion、architecture search 和真实数据集。",
+      "citation_ready": "Quan 等通过互补级联网络联合处理雨滴与雨丝，融合两种去除顺序，使用 neural architecture search 设计去雨模块，并提出 RainDS 数据集。"
+    }
+  },
+  "citation": {
+    "id": "quan2021rain",
+    "type": "paper-conference",
+    "title": "Removing Raindrops and Rain Streaks in One Go",
+    "author": [
+      {
+        "given": "Ruijie",
+        "family": "Quan"
+      },
+      {
+        "given": "Xin",
+        "family": "Yu"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Yi",
+        "family": "Yang"
+      }
+    ],
+    "container-title": "2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1109/CVPR46437.2021.00903",
+    "abstract": "Existing rain-removal algorithms often tackle either rain streak removal or raindrop removal, and thus may fail to handle real-world rainy scenes. Besides, the lack of real-world deraining datasets comprising different types of rain and their corresponding rain-free ground-truth also impedes deraining algorithm development. In this paper, we aim to address real-world deraining problems from two aspects. First, we propose a complementary cascaded network architecture, namely CCN, to remove rain streaks and raindrops in a unified framework. Specifically, our CCN removes raindrops and rain streaks in a complementary fashion, i.e., raindrop removal followed by rain streak removal and vice versa, and then fuses the results via an attention based fusion module. Considering significant shape and structure differences between rain streaks and raindrops, it is difficult to manually design a sophisticated network to remove them effectively. Thus, we employ neural architecture search to adaptively find optimal architectures within our specified deraining search space. Second, we present a new real-world rain dataset, namely RainDS, to prosper the development of deraining algorithms in practical scenarios. RainDS consists of rain images in different types and their corresponding rain-free ground-truth, including rain streak only, raindrop only, and both of them. Extensive experimental results on both existing benchmarks and RainDS demonstrate that our method outperforms the state-of-the-art.",
+    "keyword": "image deraining, raindrop removal, rain streak removal, neural architecture search, RainDS",
+    "publisher": "IEEE",
+    "DOI": "10.1109/CVPR46437.2021.00903",
+    "page": "9143-9152"
+  },
+  "resources": [
+    {
+      "label": "Version of record",
+      "url": "https://doi.org/10.1109/CVPR46437.2021.00903"
+    },
+    {
+      "label": "Open access",
+      "url": "https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html"
+    },
+    {
+      "label": "PDF",
+      "url": "https://openaccess.thecvf.com/content/CVPR2021/papers/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.pdf"
+    }
+  ]
+}

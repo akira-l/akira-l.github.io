@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food and Ingredient Joint Learning for Fine-Grained Recognition 中文解读 | 梁远智</title>
+  <meta name="description" content="论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/food-ingredient/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/food-ingredient/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/food-ingredient/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/food-ingredient/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/food-ingredient/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/food-ingredient/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/food-ingredient/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Food and Ingredient Joint Learning for Fine-Grained Recognition 中文解读 | 梁远智">
+  <meta property="og:description" content="论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/food-ingredient/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Food and Ingredient Joint Learning for Fine-Grained Recognition 中文解读 | 梁远智">
+  <meta name="twitter:description" content="论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/food-ingredient/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/food-ingredient/",
+      "headline": "论文解读：Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "description": "论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/TCSVT.2020.3020079",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/food-ingredient/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/food-ingredient/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/food-ingredient/#paper",
+      "name": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "headline": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "abstract": "Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Chengxu Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Yao Xue"
+        },
+        {
+          "@type": "Person",
+          "name": "Xueming Qian"
+        },
+        {
+          "@type": "Person",
+          "name": "Jianlong Fu"
+        }
+      ],
+      "datePublished": "2021-06",
+      "inLanguage": "en",
+      "keywords": [
+        "fine-grained food recognition",
+        "ingredient recognition",
+        "attention fusion",
+        "joint learning",
+        "class imbalance"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/TCSVT.2020.3020079",
+          "url": "https://doi.org/10.1109/TCSVT.2020.3020079"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/TCSVT.2020.3020079",
+        "https://dblp.org/rec/journals/tcsv/LiuLXQF21"
+      ],
+      "url": "https://doi.org/10.1109/TCSVT.2020.3020079",
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "IEEE Transactions on Circuits and Systems for Video Technology"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "2480-2493",
+      "volumeNumber": "31",
+      "issueNumber": "6"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/food-ingredient/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Food–Ingredient Joint Learning",
+          "item": "https://akira-l.github.io/zh/publications/food-ingredient/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Food–Ingredient Joint Learning</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>Food and Ingredient Joint Learning for Fine-Grained Recognition</h1>
+      <p class="paper-authors"><strong>作者:</strong> Chengxu Liu, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Yao Xue, Xueming Qian, Jianlong Fu</p>
+      <p class="paper-venue">IEEE Transactions on Circuits and Systems for Video Technology · 2021 · 卷 31(6) · 页 2480-2493</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">fine-grained food recognition</span><span class="tag">ingredient recognition</span><span class="tag">attention fusion</span><span class="tag">joint learning</span><span class="tag">class imbalance</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/food-ingredient/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://dblp.org/rec/journals/tcsv/LiuLXQF21" target="_blank" rel="noopener noreferrer">DBLP</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Chengxu Liu, Yuanzhi Liang, Yao Xue, Xueming Qian, and Jianlong Fu</dd>
+          <dt>推荐论文引用</dt><dd>Chengxu Liu, Yuanzhi Liang, Yao Xue, Xueming Qian, and Jianlong Fu. “Food and Ingredient Joint Learning for Fine-Grained Recognition.” IEEE Transactions on Circuits and Systems for Video Technology (2021), 31(6), 2480-2493. https://doi.org/10.1109/TCSVT.2020.3020079.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>Online 首发</dt><dd>2020-08-28</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>只看整道菜的全局外观容易遗漏非结构化中餐图像中的局部食材证据，同时食材标签还存在明显不均衡。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>提出 Attention Fusion Network（AFN），提取对菜品和食材都有判别力的区域特征。</li><li>联合优化细粒度菜品类别与 ingredient recognition。</li><li>使用 balance focal loss 缓解食材类别不均衡。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>论文在 VIREO Food-172 上报告了当时 state-of-the-art 的 ingredient-recognition 表现；准确指标、划分与比较应引用 IEEE 文章。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>已评测数据集和菜系范围具体，其他场景中的食材 taxonomy、地域差异与标签不均衡可能不同。摘要明确支持 AFN、joint learning 和 balance focal loss，而不只是笼统的多任务学习。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>该工作把细粒度食物识别与显式食材预测、区域 attention 连接起来，将 ingredient composition 同时视为辅助语义和受类别不均衡影响的预测目标。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Liu 等利用 Attention Fusion Network 与 balance focal loss 联合建模细粒度菜品类别和食材，以提取判别区域并缓解 ingredient imbalance。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; Attention Fusion Network, joint-learning module, and balance focal loss</td></tr><tr><td>评测结论</td><td>Abstract; VIREO Food-172 experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (IEEE early access 2020-08-28; TCSVT 31(6), June 2021).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Chengxu Liu, Yuanzhi Liang, Yao Xue, Xueming Qian, and Jianlong Fu. “Food and Ingredient Joint Learning for Fine-Grained Recognition.” IEEE Transactions on Circuits and Systems for Video Technology (2021), 31(6), 2480-2493. https://doi.org/10.1109/TCSVT.2020.3020079.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/food-ingredient/citation.bib">BibTeX</a><a href="/publications/food-ingredient/citation.ris">RIS</a><a href="/publications/food-ingredient/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://dblp.org/rec/journals/tcsv/LiuLXQF21" target="_blank" rel="noopener noreferrer">DBLP</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

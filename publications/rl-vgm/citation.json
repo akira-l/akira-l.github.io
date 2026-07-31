@@ -1,0 +1,49 @@
+{
+  "id": "liang2026rlvisualgeneration",
+  "type": "article-journal",
+  "title": "Integrating reinforcement learning with visual generative models: foundations and advances",
+  "author": [
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Yijie",
+      "family": "Fang"
+    },
+    {
+      "given": "Rui",
+      "family": "Li"
+    },
+    {
+      "given": "Ziqi",
+      "family": "Ni"
+    },
+    {
+      "given": "Ruijie",
+      "family": "Su"
+    },
+    {
+      "given": "Chi",
+      "family": "Zhang"
+    }
+  ],
+  "container-title": "Vicinagearth",
+  "issued": {
+    "date-parts": [
+      [
+        2026,
+        1,
+        29
+      ]
+    ]
+  },
+  "URL": "https://doi.org/10.1007/s44336-025-00030-z",
+  "abstract": "Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.",
+  "keyword": "reinforcement learning, visual generative models, image generation, video generation, 3D and 4D generation, survey",
+  "publisher": "Springer Nature",
+  "DOI": "10.1007/s44336-025-00030-z",
+  "volume": "3",
+  "issue": "1",
+  "page": "2"
+}

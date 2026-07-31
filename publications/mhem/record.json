@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "slug": "mhem",
+  "canonical_url": "https://akira-l.github.io/publications/mhem/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/mhem/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/mhem/"
+  },
+  "title": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+  "short_title": "MHEM",
+  "authors": [
+    "Yuanzhi Liang",
+    "Linchao Zhu",
+    "Xiaohan Wang",
+    "Yi Yang"
+  ],
+  "publication": {
+    "kind": "journal",
+    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
+    "citation_container_title": "IEEE Transactions on Neural Networks and Learning Systems",
+    "status": "published",
+    "year": 2024,
+    "publication_date": "2024-05",
+    "online_date": "2022-11-21",
+    "publisher": "IEEE",
+    "volume": "35",
+    "issue": "5",
+    "pages": "7048-7059"
+  },
+  "identifiers": {
+    "doi": "10.1109/TNNLS.2022.3213563"
+  },
+  "arxiv_dates": {},
+  "keywords": [
+    "fine-grained visual classification",
+    "hard examples",
+    "loss modulation",
+    "generalization",
+    "overfitting"
+  ],
+  "official_abstract": "Though significant progress has been achieved on fine-grained visual classification (FGVC), severe overfitting still hinders model generalization. A recent study shows that hard samples in the training set can be easily fitted, but most existing FGVC methods fail to classify some hard examples in the test set. The reason is that the model overfits those hard examples in the training set, but does not learn to generalize to unseen examples in the test set. In this paper, we propose a Moderate Hard Example Modulation (MHEM) strategy to properly modulate the hard examples. MHEM encourages the model to not overfit hard examples and offers better generalization and discrimination. First, we introduce three conditions and formulate a general form of a modulated loss function. Second, we instantiate the loss function and provide a strong baseline for FGVC, where the performance of a naive backbone can be boosted and be comparable with recent methods. Moreover, we demonstrate that our baseline can be readily incorporated into the existing methods and empower these methods to be more discriminative. Equipped with our strong baseline, we achieve consistent improvements on three typical fine-grained visual classification datasets, i.e., CUB-200-2011, Stanford Cars, and FGVC-Aircraft. We hope the idea of Moderate Hard Example Modulation will inspire future research work toward more effective fine-grained visual recognition.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "IEEE version of record",
+    "url": "https://doi.org/10.1109/TNNLS.2022.3213563",
+    "version": "IEEE early access 2022-11-21; TNNLS 35(5), May 2024",
+    "method_locator": "Abstract; Moderate Hard Example Modulation formulation",
+    "evidence_locator": "Abstract; CUB-200-2011, Stanford Cars, and FGVC-Aircraft experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.",
+      "problem": "Fine-grained networks can perfectly fit very hard training examples yet fail on similarly hard test cases, indicating memorization rather than transferable discrimination.",
+      "contributions": [
+        "Defines three conditions and a general form for modulated losses that treat hard examples moderately.",
+        "Instantiates the formulation as a simple, strong FGVC baseline.",
+        "Shows that the baseline can be incorporated into existing fine-grained methods."
+      ],
+      "evidence": "The paper reports consistent improvements on CUB-200-2011, Stanford Cars, and FGVC-Aircraft. Use the final TNNLS volume and experiment tables for precise comparisons.",
+      "limitations": "MHEM does not automatically identify whether every extreme sample is mislabeled, atypical, or genuinely informative; it controls influence through loss design. Its evidence is centered on fine-grained classification.",
+      "positioning": "MHEM is a loss-modulation and generalization baseline for FGVC. The acronym expands to Moderate Hard Example Modulation, not 'Mining'; the article appeared online in 2022 and in TNNLS volume 35, issue 5 in 2024.",
+      "citation_ready": "Liang et al. propose Moderate Hard Example Modulation (MHEM), a loss-modulation strategy that limits overemphasis on extreme hard samples to improve generalization in fine-grained visual classification."
+    },
+    "zh-CN": {
+      "summary": "MHEM 的全称是 Moderate Hard Example Modulation：它为调制损失定义条件，强调有信息量的困难样本，同时避免极端样本的影响不断增大并被细粒度分类器直接记忆。",
+      "problem": "细粒度网络可能完全拟合训练集中的极难样本，却仍无法识别测试集中的相似难例，说明模型学到的是记忆而非可迁移判别能力。",
+      "contributions": [
+        "提出三个条件并定义适度处理 hard example 的通用 modulated loss 形式。",
+        "将该形式实例化为简单而强的 FGVC baseline。",
+        "说明这一 baseline 可接入现有细粒度识别方法。"
+      ],
+      "evidence": "论文在 CUB-200-2011、Stanford Cars 与 FGVC-Aircraft 上报告一致改进；精确比较应引用 TNNLS 最终版本和实验表格。",
+      "limitations": "MHEM 不会自动判断每个极端样本究竟是错标、异常还是确有信息，而是通过 loss design 控制其影响；证据主要集中在细粒度分类。",
+      "positioning": "MHEM 是 FGVC 的 loss modulation 与泛化 baseline。缩写指 Moderate Hard Example Modulation，不是 Mining；论文 2022 年 online，最终刊于 2024 年 TNNLS 35(5)。",
+      "citation_ready": "Liang 等提出 Moderate Hard Example Modulation（MHEM），通过限制极端困难样本的过度影响，改善细粒度视觉分类的泛化。"
+    }
+  },
+  "citation": {
+    "id": "liang2024mhem",
+    "type": "article-journal",
+    "title": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Linchao",
+        "family": "Zhu"
+      },
+      {
+        "given": "Xiaohan",
+        "family": "Wang"
+      },
+      {
+        "given": "Yi",
+        "family": "Yang"
+      }
+    ],
+    "container-title": "IEEE Transactions on Neural Networks and Learning Systems",
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          5
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1109/TNNLS.2022.3213563",
+    "abstract": "Though significant progress has been achieved on fine-grained visual classification (FGVC), severe overfitting still hinders model generalization. A recent study shows that hard samples in the training set can be easily fitted, but most existing FGVC methods fail to classify some hard examples in the test set. The reason is that the model overfits those hard examples in the training set, but does not learn to generalize to unseen examples in the test set. In this paper, we propose a Moderate Hard Example Modulation (MHEM) strategy to properly modulate the hard examples. MHEM encourages the model to not overfit hard examples and offers better generalization and discrimination. First, we introduce three conditions and formulate a general form of a modulated loss function. Second, we instantiate the loss function and provide a strong baseline for FGVC, where the performance of a naive backbone can be boosted and be comparable with recent methods. Moreover, we demonstrate that our baseline can be readily incorporated into the existing methods and empower these methods to be more discriminative. Equipped with our strong baseline, we achieve consistent improvements on three typical fine-grained visual classification datasets, i.e., CUB-200-2011, Stanford Cars, and FGVC-Aircraft. We hope the idea of Moderate Hard Example Modulation will inspire future research work toward more effective fine-grained visual recognition.",
+    "keyword": "fine-grained visual classification, hard examples, loss modulation, generalization, overfitting",
+    "publisher": "IEEE",
+    "DOI": "10.1109/TNNLS.2022.3213563",
+    "volume": "35",
+    "issue": "5",
+    "page": "7048-7059"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://doi.org/10.1109/TNNLS.2022.3213563"
+    },
+    {
+      "label": "IEEE Xplore",
+      "url": "https://ieeexplore.ieee.org/document/9956020"
+    }
+  ]
+}

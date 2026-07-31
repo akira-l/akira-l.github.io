@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "slug": "uni-inter",
+  "canonical_url": "https://akira-l.github.io/publications/uni-inter/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/uni-inter/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/uni-inter/"
+  },
+  "title": "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts",
+  "short_title": "Uni-Inter",
+  "authors": [
+    "Sheng Liu",
+    "Yuanzhi Liang",
+    "Jiepeng Wang",
+    "Sidan Du",
+    "Chi Zhang",
+    "Xuelong Li"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "SIGGRAPH Asia 2025 Conference Papers",
+    "citation_container_title": "Proceedings of the SIGGRAPH Asia 2025 Conference Papers",
+    "status": "published",
+    "year": 2025,
+    "publication_date": "2025-12-14",
+    "print_date": "2025-12-15",
+    "publisher": "ACM",
+    "pages": "1-11"
+  },
+  "identifiers": {
+    "doi": "10.1145/3757377.3763954",
+    "arxiv": "2511.13032",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-11-17",
+    "last_revised": "2025-11-17"
+  },
+  "keywords": [
+    "3D human motion",
+    "human-object interaction",
+    "human-human interaction",
+    "human-scene interaction",
+    "unified representation"
+  ],
+  "official_abstract": "We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "ACM version of record",
+    "url": "https://dl.acm.org/doi/10.1145/3757377.3763954",
+    "version": "SIGGRAPH Asia 2025 version of record; arXiv:2511.13032v1 used for accessible abstract",
+    "method_locator": "Abstract; Unified Interactive Volume and probabilistic prediction sections",
+    "evidence_locator": "Abstract; experiments across three interaction tasks"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.",
+      "problem": "Interaction-motion systems are commonly designed per task, which fragments representations and limits transfer across people, objects, scenes, and combinations of these entities.",
+      "contributions": [
+        "Introduces a single architecture for human–human, human–object, and human–scene motion generation.",
+        "Encodes heterogeneous entities in a shared volumetric field called the Unified Interactive Volume.",
+        "Formulates generation as joint-wise probabilistic prediction to capture spatial dependencies and context-aware behavior."
+      ],
+      "evidence": "Experiments cover three representative interaction tasks and report competitive performance plus generalization to novel entity combinations. Exact datasets, metrics, and comparisons should be taken from the ACM paper.",
+      "limitations": "A shared representation does not imply that every interaction type or unseen composition is solved; demonstrated generalization is bounded by the evaluated tasks, entity encodings, and motion distributions.",
+      "positioning": "Uni-Inter is a unified-representation approach to interaction-aware motion synthesis. Its contribution is not merely multi-task training: UIV supplies a common spatial field for relational reasoning across heterogeneous interaction types.",
+      "citation_ready": "Liu et al. propose Uni-Inter, a task-agnostic 3D motion-generation framework that encodes human, object, and scene entities in a Unified Interactive Volume and performs joint-wise probabilistic motion prediction."
+    },
+    "zh-CN": {
+      "summary": "Uni-Inter 用 Unified Interactive Volume 统一表示人—人、人—物和人—场景交互，并逐关节进行概率式动作预测，让一个 task-agnostic 模型能够推理异构和复合交互上下文。",
+      "problem": "交互动作生成通常按任务分别设计模型和表示，导致人、物体、场景及其组合之间难以共享知识与泛化。",
+      "contributions": [
+        "用单一架构支持 human–human、human–object 和 human–scene motion generation。",
+        "提出 Unified Interactive Volume，把异构交互实体编码到共享体积场中。",
+        "将动作生成表述为 joint-wise probabilistic prediction，以建模空间依赖和上下文行为。"
+      ],
+      "evidence": "实验覆盖三类代表性交互任务，报告了有竞争力的结果以及对新实体组合的泛化；具体数据集、指标与比较应以 ACM 正式论文为准。",
+      "limitations": "共享表示不意味着已经解决所有交互类型或任意未见组合；泛化结论受已评测任务、实体编码和动作分布范围约束。",
+      "positioning": "Uni-Inter 是交互动作合成中的统一表示方法。它不只是做多任务训练，UIV 还为异构交互提供了共同的空间关系推理场。",
+      "citation_ready": "Liu 等提出 Uni-Inter，在 Unified Interactive Volume 中统一编码人物、物体和场景实体，并通过逐关节概率预测生成三维交互动作。"
+    }
+  },
+  "citation": {
+    "id": "liu2025uniinter",
+    "type": "paper-conference",
+    "title": "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts",
+    "author": [
+      {
+        "given": "Sheng",
+        "family": "Liu"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Jiepeng",
+        "family": "Wang"
+      },
+      {
+        "given": "Sidan",
+        "family": "Du"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xuelong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "Proceedings of the SIGGRAPH Asia 2025 Conference Papers",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          14
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1145/3757377.3763954",
+    "abstract": "We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.",
+    "keyword": "3D human motion, human-object interaction, human-human interaction, human-scene interaction, unified representation",
+    "publisher": "ACM",
+    "DOI": "10.1145/3757377.3763954",
+    "page": "1-11"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://dl.acm.org/doi/10.1145/3757377.3763954"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2511.13032"
+    }
+  ]
+}

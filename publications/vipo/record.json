@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "slug": "vipo",
+  "canonical_url": "https://akira-l.github.io/publications/vipo/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/vipo/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/vipo/"
+  },
+  "title": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+  "short_title": "ViPO",
+  "authors": [
+    "Ziqi Ni",
+    "Yuanzhi Liang",
+    "Rui Li",
+    "Yi Zhou",
+    "Haibin Huang",
+    "Chi Zhang",
+    "Xuelong Li"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026)",
+    "citation_container_title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    "status": "published",
+    "year": 2026,
+    "publication_date": "2026",
+    "pages": "27260-27269"
+  },
+  "identifiers": {
+    "arxiv": "2511.18719",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-11-24",
+    "last_revised": "2026-05-15"
+  },
+  "keywords": [
+    "visual generation",
+    "GRPO",
+    "pixel-level advantage",
+    "preference optimization",
+    "structured feedback"
+  ],
+  "official_abstract": "Reinforcement learning (RL) has become a powerful tool for post-training visual generative models, with Group Relative Policy Optimization (GRPO) increasingly used to align generators with human preferences. However, existing GRPO pipelines rely on a single scalar reward per sample, treating each image or video as a holistic entity and ignoring the rich spatial and temporal structure of visual content. This coarse supervision hinders the correction of localized artifacts and the modeling of fine-grained perceptual cues. We introduce Visual Preference Policy Optimization (ViPO), a GRPO variant that lifts scalar feedback into structured, pixel-level advantages. ViPO employs a Perceptual Structuring Module that uses pretrained vision backbones to construct spatially and temporally aware advantage maps, redistributing optimization pressure toward perceptually important regions while preserving the stability of standard GRPO. Across both image and video benchmarks, ViPO consistently outperforms vanilla GRPO, improving in-domain alignment with human-preference rewards and enhancing generalization on out-of-domain evaluations. The method is architecture-agnostic, lightweight, and fully compatible with existing GRPO training pipelines, providing a more expressive and informative learning signal for visual generation.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "CVF open-access paper",
+    "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+    "version": "CVPR 2026 open-access version; arXiv:2511.18719v4 checked for revision date",
+    "method_locator": "Abstract; Perceptual Structuring Module section",
+    "evidence_locator": "Abstract; image and video benchmark sections"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "ViPO turns one scalar reward per generated sample into spatially and temporally structured, pixel-level advantage maps, using pretrained vision features to focus GRPO updates on perceptually important regions while retaining the standard training pipeline.",
+      "problem": "A scalar reward treats an image or video as one indivisible unit, so GRPO cannot explicitly direct optimization toward localized artifacts or fine-grained spatial and temporal cues.",
+      "contributions": [
+        "Introduces a GRPO variant that lifts scalar feedback into pixel-level structured advantages.",
+        "Uses a Perceptual Structuring Module with pretrained vision backbones to build spatially and temporally aware advantage maps.",
+        "Keeps the method lightweight, architecture-agnostic, and compatible with existing GRPO pipelines."
+      ],
+      "evidence": "The paper reports improvements over vanilla GRPO on both image and video benchmarks, including in-domain preference alignment and out-of-domain generalization. Consult the official tables for exact rewards, datasets, backbones, and effect sizes.",
+      "limitations": "The structured map is induced by pretrained visual features and therefore depends on what those backbones encode. Pixel-level optimization does not by itself guarantee that every reward model is reliable or causally localized.",
+      "positioning": "ViPO belongs to work that increases reward granularity for generative-model RL. Its defining step is spatial–temporal redistribution of advantage rather than changing the base generator or replacing GRPO's overall optimization structure.",
+      "citation_ready": "Ni et al. propose Visual Preference Policy Optimization (ViPO), which uses a perceptual structuring module to transform scalar rewards into spatially and temporally aware pixel-level advantages for GRPO-based image and video generation."
+    },
+    "zh-CN": {
+      "summary": "ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。",
+      "problem": "标量奖励把整张图像或整段视频视为不可分割的整体，GRPO 因而难以针对局部伪影或细粒度时空线索进行定向优化。",
+      "contributions": [
+        "提出把标量反馈提升为像素级结构化 advantage 的 GRPO 变体。",
+        "利用预训练视觉 backbone 构建具有空间和时间感知能力的 advantage map。",
+        "保持 architecture-agnostic、轻量并兼容现有 GRPO pipeline。"
+      ],
+      "evidence": "论文报告在图像和视频 benchmark 上优于 vanilla GRPO，同时改善域内偏好对齐与域外泛化。准确奖励、数据集、backbone 和提升幅度应以正式论文表格为准。",
+      "limitations": "结构化 advantage map 由预训练视觉特征诱导，因此受这些 backbone 表征能力的影响；像素级优化也不能自动保证每个 reward model 都可靠或具备真实的局部因果性。",
+      "positioning": "ViPO 属于提高生成模型 RL 反馈粒度的工作。其关键不是替换生成器或改变 GRPO 总体框架，而是对 advantage 进行时空重分配。",
+      "citation_ready": "Ni 等提出 Visual Preference Policy Optimization（ViPO），通过 perceptual structuring module 将标量奖励转换为具备时空感知的像素级优势，用于基于 GRPO 的图像和视频生成。"
+    }
+  },
+  "citation": {
+    "id": "ni2026vipo",
+    "type": "paper-conference",
+    "title": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+    "author": [
+      {
+        "given": "Ziqi",
+        "family": "Ni"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Rui",
+        "family": "Li"
+      },
+      {
+        "given": "Yi",
+        "family": "Zhou"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xuelong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "URL": "https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html",
+    "abstract": "Reinforcement learning (RL) has become a powerful tool for post-training visual generative models, with Group Relative Policy Optimization (GRPO) increasingly used to align generators with human preferences. However, existing GRPO pipelines rely on a single scalar reward per sample, treating each image or video as a holistic entity and ignoring the rich spatial and temporal structure of visual content. This coarse supervision hinders the correction of localized artifacts and the modeling of fine-grained perceptual cues. We introduce Visual Preference Policy Optimization (ViPO), a GRPO variant that lifts scalar feedback into structured, pixel-level advantages. ViPO employs a Perceptual Structuring Module that uses pretrained vision backbones to construct spatially and temporally aware advantage maps, redistributing optimization pressure toward perceptually important regions while preserving the stability of standard GRPO. Across both image and video benchmarks, ViPO consistently outperforms vanilla GRPO, improving in-domain alignment with human-preference rewards and enhancing generalization on out-of-domain evaluations. The method is architecture-agnostic, lightweight, and fully compatible with existing GRPO training pipelines, providing a more expressive and informative learning signal for visual generation.",
+    "keyword": "visual generation, GRPO, pixel-level advantage, preference optimization, structured feedback",
+    "page": "27260-27269"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2511.18719"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2511.18719"
+    }
+  ]
+}

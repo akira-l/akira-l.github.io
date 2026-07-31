@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "slug": "embodied-brains",
+  "canonical_url": "https://akira-l.github.io/publications/embodied-brains/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/embodied-brains/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/embodied-brains/"
+  },
+  "title": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence",
+  "short_title": "Embodied Brains Roadmap",
+  "authors": [
+    "Yuanzhi Liang",
+    "Xufeng Zhan",
+    "Haibin Huang",
+    "Chi Zhang",
+    "Xuelong Li"
+  ],
+  "publication": {
+    "kind": "preprint",
+    "venue": "arXiv",
+    "citation_container_title": "arXiv",
+    "status": "preprint",
+    "year": 2026,
+    "publication_date": "2026-07-13"
+  },
+  "identifiers": {
+    "arxiv": "2607.11689",
+    "arxiv_primary_class": "cs.RO"
+  },
+  "arxiv_dates": {
+    "first_posted": "2026-07-13",
+    "last_revised": "2026-07-13"
+  },
+  "keywords": [
+    "world action models",
+    "embodied intelligence",
+    "physical intelligence",
+    "world models",
+    "robotics"
+  ],
+  "official_abstract": "Artificial general intelligence ultimately requires agents that can reason and act in the physical world. Action models, vision-language-action policies, and world models have advanced this goal, while World Action Models (WAMs) are particularly promising because they connect candidate interventions with predicted consequences. However, progress remains fragmented: models use incompatible action spaces and prediction targets, datasets and tasks follow different conventions, and runtime systems expose limited interfaces for reuse and evaluation. We review the evolution toward WAMs and organize these limitations into three coupled gaps: model roles and representations, objectives and standardization, and system composition. Building on this analysis, we propose a co-evolution roadmap for physical intelligence centered on the embodied brain, a long-term model target for integrating multimodal context, comparing candidate interventions, and issuing state-transition or capability requests rather than direct actuator commands. WAMs provide promising prototypes for its predictive functions, while a physical harness grounds model outputs through tools, controllers, verification, and trace logging. Shared contracts align heterogeneous models, data, tasks, and embodiments, and closed-loop post-training converts verified interaction into reusable experience. Together, these components define a modular physical-intelligence stack for adaptive and self-improving embodied agents.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2607.11689",
+    "version": "arXiv:2607.11689v1",
+    "method_locator": "Abstract; roadmap sections on embodied brains and physical harnesses",
+    "evidence_locator": "Abstract; paper synthesis and roadmap discussion"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "This roadmap places World Action Models inside a broader physical-intelligence stack: an embodied brain compares possible interventions, a physical harness grounds its requests through tools and controllers, shared contracts connect heterogeneous components, and verified interaction becomes post-training experience.",
+      "problem": "Research on action models, vision-language-action policies, and world models is advancing, but incompatible representations, objectives, datasets, tasks, and runtime interfaces make the resulting systems difficult to compose, evaluate, and improve as a whole.",
+      "contributions": [
+        "Organizes the field's limitations into coupled gaps in model roles and representations, objectives and standardization, and system composition.",
+        "Defines the embodied brain as a long-term model target that reasons over multimodal context and requests state transitions or capabilities instead of directly commanding actuators.",
+        "Proposes physical harnesses, shared contracts, and closed-loop post-training as the system mechanisms that ground, connect, verify, and reuse model behavior."
+      ],
+      "evidence": "The paper is a review and roadmap. Its support is a structured synthesis of prior action-model, VLA, and world-model research and a systems argument for the proposed stack; it does not present a newly deployed embodied system or a standalone empirical benchmark.",
+      "limitations": "The architecture is a forward-looking research agenda. Individual contracts, verification mechanisms, harness implementations, and closed-loop training procedures still require concrete specifications and empirical validation across embodiments.",
+      "positioning": "Use this work when discussing how predictive world/action models can become reusable components of open-world embodied systems. Its distinctive contribution is the co-design of model roles, standardized interfaces, runtime grounding, and learning from verified interaction.",
+      "citation_ready": "Liang et al. present a roadmap from World Action Models to embodied brains, arguing that predictive models should be integrated with physical harnesses, shared contracts, and closed-loop post-training to support modular open-world physical intelligence."
+    },
+    "zh-CN": {
+      "summary": "这篇路线图把 World Action Models 放入更完整的物理智能系统：embodied brain 比较候选干预，physical harness 通过工具和控制器将请求落地，共享 contracts 连接异构组件，经过验证的交互再转化为后训练经验。",
+      "problem": "Action model、VLA policy 与 world model 虽然持续发展，但它们在表示、目标、数据集、任务约定和运行时接口上彼此割裂，难以被组合、复用、统一评测并形成持续改进的系统。",
+      "contributions": [
+        "把领域瓶颈归纳为模型角色与表示、目标与标准化、系统组合三个相互耦合的缺口。",
+        "提出 embodied brain 这一长期目标：结合多模态上下文比较候选干预，输出状态转移或能力请求，而不是直接下发执行器指令。",
+        "以 physical harness、共享 contracts 和闭环后训练作为模型落地、组件连接、行为验证与经验复用的系统机制。"
+      ],
+      "evidence": "本文属于综述与路线图，证据主要来自对 action model、VLA 和 world model 文献的结构化梳理以及系统设计论证；它并未声称已经实现一个完整部署的 embodied brain 或新的统一基准。",
+      "limitations": "该方案仍是面向未来的研究议程。不同 embodiment 下的接口规范、验证机制、harness 实现与闭环训练流程都需要进一步工程化和实证检验。",
+      "positioning": "在讨论预测型 world/action model 如何成为开放世界具身系统的可复用组件时可以引用这项工作。其差异点是把模型角色、标准接口、运行时落地和验证交互驱动的学习放在同一条演进路线中。",
+      "citation_ready": "Liang 等提出了从 World Action Models 走向 embodied brains 的路线图，主张将预测模型与 physical harness、共享 contracts 和闭环后训练结合，以构建模块化的开放世界物理智能系统。"
+    }
+  },
+  "citation": {
+    "id": "liang2026embodiedbrains",
+    "type": "article",
+    "title": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Xufeng",
+        "family": "Zhan"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xuelong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "arXiv",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          7,
+          13
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2607.11689",
+    "abstract": "Artificial general intelligence ultimately requires agents that can reason and act in the physical world. Action models, vision-language-action policies, and world models have advanced this goal, while World Action Models (WAMs) are particularly promising because they connect candidate interventions with predicted consequences. However, progress remains fragmented: models use incompatible action spaces and prediction targets, datasets and tasks follow different conventions, and runtime systems expose limited interfaces for reuse and evaluation. We review the evolution toward WAMs and organize these limitations into three coupled gaps: model roles and representations, objectives and standardization, and system composition. Building on this analysis, we propose a co-evolution roadmap for physical intelligence centered on the embodied brain, a long-term model target for integrating multimodal context, comparing candidate interventions, and issuing state-transition or capability requests rather than direct actuator commands. WAMs provide promising prototypes for its predictive functions, while a physical harness grounds model outputs through tools, controllers, verification, and trace logging. Shared contracts align heterogeneous models, data, tasks, and embodiments, and closed-loop post-training converts verified interaction into reusable experience. Together, these components define a modular physical-intelligence stack for adaptive and self-improving embodied agents.",
+    "keyword": "world action models, embodied intelligence, physical intelligence, world models, robotics",
+    "archive": "arXiv",
+    "archive_location": "2607.11689",
+    "genre": "Preprint"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2607.11689"
+    },
+    {
+      "label": "HTML",
+      "url": "https://arxiv.org/html/2607.11689v1"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2607.11689"
+    }
+  ]
+}

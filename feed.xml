@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yuanzhi Liang — Research updates</title>
+  <id>https://akira-l.github.io/feed.xml</id>
+  <link href="https://akira-l.github.io/feed.xml" rel="self"/>
+  <link href="https://akira-l.github.io/publications/"/>
+  <updated>2026-07-31T00:00:00+08:00</updated>
+  <author><name>Yuanzhi Liang</name></author>
+  <entry>
+    <title>From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</title>
+    <id>https://akira-l.github.io/publications/embodied-brains/</id>
+    <link href="https://akira-l.github.io/publications/embodied-brains/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-07-13T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>This roadmap places World Action Models inside a broader physical-intelligence stack: an embodied brain compares possible interventions, a physical harness grounds its requests through tools and controllers, shared contracts connect heterogeneous components, and verified interaction becomes post-training experience.</summary>
+  </entry>  <entry>
+    <title>TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</title>
+    <id>https://akira-l.github.io/publications/teleboost/</id>
+    <link href="https://akira-l.github.io/publications/teleboost/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-02-07T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.</summary>
+  </entry>  <entry>
+    <title>Integrating reinforcement learning with visual generative models: foundations and advances</title>
+    <id>https://akira-l.github.io/publications/rl-vgm/</id>
+    <link href="https://akira-l.github.io/publications/rl-vgm/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-29T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.</summary>
+  </entry>  <entry>
+    <title>Seeing What Matters: Visual Preference Policy Optimization for Visual Generation</title>
+    <id>https://akira-l.github.io/publications/vipo/</id>
+    <link href="https://akira-l.github.io/publications/vipo/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>ViPO turns one scalar reward per generated sample into spatially and temporally structured, pixel-level advantage maps, using pretrained vision features to focus GRPO updates on perceptually important regions while retaining the standard training pipeline.</summary>
+  </entry>  <entry>
+    <title>Reward-Aware Trajectory Shaping for Few-step Visual Generation</title>
+    <id>https://akira-l.github.io/publications/rats/</id>
+    <link href="https://akira-l.github.io/publications/rats/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>RATS combines trajectory distillation with preference feedback: horizon matching aligns teacher and student at key denoising stages, while a reward-aware gate strengthens teacher guidance only when the teacher is better under the chosen reward.</summary>
+  </entry>  <entry>
+    <title>Rethinking Reward Signals in Video GRPO: When Scores Become Targets</title>
+    <id>https://akira-l.github.io/publications/taros/</id>
+    <link href="https://akira-l.github.io/publications/taros/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.</summary>
+  </entry>  <entry>
+    <title>Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</title>
+    <id>https://akira-l.github.io/publications/otca/</id>
+    <link href="https://akira-l.github.io/publications/otca/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.</summary>
+  </entry>  <entry>
+    <title>Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation</title>
+    <id>https://akira-l.github.io/publications/bpgo/</id>
+    <link href="https://akira-l.github.io/publications/bpgo/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>BPGO treats visual-reward scores as uncertain rather than equally trustworthy: a semantic prior anchors inter-group trust allocation and intra-group renormalization so that GRPO emphasizes confident feedback and suppresses ambiguous signals.</summary>
+  </entry>  <entry>
+    <title>LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation</title>
+    <id>https://akira-l.github.io/publications/laxmotion/</id>
+    <link href="https://akira-l.github.io/publications/laxmotion/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.</summary>
+  </entry>  <entry>
+    <title>TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model</title>
+    <id>https://akira-l.github.io/publications/teleworld/</id>
+    <link href="https://akira-l.github.io/publications/teleworld/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2025-12-31T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>TeleWorld closes a loop between video generation and 4D reconstruction: generated streams update a persistent spatiotemporal representation that guides later generation, while Macro-from-Micro Planning and distillation target long horizons and real-time latency.</summary>
+  </entry>  <entry>
+    <title>Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts</title>
+    <id>https://akira-l.github.io/publications/uni-inter/</id>
+    <link href="https://akira-l.github.io/publications/uni-inter/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2025-12-14T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.</summary>
+  </entry>  <entry>
+    <title>InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild</title>
+    <id>https://akira-l.github.io/publications/intersyn/</id>
+    <link href="https://akira-l.github.io/publications/intersyn/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2025-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>InterSyn learns solo and multi-person dynamics together rather than treating them as separate tasks: INS synthesizes both from a first-person interaction perspective, and REC refines relative coordination so characters move synchronously.</summary>
+  </entry>  <entry>
+    <title>VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation</title>
+    <id>https://akira-l.github.io/publications/vast/</id>
+    <link href="https://akira-l.github.io/publications/vast/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2024-12-21T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>VAST is a two-stage Video-As-Storyboard-from-Text framework: StoryForge converts text into storyboards containing human poses and object layouts, and VisionForge turns those structural plans into videos.</summary>
+  </entry>  <entry>
+    <title>Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification</title>
+    <id>https://akira-l.github.io/publications/mhem/</id>
+    <link href="https://akira-l.github.io/publications/mhem/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2024-05-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.</summary>
+  </entry>  <entry>
+    <title>AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents</title>
+    <id>https://akira-l.github.io/publications/anteval/</id>
+    <link href="https://akira-l.github.io/publications/anteval/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2024-01-12T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>AntEval evaluates social interaction competency in LLM-driven agents through a multi-agent interaction framework and two quantitative metrics: Information Exchanging Precision (IEP) and Interaction Expressiveness Gap (IEG).</summary>
+  </entry>  <entry>
+    <title>IcoCap: Improving Video Captioning by Compounding Images</title>
+    <id>https://akira-l.github.io/publications/icocap/</id>
+    <link href="https://akira-l.github.io/publications/icocap/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2024-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>IcoCap changes the content density seen by a video captioner: Image-Video Compounding Strategy (ICS) injects concise image semantics into video samples, while Visual-Semantic Guided Captioning (VGC) adapts caption supervision to the resulting ambiguous compound content.</summary>
+  </entry>  <entry>
+    <title>FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention</title>
+    <id>https://akira-l.github.io/publications/freelong/</id>
+    <link href="https://akira-l.github.io/publications/freelong/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2024-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>FreeLong extends pretrained short-video diffusion models without additional training by blending low-frequency global features with high-frequency local-subsequence features during denoising, targeting global consistency and local spatiotemporal detail at once.</summary>
+  </entry>  <entry>
+    <title>MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects</title>
+    <id>https://akira-l.github.io/publications/maal/</id>
+    <link href="https://akira-l.github.io/publications/maal/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2023-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>MAAL learns affordances for 3D articulated objects with a one-stage autoencoder-based pipeline and a MultiModal Energized Encoder that jointly models object geometry, robot actions, and their interactions while requiring only a small number of positive samples.</summary>
+  </entry>  <entry>
+    <title>SEEG: Semantic Energized Co-speech Gesture Generation</title>
+    <id>https://akira-l.github.io/publications/seeg/</id>
+    <link href="https://akira-l.github.io/publications/seeg/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2022-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>SEEG separates beat-related and semantic information with a DEcoupled Mining module, then uses a Semantic Energizing Module and semantic prompter to make generated co-speech gestures express semantics as well as align with speech.</summary>
+  </entry>  <entry>
+    <title>A Simple Episodic Linear Probe Improves Visual Recognition in the Wild</title>
+    <id>https://akira-l.github.io/publications/elp/</id>
+    <link href="https://akira-l.github.io/publications/elp/"/>
+    <updated>2026-07-31T00:00:00+08:00</updated>
+    <published>2022-01-01T00:00:00Z</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <summary>ELP brings linear probing into training: an episodically reinitialized classifier learns on detached features to measure current discriminability, and ELP-SR uses the discrepancy between that probe and the main classifier to adaptively regularize samples.</summary>
+  </entry>
+</feed>

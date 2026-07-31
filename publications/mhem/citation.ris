@@ -1,0 +1,18 @@
+TY  - JOUR
+TI  - Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification
+AU  - Liang, Yuanzhi
+AU  - Zhu, Linchao
+AU  - Wang, Xiaohan
+AU  - Yang, Yi
+PY  - 2024
+DA  - 2024/05
+T2  - IEEE Transactions on Neural Networks and Learning Systems
+PB  - IEEE
+VL  - 35
+IS  - 5
+SP  - 7048
+EP  - 7059
+DO  - 10.1109/TNNLS.2022.3213563
+UR  - https://doi.org/10.1109/TNNLS.2022.3213563
+AB  - Though significant progress has been achieved on fine-grained visual classification (FGVC), severe overfitting still hinders model generalization. A recent study shows that hard samples in the training set can be easily fitted, but most existing FGVC methods fail to classify some hard examples in the test set. The reason is that the model overfits those hard examples in the training set, but does not learn to generalize to unseen examples in the test set. In this paper, we propose a Moderate Hard Example Modulation (MHEM) strategy to properly modulate the hard examples. MHEM encourages the model to not overfit hard examples and offers better generalization and discrimination. First, we introduce three conditions and formulate a general form of a modulated loss function. Second, we instantiate the loss function and provide a strong baseline for FGVC, where the performance of a naive backbone can be boosted and be comparable with recent methods. Moreover, we demonstrate that our baseline can be readily incorporated into the existing methods and empower these methods to be more discriminative. Equipped with our strong baseline, we achieve consistent improvements on three typical fine-grained visual classification datasets, i.e., CUB-200-2011, Stanford Cars, and FGVC-Aircraft. We hope the idea of Moderate Hard Example Modulation will inspire future research work toward more effective fine-grained visual recognition.
+ER  -

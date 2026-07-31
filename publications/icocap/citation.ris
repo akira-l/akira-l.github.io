@@ -1,0 +1,16 @@
+TY  - JOUR
+TI  - IcoCap: Improving Video Captioning by Compounding Images
+AU  - Liang, Yuanzhi
+AU  - Zhu, Linchao
+AU  - Wang, Xiaohan
+AU  - Yang, Yi
+PY  - 2024
+T2  - IEEE Transactions on Multimedia
+PB  - IEEE
+VL  - 26
+SP  - 4389
+EP  - 4400
+DO  - 10.1109/TMM.2023.3322329
+UR  - https://doi.org/10.1109/TMM.2023.3322329
+AB  - Video captioning is a more challenging task compared to image captioning, primarily due to differences in content density. Video data contains redundant visual content, making it difficult for captioners to generalize diverse content and avoid being misled by irrelevant elements. Moreover, redundant content is not well-trimmed to match the corresponding visual semantics in the ground truth, further increasing the difficulty of video captioning. Current research in video captioning predominantly focuses on captioner design, neglecting the impact of content density on captioner performance. Considering the differences between videos and images, there exists an another line to improve video captioning by leveraging concise and easily-learned image samples to further diversify video samples. This modification to content density compels the captioner to learn more effectively against redundancy and ambiguity. In this paper, we propose a novel approach called Image-Compounded learning for video Captioners (IcoCap) to facilitate better learning of complex video semantics. IcoCap comprises two components: the Image-Video Compounding Strategy (ICS) and Visual-Semantic Guided Captioning (VGC). ICS compounds easily-learned image semantics into video semantics, further diversifying video content and prompting the network to generalize contents in a more diverse sample. Besides, learning with the sample compounded with image contents, the captioner is compelled to better extract valuable video cues in the presence of straightforward image semantics. This helps the captioner further focus on relevant information while filtering out extraneous content. Then, VGC guides the network in flexibly learning ground truth captions based on the compounded samples, helping to mitigate the mismatch between the ground truth and ambiguous semantics in video samples. Our experimental results demonstrate the effectiveness of IcoCap in improving the learning of video captioners. Applied to the widely-used MSVD, MSR-VTT, and VATEX datasets, our approach achieves competitive or superior results compared to state-of-the-art methods, illustrating its capacity to handle redundant and ambiguous video data.
+ER  -

@@ -1,0 +1,34 @@
+{
+  "id": "liu2026laxmotion",
+  "type": "paper-conference",
+  "title": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+  "author": [
+    {
+      "given": "Sheng",
+      "family": "Liu"
+    },
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Sidan",
+      "family": "Du"
+    }
+  ],
+  "container-title": "European Conference on Computer Vision (ECCV 2026)",
+  "issued": {
+    "date-parts": [
+      [
+        2026
+      ]
+    ]
+  },
+  "URL": "https://arxiv.org/abs/2511.11368",
+  "abstract": "Recent 3D human motion generation models demonstrate remarkable reconstruction accuracy yet struggle to generalize beyond training distributions. This limitation arises partly from the use of precise 3D supervision, which encourages models to fit fixed coordinate patterns instead of learning the essential 3D structure and motion semantic cues required for robust generalization. To overcome this limitation, we propose LaxMotion, a framework that synthesizes realistic 3D motions without direct 3D pose supervision. Instead of regressing toward exact coordinates, LaxMotion learns 3D motion as a consistent explanation of global trajectories and monocular 2D kinematic cues. We introduce a structured motion factorization together with a reformulated training paradigm under relaxed observability. This design is further supported by relaxed regularization objectives that enforce view consistent alignment, orientation coherence, and structural stability. Under this relaxed supervision paradigm, LaxMotion generates diverse, temporally coherent, and semantically aligned 3D motions, achieving performance comparable to or surpassing fully 3D supervised methods. These results indicate that shifting supervision from exact coordinate matching to structural consistency promotes stronger reasoning and improved generalization, offering a scalable and data efficient paradigm for 3D motion generation.",
+  "keyword": "3D human motion, relaxed supervision, motion generation, structural consistency, generalization",
+  "archive": "arXiv",
+  "archive_location": "2511.11368",
+  "genre": "Forthcoming conference paper",
+  "status": "forthcoming"
+}

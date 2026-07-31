@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "slug": "taros",
+  "canonical_url": "https://akira-l.github.io/publications/taros/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/taros/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/taros/"
+  },
+  "title": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+  "short_title": "TaRoS",
+  "authors": [
+    "Rui Li",
+    "Yuanzhi Liang",
+    "Ziqi Ni",
+    "Haibin Huang",
+    "Chi Zhang",
+    "Xuelong Li"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "European Conference on Computer Vision (ECCV 2026, accepted)",
+    "citation_container_title": "European Conference on Computer Vision (ECCV 2026)",
+    "status": "forthcoming",
+    "year": 2026,
+    "publication_date": "2026"
+  },
+  "identifiers": {
+    "arxiv": "2511.19356",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-11-24",
+    "last_revised": "2026-07-17"
+  },
+  "keywords": [
+    "video generation",
+    "GRPO",
+    "reward saturation",
+    "reward hacking",
+    "Goodhart's law"
+  ],
+  "official_abstract": "Group Relative Policy Optimization (GRPO) enables stable and preference-oriented updates via group-wise comparisons for post-training video generation. However, GRPO directly optimizes reward-induced advantages. Under sustained optimization, the reward score can lose fidelity as a proxy for true video quality, consistent with the phenomenon described by Goodhart's Law. This leads to two recurring issues: (i) shortcut-driven optimization under composite objectives and (ii) reward saturation within prompt groups. To address these issues, we introduce TaRoS, a Target-Robust Reward Signaling framework for Video generation GRPO. TaRoS leverages component level performance assessment together with intra-group sparsity to organize multi-aspect rewards towards optimization objectives. In addition, it adaptively downweights components that exhibit saturation, thereby preserving effective optimization directions and mitigating redundancy. This maintains meaningful optimization directions and preserves within-group ranking separation, thereby preventing reward hacking and leading to more reliable policy updates. Extensive experiments show consistent improvements in visual fidelity, motion coherence, and text-video alignment over strong baselines.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2511.19356",
+    "version": "arXiv:2511.19356v4, revised 2026-07-17",
+    "method_locator": "Abstract; TaRoS sections on component-level assessment, intra-group sparsity, and saturation downweighting",
+    "evidence_locator": "Abstract; video generation experiments in v4"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "bibliographic_note": "The status “accepted at ECCV 2026” is author-supplied. The paper-level Springer/ECVA proceedings record, DOI, volume, and pagination were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.",
+      "problem": "When GRPO repeatedly optimizes reward-induced advantages, reward scores can stop being faithful proxies for true video quality: composite objectives invite shortcuts and scores within a prompt group may saturate, erasing useful rankings.",
+      "contributions": [
+        "Assesses performance at the reward-component level rather than treating a composite score as one stable target.",
+        "Uses intra-group sparsity to organize multi-aspect rewards toward optimization objectives.",
+        "Adaptively downweights saturated components to preserve effective directions and within-group ranking separation."
+      ],
+      "evidence": "The current arXiv v4 reports consistent improvements in visual fidelity, motion coherence, and text–video alignment over strong baselines. Earlier descriptions centered on generic target calibration should not be used for this version.",
+      "limitations": "TaRoS diagnoses behavior through the available reward components, so missing or systematically biased aspects remain outside its correction mechanism. The public record is a revised preprint associated with an accepted ECCV 2026 paper; final proceedings metadata may change.",
+      "positioning": "TaRoS belongs to robust reward signaling for video-generation RL. Unlike reward aggregation alone, it explicitly responds to Goodhart-style shortcut optimization and component saturation during continued GRPO training.",
+      "citation_ready": "Li et al. propose TaRoS, a target-robust reward-signaling framework for video GRPO that combines component-level assessment, intra-group sparsity, and adaptive downweighting of saturated reward components to reduce reward hacking."
+    },
+    "zh-CN": {
+      "summary": "TaRoS v4 针对 video GRPO 中的 reward hacking 与饱和：用 component-level performance assessment 和 intra-group sparsity 组织多维反馈，并自适应降低已经饱和的 reward component 权重。",
+      "problem": "GRPO 持续优化 reward-induced advantage 后，reward score 可能不再忠实代表真实视频质量：复合目标会诱发 shortcut，prompt group 内的分数也可能饱和并失去排序信息。",
+      "contributions": [
+        "在 reward component 层面评估表现，而不是把复合分数视为始终稳定的目标。",
+        "利用 intra-group sparsity 将多维奖励组织到优化目标上。",
+        "自适应降低饱和 component 的权重，保留有效优化方向和组内排序差异。"
+      ],
+      "evidence": "当前 arXiv v4 报告相对强 baseline 在视觉质量、运动一致性和文本—视频对齐上的一致改进。针对旧版本的笼统“目标校准”描述不应继续用于 v4。",
+      "limitations": "TaRoS 只能通过已有 reward component 诊断问题，未被奖励覆盖或系统性偏置的维度仍无法自动修正；当前公开记录是与 ECCV 2026 accepted paper 关联的修订预印本，最终 proceedings 信息可能变化。",
+      "positioning": "TaRoS 属于视频生成 RL 的 robust reward signaling 工作。它不只是聚合奖励，而是直接处理持续 GRPO 优化中的 Goodhart-style shortcut 与 component saturation。",
+      "citation_ready": "Li 等提出 TaRoS，一种面向 video GRPO 的 target-robust reward-signaling 框架，通过 component-level assessment、intra-group sparsity 和对饱和奖励分量的自适应降权减少 reward hacking。"
+    }
+  },
+  "citation": {
+    "id": "li2026taros",
+    "type": "paper-conference",
+    "title": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+    "author": [
+      {
+        "given": "Rui",
+        "family": "Li"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Ziqi",
+        "family": "Ni"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xuelong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "European Conference on Computer Vision (ECCV 2026)",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2511.19356",
+    "abstract": "Group Relative Policy Optimization (GRPO) enables stable and preference-oriented updates via group-wise comparisons for post-training video generation. However, GRPO directly optimizes reward-induced advantages. Under sustained optimization, the reward score can lose fidelity as a proxy for true video quality, consistent with the phenomenon described by Goodhart's Law. This leads to two recurring issues: (i) shortcut-driven optimization under composite objectives and (ii) reward saturation within prompt groups. To address these issues, we introduce TaRoS, a Target-Robust Reward Signaling framework for Video generation GRPO. TaRoS leverages component level performance assessment together with intra-group sparsity to organize multi-aspect rewards towards optimization objectives. In addition, it adaptively downweights components that exhibit saturation, thereby preserving effective optimization directions and mitigating redundancy. This maintains meaningful optimization directions and preserves within-group ranking separation, thereby preventing reward hacking and leading to more reliable policy updates. Extensive experiments show consistent improvements in visual fidelity, motion coherence, and text-video alignment over strong baselines.",
+    "keyword": "video generation, GRPO, reward saturation, reward hacking, Goodhart's law",
+    "archive": "arXiv",
+    "archive_location": "2511.19356",
+    "genre": "Forthcoming conference paper",
+    "status": "forthcoming"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2511.19356"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2511.19356"
+    }
+  ]
+}

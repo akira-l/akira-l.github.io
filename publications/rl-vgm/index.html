@@ -1,125 +1,302 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RL for Visual Generative Models 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="Integrating Reinforcement Learning with Visual Generative Models 中文解读：梳理 RL 如何进入图像、视频与 3D 生成，从奖励建模、偏好优化到系统级 alignment。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/rl-vgm/" />
-  <meta property="og:title" content="RL for Visual Generative Models 中文解读" />
-  <meta property="og:description" content="一篇关于 visual generative models 与 reinforcement learning 结合方式的 survey：重点不是堆算法名，而是理解奖励、策略优化与生成系统之间的接口。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/rl-vgm/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="RL for Visual Generative Models 中文解读" />
-  <meta name="twitter:description" content="从奖励、偏好与策略优化角度理解视觉生成模型的后训练。" />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrating reinforcement learning with visual generative models: foundations and advances — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/rl-vgm/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rl-vgm/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rl-vgm/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rl-vgm/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/rl-vgm/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/rl-vgm/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/rl-vgm/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Integrating reinforcement learning with visual generative models: foundations and advances — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/rl-vgm/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Integrating reinforcement learning with visual generative models: foundations and advances — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Integrating reinforcement learning with visual generative models: foundations and advances">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Yijie Fang">
+  <meta name="citation_author" content="Rui Li">
+  <meta name="citation_author" content="Ziqi Ni">
+  <meta name="citation_author" content="Ruijie Su">
+  <meta name="citation_author" content="Chi Zhang">
+  <meta name="citation_publication_date" content="2026-01-29">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/rl-vgm/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="reinforcement learning; visual generative models; image generation; video generation; 3D and 4D generation; survey">
+  <meta name="citation_abstract" content="Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.">
+  <meta name="citation_journal_title" content="Vicinagearth">
+  <meta name="citation_publisher" content="Springer Nature">
+  <meta name="citation_doi" content="10.1007/s44336-025-00030-z">
+  <meta name="citation_volume" content="3">
+  <meta name="citation_issue" content="1">
+  <meta name="citation_firstpage" content="2">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "name": "Integrating Reinforcement Learning with Visual Generative Models: Foundations and Advances",
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/rl-vgm/#explainer",
       "url": "https://akira-l.github.io/publications/rl-vgm/",
-      "sameAs": "https://link.springer.com/article/10.1007/s44336-025-00030-z",
-      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+      "headline": "Paper explainer: Integrating reinforcement learning with visual generative models: foundations and advances",
+      "description": "This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://link.springer.com/article/10.1007/s44336-025-00030-z",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/rl-vgm/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/rl-vgm/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/rl-vgm/#paper",
+      "name": "Integrating reinforcement learning with visual generative models: foundations and advances",
+      "headline": "Integrating reinforcement learning with visual generative models: foundations and advances",
+      "abstract": "Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Yijie Fang"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Ruijie Su"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        }
+      ],
+      "datePublished": "2026-01-29",
+      "inLanguage": "en",
+      "keywords": [
+        "reinforcement learning",
+        "visual generative models",
+        "image generation",
+        "video generation",
+        "3D and 4D generation",
+        "survey"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1007/s44336-025-00030-z",
+          "url": "https://doi.org/10.1007/s44336-025-00030-z"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2508.10316",
+          "url": "https://arxiv.org/abs/2508.10316"
+        }
+      ],
+      "sameAs": [
+        "https://link.springer.com/article/10.1007/s44336-025-00030-z",
+        "https://visgenrlsurvey.liangyzh18.workers.dev/",
+        "https://arxiv.org/abs/2508.10316"
+      ],
+      "url": "https://link.springer.com/article/10.1007/s44336-025-00030-z",
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "Vicinagearth"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Springer Nature"
+      },
+      "pagination": "2",
+      "volumeNumber": "3",
+      "issueNumber": "1"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/rl-vgm/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "RL for Visual Generative Models",
+          "item": "https://akira-l.github.io/publications/rl-vgm/"
+        }
+      ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">RL for Visual Generative Models</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>RL-VGM
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>RL for Visual Generative Models：从奖励到后训练系统</h1>
-      <p class="subtitle">这篇 survey 讨论 RL 如何进入 visual generative models：不是把生成模型简单改成 policy，而是重新组织 reward、preference、credit assignment 与 evaluation。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Survey</span>
-      <span class="tag">Reinforcement Learning</span>
-      <span class="tag">Visual Generation</span>
-      <span class="tag">Alignment</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          视觉生成里的 RL 不是“让模型追一个分数”这么简单。图像、视频和 3D 输出都带有丰富结构，一个 reward 可能同时混合语义对齐、视觉质量、物理合理性、人类偏好和安全约束。
-          这篇 survey 的价值在于把这些线索系统化：先解释 RL 与 generative modeling 的接口，再整理 reward modeling、preference optimization、policy gradient、diffusion/flow matching 后训练、evaluation 与应用场景。
-          核心 insight 是：RL 在视觉生成中更像一种“目标组织语言”，它把难以直接写成 supervised label 的偏好转成可优化信号，但信号是否可靠、是否可分配、是否会被 reward hacking，决定了后训练上限。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>Integrating reinforcement learning with visual generative models: foundations and advances</h1>
+      <p class="paper-authors"><strong>Authors:</strong> <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Yijie Fang, Rui Li, Ziqi Ni, Ruijie Su, Chi Zhang</p>
+      <p class="paper-venue">Vicinagearth · 2026 · vol. 3(1) · article 2</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">reinforcement learning</span><span class="tag">visual generative models</span><span class="tag">image generation</span><span class="tag">video generation</span><span class="tag">3D and 4D generation</span><span class="tag">survey</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/rl-vgm/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://visgenrlsurvey.liangyzh18.workers.dev/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2508.10316" target="_blank" rel="noopener noreferrer">arXiv</a>
       </div>
+    </header>
 
-      <h2>1. 问题：视觉生成缺的不是更多 loss，而是更好的目标表达</h2>
-      <p>
-        Supervised training 很擅长复刻数据分布，却不总能表达“哪一个结果更好”。例如一段视频可能语义正确但运动不稳，一张图可能好看但 prompt adherence 不够。
-        RL 的切入点是把这些偏好写成可反馈的 reward 或 preference，让模型在生成空间里做定向改进。
-      </p>
-
-      <h2>2. 关键框架：reward、policy 与生成过程的接口</h2>
-      <p>
-        对 diffusion 和 video generation 来说，policy 不是传统意义上的离散动作策略，而是一个逐步生成轨迹。
-        因此，reward 设计只是第一步；更难的是如何把最终反馈分配到空间、时间和去噪步骤上。
-        这也是为什么 GRPO、DPO、reward-weighted regression、preference fine-tuning 等路线会在视觉生成中呈现不同稳定性。
-      </p>
-
-      <h2>3. Key Insights：后训练的瓶颈常在“信号可信度”</h2>
-      <p>
-        视觉 reward 很容易不稳定：奖励模型可能偏向审美模板，可能漏掉局部伪影，也可能把短期高分误判为长期一致性。
-        所以 visual RL 的核心不是盲目最大化 reward，而是判断 reward 什么时候可靠、应该作用到哪里、是否和真实人类偏好一致。
-        从这个角度看，好的后训练系统更像信号工程，而不只是优化器选择。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        This survey organizes the rapidly growing intersection between reinforcement learning and visual generative models. The central point is that RL provides a way to optimize goals that are difficult to encode as supervised labels, such as human preference, controllability, temporal consistency, and physical plausibility.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        Visual outputs are structured and ambiguous. A single scalar reward often mixes multiple concerns, and optimizing it naively can produce reward hacking, weak localization of errors, or unstable training.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Treat RL as an interface between generative trajectories and feedback signals. The practical challenge is not only designing rewards, but also routing feedback across pixels, frames, denoising steps, and samples.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        Strong visual post-training systems need reliable reward modeling, careful credit assignment, and evaluation that goes beyond a single score. The survey is useful as a map of the design space and as a vocabulary for comparing different alignment methods.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener">Paper</a>
-        <a href="https://arxiv.org/abs/2508.10316" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://arxiv.org/pdf/2508.10316" target="_blank" rel="noopener">PDF</a>
-        <a href="https://visgenrlsurvey.liangyzh18.workers.dev/" target="_blank" rel="noopener">Project</a>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Yuanzhi Liang, Yijie Fang, Rui Li, Ziqi Ni, Ruijie Su, and Chi Zhang</dd>
+          <dt>Recommended paper citation</dt><dd>Yuanzhi Liang, Yijie Fang, Rui Li, Ziqi Ni, Ruijie Su, and Chi Zhang. “Integrating reinforcement learning with visual generative models: foundations and advances.” Vicinagearth (2026), 3(1), article 2. https://doi.org/10.1007/s44336-025-00030-z.</dd>
+<dt>Bibliographic note</dt><dd>This citation describes the six-author Vicinagearth version of record. arXiv:2508.10316v3 lists Ke Hao as an additional third author, so the arXiv identifier is retained only as a related version and is not mixed into the journal citation exports.</dd>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2025-08-14</dd><dt>arXiv last revised</dt><dd>2026-01-19</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>This survey organizes reinforcement learning for image, video, and 3D/4D generation, treating RL not only as a fine-tuning algorithm but as an interface for optimizing non-differentiable, preference-driven, temporal, and high-level objectives.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Likelihood and reconstruction objectives are useful training surrogates but can diverge from perceptual quality, semantic accuracy, physical realism, controllability, and human preferences across visual generation tasks.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Traces the evolution of RL from classical control toward a general optimization and alignment framework.</li><li>Systematizes RL integrations across image, video, and 3D/4D generation.</li><li>Identifies cross-domain challenges and future directions at the intersection of RL and visual generative modeling.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>As a survey, the paper synthesizes and categorizes prior literature rather than claiming a new model&#x27;s benchmark improvement. Its tables, taxonomy, domain sections, and discussion of open problems are the relevant evidence.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>The area changes rapidly, so coverage is bounded by the review&#x27;s search period and inclusion criteria. Readers should use the version of record and its bibliography to verify whether later methods alter the taxonomy or conclusions.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>This work can serve as a high-level citation for the overall role of RL in visual generation and as a navigation source for domain-specific literature in images, videos, and 3D/4D content.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Liang et al. survey reinforcement learning for visual generative models, organizing methods across image, video, and 3D/4D generation and framing RL as a general mechanism for optimizing preference-driven, non-differentiable, and structured objectives.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; sections on RL evolution and image, video, and 3D/4D generation</td></tr><tr><td>Evaluation statement</td><td>Abstract; domain survey tables and discussion sections</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener noreferrer">Springer journal article</a> (Version of record, published 2026-01-29).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Yuanzhi Liang, Yijie Fang, Rui Li, Ziqi Ni, Ruijie Su, and Chi Zhang. “Integrating reinforcement learning with visual generative models: foundations and advances.” Vicinagearth (2026), 3(1), article 2. https://doi.org/10.1007/s44336-025-00030-z.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/rl-vgm/citation.bib">BibTeX</a><a href="/publications/rl-vgm/citation.ris">RIS</a><a href="/publications/rl-vgm/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://visgenrlsurvey.liangyzh18.workers.dev/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2508.10316" target="_blank" rel="noopener noreferrer">arXiv</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

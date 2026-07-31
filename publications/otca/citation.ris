@@ -1,0 +1,19 @@
+TY  - CPAPER
+TI  - Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation
+AU  - Li, Rui
+AU  - Hao, Ke
+AU  - Liang, Yuanzhi
+AU  - Huang, Haibin
+AU  - Zhang, Chi
+AU  - Gu, Yun
+AU  - Li, XueLong
+PY  - 2026
+T2  - 34th ACM International Conference on Multimedia (ACM Multimedia 2026)
+PB  - ACM
+AN  - arXiv:2604.19234
+DB  - arXiv
+M3  - Forthcoming conference paper
+N1  - Forthcoming; final DOI and pagination pending.
+UR  - https://arxiv.org/abs/2604.19234
+AB  - Reinforcement learning, particularly Group Relative Policy Optimization (GRPO), has emerged as an effective framework for post-training visual generative models with human preference signals. However, its effectiveness is fundamentally limited by coarse reward credit assignment. In modern visual generation, multiple reward models are often used to capture heterogeneous objectives, such as visual quality, motion consistency, and text alignment. Existing GRPO pipelines typically collapse these rewards into a single static scalar and propagate it uniformly across the entire diffusion trajectory. This design ignores the stage-specific roles of different denoising steps and produces mistimed or incompatible optimization signals. To address this issue, we propose Objective-aware Trajectory Credit Assignment (OTCA), a structured framework for fine-grained GRPO training. OTCA consists of two key components. Trajectory-Level Credit Decomposition estimates the relative importance of different denoising steps. Multi-Objective Credit Allocation adaptively weights and combines multiple reward signals throughout the denoising process. By jointly modeling temporal credit and objective-level credit, OTCA converts coarse reward supervision into a structured, timestep-aware training signal that better matches the iterative nature of diffusion-based generation. Extensive experiments show that OTCA consistently improves both image and video generation quality across evaluation metrics.
+ER  -

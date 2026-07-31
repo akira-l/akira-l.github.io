@@ -1,122 +1,270 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LaxMotion 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="LaxMotion 中文解读：重点讨论 3D human motion generation 中 supervision granularity 的选择。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/laxmotion/" />
-  <meta property="og:title" content="LaxMotion 中文解读" />
-  <meta property="og:description" content="更粗、更宽松的 supervision 有时比逐点精确监督更适合 3D human motion generation。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/laxmotion/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="LaxMotion 中文解读" />
-  <meta name="twitter:description" content="Rethinking supervision granularity for 3D human motion generation." />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/laxmotion/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/laxmotion/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/laxmotion/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/laxmotion/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/laxmotion/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/laxmotion/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/laxmotion/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/laxmotion/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation">
+  <meta name="citation_author" content="Sheng Liu">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Sidan Du">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/laxmotion/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="3D human motion; relaxed supervision; motion generation; structural consistency; generalization">
+  <meta name="citation_abstract" content="Recent 3D human motion generation models demonstrate remarkable reconstruction accuracy yet struggle to generalize beyond training distributions. This limitation arises partly from the use of precise 3D supervision, which encourages models to fit fixed coordinate patterns instead of learning the essential 3D structure and motion semantic cues required for robust generalization. To overcome this limitation, we propose LaxMotion, a framework that synthesizes realistic 3D motions without direct 3D pose supervision. Instead of regressing toward exact coordinates, LaxMotion learns 3D motion as a consistent explanation of global trajectories and monocular 2D kinematic cues. We introduce a structured motion factorization together with a reformulated training paradigm under relaxed observability. This design is further supported by relaxed regularization objectives that enforce view consistent alignment, orientation coherence, and structural stability. Under this relaxed supervision paradigm, LaxMotion generates diverse, temporally coherent, and semantically aligned 3D motions, achieving performance comparable to or surpassing fully 3D supervised methods. These results indicate that shifting supervision from exact coordinate matching to structural consistency promotes stronger reasoning and improved generalization, offering a scalable and data efficient paradigm for 3D motion generation.">
+  <meta name="citation_conference_title" content="European Conference on Computer Vision (ECCV 2026)">
+  <meta name="citation_arxiv_id" content="2511.11368">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "name": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
-      "identifier": "arXiv:2511.11368",
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/laxmotion/#explainer",
       "url": "https://akira-l.github.io/publications/laxmotion/",
-      "sameAs": "https://arxiv.org/abs/2511.11368",
-      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+      "headline": "Paper explainer: LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+      "description": "LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2511.11368",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/laxmotion/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/laxmotion/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/laxmotion/#paper",
+      "name": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+      "headline": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+      "abstract": "Recent 3D human motion generation models demonstrate remarkable reconstruction accuracy yet struggle to generalize beyond training distributions. This limitation arises partly from the use of precise 3D supervision, which encourages models to fit fixed coordinate patterns instead of learning the essential 3D structure and motion semantic cues required for robust generalization. To overcome this limitation, we propose LaxMotion, a framework that synthesizes realistic 3D motions without direct 3D pose supervision. Instead of regressing toward exact coordinates, LaxMotion learns 3D motion as a consistent explanation of global trajectories and monocular 2D kinematic cues. We introduce a structured motion factorization together with a reformulated training paradigm under relaxed observability. This design is further supported by relaxed regularization objectives that enforce view consistent alignment, orientation coherence, and structural stability. Under this relaxed supervision paradigm, LaxMotion generates diverse, temporally coherent, and semantically aligned 3D motions, achieving performance comparable to or surpassing fully 3D supervised methods. These results indicate that shifting supervision from exact coordinate matching to structural consistency promotes stronger reasoning and improved generalization, offering a scalable and data efficient paradigm for 3D motion generation.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Sheng Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Sidan Du"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "3D human motion",
+        "relaxed supervision",
+        "motion generation",
+        "structural consistency",
+        "generalization"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2511.11368",
+          "url": "https://arxiv.org/abs/2511.11368"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2511.11368",
+        "https://arxiv.org/pdf/2511.11368"
+      ],
+      "url": "https://arxiv.org/abs/2511.11368",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "European Conference on Computer Vision (ECCV 2026)"
+      },
+      "creativeWorkStatus": "Forthcoming",
+      "dateModified": "2026-03-06"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/laxmotion/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "LaxMotion",
+          "item": "https://akira-l.github.io/publications/laxmotion/"
+        }
+      ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">LaxMotion</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>LaxMotion
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>LaxMotion：重新思考 3D Human Motion 的监督粒度</h1>
-      <p class="subtitle">LaxMotion 的重心很聚焦：不是“没有 3D label 怎么办”，而是“到底需要多细的监督才是合适的”。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">3D Human Motion</span>
-      <span class="tag">Weak Supervision</span>
-      <span class="tag">Supervision Granularity</span>
-      <span class="tag">ECCV 2026</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          LaxMotion 的关键观点是：3D human motion generation 不一定需要逐帧、逐关节、逐坐标的强监督。
-          人体动作天然存在多解性，同一个 2D observation 或文本意图可以对应多种合理 3D motion；过细的监督反而会把模型锁进单一解，削弱生成多样性与泛化。
-          论文通过放宽 supervision granularity，让模型在结构一致、运动合理的范围内学习，而不是被每一个局部细节强行对齐。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation</h1>
+      <p class="paper-authors"><strong>Authors:</strong> Sheng Liu, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Sidan Du</p>
+      <p class="paper-venue">European Conference on Computer Vision (ECCV 2026, accepted) · 2026 · forthcoming</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">3D human motion</span><span class="tag">relaxed supervision</span><span class="tag">motion generation</span><span class="tag">structural consistency</span><span class="tag">generalization</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/laxmotion/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.11368" target="_blank" rel="noopener noreferrer">PDF</a>
       </div>
+    </header>
 
-      <h2>1. 问题：强监督并不总是更强</h2>
-      <p>
-        在 3D motion 里，精确坐标标签成本高，而且未必唯一。
-        如果训练目标要求生成结果严格贴合某个 single ground truth，模型可能学到的是标注集的窄分布，而不是动作空间的真实可行范围。
-      </p>
-
-      <h2>2. 核心思路：把监督从“点”放宽到“结构”</h2>
-      <p>
-        LaxMotion 关注监督粒度：哪些地方必须对齐，哪些地方可以只要求语义、姿态或动态结构一致。
-        这种更宽松的监督让模型保留合理自由度，同时仍然受到 2D observation 与 motion prior 的约束。
-      </p>
-
-      <h2>3. Key Insights：生成任务需要容纳多解性</h2>
-      <p>
-        对 recognition 来说，越细的 label 往往越有用；但对 generation 来说，过细 label 可能会误把一个可能答案当成唯一答案。
-        LaxMotion 的 insight 是把 supervision granularity 当成建模选择：监督太粗会漂，太细会僵，合适的“laxness”反而更接近真实 motion 分布。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        LaxMotion revisits how much supervision is actually needed for 3D human motion generation. The paper argues that overly fine-grained supervision can be counterproductive because human motion is inherently multi-modal.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        A single 2D view or intent can correspond to many plausible 3D motions. Forcing the model to match one exact trajectory may reduce diversity and generalization, especially when precise 3D labels are expensive or ambiguous.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Relax supervision from exact coordinates toward structural and motion-level consistency. This keeps the model constrained by meaningful cues while preserving freedom to generate plausible alternatives.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        For generative motion tasks, supervision should match the uncertainty of the problem. The right granularity can improve learning more than simply adding stronger labels.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://arxiv.org/pdf/2511.11368" target="_blank" rel="noopener">PDF</a>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Sheng Liu, Yuanzhi Liang, and Sidan Du</dd>
+          <dt>Recommended paper citation</dt><dd>Sheng Liu, Yuanzhi Liang, and Sidan Du. “LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation.” European Conference on Computer Vision (ECCV 2026) (2026, forthcoming). arXiv:2511.11368.</dd>
+<dt>Bibliographic note</dt><dd>The status “accepted at ECCV 2026” is author-supplied. The paper-level Springer/ECVA proceedings record, DOI, volume, and pagination were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.</dd>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2025-11-14</dd><dt>arXiv last revised</dt><dd>2026-03-06</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Exact 3D coordinate supervision can reward reconstruction of fixed training patterns while failing to teach the structural and semantic cues needed to generalize beyond the training distribution.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Reformulates 3D motion generation under relaxed observability without direct 3D pose regression.</li><li>Introduces structured motion factorization using global trajectories and monocular 2D kinematic cues.</li><li>Adds relaxed objectives for view-consistent alignment, orientation coherence, and structural stability.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>The paper reports diverse, temporally coherent, and semantically aligned motions with results comparable to or better than fully 3D-supervised methods. Dataset-, protocol-, and metric-specific claims should be taken from the v2 experiments.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>Relaxed supervision trades exact coordinate targets for assumptions encoded in trajectories, monocular cues, and structural regularizers. Generalization to motion domains with different observability or camera conditions requires separate testing.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>LaxMotion is a supervision-design contribution for 3D motion generation. It challenges the assumption that more precise 3D labels necessarily produce more generalizable generative models.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Liu et al. propose LaxMotion, a 3D human-motion generation framework that replaces direct 3D pose supervision with global-trajectory and monocular-kinematic constraints plus relaxed structural regularization.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Recent 3D human motion generation models demonstrate remarkable reconstruction accuracy yet struggle to generalize beyond training distributions. This limitation arises partly from the use of precise 3D supervision, which encourages models to fit fixed coordinate patterns instead of learning the essential 3D structure and motion semantic cues required for robust generalization. To overcome this limitation, we propose LaxMotion, a framework that synthesizes realistic 3D motions without direct 3D pose supervision. Instead of regressing toward exact coordinates, LaxMotion learns 3D motion as a consistent explanation of global trajectories and monocular 2D kinematic cues. We introduce a structured motion factorization together with a reformulated training paradigm under relaxed observability. This design is further supported by relaxed regularization objectives that enforce view consistent alignment, orientation coherence, and structural stability. Under this relaxed supervision paradigm, LaxMotion generates diverse, temporally coherent, and semantically aligned 3D motions, achieving performance comparable to or surpassing fully 3D supervised methods. These results indicate that shifting supervision from exact coordinate matching to structural consistency promotes stronger reasoning and improved generalization, offering a scalable and data efficient paradigm for 3D motion generation.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; structured motion factorization and relaxed-regularization sections</td></tr><tr><td>Evaluation statement</td><td>Abstract; comparisons with fully 3D-supervised methods</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2511.11368v2).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Sheng Liu, Yuanzhi Liang, and Sidan Du. “LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation.” European Conference on Computer Vision (ECCV 2026) (2026, forthcoming). arXiv:2511.11368.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/laxmotion/citation.bib">BibTeX</a><a href="/publications/laxmotion/citation.ris">RIS</a><a href="/publications/laxmotion/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.11368" target="_blank" rel="noopener noreferrer">PDF</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

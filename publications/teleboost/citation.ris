@@ -1,0 +1,26 @@
+TY  - RPRT
+TI  - TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation
+AU  - Liang, Yuanzhi
+AU  - Wu, Xuan'er
+AU  - Liu, Yirui
+AU  - Fang, Yijie
+AU  - Fan, Yizhen
+AU  - Hao, Ke
+AU  - Li, Rui
+AU  - Liu, Ruiying
+AU  - Ni, Ziqi
+AU  - Yu, Peng
+AU  - Wang, Yanbo
+AU  - Huang, Haibin
+AU  - Weng, Qizhen
+AU  - Zhang, Chi
+AU  - Li, Xuelong
+PY  - 2026
+DA  - 2026/02/07
+T2  - arXiv
+AN  - arXiv:2602.07595
+DB  - arXiv
+M3  - Preprint
+UR  - https://arxiv.org/abs/2602.07595
+AB  - Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.
+ER  -

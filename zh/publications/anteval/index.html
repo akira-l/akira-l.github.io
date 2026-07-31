@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents 中文解读 | 梁远智</title>
+  <meta name="description" content="AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/anteval/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/anteval/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/anteval/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/anteval/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/anteval/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/anteval/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/anteval/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents 中文解读 | 梁远智">
+  <meta property="og:description" content="AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/anteval/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents 中文解读 | 梁远智">
+  <meta name="twitter:description" content="AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/anteval/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/anteval/",
+      "headline": "论文解读：AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+      "description": "AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2401.06509",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/anteval/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/anteval/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/anteval/#paper",
+      "name": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+      "headline": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+      "abstract": "Large Language Models (LLMs) have demonstrated their ability to replicate human behaviors across a wide range of scenarios. However, their capability in handling complex, multi-character social interactions has yet to be fully explored, primarily due to the absence of robust, quantitative evaluation methods. This gap has slowed the development of agents proficient in more nuanced interactions beyond simple exchanges, for example, small talk. To address this challenge, we introduce the Multi-Agent Interaction Evaluation Framework (AntEval), encompassing a novel interaction framework and evaluation methods. The interaction framework aims to foster an complex interaction environment that bolsters information exchange and intention expression within social interactions. Furthermore, we introduce evaluation methods, including two metrics: Information Exchanging Precision (IEP) and Interaction Expressiveness Gap (IEG), designed for the quantitative and objective assessment of agents' interaction competencies. Our findings highlight the utility of these evaluative methods and show significant potential for improving LLMs' ability to construct agents that interact in a more natural manner with human-like intricacy.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024-01-12",
+      "inLanguage": "en",
+      "keywords": [
+        "LLM agents",
+        "multi-agent interaction",
+        "social interaction",
+        "evaluation",
+        "information exchange"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2401.06509",
+          "url": "https://arxiv.org/abs/2401.06509"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2401.06509",
+        "https://arxiv.org/pdf/2401.06509"
+      ],
+      "url": "https://arxiv.org/abs/2401.06509",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "arXiv"
+      },
+      "dateModified": "2024-03-05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/anteval/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AntEval",
+          "item": "https://akira-l.github.io/zh/publications/anteval/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">AntEval</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents</h1>
+      <p class="paper-authors"><strong>作者:</strong> <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Linchao Zhu, Yi Yang</p>
+      <p class="paper-venue">arXiv · 2024</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">LLM agents</span><span class="tag">multi-agent interaction</span><span class="tag">social interaction</span><span class="tag">evaluation</span><span class="tag">information exchange</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/anteval/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://arxiv.org/abs/2401.06509" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2401.06509" target="_blank" rel="noopener noreferrer">PDF</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Yuanzhi Liang, Linchao Zhu, and Yi Yang</dd>
+          <dt>推荐论文引用</dt><dd>Yuanzhi Liang, Linchao Zhu, and Yi Yang. “AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents.” arXiv (2024). arXiv:2401.06509.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>arXiv 首次提交</dt><dd>2024-01-12</dd><dt>arXiv 最近修订</dt><dd>2024-03-05</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>如果评估只关注语言是否流畅或能否闲聊，而不能量化 agent 是否交换了相关信息、是否表达了自身意图，就很难诊断和改进复杂多角色社交能力。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>设计用于激发多角色信息交换和意图表达的交互框架。</li><li>提出 Information Exchanging Precision（IEP）评估信息交换。</li><li>提出 Interaction Expressiveness Gap（IEG）评估交互对意图信息的表达效果。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>论文通过 agent 交互实验说明 IEP 与 IEG 对互动能力诊断的用途；准确 agent 配置、交互任务和指标行为应以 arXiv v3 为准。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>IEP 与 IEG 只操作化了社交互动的部分维度，并不能等价为完整的社会智能、安全性、关系质量或跨文化开放环境表现。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>AntEval 是面向 LLM 多 Agent 社交互动的评测工作。引用时应使用当前标题和 IEP/IEG 指标名，旧的“informativeness and expressiveness”标题已经过时。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Liang 等提出 AntEval，利用 Information Exchanging Precision 与 Interaction Expressiveness Gap 定量评估 LLM-driven agent 互动中的信息交换和意图表达。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Large Language Models (LLMs) have demonstrated their ability to replicate human behaviors across a wide range of scenarios. However, their capability in handling complex, multi-character social interactions has yet to be fully explored, primarily due to the absence of robust, quantitative evaluation methods. This gap has slowed the development of agents proficient in more nuanced interactions beyond simple exchanges, for example, small talk. To address this challenge, we introduce the Multi-Agent Interaction Evaluation Framework (AntEval), encompassing a novel interaction framework and evaluation methods. The interaction framework aims to foster an complex interaction environment that bolsters information exchange and intention expression within social interactions. Furthermore, we introduce evaluation methods, including two metrics: Information Exchanging Precision (IEP) and Interaction Expressiveness Gap (IEG), designed for the quantitative and objective assessment of agents&#x27; interaction competencies. Our findings highlight the utility of these evaluative methods and show significant potential for improving LLMs&#x27; ability to construct agents that interact in a more natural manner with human-like intricacy.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; interaction framework and IEP/IEG evaluation sections</td></tr><tr><td>评测结论</td><td>Abstract; agent-interaction evaluation experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://arxiv.org/abs/2401.06509" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2401.06509v3, revised 2024-03-05).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, and Yi Yang. “AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents.” arXiv (2024). arXiv:2401.06509.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/anteval/citation.bib">BibTeX</a><a href="/publications/anteval/citation.ris">RIS</a><a href="/publications/anteval/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://arxiv.org/abs/2401.06509" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2401.06509" target="_blank" rel="noopener noreferrer">PDF</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

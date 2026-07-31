@@ -1,0 +1,18 @@
+TY  - CPAPER
+TI  - Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts
+AU  - Liu, Sheng
+AU  - Liang, Yuanzhi
+AU  - Wang, Jiepeng
+AU  - Du, Sidan
+AU  - Zhang, Chi
+AU  - Li, Xuelong
+PY  - 2025
+DA  - 2025/12/14
+T2  - Proceedings of the SIGGRAPH Asia 2025 Conference Papers
+PB  - ACM
+SP  - 1
+EP  - 11
+DO  - 10.1145/3757377.3763954
+UR  - https://doi.org/10.1145/3757377.3763954
+AB  - We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.
+ER  -

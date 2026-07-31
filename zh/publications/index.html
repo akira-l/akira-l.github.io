@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>论文与解读 | 梁远智</title>
+  <meta name="description" content="梁远智的论文目录与中文解读，包含论文摘要、简要介绍、Related Work 定位和 BibTeX/RIS/CSL 引用下载。">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/">
+  <link rel="alternate" type="application/atom+xml" title="Yuanzhi Liang research updates" href="/feed.xml">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="Publication catalog" href="/publications/catalog.json">
+  <link rel="alternate" type="application/json" title="Full research records" href="/publications/records.json">
+  <link rel="alternate" type="text/plain" title="AI retrieval guide" href="/llms.txt">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="论文与解读 | 梁远智">
+  <meta property="og:description" content="梁远智的论文目录与中文解读，包含论文摘要、简要介绍、Related Work 定位和 BibTeX/RIS/CSL 引用下载。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="论文与解读 | 梁远智">
+  <meta name="twitter:description" content="梁远智的论文目录与中文解读，包含论文摘要、简要介绍、Related Work 定位和 BibTeX/RIS/CSL 引用下载。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://akira-l.github.io/zh/publications/#collection",
+      "url": "https://akira-l.github.io/zh/publications/",
+      "name": "梁远智的论文与解读",
+      "inLanguage": "zh-CN",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/zh/publications/#papers"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://akira-l.github.io/zh/publications/#papers",
+      "numberOfItems": 23,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://akira-l.github.io/zh/publications/embodied-brains/",
+          "name": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://akira-l.github.io/zh/publications/teleboost/",
+          "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://akira-l.github.io/zh/publications/rl-vgm/",
+          "name": "Integrating reinforcement learning with visual generative models: foundations and advances"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://akira-l.github.io/zh/publications/vipo/",
+          "name": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://akira-l.github.io/zh/publications/rats/",
+          "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://akira-l.github.io/zh/publications/taros/",
+          "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://akira-l.github.io/zh/publications/otca/",
+          "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://akira-l.github.io/zh/publications/bpgo/",
+          "name": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://akira-l.github.io/zh/publications/laxmotion/",
+          "name": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "url": "https://akira-l.github.io/zh/publications/teleworld/",
+          "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "url": "https://akira-l.github.io/zh/publications/uni-inter/",
+          "name": "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "url": "https://akira-l.github.io/zh/publications/intersyn/",
+          "name": "InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "url": "https://akira-l.github.io/zh/publications/vast/",
+          "name": "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "url": "https://akira-l.github.io/zh/publications/mhem/",
+          "name": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification"
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "url": "https://akira-l.github.io/zh/publications/anteval/",
+          "name": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents"
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "url": "https://akira-l.github.io/zh/publications/icocap/",
+          "name": "IcoCap: Improving Video Captioning by Compounding Images"
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "url": "https://akira-l.github.io/zh/publications/freelong/",
+          "name": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention"
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "url": "https://akira-l.github.io/zh/publications/maal/",
+          "name": "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects"
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "url": "https://akira-l.github.io/zh/publications/seeg/",
+          "name": "SEEG: Semantic Energized Co-speech Gesture Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "url": "https://akira-l.github.io/zh/publications/elp/",
+          "name": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild"
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "url": "https://akira-l.github.io/zh/publications/food-ingredient/",
+          "name": "Food and Ingredient Joint Learning for Fine-Grained Recognition"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "url": "https://akira-l.github.io/zh/publications/rain-one-go/",
+          "name": "Removing Raindrops and Rain Streaks in One Go"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "url": "https://akira-l.github.io/zh/publications/vrr-vg/",
+          "name": "VrR-VG: Refocusing Visually-Relevant Relationships"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="pub-container">
+    <header class="pub-page-header">
+      <h1>论文与解读</h1>
+      <p>按年份浏览论文。每篇论文页面包含摘要、简要解读、Related Work 定位、参考来源和引用下载。</p>
+      <p class="collection-tools"><a href="https://akira-l.github.io/publications/" hreflang="en">English catalog</a></p>
+    </header>
+    <div class="license-banner">原创解读采用 CC BY 4.0；论文摘要和书目信息仍保留原有权利。</div>
+    <div class="pub-search-bar">
+      <label class="sr-only" for="pub-search">搜索标题、作者、会议或主题</label>
+      <input id="pub-search" class="pub-search-input" type="search" placeholder="搜索标题、作者、会议或主题" autocomplete="off">
+      <span id="pub-count" class="pub-search-count" aria-live="polite">共 23 条</span>
+    </div>
+    <section class="pub-year-section" id="year-2026">
+  <h2 class="pub-year-title">2026 <span class="badge">9</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="from world action models to embodied brains: a roadmap for open-world physical intelligence yuanzhi liang xufeng zhan haibin huang chi zhang xuelong li arxiv world action models embodied intelligence physical intelligence world models robotics 这篇路线图把 world action models 放入更完整的物理智能系统：embodied brain 比较候选干预，physical harness 通过工具和控制器将请求落地，共享 contracts 连接异构组件，经过验证的交互再转化为后训练经验。">
+  <h3><a href="/zh/publications/embodied-brains/">From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</a></h3>
+  <p class="meta">Yuanzhi Liang, Xufeng Zhan, et al. · arXiv · 2026</p>
+  <p class="pub-summary">这篇路线图把 World Action Models 放入更完整的物理智能系统：embodied brain 比较候选干预，physical harness 通过工具和控制器将请求落地，共享 contracts 连接异构组件，经过验证的交互再转化为后训练经验。</p>
+  <div class="links"><a class="primary" href="/zh/publications/embodied-brains/">论文解读</a><a href="https://arxiv.org/abs/2607.11689" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/html/2607.11689v1" target="_blank" rel="noopener noreferrer">HTML</a></div>
+</article><article class="pub-item" data-search="teleboost: a systematic alignment framework for high-fidelity, controllable, and robust video generation yuanzhi liang xuan&#x27;er wu yirui liu yijie fang yizhen fan ke hao rui li ruiying liu ziqi ni peng yu yanbo wang haibin huang qizhen weng chi zhang xuelong li arxiv video generation post-training alignment reinforcement learning preference optimization teleboost 把视频后训练视为分阶段、受稳定性约束的系统：串联 supervised policy shaping、reward-driven rl 与 preference refinement，并针对高昂 rollout、时间累积错误和不确定反馈进行诊断。">
+  <h3><a href="/zh/publications/teleboost/">TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</a></h3>
+  <p class="meta">Yuanzhi Liang, Xuan&#x27;er Wu, et al. · arXiv · 2026</p>
+  <p class="pub-summary">TeleBoost 把视频后训练视为分阶段、受稳定性约束的系统：串联 supervised policy shaping、reward-driven RL 与 preference refinement，并针对高昂 rollout、时间累积错误和不确定反馈进行诊断。</p>
+  <div class="links"><a class="primary" href="/zh/publications/teleboost/">论文解读</a><a href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener noreferrer">arXiv</a></div>
+</article><article class="pub-item" data-search="integrating reinforcement learning with visual generative models: foundations and advances yuanzhi liang yijie fang rui li ziqi ni ruijie su chi zhang vicinagearth reinforcement learning visual generative models image generation video generation 3d and 4d generation survey 这篇综述系统整理图像、视频与 3d/4d 生成中的 reinforcement learning，并把 rl 视为连接不可微目标、偏好反馈、时间结构和高层目标的通用优化接口，而不仅是某种 fine-tuning 算法。">
+  <h3><a href="/zh/publications/rl-vgm/">Integrating reinforcement learning with visual generative models: foundations and advances</a></h3>
+  <p class="meta">Yuanzhi Liang, Yijie Fang, et al. · Vicinagearth · 2026 · 卷 3(1) · 文章编号 2</p>
+  <p class="pub-summary">这篇综述系统整理图像、视频与 3D/4D 生成中的 reinforcement learning，并把 RL 视为连接不可微目标、偏好反馈、时间结构和高层目标的通用优化接口，而不仅是某种 fine-tuning 算法。</p>
+  <div class="links"><a class="primary" href="/zh/publications/rl-vgm/">论文解读</a><a href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://visgenrlsurvey.liangyzh18.workers.dev/" target="_blank" rel="noopener noreferrer">Project</a></div>
+</article><article class="pub-item" data-search="seeing what matters: visual preference policy optimization for visual generation ziqi ni yuanzhi liang rui li yi zhou haibin huang chi zhang xuelong li ieee/cvf conference on computer vision and pattern recognition (cvpr 2026) visual generation grpo pixel-level advantage preference optimization structured feedback vipo 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 grpo 更新集中到感知上重要的区域，同时保留标准训练流程。">
+  <h3><a href="/zh/publications/vipo/">Seeing What Matters: Visual Preference Policy Optimization for Visual Generation</a></h3>
+  <p class="meta">Ziqi Ni, Yuanzhi Liang, et al. · IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · 页 27260-27269</p>
+  <p class="pub-summary">ViPO 把每个生成样本的单一标量 reward 转换为空间和时间结构化的像素级 advantage map，利用预训练视觉特征把 GRPO 更新集中到感知上重要的区域，同时保留标准训练流程。</p>
+  <div class="links"><a class="primary" href="/zh/publications/vipo/">论文解读</a><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.18719" target="_blank" rel="noopener noreferrer">arXiv</a></div>
+</article><article class="pub-item" data-search="reward-aware trajectory shaping for few-step visual generation rui li bingyu li yuanzhi liang haibin huang chi zhang xuelong li acm multimedia 2026 (accepted) few-step generation trajectory distillation preference alignment reward-aware gating diffusion models rats 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。">
+  <h3><a href="/zh/publications/rats/">Reward-Aware Trajectory Shaping for Few-step Visual Generation</a></h3>
+  <p class="meta">Rui Li, Bingyu Li, et al. · ACM Multimedia 2026 (accepted) · 2026 · 待正式出版</p>
+  <p class="pub-summary">RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。</p>
+  <div class="links"><a class="primary" href="/zh/publications/rats/">论文解读</a><a href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2604.14910" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article><article class="pub-item" data-search="rethinking reward signals in video grpo: when scores become targets rui li yuanzhi liang ziqi ni haibin huang chi zhang xuelong li european conference on computer vision (eccv 2026, accepted) video generation grpo reward saturation reward hacking goodhart&#x27;s law taros v4 针对 video grpo 中的 reward hacking 与饱和：用 component-level performance assessment 和 intra-group sparsity 组织多维反馈，并自适应降低已经饱和的 reward component 权重。">
+  <h3><a href="/zh/publications/taros/">Rethinking Reward Signals in Video GRPO: When Scores Become Targets</a></h3>
+  <p class="meta">Rui Li, Yuanzhi Liang, et al. · European Conference on Computer Vision (ECCV 2026, accepted) · 2026 · 待正式出版</p>
+  <p class="pub-summary">TaRoS v4 针对 video GRPO 中的 reward hacking 与饱和：用 component-level performance assessment 和 intra-group sparsity 组织多维反馈，并自适应降低已经饱和的 reward component 权重。</p>
+  <div class="links"><a class="primary" href="/zh/publications/taros/">论文解读</a><a href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.19356" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article><article class="pub-item" data-search="learning to credit the right steps: objective-aware process optimization for visual generation rui li ke hao yuanzhi liang haibin huang chi zhang yun gu xuelong li acm multimedia 2026 (accepted) visual generation grpo credit assignment multi-objective optimization diffusion models otca 不再把一个标量 reward 平均传给所有去噪步，而是同时回答两个问题：轨迹中的哪些 step 更重要，以及每个阶段应该强调哪些 reward objective。">
+  <h3><a href="/zh/publications/otca/">Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</a></h3>
+  <p class="meta">Rui Li, Ke Hao, et al. · ACM Multimedia 2026 (accepted) · 2026 · 待正式出版</p>
+  <p class="pub-summary">OTCA 不再把一个标量 reward 平均传给所有去噪步，而是同时回答两个问题：轨迹中的哪些 step 更重要，以及每个阶段应该强调哪些 reward objective。</p>
+  <div class="links"><a class="primary" href="/zh/publications/otca/">论文解读</a><a href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2604.19234" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article><article class="pub-item" data-search="learning what to trust: bayesian prior-guided optimization for visual generation ruiying liu yuanzhi liang haibin huang tianshu yu chi zhang ieee/cvf conference on computer vision and pattern recognition (cvpr 2026) visual generation grpo reward uncertainty bayesian prior semantic alignment bpgo 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 grpo 强调置信反馈并抑制歧义信号。">
+  <h3><a href="/zh/publications/bpgo/">Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation</a></h3>
+  <p class="meta">Ruiying Liu, Yuanzhi Liang, et al. · IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · 页 34408-34417</p>
+  <p class="pub-summary">BPGO 不把所有视觉 reward score 视为同样可信，而是用 semantic prior 同时锚定组间 trust allocation 与组内 renormalization，使 GRPO 强调置信反馈并抑制歧义信号。</p>
+  <div class="links"><a class="primary" href="/zh/publications/bpgo/">论文解读</a><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.18919" target="_blank" rel="noopener noreferrer">arXiv</a></div>
+</article><article class="pub-item" data-search="laxmotion: rethinking supervision granularity for 3d human motion generation sheng liu yuanzhi liang sidan du european conference on computer vision (eccv 2026, accepted) 3d human motion relaxed supervision motion generation structural consistency generalization laxmotion 不使用直接 3d pose 监督，而是把 3d motion 学习为对全局轨迹与单目 2d 运动学线索的一致解释，再以视角一致、朝向连贯和结构稳定的正则进行约束。">
+  <h3><a href="/zh/publications/laxmotion/">LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation</a></h3>
+  <p class="meta">Sheng Liu, Yuanzhi Liang, Sidan Du · European Conference on Computer Vision (ECCV 2026, accepted) · 2026 · 待正式出版</p>
+  <p class="pub-summary">LaxMotion 不使用直接 3D pose 监督，而是把 3D motion 学习为对全局轨迹与单目 2D 运动学线索的一致解释，再以视角一致、朝向连贯和结构稳定的正则进行约束。</p>
+  <div class="links"><a class="primary" href="/zh/publications/laxmotion/">论文解读</a><a href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.11368" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article></div>
+</section><section class="pub-year-section" id="year-2025">
+  <h2 class="pub-year-title">2025 <span class="badge">3</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="teleworld: towards dynamic multimodal synthesis with a 4d world model yabo chen yuanzhi liang jiepeng wang tingxi chen junfei cheng zixiao gu yuyang huang zicheng jiang wei li tian li weichen li zuoxin li guangce liu jialun liu junqi liu haoyuan wang qizhen weng xuan&#x27;er wu xunzhi xiang xiaoyan yang xin zhang shiwen zhang junyu zhou chengcheng zhou haibin huang chi zhang xuelong li arxiv 4d world model video generation dynamic reconstruction long-term memory real-time synthesis teleworld 在视频生成和 4d 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；macro-from-micro planning 与蒸馏用于支持长时和低延迟合成。">
+  <h3><a href="/zh/publications/teleworld/">TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model</a></h3>
+  <p class="meta">Yabo Chen, Yuanzhi Liang, et al. · arXiv · 2025</p>
+  <p class="pub-summary">TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。</p>
+  <div class="links"><a class="primary" href="/zh/publications/teleworld/">论文解读</a><a href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2601.00051" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article><article class="pub-item" data-search="uni-inter: unifying 3d human motion synthesis across diverse interaction contexts sheng liu yuanzhi liang jiepeng wang sidan du chi zhang xuelong li siggraph asia 2025 conference papers 3d human motion human-object interaction human-human interaction human-scene interaction unified representation uni-inter 用 unified interactive volume 统一表示人—人、人—物和人—场景交互，并逐关节进行概率式动作预测，让一个 task-agnostic 模型能够推理异构和复合交互上下文。">
+  <h3><a href="/zh/publications/uni-inter/">Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts</a></h3>
+  <p class="meta">Sheng Liu, Yuanzhi Liang, et al. · SIGGRAPH Asia 2025 Conference Papers · 2025 · 页 1-11</p>
+  <p class="pub-summary">Uni-Inter 用 Unified Interactive Volume 统一表示人—人、人—物和人—场景交互，并逐关节进行概率式动作预测，让一个 task-agnostic 模型能够推理异构和复合交互上下文。</p>
+  <div class="links"><a class="primary" href="/zh/publications/uni-inter/">论文解读</a><a href="https://dl.acm.org/doi/10.1145/3757377.3763954" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.13032" target="_blank" rel="noopener noreferrer">arXiv</a></div>
+</article><article class="pub-item" data-search="intersyn: interleaved learning for dynamic motion synthesis in the wild yiyi ma yuanzhi liang xiu li chi zhang xuelong li ieee/cvf international conference on computer vision (iccv 2025) 3d human motion multi-person interaction interleaved learning motion synthesis coordination refinement intersyn 不把单人动作与多人交互视为彼此独立的任务：ins 从第一人称交互视角联合合成两类行为，rec 再细化角色之间的相对协调与同步。">
+  <h3><a href="/zh/publications/intersyn/">InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild</a></h3>
+  <p class="meta">Yiyi Ma, Yuanzhi Liang, et al. · IEEE/CVF International Conference on Computer Vision (ICCV 2025) · 2025 · 页 12832-12841</p>
+  <p class="pub-summary">InterSyn 不把单人动作与多人交互视为彼此独立的任务：INS 从第一人称交互视角联合合成两类行为，REC 再细化角色之间的相对协调与同步。</p>
+  <div class="links"><a class="primary" href="/zh/publications/intersyn/">论文解读</a><a href="https://doi.org/10.1109/ICCV51701.2025.01192" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener noreferrer">Open access</a></div>
+</article></div>
+</section><section class="pub-year-section" id="year-2024">
+  <h2 class="pub-year-title">2024 <span class="badge">5</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="vast 1.0: a unified framework for controllable and consistent video generation chi zhang yuanzhi liang xi qiu fangqiu yi xuelong li arxiv video generation storyboard controllable generation temporal consistency scene composition vast 是两阶段的 video-as-storyboard-from-text 框架：storyforge 将文本变成人体姿态与物体布局明确的 storyboard，visionforge 再把这一结构规划生成视频。">
+  <h3><a href="/zh/publications/vast/">VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation</a></h3>
+  <p class="meta">Chi Zhang, Yuanzhi Liang, et al. · arXiv · 2024</p>
+  <p class="pub-summary">VAST 是两阶段的 Video-As-Storyboard-from-Text 框架：StoryForge 将文本变成人体姿态与物体布局明确的 storyboard，VisionForge 再把这一结构规划生成视频。</p>
+  <div class="links"><a class="primary" href="/zh/publications/vast/">论文解读</a><a href="https://arxiv.org/abs/2412.16677" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2412.16677" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article><article class="pub-item" data-search="penalizing the hard example but not too much: a strong baseline for fine-grained visual classification yuanzhi liang linchao zhu xiaohan wang yi yang ieee transactions on neural networks and learning systems fine-grained visual classification hard examples loss modulation generalization overfitting mhem 的全称是 moderate hard example modulation：它为调制损失定义条件，强调有信息量的困难样本，同时避免极端样本的影响不断增大并被细粒度分类器直接记忆。">
+  <h3><a href="/zh/publications/mhem/">Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification</a></h3>
+  <p class="meta">Yuanzhi Liang, Linchao Zhu, et al. · IEEE Transactions on Neural Networks and Learning Systems · 2024 · 卷 35(5) · 页 7048-7059</p>
+  <p class="pub-summary">MHEM 的全称是 Moderate Hard Example Modulation：它为调制损失定义条件，强调有信息量的困难样本，同时避免极端样本的影响不断增大并被细粒度分类器直接记忆。</p>
+  <div class="links"><a class="primary" href="/zh/publications/mhem/">论文解读</a><a href="https://doi.org/10.1109/TNNLS.2022.3213563" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://ieeexplore.ieee.org/document/9956020" target="_blank" rel="noopener noreferrer">IEEE Xplore</a></div>
+</article><article class="pub-item" data-search="anteval: evaluation of social interaction competencies in llm-driven agents yuanzhi liang linchao zhu yi yang arxiv llm agents multi-agent interaction social interaction evaluation information exchange anteval 通过多 agent 交互框架和两个定量指标评估 llm agent 的社交互动能力：information exchanging precision（iep）与 interaction expressiveness gap（ieg）。">
+  <h3><a href="/zh/publications/anteval/">AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents</a></h3>
+  <p class="meta">Yuanzhi Liang, Linchao Zhu, Yi Yang · arXiv · 2024</p>
+  <p class="pub-summary">AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。</p>
+  <div class="links"><a class="primary" href="/zh/publications/anteval/">论文解读</a><a href="https://arxiv.org/abs/2401.06509" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2401.06509" target="_blank" rel="noopener noreferrer">PDF</a></div>
+</article><article class="pub-item" data-search="icocap: improving video captioning by compounding images yuanzhi liang linchao zhu xiaohan wang yi yang ieee transactions on multimedia video captioning image-video compounding content density visual-semantic guidance multimodal learning icocap 改变视频 captioner 看到的内容密度：image-video compounding strategy（ics）把简洁图像语义复合进视频样本，visual-semantic guided captioning（vgc）再让 caption supervision 适应复合内容中的歧义。">
+  <h3><a href="/zh/publications/icocap/">IcoCap: Improving Video Captioning by Compounding Images</a></h3>
+  <p class="meta">Yuanzhi Liang, Linchao Zhu, et al. · IEEE Transactions on Multimedia · 2024 · 卷 26 · 页 4389-4400</p>
+  <p class="pub-summary">IcoCap 改变视频 captioner 看到的内容密度：Image-Video Compounding Strategy（ICS）把简洁图像语义复合进视频样本，Visual-Semantic Guided Captioning（VGC）再让 caption supervision 适应复合内容中的歧义。</p>
+  <div class="links"><a class="primary" href="/zh/publications/icocap/">论文解读</a><a href="https://doi.org/10.1109/TMM.2023.3322329" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://ieeexplore.ieee.org/document/10272675" target="_blank" rel="noopener noreferrer">IEEE Xplore</a></div>
+</article><article class="pub-item" data-search="freelong: training-free long video generation with spectralblend temporal attention yu lu yuanzhi liang linchao zhu yi yang advances in neural information processing systems (neurips 2024) long video generation training-free video diffusion frequency decomposition temporal attention freelong 无需额外训练，在去噪过程中融合全局视频特征的低频部分与局部子序列特征的高频部分，使预训练短视频 diffusion model 同时兼顾长时全局一致性和局部时空细节。">
+  <h3><a href="/zh/publications/freelong/">FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention</a></h3>
+  <p class="meta">Yu Lu, Yuanzhi Liang, et al. · Advances in Neural Information Processing Systems (NeurIPS 2024) · 2024 · 卷 37 · 页 131434-131455</p>
+  <p class="pub-summary">FreeLong 无需额外训练，在去噪过程中融合全局视频特征的低频部分与局部子序列特征的高频部分，使预训练短视频 diffusion model 同时兼顾长时全局一致性和局部时空细节。</p>
+  <div class="links"><a class="primary" href="/zh/publications/freelong/">论文解读</a><a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/ed67dff7cb96e7e86c4d91c0d5db49bb-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://doi.org/10.52202/079017-4177" target="_blank" rel="noopener noreferrer">DOI</a></div>
+</article></div>
+</section><section class="pub-year-section" id="year-2023">
+  <h2 class="pub-year-title">2023 <span class="badge">1</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="maal: multimodality-aware autoencoder-based affordance learning for 3d articulated objects yuanzhi liang xiaohan wang linchao zhu yi yang ieee/cvf international conference on computer vision (iccv 2023) 3d affordance learning articulated objects multimodal learning autoencoder robotic interaction maal 用单阶段 autoencoder pipeline 学习 3d articulated object affordance，其中 multimodal energized encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。">
+  <h3><a href="/zh/publications/maal/">MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects</a></h3>
+  <p class="meta">Yuanzhi Liang, Xiaohan Wang, et al. · IEEE/CVF International Conference on Computer Vision (ICCV 2023) · 2023 · 页 217-227</p>
+  <p class="pub-summary">MAAL 用单阶段 autoencoder pipeline 学习 3D articulated object affordance，其中 MultiModal Energized Encoder 联合建模物体几何、机器人动作及其交互，并只需要少量 positive sample。</p>
+  <div class="links"><a class="primary" href="/zh/publications/maal/">论文解读</a><a href="https://doi.org/10.1109/ICCV51070.2023.00027" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html" target="_blank" rel="noopener noreferrer">Open access</a></div>
+</article></div>
+</section><section class="pub-year-section" id="year-2022">
+  <h2 class="pub-year-title">2022 <span class="badge">2</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="seeg: semantic energized co-speech gesture generation yuanzhi liang qianyu feng linchao zhu li hu pan pan yi yang ieee/cvf conference on computer vision and pattern recognition (cvpr 2022) co-speech gesture gesture generation semantic gestures speech rhythm disentangled learning seeg 先用 decoupled mining module 分离节奏相关与语义相关信息，再通过 semantic energizing module 和 semantic prompter，使生成的 co-speech gesture 不只对齐语音节奏，也表达相应语义。">
+  <h3><a href="/zh/publications/seeg/">SEEG: Semantic Energized Co-speech Gesture Generation</a></h3>
+  <p class="meta">Yuanzhi Liang, Qianyu Feng, et al. · IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) · 2022 · 页 10463-10472</p>
+  <p class="pub-summary">SEEG 先用 DEcoupled Mining module 分离节奏相关与语义相关信息，再通过 Semantic Energizing Module 和 semantic prompter，使生成的 co-speech gesture 不只对齐语音节奏，也表达相应语义。</p>
+  <div class="links"><a class="primary" href="/zh/publications/seeg/">论文解读</a><a href="https://doi.org/10.1109/CVPR52688.2022.01022" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_SEEG_Semantic_Energized_Co-Speech_Gesture_Generation_CVPR_2022_paper.html" target="_blank" rel="noopener noreferrer">Open access</a></div>
+</article><article class="pub-item" data-search="a simple episodic linear probe improves visual recognition in the wild yuanzhi liang linchao zhu xiaohan wang yi yang ieee/cvf conference on computer vision and pattern recognition (cvpr 2022) visual recognition generalization linear probing representation learning adaptive regularization elp 把 linear probing 放进训练过程：周期性重置的分类器在 detached feature 上学习并衡量当前可分性，elp-sr 再利用 probe 与主分类器之间的差异自适应调整样本正则。">
+  <h3><a href="/zh/publications/elp/">A Simple Episodic Linear Probe Improves Visual Recognition in the Wild</a></h3>
+  <p class="meta">Yuanzhi Liang, Linchao Zhu, et al. · IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) · 2022 · 页 9549-9559</p>
+  <p class="pub-summary">ELP 把 linear probing 放进训练过程：周期性重置的分类器在 detached feature 上学习并衡量当前可分性，ELP-SR 再利用 probe 与主分类器之间的差异自适应调整样本正则。</p>
+  <div class="links"><a class="primary" href="/zh/publications/elp/">论文解读</a><a href="https://doi.org/10.1109/CVPR52688.2022.00934" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html" target="_blank" rel="noopener noreferrer">Open access</a></div>
+</article></div>
+</section><section class="pub-year-section" id="year-2021">
+  <h2 class="pub-year-title">2021 <span class="badge">2</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="food and ingredient joint learning for fine-grained recognition chengxu liu yuanzhi liang yao xue xueming qian jianlong fu ieee transactions on circuits and systems for video technology fine-grained food recognition ingredient recognition attention fusion joint learning class imbalance 论文以 attention fusion network 强调判别区域，并通过 food-ingredient joint learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。">
+  <h3><a href="/zh/publications/food-ingredient/">Food and Ingredient Joint Learning for Fine-Grained Recognition</a></h3>
+  <p class="meta">Chengxu Liu, Yuanzhi Liang, et al. · IEEE Transactions on Circuits and Systems for Video Technology · 2021 · 卷 31(6) · 页 2480-2493</p>
+  <p class="pub-summary">论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。</p>
+  <div class="links"><a class="primary" href="/zh/publications/food-ingredient/">论文解读</a><a href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://dblp.org/rec/journals/tcsv/LiuLXQF21" target="_blank" rel="noopener noreferrer">DBLP</a></div>
+</article><article class="pub-item" data-search="removing raindrops and rain streaks in one go ruijie quan xin yu yuanzhi liang yi yang ieee/cvf conference on computer vision and pattern recognition (cvpr 2021) image deraining raindrop removal rain streak removal neural architecture search rainds 该方法包含 raindrop→streak 和 streak→raindrop 两条互补级联分支，以 attention 融合输出，用 neural architecture search 搜索去雨模块，并提出真实世界 rainds 数据集。">
+  <h3><a href="/zh/publications/rain-one-go/">Removing Raindrops and Rain Streaks in One Go</a></h3>
+  <p class="meta">Ruijie Quan, Xin Yu, et al. · IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2021) · 2021 · 页 9143-9152</p>
+  <p class="pub-summary">该方法包含 raindrop→streak 和 streak→raindrop 两条互补级联分支，以 attention 融合输出，用 neural architecture search 搜索去雨模块，并提出真实世界 RainDS 数据集。</p>
+  <div class="links"><a class="primary" href="/zh/publications/rain-one-go/">论文解读</a><a href="https://doi.org/10.1109/CVPR46437.2021.00903" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener noreferrer">Open access</a></div>
+</article></div>
+</section><section class="pub-year-section" id="year-2019">
+  <h2 class="pub-year-title">2019 <span class="badge">1</span></h2>
+  <div class="pub-list"><article class="pub-item" data-search="vrr-vg: refocusing visually-relevant relationships yuanzhi liang yalong bai wei zhang xueming qian li zhu tao mei ieee/cvf international conference on computer vision (iccv 2019) visual relationships scene graphs dataset bias visual genome representation learning vrr-vg 剪除仅凭非视觉统计就能预测的关系，从 visual genome 构建更强调视觉证据的 scene-graph 数据集，并联合编码实例、属性与关系来学习表示。">
+  <h3><a href="/zh/publications/vrr-vg/">VrR-VG: Refocusing Visually-Relevant Relationships</a></h3>
+  <p class="meta">Yuanzhi Liang, Yalong Bai, et al. · IEEE/CVF International Conference on Computer Vision (ICCV 2019) · 2019 · 页 10402-10411</p>
+  <p class="pub-summary">VrR-VG 剪除仅凭非视觉统计就能预测的关系，从 Visual Genome 构建更强调视觉证据的 scene-graph 数据集，并联合编码实例、属性与关系来学习表示。</p>
+  <div class="links"><a class="primary" href="/zh/publications/vrr-vg/">论文解读</a><a href="https://doi.org/10.1109/ICCV.2019.01050" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html" target="_blank" rel="noopener noreferrer">Open access</a></div>
+</article></div>
+</section>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a></p></footer>
+  <script>
+  (() => {
+    const input = document.getElementById('pub-search');
+    const cards = [...document.querySelectorAll('.pub-item')];
+    const count = document.getElementById('pub-count');
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const show = !query || card.dataset.search.includes(query);
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      count.textContent = `${visible} / ${cards.length}`;
+    });
+  })();
+  </script>
+</body>
+</html>

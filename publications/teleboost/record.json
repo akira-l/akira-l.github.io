@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "slug": "teleboost",
+  "canonical_url": "https://akira-l.github.io/publications/teleboost/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/teleboost/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/teleboost/"
+  },
+  "title": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+  "short_title": "TeleBoost",
+  "authors": [
+    "Yuanzhi Liang",
+    "Xuan'er Wu",
+    "Yirui Liu",
+    "Yijie Fang",
+    "Yizhen Fan",
+    "Ke Hao",
+    "Rui Li",
+    "Ruiying Liu",
+    "Ziqi Ni",
+    "Peng Yu",
+    "Yanbo Wang",
+    "Haibin Huang",
+    "Qizhen Weng",
+    "Chi Zhang",
+    "Xuelong Li"
+  ],
+  "publication": {
+    "kind": "preprint",
+    "venue": "arXiv",
+    "citation_container_title": "arXiv",
+    "status": "preprint",
+    "year": 2026,
+    "publication_date": "2026-02-07"
+  },
+  "identifiers": {
+    "arxiv": "2602.07595",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2026-02-07",
+    "last_revised": "2026-02-07"
+  },
+  "keywords": [
+    "video generation",
+    "post-training",
+    "alignment",
+    "reinforcement learning",
+    "preference optimization"
+  ],
+  "official_abstract": "Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2602.07595",
+    "version": "arXiv:2602.07595v1",
+    "method_locator": "Abstract; framework sections on supervised shaping, reward-driven RL, and preference refinement",
+    "evidence_locator": "Abstract; report's diagnostic and deployment-oriented analysis"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.",
+      "problem": "A pretrained video generator is not automatically instruction-following, controllable, temporally robust, or deployment-ready. Video rollouts are expensive, errors compound over time, and heterogeneous feedback can be uncertain or weakly discriminative.",
+      "contributions": [
+        "Organizes supervised policy shaping, reward-driven RL, and preference refinement into one staged optimization stack.",
+        "Frames diagnostics and stability constraints as first-class components of video-model post-training.",
+        "Provides a deployment-oriented blueprint for improving fidelity, temporal coherence, and prompt adherence while preserving initial controllability."
+      ],
+      "evidence": "TeleBoost is a systematic framework and report rather than a single isolated algorithm. Its claims should be read as a combined post-training recipe supported by the report's analyses and experiments, not as evidence that any one stage alone produces all reported properties.",
+      "limitations": "The framework requires expensive video rollouts, multiple feedback sources, diagnostic infrastructure, and careful stage-specific tuning. Reproduction and comparison should preserve the full training stack and initialization assumptions.",
+      "positioning": "TeleBoost is suitable for related work on production-oriented video-generation alignment and post-training systems. It emphasizes orchestration and stability across SFT-, RL-, and preference-based stages rather than proposing only one optimizer.",
+      "citation_ready": "Liang et al. present TeleBoost, a stability-constrained video-generation post-training framework that stages supervised policy shaping, reward-driven reinforcement learning, and preference refinement to improve fidelity, controllability, temporal coherence, and prompt adherence."
+    },
+    "zh-CN": {
+      "summary": "TeleBoost 把视频后训练视为分阶段、受稳定性约束的系统：串联 supervised policy shaping、reward-driven RL 与 preference refinement，并针对高昂 rollout、时间累积错误和不确定反馈进行诊断。",
+      "problem": "预训练视频模型并不会自动具备指令跟随、可控性、长时鲁棒性和部署能力；视频 rollout 成本高、错误随时间累积，异构反馈还可能不确定或区分度不足。",
+      "contributions": [
+        "把 supervised policy shaping、reward-driven RL 和 preference refinement 组织为统一的分阶段优化栈。",
+        "将诊断机制和稳定性约束提升为视频模型后训练的一等组件。",
+        "给出面向部署的流程，用于同时改善感知质量、时间一致性和 prompt adherence，并尽量保留初始化阶段已有的可控性。"
+      ],
+      "evidence": "TeleBoost 是系统化框架与报告，而不是单一算法。相关结论应理解为完整后训练 recipe 的综合效果，不能据此推断任一阶段单独产生全部属性。",
+      "limitations": "该框架需要高成本视频 rollout、多种反馈源、诊断基础设施和分阶段调参。复现与比较必须说明完整训练栈和初始化条件。",
+      "positioning": "TeleBoost 适合用于讨论面向生产的视频生成对齐与后训练系统。与只提出某个优化器的工作不同，它强调 SFT、RL 和偏好阶段之间的编排与稳定性。",
+      "citation_ready": "Liang 等提出 TeleBoost，将 supervised policy shaping、reward-driven reinforcement learning 与 preference refinement 组织为受稳定性约束的视频后训练框架，以提升画面质量、可控性、时间一致性和指令遵循。"
+    }
+  },
+  "citation": {
+    "id": "liang2026teleboost",
+    "type": "article",
+    "title": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Xuan'er",
+        "family": "Wu"
+      },
+      {
+        "given": "Yirui",
+        "family": "Liu"
+      },
+      {
+        "given": "Yijie",
+        "family": "Fang"
+      },
+      {
+        "given": "Yizhen",
+        "family": "Fan"
+      },
+      {
+        "given": "Ke",
+        "family": "Hao"
+      },
+      {
+        "given": "Rui",
+        "family": "Li"
+      },
+      {
+        "given": "Ruiying",
+        "family": "Liu"
+      },
+      {
+        "given": "Ziqi",
+        "family": "Ni"
+      },
+      {
+        "given": "Peng",
+        "family": "Yu"
+      },
+      {
+        "given": "Yanbo",
+        "family": "Wang"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Qizhen",
+        "family": "Weng"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xuelong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "arXiv",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          7
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2602.07595",
+    "abstract": "Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.",
+    "keyword": "video generation, post-training, alignment, reinforcement learning, preference optimization",
+    "archive": "arXiv",
+    "archive_location": "2602.07595",
+    "genre": "Preprint"
+  },
+  "resources": [
+    {
+      "label": "Project",
+      "url": "https://tele-ai.github.io/TeleBoost/"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2602.07595"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2602.07595"
+    }
+  ]
+}

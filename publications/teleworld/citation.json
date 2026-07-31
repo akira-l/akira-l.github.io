@@ -1,0 +1,131 @@
+{
+  "id": "chen2025teleworld",
+  "type": "article",
+  "title": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+  "author": [
+    {
+      "given": "Yabo",
+      "family": "Chen"
+    },
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Jiepeng",
+      "family": "Wang"
+    },
+    {
+      "given": "Tingxi",
+      "family": "Chen"
+    },
+    {
+      "given": "Junfei",
+      "family": "Cheng"
+    },
+    {
+      "given": "Zixiao",
+      "family": "Gu"
+    },
+    {
+      "given": "Yuyang",
+      "family": "Huang"
+    },
+    {
+      "given": "Zicheng",
+      "family": "Jiang"
+    },
+    {
+      "given": "Wei",
+      "family": "Li"
+    },
+    {
+      "given": "Tian",
+      "family": "Li"
+    },
+    {
+      "given": "Weichen",
+      "family": "Li"
+    },
+    {
+      "given": "Zuoxin",
+      "family": "Li"
+    },
+    {
+      "given": "Guangce",
+      "family": "Liu"
+    },
+    {
+      "given": "Jialun",
+      "family": "Liu"
+    },
+    {
+      "given": "Junqi",
+      "family": "Liu"
+    },
+    {
+      "given": "Haoyuan",
+      "family": "Wang"
+    },
+    {
+      "given": "Qizhen",
+      "family": "Weng"
+    },
+    {
+      "given": "Xuan'er",
+      "family": "Wu"
+    },
+    {
+      "given": "Xunzhi",
+      "family": "Xiang"
+    },
+    {
+      "given": "Xiaoyan",
+      "family": "Yang"
+    },
+    {
+      "given": "Xin",
+      "family": "Zhang"
+    },
+    {
+      "given": "Shiwen",
+      "family": "Zhang"
+    },
+    {
+      "given": "Junyu",
+      "family": "Zhou"
+    },
+    {
+      "given": "Chengcheng",
+      "family": "Zhou"
+    },
+    {
+      "given": "Haibin",
+      "family": "Huang"
+    },
+    {
+      "given": "Chi",
+      "family": "Zhang"
+    },
+    {
+      "given": "Xuelong",
+      "family": "Li"
+    }
+  ],
+  "container-title": "arXiv",
+  "issued": {
+    "date-parts": [
+      [
+        2025,
+        12,
+        31
+      ]
+    ]
+  },
+  "URL": "https://arxiv.org/abs/2601.00051",
+  "abstract": "World models aim to endow AI systems with the ability to represent, generate, and interact with dynamic environments in a coherent and temporally consistent manner. While recent video generation models have demonstrated impressive visual quality, they remain limited in real-time interaction, long-horizon consistency, and persistent memory of dynamic scenes, hindering their evolution into practical world models. In this report, we present TeleWorld, a real-time multimodal 4D world modeling framework that unifies video generation, dynamic scene reconstruction, and long-term world memory within a closed-loop system. TeleWorld introduces a novel generation-reconstruction-guidance paradigm, where generated video streams are continuously reconstructed into a dynamic 4D spatio-temporal representation, which in turn guides subsequent generation to maintain spatial, temporal, and physical consistency. To support long-horizon generation with low latency, we employ an autoregressive diffusion-based video model enhanced with Macro-from-Micro Planning (MMPL)--a hierarchical planning method that reduces error accumulation from frame-level to segment-level-alongside efficient Distribution Matching Distillation (DMD), enabling real-time synthesis under practical computational budgets. Our approach achieves seamless integration of dynamic object modeling and static scene representation within a unified 4D framework, advancing world models toward practical, interactive, and computationally accessible systems. Extensive experiments demonstrate that TeleWorld achieves strong performance in both static and dynamic world understanding, long-term consistency, and real-time generation efficiency, positioning it as a practical step toward interactive, memory-enabled world models for multimodal generation and embodied intelligence.",
+  "keyword": "4D world model, video generation, dynamic reconstruction, long-term memory, real-time synthesis",
+  "archive": "arXiv",
+  "archive_location": "2601.00051",
+  "genre": "Preprint"
+}

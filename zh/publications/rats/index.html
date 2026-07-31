@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reward-Aware Trajectory Shaping for Few-step Visual Generation 中文解读 | 梁远智</title>
+  <meta name="description" content="RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/rats/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rats/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rats/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rats/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/rats/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/rats/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/rats/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Reward-Aware Trajectory Shaping for Few-step Visual Generation 中文解读 | 梁远智">
+  <meta property="og:description" content="RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/rats/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Reward-Aware Trajectory Shaping for Few-step Visual Generation 中文解读 | 梁远智">
+  <meta name="twitter:description" content="RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/rats/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/rats/",
+      "headline": "论文解读：Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+      "description": "RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2604.14910",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/rats/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/rats/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/rats/#paper",
+      "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+      "headline": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+      "abstract": "Achieving high-fidelity generation in extremely few sampling steps has long been a central goal of generative modeling. Existing approaches largely rely on distillation-based frameworks to compress the original multi-step denoising process into a few-step generator. However, such methods inherently constrain the student to imitate a stronger multi-step teacher, imposing the teacher as an upper bound on student performance. We argue that introducing preference alignment awareness enables the student to optimize toward reward-preferred generation quality, potentially surpassing the teacher instead of being restricted to rigid teacher imitation. To this end, we propose Reward-Aware Trajectory Shaping (RATS), a lightweight framework for preference-aligned few-step generation. Specifically, teacher and student latent trajectories are aligned at key denoising stages through horizon matching, while a reward-aware gate is introduced to adaptively regulate teacher guidance based on their relative reward performance. Trajectory shaping is strengthened when the teacher achieves higher rewards, and relaxed when the student matches or surpasses the teacher, thereby enabling continued reward-driven improvement. By seamlessly integrating trajectory distillation, reward-aware gating, and preference alignment, RATS effectively transfers preference-relevant knowledge from high-step generators without incurring additional test-time computational overhead. Experimental results demonstrate that RATS substantially improves the efficiency--quality trade-off in few-step visual generation, significantly narrowing the gap between few-step students and stronger multi-step generators.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Bingyu Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "few-step generation",
+        "trajectory distillation",
+        "preference alignment",
+        "reward-aware gating",
+        "diffusion models"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2604.14910",
+          "url": "https://arxiv.org/abs/2604.14910"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2604.14910",
+        "https://arxiv.org/pdf/2604.14910"
+      ],
+      "url": "https://arxiv.org/abs/2604.14910",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "34th ACM International Conference on Multimedia (ACM Multimedia 2026)"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ACM"
+      },
+      "creativeWorkStatus": "Forthcoming",
+      "dateModified": "2026-04-27"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/rats/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "RATS",
+          "item": "https://akira-l.github.io/zh/publications/rats/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">RATS</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>Reward-Aware Trajectory Shaping for Few-step Visual Generation</h1>
+      <p class="paper-authors"><strong>作者:</strong> Rui Li, Bingyu Li, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Haibin Huang, Chi Zhang, XueLong Li</p>
+      <p class="paper-venue">ACM Multimedia 2026 (accepted) · 2026 · 待正式出版</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">few-step generation</span><span class="tag">trajectory distillation</span><span class="tag">preference alignment</span><span class="tag">reward-aware gating</span><span class="tag">diffusion models</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/rats/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2604.14910" target="_blank" rel="noopener noreferrer">PDF</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Rui Li, Bingyu Li, Yuanzhi Liang, Haibin Huang, Chi Zhang, and XueLong Li</dd>
+          <dt>推荐论文引用</dt><dd>Rui Li, Bingyu Li, Yuanzhi Liang, Haibin Huang, Chi Zhang, and XueLong Li. “Reward-Aware Trajectory Shaping for Few-step Visual Generation.” 34th ACM International Conference on Multimedia (ACM Multimedia 2026) (2026, forthcoming). arXiv:2604.14910.</dd>
+<dt>书目说明</dt><dd>The status “accepted at ACM Multimedia 2026” is author-supplied. The paper-level proceedings record, DOI, pagination, and final ACM citation were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.</dd>
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>arXiv 首次提交</dt><dd>2026-04-16</dd><dt>arXiv 最近修订</dt><dd>2026-04-27</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>固定蒸馏要求 few-step student 持续模仿 multi-step teacher，容易把 teacher 变成性能上限，即使偏好奖励表明 student 已经能够达到或超过 teacher。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>通过 horizon matching 对齐 teacher 和 student 在关键阶段的 latent trajectory。</li><li>根据双方相对 reward 表现动态增强或减弱 teacher guidance。</li><li>在不增加推理开销的前提下结合轨迹蒸馏与 preference alignment。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>论文报告 few-step 生成在效率—质量权衡上获得改进，并缩小与强 multi-step generator 的差距。具体步数、底模、奖励和指标数值应查阅当前版本的实验表格。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>Reward-aware gate 会继承用于比较 teacher 与 student 的奖励信号所包含的假设与偏差；方法面向 few-step visual generation，迁移到其他蒸馏设置仍需验证。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>RATS 位于 trajectory distillation 与 reward-based alignment 的交叉点。它的关键差异是根据相对奖励质量决定是否跟随 teacher，而不是始终把 teacher 当作固定目标。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Li 等提出 Reward-Aware Trajectory Shaping（RATS），利用 horizon matching 对齐师生轨迹，并通过 reward-aware gate 有条件地调节 teacher guidance，以实现偏好对齐的少步视觉生成。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Achieving high-fidelity generation in extremely few sampling steps has long been a central goal of generative modeling. Existing approaches largely rely on distillation-based frameworks to compress the original multi-step denoising process into a few-step generator. However, such methods inherently constrain the student to imitate a stronger multi-step teacher, imposing the teacher as an upper bound on student performance. We argue that introducing preference alignment awareness enables the student to optimize toward reward-preferred generation quality, potentially surpassing the teacher instead of being restricted to rigid teacher imitation. To this end, we propose Reward-Aware Trajectory Shaping (RATS), a lightweight framework for preference-aligned few-step generation. Specifically, teacher and student latent trajectories are aligned at key denoising stages through horizon matching, while a reward-aware gate is introduced to adaptively regulate teacher guidance based on their relative reward performance. Trajectory shaping is strengthened when the teacher achieves higher rewards, and relaxed when the student matches or surpasses the teacher, thereby enabling continued reward-driven improvement. By seamlessly integrating trajectory distillation, reward-aware gating, and preference alignment, RATS effectively transfers preference-relevant knowledge from high-step generators without incurring additional test-time computational overhead. Experimental results demonstrate that RATS substantially improves the efficiency--quality trade-off in few-step visual generation, significantly narrowing the gap between few-step students and stronger multi-step generators.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; method sections on horizon matching and the reward-aware gate</td></tr><tr><td>评测结论</td><td>Abstract; few-step generation experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2604.14910v3).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Rui Li, Bingyu Li, Yuanzhi Liang, Haibin Huang, Chi Zhang, and XueLong Li. “Reward-Aware Trajectory Shaping for Few-step Visual Generation.” 34th ACM International Conference on Multimedia (ACM Multimedia 2026) (2026, forthcoming). arXiv:2604.14910.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/rats/citation.bib">BibTeX</a><a href="/publications/rats/citation.ris">RIS</a><a href="/publications/rats/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2604.14910" target="_blank" rel="noopener noreferrer">PDF</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

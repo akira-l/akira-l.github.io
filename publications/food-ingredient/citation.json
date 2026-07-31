@@ -1,0 +1,44 @@
+{
+  "id": "liu2021foodingredient",
+  "type": "article-journal",
+  "title": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+  "author": [
+    {
+      "given": "Chengxu",
+      "family": "Liu"
+    },
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Yao",
+      "family": "Xue"
+    },
+    {
+      "given": "Xueming",
+      "family": "Qian"
+    },
+    {
+      "given": "Jianlong",
+      "family": "Fu"
+    }
+  ],
+  "container-title": "IEEE Transactions on Circuits and Systems for Video Technology",
+  "issued": {
+    "date-parts": [
+      [
+        2021,
+        6
+      ]
+    ]
+  },
+  "URL": "https://doi.org/10.1109/TCSVT.2020.3020079",
+  "abstract": "Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.",
+  "keyword": "fine-grained food recognition, ingredient recognition, attention fusion, joint learning, class imbalance",
+  "publisher": "IEEE",
+  "DOI": "10.1109/TCSVT.2020.3020079",
+  "volume": "31",
+  "issue": "6",
+  "page": "2480-2493"
+}

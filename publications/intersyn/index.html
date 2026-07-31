@@ -1,124 +1,294 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InterSyn 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="InterSyn 中文解读：通过 interleaved learning 建模 dynamic motion synthesis in the wild，把人物动作与动态上下文放在同一个训练节奏里学习。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/intersyn/" />
-  <meta property="og:title" content="InterSyn 中文解读" />
-  <meta property="og:description" content="Dynamic motion synthesis 的关键是动作与上下文的交替耦合，而不是先生成动作再补环境。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/intersyn/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="InterSyn 中文解读" />
-  <meta name="twitter:description" content="Interleaved learning for dynamic motion synthesis in the wild." />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="InterSyn learns solo and multi-person dynamics together rather than treating them as separate tasks: INS synthesizes both from a first-person interaction perspective, and REC refines relative coordination so characters move synchronously.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/intersyn/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/intersyn/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/intersyn/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/intersyn/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/intersyn/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/intersyn/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/intersyn/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="InterSyn learns solo and multi-person dynamics together rather than treating them as separate tasks: INS synthesizes both from a first-person interaction perspective, and REC refines relative coordination so characters move synchronously.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/intersyn/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="InterSyn learns solo and multi-person dynamics together rather than treating them as separate tasks: INS synthesizes both from a first-person interaction perspective, and REC refines relative coordination so characters move synchronously.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild">
+  <meta name="citation_author" content="Yiyi Ma">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Xiu Li">
+  <meta name="citation_author" content="Chi Zhang">
+  <meta name="citation_author" content="Xuelong Li">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/intersyn/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="3D human motion; multi-person interaction; interleaved learning; motion synthesis; coordination refinement">
+  <meta name="citation_abstract" content="We present Interleaved Learning for Motion Synthesis (InterSyn), a novel framework that targets the generation of realistic interaction motions by learning from integrated motions that consider both solo and multi-person dynamics. Unlike previous methods that treat these components separately, InterSyn employs an interleaved learning strategy to capture the natural, dynamic interactions and nuanced coordination inherent in real-world scenarios. Our framework comprises two key modules: the Interleaved Interaction Synthesis (INS) module, which jointly models solo and interactive behaviors in a unified paradigm from a first-person perspective to support multiple character interactions, and the Relative Coordination Refinement (REC) module, which refines mutual dynamics and ensures synchronized motions among characters. Experimental results show that the motion sequences generated by InterSyn exhibit higher text-to-motion alignment and improved diversity compared with recent methods, setting a new benchmark for robust and natural motion synthesis. Additionally, our code will be open-sourced in the future to promote further research and development in this area.">
+  <meta name="citation_conference_title" content="2025 IEEE/CVF International Conference on Computer Vision (ICCV)">
+  <meta name="citation_publisher" content="IEEE">
+  <meta name="citation_doi" content="10.1109/ICCV51701.2025.01192">
+  <meta name="citation_firstpage" content="12832">
+  <meta name="citation_lastpage" content="12841">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "name": "InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild",
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/intersyn/#explainer",
       "url": "https://akira-l.github.io/publications/intersyn/",
-      "sameAs": "https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html",
-      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+      "headline": "Paper explainer: InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild",
+      "description": "InterSyn learns solo and multi-person dynamics together rather than treating them as separate tasks: INS synthesizes both from a first-person interaction perspective, and REC refines relative coordination so characters move synchronously.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/ICCV51701.2025.01192",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/intersyn/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/intersyn/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/intersyn/#paper",
+      "name": "InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild",
+      "headline": "InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild",
+      "abstract": "We present Interleaved Learning for Motion Synthesis (InterSyn), a novel framework that targets the generation of realistic interaction motions by learning from integrated motions that consider both solo and multi-person dynamics. Unlike previous methods that treat these components separately, InterSyn employs an interleaved learning strategy to capture the natural, dynamic interactions and nuanced coordination inherent in real-world scenarios. Our framework comprises two key modules: the Interleaved Interaction Synthesis (INS) module, which jointly models solo and interactive behaviors in a unified paradigm from a first-person perspective to support multiple character interactions, and the Relative Coordination Refinement (REC) module, which refines mutual dynamics and ensures synchronized motions among characters. Experimental results show that the motion sequences generated by InterSyn exhibit higher text-to-motion alignment and improved diversity compared with recent methods, setting a new benchmark for robust and natural motion synthesis. Additionally, our code will be open-sourced in the future to promote further research and development in this area.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yiyi Ma"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiu Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2025",
+      "inLanguage": "en",
+      "keywords": [
+        "3D human motion",
+        "multi-person interaction",
+        "interleaved learning",
+        "motion synthesis",
+        "coordination refinement"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/ICCV51701.2025.01192",
+          "url": "https://doi.org/10.1109/ICCV51701.2025.01192"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2508.10297",
+          "url": "https://arxiv.org/abs/2508.10297"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/ICCV51701.2025.01192",
+        "https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html",
+        "https://myy888.github.io/InterSyn/",
+        "https://arxiv.org/abs/2508.10297"
+      ],
+      "url": "https://doi.org/10.1109/ICCV51701.2025.01192",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "2025 IEEE/CVF International Conference on Computer Vision (ICCV)"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "12832-12841"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/intersyn/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "InterSyn",
+          "item": "https://akira-l.github.io/publications/intersyn/"
+        }
+      ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">InterSyn</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>InterSyn
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>InterSyn：面向真实动态场景的交错式动作合成</h1>
-      <p class="subtitle">“in the wild”的 motion synthesis 不能把人和上下文拆开学。InterSyn 用 interleaved learning 让动作、环境与交互线索轮流对齐。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Motion Synthesis</span>
-      <span class="tag">Dynamic Context</span>
-      <span class="tag">Interleaved Learning</span>
-      <span class="tag">ICCV 2025</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          InterSyn 关注 dynamic motion synthesis in the wild：真实动作不是孤立骨架序列，而是和场景、物体、其他动态元素持续互相影响。
-          如果先生成人体动作，再后处理环境约束，很容易出现接触不稳、运动不合时宜、上下文不一致。
-          InterSyn 的关键是 interleaved learning：让 motion 与 context 在训练过程中交替提供约束，使模型学到“动作如何响应环境”，也学到“环境如何限制动作”。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild</h1>
+      <p class="paper-authors"><strong>Authors:</strong> Yiyi Ma, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Xiu Li, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue">IEEE/CVF International Conference on Computer Vision (ICCV 2025) · 2025 · pp. 12832-12841</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">3D human motion</span><span class="tag">multi-person interaction</span><span class="tag">interleaved learning</span><span class="tag">motion synthesis</span><span class="tag">coordination refinement</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/intersyn/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://doi.org/10.1109/ICCV51701.2025.01192" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener noreferrer">Open access</a><a href="https://myy888.github.io/InterSyn/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2508.10297" target="_blank" rel="noopener noreferrer">arXiv</a>
       </div>
+    </header>
 
-      <h2>1. 问题：真实动态场景不是静态背景</h2>
-      <p>
-        传统 motion synthesis 往往假设场景条件固定，或者把 context 当作一次性输入。
-        但真实场景里，人在移动，物体可能也在变化，交互关系会随时间更新。
-        这种动态性让单向条件生成很难保持长期合理。
-      </p>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Yiyi Ma, Yuanzhi Liang, Xiu Li, Chi Zhang, and Xuelong Li</dd>
+          <dt>Recommended paper citation</dt><dd>Yiyi Ma, Yuanzhi Liang, Xiu Li, Chi Zhang, and Xuelong Li. “InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild.” 2025 IEEE/CVF International Conference on Computer Vision (ICCV) (2025), 12832-12841. https://doi.org/10.1109/ICCV51701.2025.01192.</dd>
 
-      <h2>2. 核心思路：交错学习动作与上下文</h2>
-      <p>
-        Interleaved learning 的直觉是：动作生成和上下文理解不应该分成两个互不相干的阶段。
-        训练中让两类信号交替介入，可以减少“动作看起来像，但放进场景就不对”的问题。
-      </p>
-
-      <h2>3. Key Insights：动作生成需要环境节奏</h2>
-      <p>
-        好的 motion 不只由骨架轨迹决定，也由它在何时何地发生决定。
-        InterSyn 的 insight 是把 context 当成动态约束，而不是静态标签。
-        对虚拟人、机器人和世界模型来说，这种耦合学习比单独提升骨架质量更接近真实需求。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        InterSyn targets dynamic motion synthesis in the wild, where human motion must remain coherent with changing contexts rather than a fixed background.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        Generating motion first and applying context constraints afterward often leads to unstable contacts, mismatched timing, or physically implausible interactions.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Use interleaved learning so that motion and context constrain each other during training. The model learns not only how humans move, but also how motion should respond to dynamic surroundings.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        Motion quality should be evaluated together with contextual consistency. For embodied agents and world models, dynamic constraints are part of the motion, not an external cleanup step.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener">Paper</a>
-        <a href="https://myy888.github.io/InterSyn/" target="_blank" rel="noopener">Project</a>
-        <a href="https://arxiv.org/abs/2508.10297" target="_blank" rel="noopener">arXiv</a>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2025-08-14</dd><dt>arXiv last revised</dt><dd>2025-08-14</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>InterSyn learns solo and multi-person dynamics together rather than treating them as separate tasks: INS synthesizes both from a first-person interaction perspective, and REC refines relative coordination so characters move synchronously.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Separating solo motion from multi-person interaction makes it difficult to learn how individual behavior and mutual coordination combine in realistic, dynamic interactions.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Uses interleaved learning over integrated solo and multi-person motions.</li><li>Introduces Interleaved Interaction Synthesis (INS) to jointly model solo and interactive behavior from a first-person perspective.</li><li>Introduces Relative Coordination Refinement (REC) to refine mutual dynamics and synchronization.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>The paper reports higher text-to-motion alignment and greater diversity than recent comparison methods. The claim concerns the evaluated motion-synthesis setup; exact datasets, baselines, and scores should be cited from the ICCV paper.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>The demonstrated scope is motion synthesis from integrated solo and multi-person data. The abstract does not establish generality to arbitrary numbers of people, environments, or interaction semantics outside the evaluated distributions.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>InterSyn is a multi-person interaction-motion method centered on integrated learning and relative coordination. It should not be described as a method for learning motion jointly with a dynamic environment; its &#x27;dynamic&#x27; aspect refers to solo and interacting character dynamics.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Ma et al. propose InterSyn, which interleaves solo and multi-person motion learning through an interaction-synthesis module and refines relative coordination to improve synchronized, text-aligned interaction motion.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">We present Interleaved Learning for Motion Synthesis (InterSyn), a novel framework that targets the generation of realistic interaction motions by learning from integrated motions that consider both solo and multi-person dynamics. Unlike previous methods that treat these components separately, InterSyn employs an interleaved learning strategy to capture the natural, dynamic interactions and nuanced coordination inherent in real-world scenarios. Our framework comprises two key modules: the Interleaved Interaction Synthesis (INS) module, which jointly models solo and interactive behaviors in a unified paradigm from a first-person perspective to support multiple character interactions, and the Relative Coordination Refinement (REC) module, which refines mutual dynamics and ensures synchronized motions among characters. Experimental results show that the motion sequences generated by InterSyn exhibit higher text-to-motion alignment and improved diversity compared with recent methods, setting a new benchmark for robust and natural motion synthesis. Additionally, our code will be open-sourced in the future to promote further research and development in this area.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; INS and REC method sections</td></tr><tr><td>Evaluation statement</td><td>Abstract; text-to-motion alignment and diversity experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://doi.org/10.1109/ICCV51701.2025.01192" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (ICCV 2025 version of record; CVF open-access copy and arXiv:2508.10297v1 cross-checked).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Yiyi Ma, Yuanzhi Liang, Xiu Li, Chi Zhang, and Xuelong Li. “InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild.” 2025 IEEE/CVF International Conference on Computer Vision (ICCV) (2025), 12832-12841. https://doi.org/10.1109/ICCV51701.2025.01192.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/intersyn/citation.bib">BibTeX</a><a href="/publications/intersyn/citation.ris">RIS</a><a href="/publications/intersyn/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/ICCV51701.2025.01192" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener noreferrer">Open access</a><a href="https://myy888.github.io/InterSyn/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2508.10297" target="_blank" rel="noopener noreferrer">arXiv</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

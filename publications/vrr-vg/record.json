@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "slug": "vrr-vg",
+  "canonical_url": "https://akira-l.github.io/publications/vrr-vg/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/vrr-vg/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/vrr-vg/"
+  },
+  "title": "VrR-VG: Refocusing Visually-Relevant Relationships",
+  "short_title": "VrR-VG",
+  "authors": [
+    "Yuanzhi Liang",
+    "Yalong Bai",
+    "Wei Zhang",
+    "Xueming Qian",
+    "Li Zhu",
+    "Tao Mei"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "IEEE/CVF International Conference on Computer Vision (ICCV 2019)",
+    "citation_container_title": "2019 IEEE/CVF International Conference on Computer Vision (ICCV)",
+    "status": "published",
+    "year": 2019,
+    "publication_date": "2019",
+    "publisher": "IEEE",
+    "pages": "10402-10411",
+    "alternate_pagination": {
+      "pages": "10403-10412",
+      "version": "CVF open-access copy",
+      "url": "https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html"
+    }
+  },
+  "identifiers": {
+    "doi": "10.1109/ICCV.2019.01050",
+    "arxiv": "1902.00313",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2019-02-01",
+    "last_revised": "2019-08-26"
+  },
+  "keywords": [
+    "visual relationships",
+    "scene graphs",
+    "dataset bias",
+    "Visual Genome",
+    "representation learning"
+  ],
+  "official_abstract": "Relationships encode the interactions among individual instances and play a critical role in deep visual scene understanding. Suffering from the high predictability with non-visual information, relationship models tend to fit the statistical bias rather than \"learning\" to infer the relationships from images. To encourage further development in visual relationships, we propose a novel method to mine more valuable relationships by automatically pruning visually-irrelevant relationships. We construct a new scene graph dataset named Visually-Relevant Relationships Dataset (VrR-VG) based on Visual Genome. Compared with existing datasets, the performance gap between learnable and statistical method is more significant in VrR-VG, and frequency-based analysis does not work anymore. Moreover, we propose to learn a relationship-aware representation by jointly considering instances, attributes and relationships. By applying the representation-aware feature learned on VrR-VG, the performances of image captioning and visual question answering are systematically improved, which demonstrates the effectiveness of both our dataset and features embedding schema. Both our VrR-VG dataset and representation-aware features will be made publicly available soon.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "IEEE version of record",
+    "url": "https://doi.org/10.1109/ICCV.2019.01050",
+    "version": "ICCV 2019 version of record; CVF open-access copy has alternate pagination 10403-10412; arXiv:1902.00313v2 cross-checked",
+    "method_locator": "Abstract; visually-irrelevant relationship pruning and relationship-aware representation sections",
+    "evidence_locator": "Abstract; scene-graph analysis, image captioning, and VQA experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "VrR-VG prunes relationships that can be predicted from non-visual statistics, builds a visually relevant scene-graph dataset from Visual Genome, and learns representations that jointly encode instances, attributes, and relationships.",
+      "problem": "Visual-relationship models can exploit category and frequency biases to predict predicates without using image evidence, making benchmark performance a weak test of visual reasoning.",
+      "contributions": [
+        "Automatically identifies and removes visually irrelevant relationships from Visual Genome.",
+        "Constructs the VrR-VG dataset so statistical shortcuts are less effective and visual evidence matters more.",
+        "Learns a relationship-aware representation over instances, attributes, and relations for downstream tasks."
+      ],
+      "evidence": "The paper analyzes the gap between learnable and statistical methods on VrR-VG and reports systematic improvements in image captioning and visual question answering using the learned features. Exact margins belong to the ICCV tables.",
+      "limitations": "Pruning is tied to the paper's definition and detector of visual irrelevance; some relationships can legitimately combine visual and contextual knowledge. Dataset debiasing does not eliminate every possible shortcut.",
+      "positioning": "VrR-VG is both a dataset-refocusing and representation-learning contribution. It operationalizes a useful debiasing idea: first detect what can be guessed without pixels, then construct an evaluation set where image evidence is more necessary.",
+      "citation_ready": "Liang et al. construct VrR-VG by pruning visually irrelevant relationships from Visual Genome and learn relationship-aware features that jointly model instances, attributes, and relations."
+    },
+    "zh-CN": {
+      "summary": "VrR-VG 剪除仅凭非视觉统计就能预测的关系，从 Visual Genome 构建更强调视觉证据的 scene-graph 数据集，并联合编码实例、属性与关系来学习表示。",
+      "problem": "视觉关系模型可能利用类别与频率偏差，在几乎不看图像证据的情况下预测 predicate，使 benchmark 分数无法真实反映视觉推理。",
+      "contributions": [
+        "自动识别并移除 Visual Genome 中 visually irrelevant 的关系。",
+        "构建 VrR-VG，使统计捷径更难奏效、视觉证据更加必要。",
+        "联合实例、属性和关系学习 relationship-aware representation，并用于下游任务。"
+      ],
+      "evidence": "论文分析 VrR-VG 上 learnable method 与 statistical method 的差异，并报告学习特征对 image captioning 和 visual question answering 的系统性改善；准确幅度应引用 ICCV 表格。",
+      "limitations": "剪除过程依赖论文对视觉无关性的定义和检测方式，一些关系本来就会结合视觉与上下文知识；数据集去偏也不能消除所有潜在 shortcut。",
+      "positioning": "VrR-VG 同时贡献数据集重构与关系表示学习。其通用去偏思路是：先检测哪些答案不用像素也能猜到，再构造更需要视觉证据的评测数据。",
+      "citation_ready": "Liang 等从 Visual Genome 中剪除 visually irrelevant relationships 构建 VrR-VG，并联合建模实例、属性和关系来学习 relationship-aware feature。"
+    }
+  },
+  "citation": {
+    "id": "liang2019vrrvg",
+    "type": "paper-conference",
+    "title": "VrR-VG: Refocusing Visually-Relevant Relationships",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Yalong",
+        "family": "Bai"
+      },
+      {
+        "given": "Wei",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xueming",
+        "family": "Qian"
+      },
+      {
+        "given": "Li",
+        "family": "Zhu"
+      },
+      {
+        "given": "Tao",
+        "family": "Mei"
+      }
+    ],
+    "container-title": "2019 IEEE/CVF International Conference on Computer Vision (ICCV)",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1109/ICCV.2019.01050",
+    "abstract": "Relationships encode the interactions among individual instances and play a critical role in deep visual scene understanding. Suffering from the high predictability with non-visual information, relationship models tend to fit the statistical bias rather than \"learning\" to infer the relationships from images. To encourage further development in visual relationships, we propose a novel method to mine more valuable relationships by automatically pruning visually-irrelevant relationships. We construct a new scene graph dataset named Visually-Relevant Relationships Dataset (VrR-VG) based on Visual Genome. Compared with existing datasets, the performance gap between learnable and statistical method is more significant in VrR-VG, and frequency-based analysis does not work anymore. Moreover, we propose to learn a relationship-aware representation by jointly considering instances, attributes and relationships. By applying the representation-aware feature learned on VrR-VG, the performances of image captioning and visual question answering are systematically improved, which demonstrates the effectiveness of both our dataset and features embedding schema. Both our VrR-VG dataset and representation-aware features will be made publicly available soon.",
+    "keyword": "visual relationships, scene graphs, dataset bias, Visual Genome, representation learning",
+    "publisher": "IEEE",
+    "DOI": "10.1109/ICCV.2019.01050",
+    "page": "10402-10411"
+  },
+  "resources": [
+    {
+      "label": "Version of record",
+      "url": "https://doi.org/10.1109/ICCV.2019.01050"
+    },
+    {
+      "label": "Open access",
+      "url": "https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/1902.00313"
+    },
+    {
+      "label": "PDF",
+      "url": "https://openaccess.thecvf.com/content_ICCV_2019/papers/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.pdf"
+    }
+  ]
+}

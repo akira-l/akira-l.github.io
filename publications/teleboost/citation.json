@@ -1,0 +1,83 @@
+{
+  "id": "liang2026teleboost",
+  "type": "article",
+  "title": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+  "author": [
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Xuan'er",
+      "family": "Wu"
+    },
+    {
+      "given": "Yirui",
+      "family": "Liu"
+    },
+    {
+      "given": "Yijie",
+      "family": "Fang"
+    },
+    {
+      "given": "Yizhen",
+      "family": "Fan"
+    },
+    {
+      "given": "Ke",
+      "family": "Hao"
+    },
+    {
+      "given": "Rui",
+      "family": "Li"
+    },
+    {
+      "given": "Ruiying",
+      "family": "Liu"
+    },
+    {
+      "given": "Ziqi",
+      "family": "Ni"
+    },
+    {
+      "given": "Peng",
+      "family": "Yu"
+    },
+    {
+      "given": "Yanbo",
+      "family": "Wang"
+    },
+    {
+      "given": "Haibin",
+      "family": "Huang"
+    },
+    {
+      "given": "Qizhen",
+      "family": "Weng"
+    },
+    {
+      "given": "Chi",
+      "family": "Zhang"
+    },
+    {
+      "given": "Xuelong",
+      "family": "Li"
+    }
+  ],
+  "container-title": "arXiv",
+  "issued": {
+    "date-parts": [
+      [
+        2026,
+        2,
+        7
+      ]
+    ]
+  },
+  "URL": "https://arxiv.org/abs/2602.07595",
+  "abstract": "Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.",
+  "keyword": "video generation, post-training, alignment, reinforcement learning, preference optimization",
+  "archive": "arXiv",
+  "archive_location": "2602.07595",
+  "genre": "Preprint"
+}

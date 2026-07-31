@@ -1,170 +1,285 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MHEM 解读：为什么越挖困难样本越容易过拟合 | Yuanzhi Liang</title>
-  <meta name="description" content="MHEM（TNNLS 2022）中文解读：困难样本很重要，但过度强调会放大标注噪声与极端异常，反而降低泛化。MHEM 用'适度'难例挖掘，通过自适应权重函数控制极端难例的影响，形成强而简单的 baseline。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/mhem/" />
-
-  <meta property="og:title" content="MHEM 解读：为什么越挖困难样本越容易过拟合" />
-  <meta property="og:description" content="TNNLS 2022：困难样本要罚，但不能罚太狠；用自适应权重抑制极端难例。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/mhem/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="MHEM 解读：为什么越挖困难样本越容易过拟合" />
-  <meta name="twitter:description" content="困难样本要关注，但要控制极端难例的影响。" />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/mhem/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/mhem/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/mhem/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/mhem/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/mhem/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/mhem/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/mhem/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/mhem/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Linchao Zhu">
+  <meta name="citation_author" content="Xiaohan Wang">
+  <meta name="citation_author" content="Yi Yang">
+  <meta name="citation_publication_date" content="2024-05">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/mhem/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="fine-grained visual classification; hard examples; loss modulation; generalization; overfitting">
+  <meta name="citation_abstract" content="Though significant progress has been achieved on fine-grained visual classification (FGVC), severe overfitting still hinders model generalization. A recent study shows that hard samples in the training set can be easily fitted, but most existing FGVC methods fail to classify some hard examples in the test set. The reason is that the model overfits those hard examples in the training set, but does not learn to generalize to unseen examples in the test set. In this paper, we propose a Moderate Hard Example Modulation (MHEM) strategy to properly modulate the hard examples. MHEM encourages the model to not overfit hard examples and offers better generalization and discrimination. First, we introduce three conditions and formulate a general form of a modulated loss function. Second, we instantiate the loss function and provide a strong baseline for FGVC, where the performance of a naive backbone can be boosted and be comparable with recent methods. Moreover, we demonstrate that our baseline can be readily incorporated into the existing methods and empower these methods to be more discriminative. Equipped with our strong baseline, we achieve consistent improvements on three typical fine-grained visual classification datasets, i.e., CUB-200-2011, Stanford Cars, and FGVC-Aircraft. We hope the idea of Moderate Hard Example Modulation will inspire future research work toward more effective fine-grained visual recognition.">
+  <meta name="citation_journal_title" content="IEEE Transactions on Neural Networks and Learning Systems">
+  <meta name="citation_publisher" content="IEEE">
+  <meta name="citation_doi" content="10.1109/TNNLS.2022.3213563">
+  <meta name="citation_volume" content="35">
+  <meta name="citation_issue" content="5">
+  <meta name="citation_firstpage" content="7048">
+  <meta name="citation_lastpage" content="7059">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/mhem/#explainer",
+      "url": "https://akira-l.github.io/publications/mhem/",
+      "headline": "Paper explainer: Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+      "description": "MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/TNNLS.2022.3213563",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/mhem/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/mhem/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/mhem/#paper",
+      "name": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+      "headline": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+      "abstract": "Though significant progress has been achieved on fine-grained visual classification (FGVC), severe overfitting still hinders model generalization. A recent study shows that hard samples in the training set can be easily fitted, but most existing FGVC methods fail to classify some hard examples in the test set. The reason is that the model overfits those hard examples in the training set, but does not learn to generalize to unseen examples in the test set. In this paper, we propose a Moderate Hard Example Modulation (MHEM) strategy to properly modulate the hard examples. MHEM encourages the model to not overfit hard examples and offers better generalization and discrimination. First, we introduce three conditions and formulate a general form of a modulated loss function. Second, we instantiate the loss function and provide a strong baseline for FGVC, where the performance of a naive backbone can be boosted and be comparable with recent methods. Moreover, we demonstrate that our baseline can be readily incorporated into the existing methods and empower these methods to be more discriminative. Equipped with our strong baseline, we achieve consistent improvements on three typical fine-grained visual classification datasets, i.e., CUB-200-2011, Stanford Cars, and FGVC-Aircraft. We hope the idea of Moderate Hard Example Modulation will inspire future research work toward more effective fine-grained visual recognition.",
+      "author": [
         {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
-            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
-            { "@type": "ListItem", "position": 3, "name": "MHEM", "item": "https://akira-l.github.io/publications/mhem/" }
-          ]
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
         },
         {
-          "@type": "ScholarlyArticle",
-          "name": "Penalizing the Hard Example But Not Too Much",
-          "url": "https://akira-l.github.io/publications/mhem/",
-          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }],
-          "datePublished": "2022-01-01",
-          "isPartOf": { "@type": "Periodical", "name": "TNNLS" }
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024-05",
+      "inLanguage": "en",
+      "keywords": [
+        "fine-grained visual classification",
+        "hard examples",
+        "loss modulation",
+        "generalization",
+        "overfitting"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/TNNLS.2022.3213563",
+          "url": "https://doi.org/10.1109/TNNLS.2022.3213563"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/TNNLS.2022.3213563",
+        "https://ieeexplore.ieee.org/document/9956020"
+      ],
+      "url": "https://doi.org/10.1109/TNNLS.2022.3213563",
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "IEEE Transactions on Neural Networks and Learning Systems"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "7048-7059",
+      "volumeNumber": "35",
+      "issueNumber": "5"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/mhem/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "MHEM",
+          "item": "https://akira-l.github.io/publications/mhem/"
         }
       ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">MHEM</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>MHEM
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>MHEM：Penalizing the Hard Example, but Not Too Much</h1>
-      <p class="subtitle">困难样本挖掘不是越狠越好：在细粒度分类里，极端难例往往是噪声或异常，过度强调会加速过拟合。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Hard Example Mining</span>
-      <span class="tag">Overfitting</span>
-      <span class="tag">FGVC</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          MHEM（Moderate Hard Example Mining）提出一个反直觉但实用的观点：困难样本需要关注，但如果关注得太多，模型会被标注噪声、极端异常样本牵着走，导致泛化下降。
-          MHEM 用一种自适应权重函数重新加权样本损失：普通难例得到充分学习，但当样本极端困难时，权重增幅逐渐放缓，从而避免极端难例主导梯度更新。
-          它几乎不增加模型复杂度，却在细粒度分类等场景中形成很强的 baseline。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification</h1>
+      <p class="paper-authors"><strong>Authors:</strong> <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Linchao Zhu, Xiaohan Wang, Yi Yang</p>
+      <p class="paper-venue">IEEE Transactions on Neural Networks and Learning Systems · 2024 · vol. 35(5) · pp. 7048-7059</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">fine-grained visual classification</span><span class="tag">hard examples</span><span class="tag">loss modulation</span><span class="tag">generalization</span><span class="tag">overfitting</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/mhem/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://doi.org/10.1109/TNNLS.2022.3213563" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://ieeexplore.ieee.org/document/9956020" target="_blank" rel="noopener noreferrer">IEEE Xplore</a>
       </div>
+    </header>
 
-      <h2>1. 为什么会"越挖困难样本越过拟合"</h2>
-      <p>
-        在 FGVC 等任务里，训练集很容易被模型记住；所谓"最困难的样本"里往往混入：标注错误、极端视角、遮挡异常。
-        这些样本确实损失大，但它们不一定提供可泛化的判别规律。
-      </p>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang</dd>
+          <dt>Recommended paper citation</dt><dd>Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification.” IEEE Transactions on Neural Networks and Learning Systems (2024), 35(5), 7048-7059. https://doi.org/10.1109/TNNLS.2022.3213563.</dd>
 
-      <h2>2. MHEM 的核心：困难样本要罚，但不能罚太狠</h2>
-      <p>
-        传统 hard mining 常将损失与权重近似线性绑定：越难→越大权重。
-        MHEM 引入"饱和式"的增幅：极端难例的影响被抑制，让优化节奏更稳。
-      </p>
-
-      <h2>3. 为什么“极端难例”经常是噪声而不是信息</h2>
-      <p>
-        在细粒度分类中，“难”可能来自两类因素：
-        （1）信息性困难：确实存在细微但稳定的区分线索，需要更强表征才能分开；
-        （2）非信息性困难：标注错误、严重遮挡、极端视角、类别边界本身模糊，导致样本在输入空间与标签空间出现不一致。
-        后者在训练早期会产生很大的损失与梯度，但这些梯度并不指向可泛化的判别结构，反而更像在迫使模型记忆异常模式。
-      </p>
-
-      <h2>4. MHEM 在做什么：重加权函数的“增益饱和”</h2>
-      <p>
-        MHEM 的思路可以理解为：仍然关注 hard examples，但当样本“难到异常”时，继续线性放大权重会让优化被极少数样本主导。
-        因此，MHEM 采用一种对难度更温和的权重增长方式：随着难度上升，权重增幅逐渐放缓（saturating growth），从而限制极端难例对梯度的占比。
-        这会把学习重心放回到“多数可学习难例”，让模型优先形成稳定的类间结构。
-      </p>
-
-      <h2>5. 与常见做法的关系：focal loss、OHEM、curriculum</h2>
-      <p>
-        许多方法试图通过 hard mining 或 focal loss 强调困难样本，但它们的默认行为往往是“越难越重要”。
-        MHEM 的差异在于：它并不否认困难样本的重要性，而是把“困难样本的有效性”也纳入考虑——极端难例不一定带来更好的泛化。
-        从训练动态的角度看，这更接近一种“可控的 curriculum”：让难例贡献存在上限，避免训练节奏被噪声打乱。
-      </p>
-
-      <h2>6. Key Insights：这是在做"学习节奏控制"</h2>
-      <p>
-        从优化角度看，MHEM 相当于控制梯度由谁主导：
-        让模型先建立稳健的类间结构，再逐步吸收真正有价值的难例信息。
-        这类方法通常比堆模块更稳定。
-      </p>
-
-      <h2>7. 实践建议：什么时候值得用 MHEM</h2>
-      <p>
-        MHEM 特别适合以下场景：
-        细粒度分类（类间差异小、数据噪声更显著）、训练集较小或标注质量参差、以及传统 hard mining 容易引发不稳定训练的设置。
-        如果训练数据极干净且难例主要是信息性困难，MHEM 的收益可能会降低；但在更现实的数据条件下，它常能提供更稳的 baseline。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        MHEM (Moderate Hard Example Mining) addresses a recurring pitfall of hard example mining: aggressively upweighting the hardest samples can amplify label noise, outliers, and ambiguous cases, which often reduces generalization.
-        Instead of treating "harder" as "always more informative," MHEM controls how much influence extremely hard samples can have during optimization.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        In fine-grained recognition, large losses frequently come from mislabeled images, heavy occlusions, extreme viewpoints, or near-duplicate categories.
-        Over-emphasizing these cases can dominate gradients and push the model toward memorizing exceptions.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Reweight training examples with a saturating growth rule: moderately hard examples receive more attention, while extremely hard examples are prevented from dominating the update.
-        This keeps training focused on learnable structure rather than pathological cases.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        MHEM is most useful when hard mining is unstable or when data quality is imperfect.
-        It can serve as a strong baseline because it improves robustness without adding architectural complexity.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://ieeexplore.ieee.org/abstract/document/9956020/" target="_blank" rel="noopener">Paper</a>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>First published online</dt><dd>2022-11-21</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>MHEM means Moderate Hard Example Modulation: it defines conditions for a loss that emphasizes informative hard samples without continually increasing the influence of extreme cases that a fine-grained classifier may simply memorize.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Fine-grained networks can perfectly fit very hard training examples yet fail on similarly hard test cases, indicating memorization rather than transferable discrimination.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Defines three conditions and a general form for modulated losses that treat hard examples moderately.</li><li>Instantiates the formulation as a simple, strong FGVC baseline.</li><li>Shows that the baseline can be incorporated into existing fine-grained methods.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>The paper reports consistent improvements on CUB-200-2011, Stanford Cars, and FGVC-Aircraft. Use the final TNNLS volume and experiment tables for precise comparisons.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>MHEM does not automatically identify whether every extreme sample is mislabeled, atypical, or genuinely informative; it controls influence through loss design. Its evidence is centered on fine-grained classification.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>MHEM is a loss-modulation and generalization baseline for FGVC. The acronym expands to Moderate Hard Example Modulation, not &#x27;Mining&#x27;; the article appeared online in 2022 and in TNNLS volume 35, issue 5 in 2024.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Liang et al. propose Moderate Hard Example Modulation (MHEM), a loss-modulation strategy that limits overemphasis on extreme hard samples to improve generalization in fine-grained visual classification.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Though significant progress has been achieved on fine-grained visual classification (FGVC), severe overfitting still hinders model generalization. A recent study shows that hard samples in the training set can be easily fitted, but most existing FGVC methods fail to classify some hard examples in the test set. The reason is that the model overfits those hard examples in the training set, but does not learn to generalize to unseen examples in the test set. In this paper, we propose a Moderate Hard Example Modulation (MHEM) strategy to properly modulate the hard examples. MHEM encourages the model to not overfit hard examples and offers better generalization and discrimination. First, we introduce three conditions and formulate a general form of a modulated loss function. Second, we instantiate the loss function and provide a strong baseline for FGVC, where the performance of a naive backbone can be boosted and be comparable with recent methods. Moreover, we demonstrate that our baseline can be readily incorporated into the existing methods and empower these methods to be more discriminative. Equipped with our strong baseline, we achieve consistent improvements on three typical fine-grained visual classification datasets, i.e., CUB-200-2011, Stanford Cars, and FGVC-Aircraft. We hope the idea of Moderate Hard Example Modulation will inspire future research work toward more effective fine-grained visual recognition.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; Moderate Hard Example Modulation formulation</td></tr><tr><td>Evaluation statement</td><td>Abstract; CUB-200-2011, Stanford Cars, and FGVC-Aircraft experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://doi.org/10.1109/TNNLS.2022.3213563" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (IEEE early access 2022-11-21; TNNLS 35(5), May 2024).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification.” IEEE Transactions on Neural Networks and Learning Systems (2024), 35(5), 7048-7059. https://doi.org/10.1109/TNNLS.2022.3213563.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/mhem/citation.bib">BibTeX</a><a href="/publications/mhem/citation.ris">RIS</a><a href="/publications/mhem/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/TNNLS.2022.3213563" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://ieeexplore.ieee.org/document/9956020" target="_blank" rel="noopener noreferrer">IEEE Xplore</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

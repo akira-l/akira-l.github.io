@@ -1,0 +1,19 @@
+TY  - JOUR
+TI  - Integrating reinforcement learning with visual generative models: foundations and advances
+AU  - Liang, Yuanzhi
+AU  - Fang, Yijie
+AU  - Li, Rui
+AU  - Ni, Ziqi
+AU  - Su, Ruijie
+AU  - Zhang, Chi
+PY  - 2026
+DA  - 2026/01/29
+T2  - Vicinagearth
+PB  - Springer Nature
+VL  - 3
+IS  - 1
+C7  - 2
+DO  - 10.1007/s44336-025-00030-z
+UR  - https://doi.org/10.1007/s44336-025-00030-z
+AB  - Generative models have made significant progress in synthesizing visual content, including images, videos, and 3D/4D structures. However, they are typically trained with surrogate objectives such as likelihood or reconstruction loss, which often misalign with perceptual quality, semantic accuracy, or physical realism. Reinforcement learning (RL) offers a principled framework for optimizing non-differentiable, preference-driven, and temporally structured objectives. Recent advances demonstrate its effectiveness in enhancing controllability, consistency, and human alignment across generative tasks. This survey provides a systematic overview of RL-based methods for visual content generation. We review the evolution of RL from classical control to its role as a general-purpose optimization tool, and examine its integration into image, video, and 3D/4D generation. Across these domains, RL serves not only as a fine-tuning mechanism but also as a structural component for aligning generation with complex, high-level goals. We conclude with open challenges and future research directions at the intersection of RL and generative modeling.
+ER  -

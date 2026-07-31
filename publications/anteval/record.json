@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "slug": "anteval",
+  "canonical_url": "https://akira-l.github.io/publications/anteval/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/anteval/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/anteval/"
+  },
+  "title": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+  "short_title": "AntEval",
+  "authors": [
+    "Yuanzhi Liang",
+    "Linchao Zhu",
+    "Yi Yang"
+  ],
+  "publication": {
+    "kind": "preprint",
+    "venue": "arXiv",
+    "citation_container_title": "arXiv",
+    "status": "preprint",
+    "year": 2024,
+    "publication_date": "2024-01-12"
+  },
+  "identifiers": {
+    "arxiv": "2401.06509",
+    "arxiv_primary_class": "cs.CL"
+  },
+  "arxiv_dates": {
+    "first_posted": "2024-01-12",
+    "last_revised": "2024-03-05"
+  },
+  "keywords": [
+    "LLM agents",
+    "multi-agent interaction",
+    "social interaction",
+    "evaluation",
+    "information exchange"
+  ],
+  "official_abstract": "Large Language Models (LLMs) have demonstrated their ability to replicate human behaviors across a wide range of scenarios. However, their capability in handling complex, multi-character social interactions has yet to be fully explored, primarily due to the absence of robust, quantitative evaluation methods. This gap has slowed the development of agents proficient in more nuanced interactions beyond simple exchanges, for example, small talk. To address this challenge, we introduce the Multi-Agent Interaction Evaluation Framework (AntEval), encompassing a novel interaction framework and evaluation methods. The interaction framework aims to foster an complex interaction environment that bolsters information exchange and intention expression within social interactions. Furthermore, we introduce evaluation methods, including two metrics: Information Exchanging Precision (IEP) and Interaction Expressiveness Gap (IEG), designed for the quantitative and objective assessment of agents' interaction competencies. Our findings highlight the utility of these evaluative methods and show significant potential for improving LLMs' ability to construct agents that interact in a more natural manner with human-like intricacy.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2401.06509",
+    "version": "arXiv:2401.06509v3, revised 2024-03-05",
+    "method_locator": "Abstract; interaction framework and IEP/IEG evaluation sections",
+    "evidence_locator": "Abstract; agent-interaction evaluation experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "AntEval evaluates social interaction competency in LLM-driven agents through a multi-agent interaction framework and two quantitative metrics: Information Exchanging Precision (IEP) and Interaction Expressiveness Gap (IEG).",
+      "problem": "Agent social behavior is difficult to improve when evaluation stops at surface fluency or small talk and lacks quantitative measures of whether agents exchange relevant information and express their intentions.",
+      "contributions": [
+        "Provides an interaction framework designed to elicit information exchange and intention expression in multi-character settings.",
+        "Introduces Information Exchanging Precision (IEP) for assessing information exchange.",
+        "Introduces Interaction Expressiveness Gap (IEG) for assessing how effectively interaction expresses intended information."
+      ],
+      "evidence": "The paper presents evaluations intended to demonstrate the utility of IEP and IEG for diagnosing LLM-agent interaction competency. Exact agent settings, interaction tasks, and metric behavior should be read from arXiv v3.",
+      "limitations": "The metrics operationalize selected aspects of social interaction and do not constitute a complete measure of social intelligence, safety, relationship quality, or behavior across all cultures and open-ended settings.",
+      "positioning": "AntEval is an evaluation contribution for LLM-driven multi-agent social interaction. The current title and metric names should be used; the earlier title about 'informativeness and expressiveness' is obsolete.",
+      "citation_ready": "Liang et al. introduce AntEval, a framework for evaluating LLM-driven social interactions using Information Exchanging Precision and Interaction Expressiveness Gap to quantify information exchange and intention expression."
+    },
+    "zh-CN": {
+      "summary": "AntEval 通过多 Agent 交互框架和两个定量指标评估 LLM agent 的社交互动能力：Information Exchanging Precision（IEP）与 Interaction Expressiveness Gap（IEG）。",
+      "problem": "如果评估只关注语言是否流畅或能否闲聊，而不能量化 agent 是否交换了相关信息、是否表达了自身意图，就很难诊断和改进复杂多角色社交能力。",
+      "contributions": [
+        "设计用于激发多角色信息交换和意图表达的交互框架。",
+        "提出 Information Exchanging Precision（IEP）评估信息交换。",
+        "提出 Interaction Expressiveness Gap（IEG）评估交互对意图信息的表达效果。"
+      ],
+      "evidence": "论文通过 agent 交互实验说明 IEP 与 IEG 对互动能力诊断的用途；准确 agent 配置、交互任务和指标行为应以 arXiv v3 为准。",
+      "limitations": "IEP 与 IEG 只操作化了社交互动的部分维度，并不能等价为完整的社会智能、安全性、关系质量或跨文化开放环境表现。",
+      "positioning": "AntEval 是面向 LLM 多 Agent 社交互动的评测工作。引用时应使用当前标题和 IEP/IEG 指标名，旧的“informativeness and expressiveness”标题已经过时。",
+      "citation_ready": "Liang 等提出 AntEval，利用 Information Exchanging Precision 与 Interaction Expressiveness Gap 定量评估 LLM-driven agent 互动中的信息交换和意图表达。"
+    }
+  },
+  "citation": {
+    "id": "liang2024anteval",
+    "type": "article",
+    "title": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Linchao",
+        "family": "Zhu"
+      },
+      {
+        "given": "Yi",
+        "family": "Yang"
+      }
+    ],
+    "container-title": "arXiv",
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          1,
+          12
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2401.06509",
+    "abstract": "Large Language Models (LLMs) have demonstrated their ability to replicate human behaviors across a wide range of scenarios. However, their capability in handling complex, multi-character social interactions has yet to be fully explored, primarily due to the absence of robust, quantitative evaluation methods. This gap has slowed the development of agents proficient in more nuanced interactions beyond simple exchanges, for example, small talk. To address this challenge, we introduce the Multi-Agent Interaction Evaluation Framework (AntEval), encompassing a novel interaction framework and evaluation methods. The interaction framework aims to foster an complex interaction environment that bolsters information exchange and intention expression within social interactions. Furthermore, we introduce evaluation methods, including two metrics: Information Exchanging Precision (IEP) and Interaction Expressiveness Gap (IEG), designed for the quantitative and objective assessment of agents' interaction competencies. Our findings highlight the utility of these evaluative methods and show significant potential for improving LLMs' ability to construct agents that interact in a more natural manner with human-like intricacy.",
+    "keyword": "LLM agents, multi-agent interaction, social interaction, evaluation, information exchange",
+    "archive": "arXiv",
+    "archive_location": "2401.06509",
+    "genre": "Preprint"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2401.06509"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2401.06509"
+    }
+  ]
+}

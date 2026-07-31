@@ -1,0 +1,16 @@
+TY  - RPRT
+TI  - From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence
+AU  - Liang, Yuanzhi
+AU  - Zhan, Xufeng
+AU  - Huang, Haibin
+AU  - Zhang, Chi
+AU  - Li, Xuelong
+PY  - 2026
+DA  - 2026/07/13
+T2  - arXiv
+AN  - arXiv:2607.11689
+DB  - arXiv
+M3  - Preprint
+UR  - https://arxiv.org/abs/2607.11689
+AB  - Artificial general intelligence ultimately requires agents that can reason and act in the physical world. Action models, vision-language-action policies, and world models have advanced this goal, while World Action Models (WAMs) are particularly promising because they connect candidate interventions with predicted consequences. However, progress remains fragmented: models use incompatible action spaces and prediction targets, datasets and tasks follow different conventions, and runtime systems expose limited interfaces for reuse and evaluation. We review the evolution toward WAMs and organize these limitations into three coupled gaps: model roles and representations, objectives and standardization, and system composition. Building on this analysis, we propose a co-evolution roadmap for physical intelligence centered on the embodied brain, a long-term model target for integrating multimodal context, comparing candidate interventions, and issuing state-transition or capability requests rather than direct actuator commands. WAMs provide promising prototypes for its predictive functions, while a physical harness grounds model outputs through tools, controllers, verification, and trace logging. Shared contracts align heterogeneous models, data, tasks, and embodiments, and closed-loop post-training converts verified interaction into reusable experience. Together, these components define a modular physical-intelligence stack for adaptive and self-improving embodied agents.
+ER  -

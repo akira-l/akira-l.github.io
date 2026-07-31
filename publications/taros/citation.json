@@ -1,0 +1,46 @@
+{
+  "id": "li2026taros",
+  "type": "paper-conference",
+  "title": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+  "author": [
+    {
+      "given": "Rui",
+      "family": "Li"
+    },
+    {
+      "given": "Yuanzhi",
+      "family": "Liang"
+    },
+    {
+      "given": "Ziqi",
+      "family": "Ni"
+    },
+    {
+      "given": "Haibin",
+      "family": "Huang"
+    },
+    {
+      "given": "Chi",
+      "family": "Zhang"
+    },
+    {
+      "given": "Xuelong",
+      "family": "Li"
+    }
+  ],
+  "container-title": "European Conference on Computer Vision (ECCV 2026)",
+  "issued": {
+    "date-parts": [
+      [
+        2026
+      ]
+    ]
+  },
+  "URL": "https://arxiv.org/abs/2511.19356",
+  "abstract": "Group Relative Policy Optimization (GRPO) enables stable and preference-oriented updates via group-wise comparisons for post-training video generation. However, GRPO directly optimizes reward-induced advantages. Under sustained optimization, the reward score can lose fidelity as a proxy for true video quality, consistent with the phenomenon described by Goodhart's Law. This leads to two recurring issues: (i) shortcut-driven optimization under composite objectives and (ii) reward saturation within prompt groups. To address these issues, we introduce TaRoS, a Target-Robust Reward Signaling framework for Video generation GRPO. TaRoS leverages component level performance assessment together with intra-group sparsity to organize multi-aspect rewards towards optimization objectives. In addition, it adaptively downweights components that exhibit saturation, thereby preserving effective optimization directions and mitigating redundancy. This maintains meaningful optimization directions and preserves within-group ranking separation, thereby preventing reward hacking and leading to more reliable policy updates. Extensive experiments show consistent improvements in visual fidelity, motion coherence, and text-video alignment over strong baselines.",
+  "keyword": "video generation, GRPO, reward saturation, reward hacking, Goodhart's law",
+  "archive": "arXiv",
+  "archive_location": "2511.19356",
+  "genre": "Forthcoming conference paper",
+  "status": "forthcoming"
+}

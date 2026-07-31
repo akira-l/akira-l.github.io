@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "slug": "rats",
+  "canonical_url": "https://akira-l.github.io/publications/rats/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/rats/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/rats/"
+  },
+  "title": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+  "short_title": "RATS",
+  "authors": [
+    "Rui Li",
+    "Bingyu Li",
+    "Yuanzhi Liang",
+    "Haibin Huang",
+    "Chi Zhang",
+    "XueLong Li"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "ACM Multimedia 2026 (accepted)",
+    "citation_container_title": "34th ACM International Conference on Multimedia (ACM Multimedia 2026)",
+    "status": "forthcoming",
+    "year": 2026,
+    "publication_date": "2026",
+    "publisher": "ACM"
+  },
+  "identifiers": {
+    "arxiv": "2604.14910",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2026-04-16",
+    "last_revised": "2026-04-27"
+  },
+  "keywords": [
+    "few-step generation",
+    "trajectory distillation",
+    "preference alignment",
+    "reward-aware gating",
+    "diffusion models"
+  ],
+  "official_abstract": "Achieving high-fidelity generation in extremely few sampling steps has long been a central goal of generative modeling. Existing approaches largely rely on distillation-based frameworks to compress the original multi-step denoising process into a few-step generator. However, such methods inherently constrain the student to imitate a stronger multi-step teacher, imposing the teacher as an upper bound on student performance. We argue that introducing preference alignment awareness enables the student to optimize toward reward-preferred generation quality, potentially surpassing the teacher instead of being restricted to rigid teacher imitation. To this end, we propose Reward-Aware Trajectory Shaping (RATS), a lightweight framework for preference-aligned few-step generation. Specifically, teacher and student latent trajectories are aligned at key denoising stages through horizon matching, while a reward-aware gate is introduced to adaptively regulate teacher guidance based on their relative reward performance. Trajectory shaping is strengthened when the teacher achieves higher rewards, and relaxed when the student matches or surpasses the teacher, thereby enabling continued reward-driven improvement. By seamlessly integrating trajectory distillation, reward-aware gating, and preference alignment, RATS effectively transfers preference-relevant knowledge from high-step generators without incurring additional test-time computational overhead. Experimental results demonstrate that RATS substantially improves the efficiency--quality trade-off in few-step visual generation, significantly narrowing the gap between few-step students and stronger multi-step generators.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2604.14910",
+    "version": "arXiv:2604.14910v3",
+    "method_locator": "Abstract; method sections on horizon matching and the reward-aware gate",
+    "evidence_locator": "Abstract; few-step generation experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "bibliographic_note": "The status “accepted at ACM Multimedia 2026” is author-supplied. The paper-level proceedings record, DOI, pagination, and final ACM citation were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "RATS combines trajectory distillation with preference feedback: horizon matching aligns teacher and student at key denoising stages, while a reward-aware gate strengthens teacher guidance only when the teacher is better under the chosen reward.",
+      "problem": "Rigid distillation makes a few-step student imitate a multi-step teacher and can turn the teacher into a performance ceiling, even when preference optimization indicates that the student could improve beyond it.",
+      "contributions": [
+        "Aligns teacher and student latent trajectories at key stages through horizon matching.",
+        "Uses a reward-aware gate to strengthen or relax teacher guidance according to relative reward performance.",
+        "Combines distillation and preference alignment without adding test-time computation."
+      ],
+      "evidence": "The paper reports an improved efficiency–quality trade-off and a narrower gap to stronger multi-step generators. Exact step counts, base models, rewards, and metric values should be taken from the current paper tables rather than inferred from this summary.",
+      "limitations": "The gate inherits the assumptions and possible biases of the reward signal used to compare teacher and student. The paper targets few-step visual generation; transfer to other distillation settings requires separate validation.",
+      "positioning": "RATS sits between trajectory distillation and reward-based alignment. Its main distinction is that teacher imitation is conditional on relative reward quality instead of being enforced as a fixed target.",
+      "citation_ready": "Li et al. introduce Reward-Aware Trajectory Shaping (RATS), combining horizon-matched teacher–student trajectories with a reward-aware gate that conditionally adjusts teacher guidance for preference-aligned few-step visual generation."
+    },
+    "zh-CN": {
+      "summary": "RATS 把轨迹蒸馏与偏好反馈结合起来：horizon matching 在关键去噪阶段对齐 teacher 与 student，reward-aware gate 只在 teacher 的奖励表现更好时加强指导。",
+      "problem": "固定蒸馏要求 few-step student 持续模仿 multi-step teacher，容易把 teacher 变成性能上限，即使偏好奖励表明 student 已经能够达到或超过 teacher。",
+      "contributions": [
+        "通过 horizon matching 对齐 teacher 和 student 在关键阶段的 latent trajectory。",
+        "根据双方相对 reward 表现动态增强或减弱 teacher guidance。",
+        "在不增加推理开销的前提下结合轨迹蒸馏与 preference alignment。"
+      ],
+      "evidence": "论文报告 few-step 生成在效率—质量权衡上获得改进，并缩小与强 multi-step generator 的差距。具体步数、底模、奖励和指标数值应查阅当前版本的实验表格。",
+      "limitations": "Reward-aware gate 会继承用于比较 teacher 与 student 的奖励信号所包含的假设与偏差；方法面向 few-step visual generation，迁移到其他蒸馏设置仍需验证。",
+      "positioning": "RATS 位于 trajectory distillation 与 reward-based alignment 的交叉点。它的关键差异是根据相对奖励质量决定是否跟随 teacher，而不是始终把 teacher 当作固定目标。",
+      "citation_ready": "Li 等提出 Reward-Aware Trajectory Shaping（RATS），利用 horizon matching 对齐师生轨迹，并通过 reward-aware gate 有条件地调节 teacher guidance，以实现偏好对齐的少步视觉生成。"
+    }
+  },
+  "citation": {
+    "id": "li2026rats",
+    "type": "paper-conference",
+    "title": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+    "author": [
+      {
+        "given": "Rui",
+        "family": "Li"
+      },
+      {
+        "given": "Bingyu",
+        "family": "Li"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "XueLong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "34th ACM International Conference on Multimedia (ACM Multimedia 2026)",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2604.14910",
+    "abstract": "Achieving high-fidelity generation in extremely few sampling steps has long been a central goal of generative modeling. Existing approaches largely rely on distillation-based frameworks to compress the original multi-step denoising process into a few-step generator. However, such methods inherently constrain the student to imitate a stronger multi-step teacher, imposing the teacher as an upper bound on student performance. We argue that introducing preference alignment awareness enables the student to optimize toward reward-preferred generation quality, potentially surpassing the teacher instead of being restricted to rigid teacher imitation. To this end, we propose Reward-Aware Trajectory Shaping (RATS), a lightweight framework for preference-aligned few-step generation. Specifically, teacher and student latent trajectories are aligned at key denoising stages through horizon matching, while a reward-aware gate is introduced to adaptively regulate teacher guidance based on their relative reward performance. Trajectory shaping is strengthened when the teacher achieves higher rewards, and relaxed when the student matches or surpasses the teacher, thereby enabling continued reward-driven improvement. By seamlessly integrating trajectory distillation, reward-aware gating, and preference alignment, RATS effectively transfers preference-relevant knowledge from high-step generators without incurring additional test-time computational overhead. Experimental results demonstrate that RATS substantially improves the efficiency--quality trade-off in few-step visual generation, significantly narrowing the gap between few-step students and stronger multi-step generators.",
+    "keyword": "few-step generation, trajectory distillation, preference alignment, reward-aware gating, diffusion models",
+    "publisher": "ACM",
+    "archive": "arXiv",
+    "archive_location": "2604.14910",
+    "genre": "Forthcoming conference paper",
+    "status": "forthcoming"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2604.14910"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2604.14910"
+    }
+  ]
+}

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model 中文解读 | 梁远智</title>
+  <meta name="description" content="TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/teleworld/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/teleworld/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/teleworld/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/teleworld/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/teleworld/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/teleworld/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/teleworld/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model 中文解读 | 梁远智">
+  <meta property="og:description" content="TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/teleworld/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model 中文解读 | 梁远智">
+  <meta name="twitter:description" content="TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/teleworld/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/teleworld/",
+      "headline": "论文解读：TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+      "description": "TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2601.00051",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/teleworld/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/teleworld/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/teleworld/#paper",
+      "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+      "headline": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+      "abstract": "World models aim to endow AI systems with the ability to represent, generate, and interact with dynamic environments in a coherent and temporally consistent manner. While recent video generation models have demonstrated impressive visual quality, they remain limited in real-time interaction, long-horizon consistency, and persistent memory of dynamic scenes, hindering their evolution into practical world models. In this report, we present TeleWorld, a real-time multimodal 4D world modeling framework that unifies video generation, dynamic scene reconstruction, and long-term world memory within a closed-loop system. TeleWorld introduces a novel generation-reconstruction-guidance paradigm, where generated video streams are continuously reconstructed into a dynamic 4D spatio-temporal representation, which in turn guides subsequent generation to maintain spatial, temporal, and physical consistency. To support long-horizon generation with low latency, we employ an autoregressive diffusion-based video model enhanced with Macro-from-Micro Planning (MMPL)--a hierarchical planning method that reduces error accumulation from frame-level to segment-level-alongside efficient Distribution Matching Distillation (DMD), enabling real-time synthesis under practical computational budgets. Our approach achieves seamless integration of dynamic object modeling and static scene representation within a unified 4D framework, advancing world models toward practical, interactive, and computationally accessible systems. Extensive experiments demonstrate that TeleWorld achieves strong performance in both static and dynamic world understanding, long-term consistency, and real-time generation efficiency, positioning it as a practical step toward interactive, memory-enabled world models for multimodal generation and embodied intelligence.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yabo Chen"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Jiepeng Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Tingxi Chen"
+        },
+        {
+          "@type": "Person",
+          "name": "Junfei Cheng"
+        },
+        {
+          "@type": "Person",
+          "name": "Zixiao Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuyang Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Zicheng Jiang"
+        },
+        {
+          "@type": "Person",
+          "name": "Wei Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Tian Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Weichen Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Zuoxin Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Guangce Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Jialun Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Junqi Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Haoyuan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xunzhi Xiang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaoyan Yang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xin Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Shiwen Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Junyu Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Chengcheng Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2025-12-31",
+      "inLanguage": "en",
+      "keywords": [
+        "4D world model",
+        "video generation",
+        "dynamic reconstruction",
+        "long-term memory",
+        "real-time synthesis"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2601.00051",
+          "url": "https://arxiv.org/abs/2601.00051"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2601.00051",
+        "https://arxiv.org/pdf/2601.00051"
+      ],
+      "url": "https://arxiv.org/abs/2601.00051",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "arXiv"
+      },
+      "dateModified": "2025-12-31"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/teleworld/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "TeleWorld",
+          "item": "https://akira-l.github.io/zh/publications/teleworld/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">TeleWorld</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model</h1>
+      <p class="paper-authors"><strong>作者:</strong> Yabo Chen, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Jiepeng Wang, Tingxi Chen, Junfei Cheng, Zixiao Gu, Yuyang Huang, Zicheng Jiang, Wei Li, Tian Li, Weichen Li, Zuoxin Li, Guangce Liu, Jialun Liu, Junqi Liu, Haoyuan Wang, Qizhen Weng, Xuan&#x27;er Wu, Xunzhi Xiang, Xiaoyan Yang, Xin Zhang, Shiwen Zhang, Junyu Zhou, Chengcheng Zhou, Haibin Huang, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue">arXiv · 2025</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">4D world model</span><span class="tag">video generation</span><span class="tag">dynamic reconstruction</span><span class="tag">long-term memory</span><span class="tag">real-time synthesis</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/teleworld/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2601.00051" target="_blank" rel="noopener noreferrer">PDF</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Yabo Chen, Yuanzhi Liang, Jiepeng Wang, Tingxi Chen, Junfei Cheng, Zixiao Gu, Yuyang Huang, Zicheng Jiang, Wei Li, Tian Li, Weichen Li, Zuoxin Li, Guangce Liu, Jialun Liu, Junqi Liu, Haoyuan Wang, Qizhen Weng, Xuan&#x27;er Wu, Xunzhi Xiang, Xiaoyan Yang, Xin Zhang, Shiwen Zhang, Junyu Zhou, Chengcheng Zhou, Haibin Huang, Chi Zhang, and Xuelong Li</dd>
+          <dt>推荐论文引用</dt><dd>Yabo Chen, Yuanzhi Liang, Jiepeng Wang, Tingxi Chen, Junfei Cheng, Zixiao Gu, Yuyang Huang, Zicheng Jiang, Wei Li, Tian Li, Weichen Li, Zuoxin Li, Guangce Liu, Jialun Liu, Junqi Liu, Haoyuan Wang, Qizhen Weng, Xuan&#x27;er Wu, Xunzhi Xiang, Xiaoyan Yang, Xin Zhang, Shiwen Zhang, Junyu Zhou, Chengcheng Zhou, Haibin Huang, Chi Zhang, and Xuelong Li. “TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model.” arXiv (2025). arXiv:2601.00051.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>arXiv 首次提交</dt><dd>2025-12-31</dd><dt>arXiv 最近修订</dt><dd>2025-12-31</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>高质量视频生成器仍缺少实时交互、动态场景的持久记忆，以及长时间范围内可靠的空间、时间和物理一致性，因此尚不能直接作为实用 world model。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>在闭环 4D 框架中统一视频生成、动态场景重建与长期世界记忆。</li><li>提出 generation–reconstruction–guidance 循环，用重建后的 4D 状态指导下一段生成。</li><li>结合 Macro-from-Micro Planning 与 Distribution Matching Distillation，面向长时低延迟合成。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>报告评测了静态与动态世界理解、长时一致性和实时生成效率；准确延迟、硬件、场景与 benchmark 条件应以实验章节为准。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>闭环系统可能同时累积重建误差与生成误差，长时表现取决于状态被重建和复用的准确性；“实时”结论也受论文所用算力和配置约束。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>TeleWorld 连接视频生成、动态重建和持久记忆，适合被定位为从一次性视频生成走向有状态、可交互 world model 的工作。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Chen 等提出 TeleWorld：将生成视频重建为持久 4D 时空状态并用于指导后续生成，同时以层次规划和蒸馏支持长时实时合成。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">World models aim to endow AI systems with the ability to represent, generate, and interact with dynamic environments in a coherent and temporally consistent manner. While recent video generation models have demonstrated impressive visual quality, they remain limited in real-time interaction, long-horizon consistency, and persistent memory of dynamic scenes, hindering their evolution into practical world models. In this report, we present TeleWorld, a real-time multimodal 4D world modeling framework that unifies video generation, dynamic scene reconstruction, and long-term world memory within a closed-loop system. TeleWorld introduces a novel generation-reconstruction-guidance paradigm, where generated video streams are continuously reconstructed into a dynamic 4D spatio-temporal representation, which in turn guides subsequent generation to maintain spatial, temporal, and physical consistency. To support long-horizon generation with low latency, we employ an autoregressive diffusion-based video model enhanced with Macro-from-Micro Planning (MMPL)--a hierarchical planning method that reduces error accumulation from frame-level to segment-level-alongside efficient Distribution Matching Distillation (DMD), enabling real-time synthesis under practical computational budgets. Our approach achieves seamless integration of dynamic object modeling and static scene representation within a unified 4D framework, advancing world models toward practical, interactive, and computationally accessible systems. Extensive experiments demonstrate that TeleWorld achieves strong performance in both static and dynamic world understanding, long-term consistency, and real-time generation efficiency, positioning it as a practical step toward interactive, memory-enabled world models for multimodal generation and embodied intelligence.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; generation-reconstruction-guidance, MMPL, and DMD sections</td></tr><tr><td>评测结论</td><td>Abstract; static/dynamic understanding, consistency, and efficiency experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2601.00051v1).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Yabo Chen, Yuanzhi Liang, Jiepeng Wang, Tingxi Chen, Junfei Cheng, Zixiao Gu, Yuyang Huang, Zicheng Jiang, Wei Li, Tian Li, Weichen Li, Zuoxin Li, Guangce Liu, Jialun Liu, Junqi Liu, Haoyuan Wang, Qizhen Weng, Xuan&#x27;er Wu, Xunzhi Xiang, Xiaoyan Yang, Xin Zhang, Shiwen Zhang, Junyu Zhou, Chengcheng Zhou, Haibin Huang, Chi Zhang, and Xuelong Li. “TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model.” arXiv (2025). arXiv:2601.00051.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/teleworld/citation.bib">BibTeX</a><a href="/publications/teleworld/citation.ris">RIS</a><a href="/publications/teleworld/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2601.00051" target="_blank" rel="noopener noreferrer">PDF</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

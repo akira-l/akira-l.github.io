@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "slug": "teleworld",
+  "canonical_url": "https://akira-l.github.io/publications/teleworld/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/teleworld/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/teleworld/"
+  },
+  "title": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+  "short_title": "TeleWorld",
+  "authors": [
+    "Yabo Chen",
+    "Yuanzhi Liang",
+    "Jiepeng Wang",
+    "Tingxi Chen",
+    "Junfei Cheng",
+    "Zixiao Gu",
+    "Yuyang Huang",
+    "Zicheng Jiang",
+    "Wei Li",
+    "Tian Li",
+    "Weichen Li",
+    "Zuoxin Li",
+    "Guangce Liu",
+    "Jialun Liu",
+    "Junqi Liu",
+    "Haoyuan Wang",
+    "Qizhen Weng",
+    "Xuan'er Wu",
+    "Xunzhi Xiang",
+    "Xiaoyan Yang",
+    "Xin Zhang",
+    "Shiwen Zhang",
+    "Junyu Zhou",
+    "Chengcheng Zhou",
+    "Haibin Huang",
+    "Chi Zhang",
+    "Xuelong Li"
+  ],
+  "publication": {
+    "kind": "preprint",
+    "venue": "arXiv",
+    "citation_container_title": "arXiv",
+    "status": "preprint",
+    "year": 2025,
+    "publication_date": "2025-12-31"
+  },
+  "identifiers": {
+    "arxiv": "2601.00051",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-12-31",
+    "last_revised": "2025-12-31"
+  },
+  "keywords": [
+    "4D world model",
+    "video generation",
+    "dynamic reconstruction",
+    "long-term memory",
+    "real-time synthesis"
+  ],
+  "official_abstract": "World models aim to endow AI systems with the ability to represent, generate, and interact with dynamic environments in a coherent and temporally consistent manner. While recent video generation models have demonstrated impressive visual quality, they remain limited in real-time interaction, long-horizon consistency, and persistent memory of dynamic scenes, hindering their evolution into practical world models. In this report, we present TeleWorld, a real-time multimodal 4D world modeling framework that unifies video generation, dynamic scene reconstruction, and long-term world memory within a closed-loop system. TeleWorld introduces a novel generation-reconstruction-guidance paradigm, where generated video streams are continuously reconstructed into a dynamic 4D spatio-temporal representation, which in turn guides subsequent generation to maintain spatial, temporal, and physical consistency. To support long-horizon generation with low latency, we employ an autoregressive diffusion-based video model enhanced with Macro-from-Micro Planning (MMPL)--a hierarchical planning method that reduces error accumulation from frame-level to segment-level-alongside efficient Distribution Matching Distillation (DMD), enabling real-time synthesis under practical computational budgets. Our approach achieves seamless integration of dynamic object modeling and static scene representation within a unified 4D framework, advancing world models toward practical, interactive, and computationally accessible systems. Extensive experiments demonstrate that TeleWorld achieves strong performance in both static and dynamic world understanding, long-term consistency, and real-time generation efficiency, positioning it as a practical step toward interactive, memory-enabled world models for multimodal generation and embodied intelligence.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2601.00051",
+    "version": "arXiv:2601.00051v1",
+    "method_locator": "Abstract; generation-reconstruction-guidance, MMPL, and DMD sections",
+    "evidence_locator": "Abstract; static/dynamic understanding, consistency, and efficiency experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "TeleWorld closes a loop between video generation and 4D reconstruction: generated streams update a persistent spatiotemporal representation that guides later generation, while Macro-from-Micro Planning and distillation target long horizons and real-time latency.",
+      "problem": "High-quality video generators still lack real-time interaction, persistent scene memory, and reliable long-horizon spatial, temporal, and physical consistency required of practical world models.",
+      "contributions": [
+        "Unifies video generation, dynamic scene reconstruction, and long-term world memory in a closed-loop 4D framework.",
+        "Uses a generation–reconstruction–guidance cycle in which the reconstructed 4D state conditions subsequent generation.",
+        "Combines Macro-from-Micro Planning with Distribution Matching Distillation for long-horizon, lower-latency synthesis."
+      ],
+      "evidence": "The report evaluates static and dynamic world understanding, long-term consistency, and real-time generation efficiency. Exact latency, hardware, scene, and benchmark conditions must be read from the experimental section.",
+      "limitations": "A closed-loop world model can inherit reconstruction errors and generation errors, so long-term behavior depends on how accurately state is reconstructed and reused. Claims of real-time operation are conditional on the paper's reported compute and setup.",
+      "positioning": "TeleWorld bridges video generation, dynamic reconstruction, and persistent memory. It is relevant to work that seeks a stateful, interactive world model rather than a one-shot video generator.",
+      "citation_ready": "Chen et al. present TeleWorld, a closed-loop 4D world-model framework in which generated video is reconstructed into a persistent spatiotemporal state that guides subsequent generation, with hierarchical planning and distillation supporting long-horizon real-time synthesis."
+    },
+    "zh-CN": {
+      "summary": "TeleWorld 在视频生成和 4D 重建之间形成闭环：生成流持续写入时空表示，这个持久状态再指导后续生成；Macro-from-Micro Planning 与蒸馏用于支持长时和低延迟合成。",
+      "problem": "高质量视频生成器仍缺少实时交互、动态场景的持久记忆，以及长时间范围内可靠的空间、时间和物理一致性，因此尚不能直接作为实用 world model。",
+      "contributions": [
+        "在闭环 4D 框架中统一视频生成、动态场景重建与长期世界记忆。",
+        "提出 generation–reconstruction–guidance 循环，用重建后的 4D 状态指导下一段生成。",
+        "结合 Macro-from-Micro Planning 与 Distribution Matching Distillation，面向长时低延迟合成。"
+      ],
+      "evidence": "报告评测了静态与动态世界理解、长时一致性和实时生成效率；准确延迟、硬件、场景与 benchmark 条件应以实验章节为准。",
+      "limitations": "闭环系统可能同时累积重建误差与生成误差，长时表现取决于状态被重建和复用的准确性；“实时”结论也受论文所用算力和配置约束。",
+      "positioning": "TeleWorld 连接视频生成、动态重建和持久记忆，适合被定位为从一次性视频生成走向有状态、可交互 world model 的工作。",
+      "citation_ready": "Chen 等提出 TeleWorld：将生成视频重建为持久 4D 时空状态并用于指导后续生成，同时以层次规划和蒸馏支持长时实时合成。"
+    }
+  },
+  "citation": {
+    "id": "chen2025teleworld",
+    "type": "article",
+    "title": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+    "author": [
+      {
+        "given": "Yabo",
+        "family": "Chen"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Jiepeng",
+        "family": "Wang"
+      },
+      {
+        "given": "Tingxi",
+        "family": "Chen"
+      },
+      {
+        "given": "Junfei",
+        "family": "Cheng"
+      },
+      {
+        "given": "Zixiao",
+        "family": "Gu"
+      },
+      {
+        "given": "Yuyang",
+        "family": "Huang"
+      },
+      {
+        "given": "Zicheng",
+        "family": "Jiang"
+      },
+      {
+        "given": "Wei",
+        "family": "Li"
+      },
+      {
+        "given": "Tian",
+        "family": "Li"
+      },
+      {
+        "given": "Weichen",
+        "family": "Li"
+      },
+      {
+        "given": "Zuoxin",
+        "family": "Li"
+      },
+      {
+        "given": "Guangce",
+        "family": "Liu"
+      },
+      {
+        "given": "Jialun",
+        "family": "Liu"
+      },
+      {
+        "given": "Junqi",
+        "family": "Liu"
+      },
+      {
+        "given": "Haoyuan",
+        "family": "Wang"
+      },
+      {
+        "given": "Qizhen",
+        "family": "Weng"
+      },
+      {
+        "given": "Xuan'er",
+        "family": "Wu"
+      },
+      {
+        "given": "Xunzhi",
+        "family": "Xiang"
+      },
+      {
+        "given": "Xiaoyan",
+        "family": "Yang"
+      },
+      {
+        "given": "Xin",
+        "family": "Zhang"
+      },
+      {
+        "given": "Shiwen",
+        "family": "Zhang"
+      },
+      {
+        "given": "Junyu",
+        "family": "Zhou"
+      },
+      {
+        "given": "Chengcheng",
+        "family": "Zhou"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Xuelong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "arXiv",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          31
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2601.00051",
+    "abstract": "World models aim to endow AI systems with the ability to represent, generate, and interact with dynamic environments in a coherent and temporally consistent manner. While recent video generation models have demonstrated impressive visual quality, they remain limited in real-time interaction, long-horizon consistency, and persistent memory of dynamic scenes, hindering their evolution into practical world models. In this report, we present TeleWorld, a real-time multimodal 4D world modeling framework that unifies video generation, dynamic scene reconstruction, and long-term world memory within a closed-loop system. TeleWorld introduces a novel generation-reconstruction-guidance paradigm, where generated video streams are continuously reconstructed into a dynamic 4D spatio-temporal representation, which in turn guides subsequent generation to maintain spatial, temporal, and physical consistency. To support long-horizon generation with low latency, we employ an autoregressive diffusion-based video model enhanced with Macro-from-Micro Planning (MMPL)--a hierarchical planning method that reduces error accumulation from frame-level to segment-level-alongside efficient Distribution Matching Distillation (DMD), enabling real-time synthesis under practical computational budgets. Our approach achieves seamless integration of dynamic object modeling and static scene representation within a unified 4D framework, advancing world models toward practical, interactive, and computationally accessible systems. Extensive experiments demonstrate that TeleWorld achieves strong performance in both static and dynamic world understanding, long-term consistency, and real-time generation efficiency, positioning it as a practical step toward interactive, memory-enabled world models for multimodal generation and embodied intelligence.",
+    "keyword": "4D world model, video generation, dynamic reconstruction, long-term memory, real-time synthesis",
+    "archive": "arXiv",
+    "archive_location": "2601.00051",
+    "genre": "Preprint"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2601.00051"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2601.00051"
+    }
+  ]
+}

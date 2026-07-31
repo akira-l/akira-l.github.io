@@ -1,0 +1,18 @@
+TY  - CPAPER
+TI  - Reward-Aware Trajectory Shaping for Few-step Visual Generation
+AU  - Li, Rui
+AU  - Li, Bingyu
+AU  - Liang, Yuanzhi
+AU  - Huang, Haibin
+AU  - Zhang, Chi
+AU  - Li, XueLong
+PY  - 2026
+T2  - 34th ACM International Conference on Multimedia (ACM Multimedia 2026)
+PB  - ACM
+AN  - arXiv:2604.14910
+DB  - arXiv
+M3  - Forthcoming conference paper
+N1  - Forthcoming; final DOI and pagination pending.
+UR  - https://arxiv.org/abs/2604.14910
+AB  - Achieving high-fidelity generation in extremely few sampling steps has long been a central goal of generative modeling. Existing approaches largely rely on distillation-based frameworks to compress the original multi-step denoising process into a few-step generator. However, such methods inherently constrain the student to imitate a stronger multi-step teacher, imposing the teacher as an upper bound on student performance. We argue that introducing preference alignment awareness enables the student to optimize toward reward-preferred generation quality, potentially surpassing the teacher instead of being restricted to rigid teacher imitation. To this end, we propose Reward-Aware Trajectory Shaping (RATS), a lightweight framework for preference-aligned few-step generation. Specifically, teacher and student latent trajectories are aligned at key denoising stages through horizon matching, while a reward-aware gate is introduced to adaptively regulate teacher guidance based on their relative reward performance. Trajectory shaping is strengthened when the teacher achieves higher rewards, and relaxed when the student matches or surpasses the teacher, thereby enabling continued reward-driven improvement. By seamlessly integrating trajectory distillation, reward-aware gating, and preference alignment, RATS effectively transfers preference-relevant knowledge from high-step generators without incurring additional test-time computational overhead. Experimental results demonstrate that RATS substantially improves the efficiency--quality trade-off in few-step visual generation, significantly narrowing the gap between few-step students and stronger multi-step generators.
+ER  -

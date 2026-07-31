@@ -1,121 +1,282 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Removing Raindrops and Rain Streaks 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="Removing Raindrops and Rain Streaks in One Go 中文解读：同时处理贴附在镜头上的 raindrops 与空中 rain streaks，避免两阶段去雨的误差累积。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/rain-one-go/" />
-  <meta property="og:title" content="Removing Raindrops and Rain Streaks 中文解读" />
-  <meta property="og:description" content="One-go rain removal 的关键是同时识别两类雨退化，而不是先后串联两个去雨模型。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/rain-one-go/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Removing Raindrops and Rain Streaks 中文解读" />
-  <meta name="twitter:description" content="Jointly removing raindrops and rain streaks in one go." />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Removing Raindrops and Rain Streaks in One Go — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="The method uses a complementary cascaded network with both raindrop→streak and streak→raindrop branches, fuses their outputs with attention, searches deraining blocks with neural architecture search, and introduces the real-world RainDS dataset.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/rain-one-go/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rain-one-go/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rain-one-go/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rain-one-go/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/rain-one-go/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/rain-one-go/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/rain-one-go/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Removing Raindrops and Rain Streaks in One Go — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="The method uses a complementary cascaded network with both raindrop→streak and streak→raindrop branches, fuses their outputs with attention, searches deraining blocks with neural architecture search, and introduces the real-world RainDS dataset.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/rain-one-go/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Removing Raindrops and Rain Streaks in One Go — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="The method uses a complementary cascaded network with both raindrop→streak and streak→raindrop branches, fuses their outputs with attention, searches deraining blocks with neural architecture search, and introduces the real-world RainDS dataset.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Removing Raindrops and Rain Streaks in One Go">
+  <meta name="citation_author" content="Ruijie Quan">
+  <meta name="citation_author" content="Xin Yu">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Yi Yang">
+  <meta name="citation_publication_date" content="2021">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/rain-one-go/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="image deraining; raindrop removal; rain streak removal; neural architecture search; RainDS">
+  <meta name="citation_abstract" content="Existing rain-removal algorithms often tackle either rain streak removal or raindrop removal, and thus may fail to handle real-world rainy scenes. Besides, the lack of real-world deraining datasets comprising different types of rain and their corresponding rain-free ground-truth also impedes deraining algorithm development. In this paper, we aim to address real-world deraining problems from two aspects. First, we propose a complementary cascaded network architecture, namely CCN, to remove rain streaks and raindrops in a unified framework. Specifically, our CCN removes raindrops and rain streaks in a complementary fashion, i.e., raindrop removal followed by rain streak removal and vice versa, and then fuses the results via an attention based fusion module. Considering significant shape and structure differences between rain streaks and raindrops, it is difficult to manually design a sophisticated network to remove them effectively. Thus, we employ neural architecture search to adaptively find optimal architectures within our specified deraining search space. Second, we present a new real-world rain dataset, namely RainDS, to prosper the development of deraining algorithms in practical scenarios. RainDS consists of rain images in different types and their corresponding rain-free ground-truth, including rain streak only, raindrop only, and both of them. Extensive experimental results on both existing benchmarks and RainDS demonstrate that our method outperforms the state-of-the-art.">
+  <meta name="citation_conference_title" content="2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)">
+  <meta name="citation_publisher" content="IEEE">
+  <meta name="citation_doi" content="10.1109/CVPR46437.2021.00903">
+  <meta name="citation_firstpage" content="9143">
+  <meta name="citation_lastpage" content="9152">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "name": "Removing Raindrops and Rain Streaks in One Go",
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/rain-one-go/#explainer",
       "url": "https://akira-l.github.io/publications/rain-one-go/",
-      "sameAs": "https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html",
-      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+      "headline": "Paper explainer: Removing Raindrops and Rain Streaks in One Go",
+      "description": "The method uses a complementary cascaded network with both raindrop→streak and streak→raindrop branches, fuses their outputs with attention, searches deraining blocks with neural architecture search, and introduces the real-world RainDS dataset.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/CVPR46437.2021.00903",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/rain-one-go/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/rain-one-go/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/rain-one-go/#paper",
+      "name": "Removing Raindrops and Rain Streaks in One Go",
+      "headline": "Removing Raindrops and Rain Streaks in One Go",
+      "abstract": "Existing rain-removal algorithms often tackle either rain streak removal or raindrop removal, and thus may fail to handle real-world rainy scenes. Besides, the lack of real-world deraining datasets comprising different types of rain and their corresponding rain-free ground-truth also impedes deraining algorithm development. In this paper, we aim to address real-world deraining problems from two aspects. First, we propose a complementary cascaded network architecture, namely CCN, to remove rain streaks and raindrops in a unified framework. Specifically, our CCN removes raindrops and rain streaks in a complementary fashion, i.e., raindrop removal followed by rain streak removal and vice versa, and then fuses the results via an attention based fusion module. Considering significant shape and structure differences between rain streaks and raindrops, it is difficult to manually design a sophisticated network to remove them effectively. Thus, we employ neural architecture search to adaptively find optimal architectures within our specified deraining search space. Second, we present a new real-world rain dataset, namely RainDS, to prosper the development of deraining algorithms in practical scenarios. RainDS consists of rain images in different types and their corresponding rain-free ground-truth, including rain streak only, raindrop only, and both of them. Extensive experimental results on both existing benchmarks and RainDS demonstrate that our method outperforms the state-of-the-art.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ruijie Quan"
+        },
+        {
+          "@type": "Person",
+          "name": "Xin Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2021",
+      "inLanguage": "en",
+      "keywords": [
+        "image deraining",
+        "raindrop removal",
+        "rain streak removal",
+        "neural architecture search",
+        "RainDS"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/CVPR46437.2021.00903",
+          "url": "https://doi.org/10.1109/CVPR46437.2021.00903"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/CVPR46437.2021.00903",
+        "https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html",
+        "https://openaccess.thecvf.com/content/CVPR2021/papers/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.pdf"
+      ],
+      "url": "https://doi.org/10.1109/CVPR46437.2021.00903",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "9143-9152"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/rain-one-go/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Rain-One-Go",
+          "item": "https://akira-l.github.io/publications/rain-one-go/"
+        }
+      ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Rain-One-Go</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Rain Removal
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
       <h1>Removing Raindrops and Rain Streaks in One Go</h1>
-      <p class="subtitle">雨天图像里有两种很不同的退化：镜头上的 raindrops 和空中的 rain streaks。把它们分开处理，常常会把一个问题变成两个问题。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Image Restoration</span>
-      <span class="tag">Rain Removal</span>
-      <span class="tag">CVPR 2021</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          这篇论文的核心是 “one go”：同时去除 raindrops 和 rain streaks。
-          两类雨退化的形态差异很大：raindrops 通常是局部遮挡和折射，rain streaks 更像细长、方向性的纹理噪声。
-          如果用两个模型串联处理，第一阶段的残留和误删会被第二阶段放大。联合建模能让网络同时判断“哪里是遮挡、哪里是纹理、哪里是真实结构”，减少误修复。
-        </p>
+      <p class="paper-authors"><strong>Authors:</strong> Ruijie Quan, Xin Yu, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Yi Yang</p>
+      <p class="paper-venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2021) · 2021 · pp. 9143-9152</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">image deraining</span><span class="tag">raindrop removal</span><span class="tag">rain streak removal</span><span class="tag">neural architecture search</span><span class="tag">RainDS</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/rain-one-go/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://doi.org/10.1109/CVPR46437.2021.00903" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener noreferrer">Open access</a><a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
       </div>
+    </header>
 
-      <h2>1. 问题：雨不是一种噪声</h2>
-      <p>
-        镜头上的水滴会遮挡背景、扭曲局部纹理；空中的雨线则通常细、密、有方向。
-        它们在图像里的统计特性不同，却常常同时出现。
-        单一去雨假设很容易漏掉其中一类，或者把真实细节误当成雨。
-      </p>
-
-      <h2>2. 核心思路：联合识别与联合恢复</h2>
-      <p>
-        “in one go” 的意义不只是省步骤，而是避免两阶段 pipeline 的 error propagation。
-        模型需要同时学习两类退化的空间分布，并在恢复背景时保留真实边缘与纹理。
-      </p>
-
-      <h2>3. Key Insights：restoration 里的退化类型要一起看</h2>
-      <p>
-        图像恢复常被拆成很多子任务，但真实世界的退化往往混在一起。
-        当退化之间会互相遮挡、互相伪装时，联合建模比串联模块更稳。
-        这也是该工作对后续 real-world restoration 的启发。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        This work addresses rain removal under mixed degradations: adherent raindrops on the lens and directional rain streaks in the scene.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        Raindrops and rain streaks have different visual statistics. A two-stage pipeline can propagate residual artifacts or remove valid image details.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Remove both degradations jointly so the model can distinguish occlusion, streak-like noise, and real image structure in one restoration process.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        Real-world restoration benefits from modeling mixed degradations together, especially when different artifacts can imitate or mask each other.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener">Paper</a>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Ruijie Quan, Xin Yu, Yuanzhi Liang, and Yi Yang</dd>
+          <dt>Recommended paper citation</dt><dd>Ruijie Quan, Xin Yu, Yuanzhi Liang, and Yi Yang. “Removing Raindrops and Rain Streaks in One Go.” 2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2021), 9143-9152. https://doi.org/10.1109/CVPR46437.2021.00903.</dd>
+<dt>Alternate-copy pagination</dt><dd><a href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener noreferrer">CVF open-access copy</a>: 9147-9156</dd>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>The method uses a complementary cascaded network with both raindrop→streak and streak→raindrop branches, fuses their outputs with attention, searches deraining blocks with neural architecture search, and introduces the real-world RainDS dataset.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Methods designed for only rain streaks or only lens raindrops do not cover mixed real-world rain, while paired real/rain-free data for multiple degradation types is scarce.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Introduces a complementary cascaded network that performs the two removal orders in parallel.</li><li>Fuses complementary branch results through an attention-based module and searches deraining architectures automatically.</li><li>Introduces RainDS with streak-only, raindrop-only, and combined rain images plus rain-free ground truth.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>Experiments on existing benchmarks and RainDS report performance above the compared state of the art. Exact metrics and train/test conditions should be cited from the CVPR paper.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>The framework and RainDS address the rain types represented in the search space and dataset. Generalization to other weather effects, sensors, or unpaired deployment domains is a separate question.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>This is not simply a one-pass joint restoration network: its key design is complementary cascades in both degradation-removal orders, attention fusion, architecture search, and a new real-world dataset.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Quan et al. jointly address raindrops and rain streaks with a complementary cascaded network that fuses both removal orders, uses neural architecture search for deraining blocks, and introduces the RainDS dataset.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Existing rain-removal algorithms often tackle either rain streak removal or raindrop removal, and thus may fail to handle real-world rainy scenes. Besides, the lack of real-world deraining datasets comprising different types of rain and their corresponding rain-free ground-truth also impedes deraining algorithm development. In this paper, we aim to address real-world deraining problems from two aspects. First, we propose a complementary cascaded network architecture, namely CCN, to remove rain streaks and raindrops in a unified framework. Specifically, our CCN removes raindrops and rain streaks in a complementary fashion, i.e., raindrop removal followed by rain streak removal and vice versa, and then fuses the results via an attention based fusion module. Considering significant shape and structure differences between rain streaks and raindrops, it is difficult to manually design a sophisticated network to remove them effectively. Thus, we employ neural architecture search to adaptively find optimal architectures within our specified deraining search space. Second, we present a new real-world rain dataset, namely RainDS, to prosper the development of deraining algorithms in practical scenarios. RainDS consists of rain images in different types and their corresponding rain-free ground-truth, including rain streak only, raindrop only, and both of them. Extensive experimental results on both existing benchmarks and RainDS demonstrate that our method outperforms the state-of-the-art.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; complementary cascaded network, attention fusion, and NAS sections</td></tr><tr><td>Evaluation statement</td><td>Abstract; existing benchmarks and RainDS experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://doi.org/10.1109/CVPR46437.2021.00903" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (CVPR 2021 version of record; CVF open-access copy has alternate pagination 9147-9156).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Ruijie Quan, Xin Yu, Yuanzhi Liang, and Yi Yang. “Removing Raindrops and Rain Streaks in One Go.” 2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2021), 9143-9152. https://doi.org/10.1109/CVPR46437.2021.00903.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/rain-one-go/citation.bib">BibTeX</a><a href="/publications/rain-one-go/citation.ris">RIS</a><a href="/publications/rain-one-go/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/CVPR46437.2021.00903" target="_blank" rel="noopener noreferrer">Version of record</a><a href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener noreferrer">Open access</a><a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

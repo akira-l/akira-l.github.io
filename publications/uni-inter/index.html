@@ -1,153 +1,297 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Uni-Inter 解读：统一 3D 交互动作生成的表示与空间 | Yuanzhi Liang</title>
-  <meta name="description" content="Uni-Inter 中文解读：动作生成里，人-物、人-人、人-场景往往各用一套模型。Uni-Inter 的核心是统一交互表示：把所有参与者放进统一体素空间（UIV），预测概率分布而非单点坐标，提升跨交互场景的兼容性与泛化。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/uni-inter/" />
-
-  <meta property="og:title" content="Uni-Inter 解读：统一 3D 交互动作生成的表示与空间" />
-  <meta property="og:description" content="统一体素表示 + 概率场预测，让同一模型覆盖多类交互并更好泛化。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/uni-inter/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Uni-Inter 解读：统一 3D 交互动作生成的表示与空间" />
-  <meta name="twitter:description" content="统一体素空间与概率场预测，让交互动作生成不再一任务一模型。" />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/uni-inter/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/uni-inter/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/uni-inter/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/uni-inter/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/uni-inter/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/uni-inter/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/uni-inter/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/uni-inter/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts">
+  <meta name="citation_author" content="Sheng Liu">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Jiepeng Wang">
+  <meta name="citation_author" content="Sidan Du">
+  <meta name="citation_author" content="Chi Zhang">
+  <meta name="citation_author" content="Xuelong Li">
+  <meta name="citation_publication_date" content="2025-12-14">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/uni-inter/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="3D human motion; human-object interaction; human-human interaction; human-scene interaction; unified representation">
+  <meta name="citation_abstract" content="We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.">
+  <meta name="citation_conference_title" content="Proceedings of the SIGGRAPH Asia 2025 Conference Papers">
+  <meta name="citation_publisher" content="ACM">
+  <meta name="citation_doi" content="10.1145/3757377.3763954">
+  <meta name="citation_firstpage" content="1">
+  <meta name="citation_lastpage" content="11">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/uni-inter/#explainer",
+      "url": "https://akira-l.github.io/publications/uni-inter/",
+      "headline": "Paper explainer: Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts",
+      "description": "Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://dl.acm.org/doi/10.1145/3757377.3763954",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/uni-inter/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/uni-inter/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/uni-inter/#paper",
+      "name": "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts",
+      "headline": "Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts",
+      "abstract": "We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.",
+      "author": [
         {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
-            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
-            { "@type": "ListItem", "position": 3, "name": "Uni-Inter", "item": "https://akira-l.github.io/publications/uni-inter/" }
-          ]
+          "@type": "Person",
+          "name": "Sheng Liu"
         },
         {
-          "@type": "Article",
-          "name": "Uni-Inter (paper note)",
-          "url": "https://akira-l.github.io/publications/uni-inter/",
-          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Jiepeng Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Sidan Du"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2025-12-14",
+      "inLanguage": "en",
+      "keywords": [
+        "3D human motion",
+        "human-object interaction",
+        "human-human interaction",
+        "human-scene interaction",
+        "unified representation"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1145/3757377.3763954",
+          "url": "https://doi.org/10.1145/3757377.3763954"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2511.13032",
+          "url": "https://arxiv.org/abs/2511.13032"
+        }
+      ],
+      "sameAs": [
+        "https://dl.acm.org/doi/10.1145/3757377.3763954",
+        "https://arxiv.org/abs/2511.13032"
+      ],
+      "url": "https://dl.acm.org/doi/10.1145/3757377.3763954",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "Proceedings of the SIGGRAPH Asia 2025 Conference Papers"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ACM"
+      },
+      "pagination": "1-11"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/uni-inter/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Uni-Inter",
+          "item": "https://akira-l.github.io/publications/uni-inter/"
         }
       ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Uni-Inter</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Uni-Inter
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>Uni-Inter：统一 3D 交互动作生成</h1>
-      <p class="subtitle">把交互问题从"人是主语"改写成"所有参与者共享同一空间表示"，让同一框架覆盖人-物、人-人、人-场景。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Motion Synthesis</span>
-      <span class="tag">Human Interaction</span>
-      <span class="tag">Unified Representation</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          Uni-Inter 讨论的不是单一动作类别，而是交互动作生成的"碎片化"问题：不同交互（人-物、人-人、人-场景）常用不同表示、不同数据、不同模型。
-          论文的核心是统一交互表示：将所有参与者映射到统一体素空间（UIV），避免为不同对象写不同专用分支；并采用概率分布/概率场的预测，而非单点坐标预测，让动作生成更自然、容错更好。
-          这种统一表示与预测形式提升了跨交互场景的兼容性，并有利于对未见交互类型的泛化。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts</h1>
+      <p class="paper-authors"><strong>Authors:</strong> Sheng Liu, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Jiepeng Wang, Sidan Du, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue">SIGGRAPH Asia 2025 Conference Papers · 2025 · pp. 1-11</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">3D human motion</span><span class="tag">human-object interaction</span><span class="tag">human-human interaction</span><span class="tag">human-scene interaction</span><span class="tag">unified representation</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/uni-inter/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://dl.acm.org/doi/10.1145/3757377.3763954" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.13032" target="_blank" rel="noopener noreferrer">arXiv</a>
       </div>
+    </header>
 
-      <h2>1. 痛点：为什么交互动作生成总是"一任务一模型"</h2>
-      <p>
-        交互带来的差异非常大：对象类型不同、接触约束不同、空间参考系不同。
-        传统做法往往为每类交互设计专用表示与网络，导致输出不兼容、数据难共享、调参流程割裂。
-      </p>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Sheng Liu, Yuanzhi Liang, Jiepeng Wang, Sidan Du, Chi Zhang, and Xuelong Li</dd>
+          <dt>Recommended paper citation</dt><dd>Sheng Liu, Yuanzhi Liang, Jiepeng Wang, Sidan Du, Chi Zhang, and Xuelong Li. “Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts.” Proceedings of the SIGGRAPH Asia 2025 Conference Papers (2025), 1-11. https://doi.org/10.1145/3757377.3763954.</dd>
 
-      <h2>2. 统一表示：万物皆在同一体素空间</h2>
-      <p>
-        统一体素空间的关键价值是“对齐”：把人、物体、场景都放进同一坐标系，模型不再依赖人为的主语/宾语划分。
-        一旦空间关系被统一，很多交互问题就能用一致的方式建模。
-      </p>
-
-      <figure class="note-figure">
-        <img src="../../img/notes/uni-inter/teaser.png" alt="Uni-Inter teaser" loading="lazy" />
-        <figcaption></figcaption>
-      </figure>
-
-      <h2>3. 概率场预测：用‘模糊正确’替代‘精确错误’</h2>
-      <p>
-        交互动作本质上允许一定空间容错。预测概率分布而不是单点坐标，能更稳定地表达多解性，也更符合真实动作的自然性。
-      </p>
-
-      <figure class="note-figure">
-        <img src="../../img/notes/uni-inter/method_cmp.png" alt="Uni-Inter method comparison" loading="lazy" />
-        <figcaption></figcaption>
-      </figure>
-
-      <h2>4. Key Insights：统一框架的价值不只在指标，更在工程与数据闭环</h2>
-      <p>
-        当输出与表示统一后，数据更容易共享，训练与评测更容易标准化。
-        对长期迭代的动作系统来说，这种“工程可持续性”往往比一次性的 SOTA 更重要。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        Uni-Inter aims to unify 3D human motion synthesis across diverse interaction contexts, including human-object, human-human, and human-scene interactions.
-        Many prior approaches build separate representations and models per interaction type, making outputs incompatible and limiting data reuse.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Map all participants into a unified voxel space and predict interaction-relevant distributions rather than single-point targets.
-        This representation reduces task-specific branching and provides a common interface across interaction settings.
-      </p>
-
-      <h3>Why This Helps</h3>
-      <p>
-        A shared spatial representation improves alignment across entities and interaction types.
-        Distribution-based prediction naturally handles multi-modality and tolerances in contact and motion, which are common in realistic interactions.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        Unification benefits not only accuracy but also engineering scalability: shared data pipelines, shared evaluation, and easier incremental improvements.
-        For long-term systems, a stable unified interface can be more valuable than task-specific improvements.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://dl.acm.org/doi/full/10.1145/3757377.3763954" target="_blank" rel="noopener">Paper</a>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2025-11-17</dd><dt>arXiv last revised</dt><dd>2025-11-17</dd><dt>Print publication date</dt><dd>2025-12-15</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>Uni-Inter represents human–human, human–object, and human–scene interactions in one Unified Interactive Volume and predicts motion probabilistically joint by joint, enabling one task-agnostic model to reason over heterogeneous and compound interaction contexts.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Interaction-motion systems are commonly designed per task, which fragments representations and limits transfer across people, objects, scenes, and combinations of these entities.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Introduces a single architecture for human–human, human–object, and human–scene motion generation.</li><li>Encodes heterogeneous entities in a shared volumetric field called the Unified Interactive Volume.</li><li>Formulates generation as joint-wise probabilistic prediction to capture spatial dependencies and context-aware behavior.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>Experiments cover three representative interaction tasks and report competitive performance plus generalization to novel entity combinations. Exact datasets, metrics, and comparisons should be taken from the ACM paper.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>A shared representation does not imply that every interaction type or unseen composition is solved; demonstrated generalization is bounded by the evaluated tasks, entity encodings, and motion distributions.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>Uni-Inter is a unified-representation approach to interaction-aware motion synthesis. Its contribution is not merely multi-task training: UIV supplies a common spatial field for relational reasoning across heterogeneous interaction types.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Liu et al. propose Uni-Inter, a task-agnostic 3D motion-generation framework that encodes human, object, and scene entities in a Unified Interactive Volume and performs joint-wise probabilistic motion prediction.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">We present Uni-Inter, a unified framework for human motion generation that supports a wide range of interaction scenarios: including human-human, human-object, and human-scene-within a single, task-agnostic architecture. In contrast to existing methods that rely on task-specific designs and exhibit limited generalization, Uni-Inter introduces the Unified Interactive Volume (UIV), a volumetric representation that encodes heterogeneous interactive entities into a shared spatial field. This enables consistent relational reasoning and compound interaction modeling. Motion generation is formulated as joint-wise probabilistic prediction over the UIV, allowing the model to capture fine-grained spatial dependencies and produce coherent, context-aware behaviors. Experiments across three representative interaction tasks demonstrate that Uni-Inter achieves competitive performance and generalizes well to novel combinations of entities. These results suggest that unified modeling of compound interactions offers a promising direction for scalable motion synthesis in complex environments.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; Unified Interactive Volume and probabilistic prediction sections</td></tr><tr><td>Evaluation statement</td><td>Abstract; experiments across three interaction tasks</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://dl.acm.org/doi/10.1145/3757377.3763954" target="_blank" rel="noopener noreferrer">ACM version of record</a> (SIGGRAPH Asia 2025 version of record; arXiv:2511.13032v1 used for accessible abstract).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Sheng Liu, Yuanzhi Liang, Jiepeng Wang, Sidan Du, Chi Zhang, and Xuelong Li. “Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts.” Proceedings of the SIGGRAPH Asia 2025 Conference Papers (2025), 1-11. https://doi.org/10.1145/3757377.3763954.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/uni-inter/citation.bib">BibTeX</a><a href="/publications/uni-inter/citation.ris">RIS</a><a href="/publications/uni-inter/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://dl.acm.org/doi/10.1145/3757377.3763954" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://arxiv.org/abs/2511.13032" target="_blank" rel="noopener noreferrer">arXiv</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "slug": "laxmotion",
+  "canonical_url": "https://akira-l.github.io/publications/laxmotion/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/laxmotion/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/laxmotion/"
+  },
+  "title": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+  "short_title": "LaxMotion",
+  "authors": [
+    "Sheng Liu",
+    "Yuanzhi Liang",
+    "Sidan Du"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "European Conference on Computer Vision (ECCV 2026, accepted)",
+    "citation_container_title": "European Conference on Computer Vision (ECCV 2026)",
+    "status": "forthcoming",
+    "year": 2026,
+    "publication_date": "2026"
+  },
+  "identifiers": {
+    "arxiv": "2511.11368",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2025-11-14",
+    "last_revised": "2026-03-06"
+  },
+  "keywords": [
+    "3D human motion",
+    "relaxed supervision",
+    "motion generation",
+    "structural consistency",
+    "generalization"
+  ],
+  "official_abstract": "Recent 3D human motion generation models demonstrate remarkable reconstruction accuracy yet struggle to generalize beyond training distributions. This limitation arises partly from the use of precise 3D supervision, which encourages models to fit fixed coordinate patterns instead of learning the essential 3D structure and motion semantic cues required for robust generalization. To overcome this limitation, we propose LaxMotion, a framework that synthesizes realistic 3D motions without direct 3D pose supervision. Instead of regressing toward exact coordinates, LaxMotion learns 3D motion as a consistent explanation of global trajectories and monocular 2D kinematic cues. We introduce a structured motion factorization together with a reformulated training paradigm under relaxed observability. This design is further supported by relaxed regularization objectives that enforce view consistent alignment, orientation coherence, and structural stability. Under this relaxed supervision paradigm, LaxMotion generates diverse, temporally coherent, and semantically aligned 3D motions, achieving performance comparable to or surpassing fully 3D supervised methods. These results indicate that shifting supervision from exact coordinate matching to structural consistency promotes stronger reasoning and improved generalization, offering a scalable and data efficient paradigm for 3D motion generation.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2511.11368",
+    "version": "arXiv:2511.11368v2",
+    "method_locator": "Abstract; structured motion factorization and relaxed-regularization sections",
+    "evidence_locator": "Abstract; comparisons with fully 3D-supervised methods"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "bibliographic_note": "The status “accepted at ECCV 2026” is author-supplied. The paper-level Springer/ECVA proceedings record, DOI, volume, and pagination were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "LaxMotion removes direct 3D pose supervision and instead learns 3D motion as a structurally consistent explanation of global trajectories and monocular 2D kinematic cues, supported by view, orientation, and stability regularization.",
+      "problem": "Exact 3D coordinate supervision can reward reconstruction of fixed training patterns while failing to teach the structural and semantic cues needed to generalize beyond the training distribution.",
+      "contributions": [
+        "Reformulates 3D motion generation under relaxed observability without direct 3D pose regression.",
+        "Introduces structured motion factorization using global trajectories and monocular 2D kinematic cues.",
+        "Adds relaxed objectives for view-consistent alignment, orientation coherence, and structural stability."
+      ],
+      "evidence": "The paper reports diverse, temporally coherent, and semantically aligned motions with results comparable to or better than fully 3D-supervised methods. Dataset-, protocol-, and metric-specific claims should be taken from the v2 experiments.",
+      "limitations": "Relaxed supervision trades exact coordinate targets for assumptions encoded in trajectories, monocular cues, and structural regularizers. Generalization to motion domains with different observability or camera conditions requires separate testing.",
+      "positioning": "LaxMotion is a supervision-design contribution for 3D motion generation. It challenges the assumption that more precise 3D labels necessarily produce more generalizable generative models.",
+      "citation_ready": "Liu et al. propose LaxMotion, a 3D human-motion generation framework that replaces direct 3D pose supervision with global-trajectory and monocular-kinematic constraints plus relaxed structural regularization."
+    },
+    "zh-CN": {
+      "summary": "LaxMotion 不使用直接 3D pose 监督，而是把 3D motion 学习为对全局轨迹与单目 2D 运动学线索的一致解释，再以视角一致、朝向连贯和结构稳定的正则进行约束。",
+      "problem": "精确 3D 坐标监督可能鼓励模型拟合训练集中的固定坐标模式，却没有学到跨分布泛化所需的三维结构与动作语义。",
+      "contributions": [
+        "在 relaxed observability 下重新定义 3D motion generation，不直接回归 3D pose。",
+        "利用全局轨迹和单目 2D 运动学线索进行结构化 motion factorization。",
+        "引入 view-consistent alignment、orientation coherence 与 structural stability 的宽松正则。"
+      ],
+      "evidence": "论文报告生成动作具备多样性、时间连贯性和语义对齐，并达到可比或超过全 3D 监督方法的表现；具体数据集、协议和指标应以 v2 实验为准。",
+      "limitations": "Relaxed supervision 用轨迹、单目线索和结构正则的假设替代精确坐标目标；在可观测性或相机条件不同的动作领域仍需单独验证。",
+      "positioning": "LaxMotion 的核心是重新设计 3D 动作生成的监督方式，挑战“更精确的 3D 标签必然带来更好泛化”的默认假设。",
+      "citation_ready": "Liu 等提出 LaxMotion，以全局轨迹、单目运动学线索和宽松结构正则替代直接 3D pose 监督，用于生成三维人体动作。"
+    }
+  },
+  "citation": {
+    "id": "liu2026laxmotion",
+    "type": "paper-conference",
+    "title": "LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation",
+    "author": [
+      {
+        "given": "Sheng",
+        "family": "Liu"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Sidan",
+        "family": "Du"
+      }
+    ],
+    "container-title": "European Conference on Computer Vision (ECCV 2026)",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2511.11368",
+    "abstract": "Recent 3D human motion generation models demonstrate remarkable reconstruction accuracy yet struggle to generalize beyond training distributions. This limitation arises partly from the use of precise 3D supervision, which encourages models to fit fixed coordinate patterns instead of learning the essential 3D structure and motion semantic cues required for robust generalization. To overcome this limitation, we propose LaxMotion, a framework that synthesizes realistic 3D motions without direct 3D pose supervision. Instead of regressing toward exact coordinates, LaxMotion learns 3D motion as a consistent explanation of global trajectories and monocular 2D kinematic cues. We introduce a structured motion factorization together with a reformulated training paradigm under relaxed observability. This design is further supported by relaxed regularization objectives that enforce view consistent alignment, orientation coherence, and structural stability. Under this relaxed supervision paradigm, LaxMotion generates diverse, temporally coherent, and semantically aligned 3D motions, achieving performance comparable to or surpassing fully 3D supervised methods. These results indicate that shifting supervision from exact coordinate matching to structural consistency promotes stronger reasoning and improved generalization, offering a scalable and data efficient paradigm for 3D motion generation.",
+    "keyword": "3D human motion, relaxed supervision, motion generation, structural consistency, generalization",
+    "archive": "arXiv",
+    "archive_location": "2511.11368",
+    "genre": "Forthcoming conference paper",
+    "status": "forthcoming"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2511.11368"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2511.11368"
+    }
+  ]
+}

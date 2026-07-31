@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "slug": "elp",
+  "canonical_url": "https://akira-l.github.io/publications/elp/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/elp/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/elp/"
+  },
+  "title": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild",
+  "short_title": "ELP",
+  "authors": [
+    "Yuanzhi Liang",
+    "Linchao Zhu",
+    "Xiaohan Wang",
+    "Yi Yang"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022)",
+    "citation_container_title": "2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "status": "published",
+    "year": 2022,
+    "publication_date": "2022",
+    "publisher": "IEEE",
+    "pages": "9549-9559",
+    "alternate_pagination": {
+      "pages": "9559-9569",
+      "version": "CVF open-access copy",
+      "url": "https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html"
+    }
+  },
+  "identifiers": {
+    "doi": "10.1109/CVPR52688.2022.00934"
+  },
+  "arxiv_dates": {},
+  "keywords": [
+    "visual recognition",
+    "generalization",
+    "linear probing",
+    "representation learning",
+    "adaptive regularization"
+  ],
+  "official_abstract": "Understanding network generalization and feature discrimination is an open research problem in visual recognition. Many studies have been conducted to assess the quality of feature representations. One of the simple strategies is to utilize a linear probing classifier to quantitatively evaluate the class accuracy under the obtained features. The typical linear probe is only applied as a proxy at the inference time, but its efficacy in measuring features' suitability for linear classification is largely neglected in training. In this paper, we propose an episodic linear probing (ELP) classifier to reflect the generalization of visual representations in an online manner. ELP is trained with detached features from the network and re-initialized episodically. It demonstrates the discriminability of the visual representations in training. Then, an ELP-suitable Regularization term (ELP-SR) is introduced to reflect the distances of probability distributions between ELP classifier and the main classifier. ELP-SR leverages a re-scaling factor to regularize each sample in training, which modulates the loss function adaptively and encourages the features to be discriminative and generalized. We observe significant improvements in three real-world visual recognition tasks, including fine-grained visual classification, long-tailed visual recognition, and generic object recognition. The performance gains show the effectiveness of our method in improving network generalization and feature discrimination.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "IEEE version of record",
+    "url": "https://doi.org/10.1109/CVPR52688.2022.00934",
+    "version": "CVPR 2022 version of record; CVF open-access copy has alternate pagination 9559-9569",
+    "method_locator": "Abstract; ELP and ELP-SR sections",
+    "evidence_locator": "Abstract; fine-grained, long-tailed, and generic recognition experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "ELP brings linear probing into training: an episodically reinitialized classifier learns on detached features to measure current discriminability, and ELP-SR uses the discrepancy between that probe and the main classifier to adaptively regularize samples.",
+      "problem": "A main classifier can become confident even when its learned representation is not broadly discriminative or generalizable, while standard linear probes are normally used only after training.",
+      "contributions": [
+        "Introduces an online episodic linear probe trained on detached features and periodically reinitialized.",
+        "Uses the probe as a training-time diagnostic of feature discriminability.",
+        "Introduces ELP-SR to adapt sample losses using the probability-distribution difference between probe and main classifier."
+      ],
+      "evidence": "The paper reports improvements across fine-grained, long-tailed, and generic object recognition. Exact datasets, architectures, and numerical gains should be cited from the CVPR experiments.",
+      "limitations": "ELP measures suitability for linear classification, which is informative but not equivalent to every notion of representation quality. Its behavior depends on probe schedule, classifier design, and task labels.",
+      "positioning": "ELP connects representation diagnosis and regularization: unlike an offline linear probe, its episodic probe generates a signal used during the same training process.",
+      "citation_ready": "Liang et al. introduce Episodic Linear Probing, which repeatedly trains a detached-feature linear classifier during learning and uses its disagreement with the main classifier to regularize representation generalization."
+    },
+    "zh-CN": {
+      "summary": "ELP 把 linear probing 放进训练过程：周期性重置的分类器在 detached feature 上学习并衡量当前可分性，ELP-SR 再利用 probe 与主分类器之间的差异自适应调整样本正则。",
+      "problem": "主分类器可能已经很自信，但其特征并不一定具有广泛可分性和泛化能力；传统 linear probe 又通常只在训练完成后作为测量工具。",
+      "contributions": [
+        "提出在线 episodic linear probe，在 detached feature 上训练并周期性重置。",
+        "把 probe 作为训练期的特征可分性诊断信号。",
+        "提出 ELP-SR，根据 probe 与主分类器概率分布差异自适应调节样本损失。"
+      ],
+      "evidence": "论文在细粒度、长尾和通用物体识别任务上报告改进；准确数据集、架构与数值应引用 CVPR 实验。",
+      "limitations": "ELP 衡量的是线性分类适用性，这很有信息量，但不等于所有表示质量定义；其表现还取决于 probe schedule、分类器设计和任务标签。",
+      "positioning": "ELP 将表征诊断与正则化连接起来：与离线 linear probe 不同，它把 episodic probe 产生的信号用于同一次训练。",
+      "citation_ready": "Liang 等提出 Episodic Linear Probing，在训练中反复拟合 detached-feature 线性分类器，并利用其与主分类器的差异正则化表示泛化。"
+    }
+  },
+  "citation": {
+    "id": "liang2022elp",
+    "type": "paper-conference",
+    "title": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild",
+    "author": [
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Linchao",
+        "family": "Zhu"
+      },
+      {
+        "given": "Xiaohan",
+        "family": "Wang"
+      },
+      {
+        "given": "Yi",
+        "family": "Yang"
+      }
+    ],
+    "container-title": "2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1109/CVPR52688.2022.00934",
+    "abstract": "Understanding network generalization and feature discrimination is an open research problem in visual recognition. Many studies have been conducted to assess the quality of feature representations. One of the simple strategies is to utilize a linear probing classifier to quantitatively evaluate the class accuracy under the obtained features. The typical linear probe is only applied as a proxy at the inference time, but its efficacy in measuring features' suitability for linear classification is largely neglected in training. In this paper, we propose an episodic linear probing (ELP) classifier to reflect the generalization of visual representations in an online manner. ELP is trained with detached features from the network and re-initialized episodically. It demonstrates the discriminability of the visual representations in training. Then, an ELP-suitable Regularization term (ELP-SR) is introduced to reflect the distances of probability distributions between ELP classifier and the main classifier. ELP-SR leverages a re-scaling factor to regularize each sample in training, which modulates the loss function adaptively and encourages the features to be discriminative and generalized. We observe significant improvements in three real-world visual recognition tasks, including fine-grained visual classification, long-tailed visual recognition, and generic object recognition. The performance gains show the effectiveness of our method in improving network generalization and feature discrimination.",
+    "keyword": "visual recognition, generalization, linear probing, representation learning, adaptive regularization",
+    "publisher": "IEEE",
+    "DOI": "10.1109/CVPR52688.2022.00934",
+    "page": "9549-9559"
+  },
+  "resources": [
+    {
+      "label": "Version of record",
+      "url": "https://doi.org/10.1109/CVPR52688.2022.00934"
+    },
+    {
+      "label": "Open access",
+      "url": "https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html"
+    },
+    {
+      "label": "PDF",
+      "url": "https://openaccess.thecvf.com/content/CVPR2022/papers/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.pdf"
+    }
+  ]
+}

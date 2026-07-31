@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "slug": "food-ingredient",
+  "canonical_url": "https://akira-l.github.io/publications/food-ingredient/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/food-ingredient/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/food-ingredient/"
+  },
+  "title": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+  "short_title": "Food–Ingredient Joint Learning",
+  "authors": [
+    "Chengxu Liu",
+    "Yuanzhi Liang",
+    "Yao Xue",
+    "Xueming Qian",
+    "Jianlong Fu"
+  ],
+  "publication": {
+    "kind": "journal",
+    "venue": "IEEE Transactions on Circuits and Systems for Video Technology",
+    "citation_container_title": "IEEE Transactions on Circuits and Systems for Video Technology",
+    "status": "published",
+    "year": 2021,
+    "publication_date": "2021-06",
+    "online_date": "2020-08-28",
+    "publisher": "IEEE",
+    "volume": "31",
+    "issue": "6",
+    "pages": "2480-2493"
+  },
+  "identifiers": {
+    "doi": "10.1109/TCSVT.2020.3020079"
+  },
+  "arxiv_dates": {},
+  "keywords": [
+    "fine-grained food recognition",
+    "ingredient recognition",
+    "attention fusion",
+    "joint learning",
+    "class imbalance"
+  ],
+  "official_abstract": "Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "IEEE version of record",
+    "url": "https://doi.org/10.1109/TCSVT.2020.3020079",
+    "version": "IEEE early access 2020-08-28; TCSVT 31(6), June 2021",
+    "method_locator": "Abstract; Attention Fusion Network, joint-learning module, and balance focal loss",
+    "evidence_locator": "Abstract; VIREO Food-172 experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "The paper jointly learns food categories and ingredients with an Attention Fusion Network that emphasizes discriminative regions and a Food-Ingredient Joint Learning module using balance focal loss to address ingredient imbalance.",
+      "problem": "Global dish appearance alone can miss regional ingredient evidence in unstructured Chinese food images, while ingredient labels are imbalanced.",
+      "contributions": [
+        "Introduces an Attention Fusion Network (AFN) for region-sensitive food and ingredient features.",
+        "Jointly optimizes fine-grained food-category and ingredient recognition.",
+        "Uses balance focal loss to reduce the effect of ingredient-class imbalance."
+      ],
+      "evidence": "Experiments report state-of-the-art ingredient-recognition performance on VIREO Food-172 at publication time. Exact metrics, splits, and comparisons should be cited from the IEEE article.",
+      "limitations": "The reported dataset and food domain are specific; ingredient taxonomies, regional cuisine variation, and label imbalance may differ in other settings. The abstract supports AFN, joint learning, and balance focal loss—not only a generic multi-task formulation.",
+      "positioning": "This work connects fine-grained food recognition with explicit ingredient prediction and regional attention, treating ingredient composition as both an auxiliary semantic signal and a target affected by imbalance.",
+      "citation_ready": "Liu et al. jointly model fine-grained food categories and ingredients using an Attention Fusion Network and balance focal loss to capture discriminative regions and mitigate ingredient imbalance."
+    },
+    "zh-CN": {
+      "summary": "论文以 Attention Fusion Network 强调判别区域，并通过 Food-Ingredient Joint Learning module 与 balance focal loss 联合学习菜品类别和食材，以缓解 ingredient imbalance。",
+      "problem": "只看整道菜的全局外观容易遗漏非结构化中餐图像中的局部食材证据，同时食材标签还存在明显不均衡。",
+      "contributions": [
+        "提出 Attention Fusion Network（AFN），提取对菜品和食材都有判别力的区域特征。",
+        "联合优化细粒度菜品类别与 ingredient recognition。",
+        "使用 balance focal loss 缓解食材类别不均衡。"
+      ],
+      "evidence": "论文在 VIREO Food-172 上报告了当时 state-of-the-art 的 ingredient-recognition 表现；准确指标、划分与比较应引用 IEEE 文章。",
+      "limitations": "已评测数据集和菜系范围具体，其他场景中的食材 taxonomy、地域差异与标签不均衡可能不同。摘要明确支持 AFN、joint learning 和 balance focal loss，而不只是笼统的多任务学习。",
+      "positioning": "该工作把细粒度食物识别与显式食材预测、区域 attention 连接起来，将 ingredient composition 同时视为辅助语义和受类别不均衡影响的预测目标。",
+      "citation_ready": "Liu 等利用 Attention Fusion Network 与 balance focal loss 联合建模细粒度菜品类别和食材，以提取判别区域并缓解 ingredient imbalance。"
+    }
+  },
+  "citation": {
+    "id": "liu2021foodingredient",
+    "type": "article-journal",
+    "title": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+    "author": [
+      {
+        "given": "Chengxu",
+        "family": "Liu"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Yao",
+        "family": "Xue"
+      },
+      {
+        "given": "Xueming",
+        "family": "Qian"
+      },
+      {
+        "given": "Jianlong",
+        "family": "Fu"
+      }
+    ],
+    "container-title": "IEEE Transactions on Circuits and Systems for Video Technology",
+    "issued": {
+      "date-parts": [
+        [
+          2021,
+          6
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.1109/TCSVT.2020.3020079",
+    "abstract": "Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.",
+    "keyword": "fine-grained food recognition, ingredient recognition, attention fusion, joint learning, class imbalance",
+    "publisher": "IEEE",
+    "DOI": "10.1109/TCSVT.2020.3020079",
+    "volume": "31",
+    "issue": "6",
+    "page": "2480-2493"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://doi.org/10.1109/TCSVT.2020.3020079"
+    },
+    {
+      "label": "DBLP",
+      "url": "https://dblp.org/rec/journals/tcsv/LiuLXQF21"
+    }
+  ]
+}

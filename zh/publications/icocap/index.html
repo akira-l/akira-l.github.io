@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IcoCap: Improving Video Captioning by Compounding Images 中文解读 | 梁远智</title>
+  <meta name="description" content="IcoCap 改变视频 captioner 看到的内容密度：Image-Video Compounding Strategy（ICS）把简洁图像语义复合进视频样本，Visual-Semantic Guided Captioning（VGC）再让 caption supervision 适应复合内容中的歧义。">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/publications/icocap/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/icocap/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/icocap/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/icocap/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/icocap/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/icocap/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/icocap/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IcoCap: Improving Video Captioning by Compounding Images 中文解读 | 梁远智">
+  <meta property="og:description" content="IcoCap 改变视频 captioner 看到的内容密度：Image-Video Compounding Strategy（ICS）把简洁图像语义复合进视频样本，Visual-Semantic Guided Captioning（VGC）再让 caption supervision 适应复合内容中的歧义。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/publications/icocap/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="IcoCap: Improving Video Captioning by Compounding Images 中文解读 | 梁远智">
+  <meta name="twitter:description" content="IcoCap 改变视频 captioner 看到的内容密度：Image-Video Compounding Strategy（ICS）把简洁图像语义复合进视频样本，Visual-Semantic Guided Captioning（VGC）再让 caption supervision 适应复合内容中的歧义。">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/zh/publications/icocap/#explainer",
+      "url": "https://akira-l.github.io/zh/publications/icocap/",
+      "headline": "论文解读：IcoCap: Improving Video Captioning by Compounding Images",
+      "description": "IcoCap 改变视频 captioner 看到的内容密度：Image-Video Compounding Strategy（ICS）把简洁图像语义复合进视频样本，Visual-Semantic Guided Captioning（VGC）再让 caption supervision 适应复合内容中的歧义。",
+      "inLanguage": "zh-CN",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/TMM.2023.3322329",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/icocap/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/icocap/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/icocap/#paper",
+      "name": "IcoCap: Improving Video Captioning by Compounding Images",
+      "headline": "IcoCap: Improving Video Captioning by Compounding Images",
+      "abstract": "Video captioning is a more challenging task compared to image captioning, primarily due to differences in content density. Video data contains redundant visual content, making it difficult for captioners to generalize diverse content and avoid being misled by irrelevant elements. Moreover, redundant content is not well-trimmed to match the corresponding visual semantics in the ground truth, further increasing the difficulty of video captioning. Current research in video captioning predominantly focuses on captioner design, neglecting the impact of content density on captioner performance. Considering the differences between videos and images, there exists an another line to improve video captioning by leveraging concise and easily-learned image samples to further diversify video samples. This modification to content density compels the captioner to learn more effectively against redundancy and ambiguity. In this paper, we propose a novel approach called Image-Compounded learning for video Captioners (IcoCap) to facilitate better learning of complex video semantics. IcoCap comprises two components: the Image-Video Compounding Strategy (ICS) and Visual-Semantic Guided Captioning (VGC). ICS compounds easily-learned image semantics into video semantics, further diversifying video content and prompting the network to generalize contents in a more diverse sample. Besides, learning with the sample compounded with image contents, the captioner is compelled to better extract valuable video cues in the presence of straightforward image semantics. This helps the captioner further focus on relevant information while filtering out extraneous content. Then, VGC guides the network in flexibly learning ground truth captions based on the compounded samples, helping to mitigate the mismatch between the ground truth and ambiguous semantics in video samples. Our experimental results demonstrate the effectiveness of IcoCap in improving the learning of video captioners. Applied to the widely-used MSVD, MSR-VTT, and VATEX datasets, our approach achieves competitive or superior results compared to state-of-the-art methods, illustrating its capacity to handle redundant and ambiguous video data.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024",
+      "inLanguage": "en",
+      "keywords": [
+        "video captioning",
+        "image-video compounding",
+        "content density",
+        "visual-semantic guidance",
+        "multimodal learning"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/TMM.2023.3322329",
+          "url": "https://doi.org/10.1109/TMM.2023.3322329"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/TMM.2023.3322329",
+        "https://ieeexplore.ieee.org/document/10272675"
+      ],
+      "url": "https://doi.org/10.1109/TMM.2023.3322329",
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "IEEE Transactions on Multimedia"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "4389-4400",
+      "volumeNumber": "26"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/publications/icocap/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "主页",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "论文",
+          "item": "https://akira-l.github.io/zh/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "IcoCap",
+          "item": "https://akira-l.github.io/zh/publications/icocap/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">主页</a><span aria-hidden="true">/</span>
+      <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
+      <span aria-current="page">IcoCap</span>
+    </nav>
+
+    <header class="note-header">
+      <div class="kicker">论文解读 · 作者已确认</div>
+      <h1>IcoCap: Improving Video Captioning by Compounding Images</h1>
+      <p class="paper-authors"><strong>作者:</strong> <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Linchao Zhu, Xiaohan Wang, Yi Yang</p>
+      <p class="paper-venue">IEEE Transactions on Multimedia · 2024 · 卷 26 · 页 4389-4400</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">video captioning</span><span class="tag">image-video compounding</span><span class="tag">content density</span><span class="tag">visual-semantic guidance</span><span class="tag">multimodal learning</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/publications/icocap/" lang="en" hreflang="en">English</a>
+        <a class="primary" href="https://doi.org/10.1109/TMM.2023.3322329" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://ieeexplore.ieee.org/document/10272675" target="_blank" rel="noopener noreferrer">IEEE Xplore</a>
+      </div>
+    </header>
+
+    <section class="record-grid" aria-label="论文信息">
+      <div>
+        <h2>论文信息</h2>
+        <dl>
+          <dt>作者</dt><dd>Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang</dd>
+          <dt>推荐论文引用</dt><dd>Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “IcoCap: Improving Video Captioning by Compounding Images.” IEEE Transactions on Multimedia (2024), 26, 4389-4400. https://doi.org/10.1109/TMM.2023.3322329.</dd>
+
+        </dl>
+      </div>
+      <div>
+        <h2>版本日期</h2>
+        <dl><dt>Online 首发</dt><dd>2023-10-05</dd><dt>来源核验日期</dt><dd>2026-07-31</dd><dt>核验状态</dt><dd>作者已于 2026-07-31 核验</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">论文概要</h2>
+        <p>IcoCap 改变视频 captioner 看到的内容密度：Image-Video Compounding Strategy（ICS）把简洁图像语义复合进视频样本，Visual-Semantic Guided Captioning（VGC）再让 caption supervision 适应复合内容中的歧义。</p>
+      </section>
+
+      <section>
+        <h2>研究问题</h2>
+        <p>视频包含大量冗余视觉内容，而且整段视频未必与单条 ground-truth caption 严格对齐；只改 captioner 架构可能仍然无法解决内容密度与语义歧义问题。</p>
+      </section>
+
+      <section>
+        <h2>论文贡献</h2>
+        <ul><li>提出 Image-Video Compounding Strategy（ICS），把易学习的图像语义与视频内容复合。</li><li>让 captioner 在加入简洁图像语义后仍需提取真正有用的视频线索。</li><li>提出 Visual-Semantic Guided Captioning（VGC），缓解歧义样本中的 caption—visual mismatch。</li></ul>
+      </section>
+
+      <section>
+        <h2>证据与评测范围</h2>
+        <p>MSVD、MSR-VTT 和 VATEX 上的实验报告了有竞争力或更优的 captioning 结果；准确指标、backbone 和 ablation 应引用 IEEE 正式论文。</p>
+      </section>
+
+      <section>
+        <h2>适用范围与局限</h2>
+        <p>方法假设能够获得合适的图像语义和 caption 监督，证据范围是三个常用 captioning 数据集。它不应被简化成笼统的“噪声注入”，也不是把所有图像都视为干扰。</p>
+      </section>
+
+      <section>
+        <h2>Related work 定位</h2>
+        <p>IcoCap 是视频 captioning 的数据与监督设计方法，差异点是 ICS 负责 content compounding，VGC 负责让 caption learning 适应复合后的视觉语义。</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related Work 表述</h2>
+        <blockquote>Liang 等提出 IcoCap，结合 Image-Video Compounding Strategy 与 Visual-Semantic Guided Captioning，使视频 captioner 更好地处理冗余和歧义视觉内容。</blockquote>
+        <p class="fine-print">这是一段用于说明论文定位的简洁中性表述。</p>
+      </section>
+
+      <section>
+        <h2>论文官方英文摘要</h2>
+        <p lang="en">Video captioning is a more challenging task compared to image captioning, primarily due to differences in content density. Video data contains redundant visual content, making it difficult for captioners to generalize diverse content and avoid being misled by irrelevant elements. Moreover, redundant content is not well-trimmed to match the corresponding visual semantics in the ground truth, further increasing the difficulty of video captioning. Current research in video captioning predominantly focuses on captioner design, neglecting the impact of content density on captioner performance. Considering the differences between videos and images, there exists an another line to improve video captioning by leveraging concise and easily-learned image samples to further diversify video samples. This modification to content density compels the captioner to learn more effectively against redundancy and ambiguity. In this paper, we propose a novel approach called Image-Compounded learning for video Captioners (IcoCap) to facilitate better learning of complex video semantics. IcoCap comprises two components: the Image-Video Compounding Strategy (ICS) and Visual-Semantic Guided Captioning (VGC). ICS compounds easily-learned image semantics into video semantics, further diversifying video content and prompting the network to generalize contents in a more diverse sample. Besides, learning with the sample compounded with image contents, the captioner is compelled to better extract valuable video cues in the presence of straightforward image semantics. This helps the captioner further focus on relevant information while filtering out extraneous content. Then, VGC guides the network in flexibly learning ground truth captions based on the compounded samples, helping to mitigate the mismatch between the ground truth and ambiguous semantics in video samples. Our experimental results demonstrate the effectiveness of IcoCap in improving the learning of video captioners. Applied to the widely-used MSVD, MSR-VTT, and VATEX datasets, our approach achieves competitive or superior results compared to state-of-the-art methods, illustrating its capacity to handle redundant and ambiguous video data.</p>
+        <p class="rights-note">摘要仅用于学术识别，版权仍归论文作者或出版方所有，不属于本页 CC BY 许可范围。</p>
+      </section>
+
+      <section>
+        <h2>依据与出处</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>核对内容</th><th>论文中的位置</th></tr></thead>
+            <tbody><tr><td>问题陈述</td><td>Abstract</td></tr><tr><td>方法与贡献</td><td>Abstract; Image-Video Compounding Strategy and Visual-Semantic Guided Captioning sections</td></tr><tr><td>评测结论</td><td>Abstract; MSVD, MSR-VTT, and VATEX experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>主要核验来源:</strong> <a href="https://doi.org/10.1109/TMM.2023.3322329" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (IEEE early access 2023-10-05; volume 26, 2024).</p>
+      </section>
+
+      <section>
+        <h2>如何引用</h2>
+        <p>科研结论应引用论文本身；只有在复用本站原创解读时才引用本页。</p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “IcoCap: Improving Video Captioning by Compounding Images.” IEEE Transactions on Multimedia (2024), 26, 4389-4400. https://doi.org/10.1109/TMM.2023.3322329.</pre>
+        <div class="citation-downloads" aria-label="下载引用"><a href="/publications/icocap/citation.bib">BibTeX</a><a href="/publications/icocap/citation.ris">RIS</a><a href="/publications/icocap/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>复用许可</h2>
+        <p>本页原创解读采用 CC BY 4.0：复用时须署名并链接本页。论文标题、摘要、图表和书目信息不在此许可范围内，仍保留原有权利。 <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>一手来源与资源</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/TMM.2023.3322329" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://ieeexplore.ieee.org/document/10272675" target="_blank" rel="noopener noreferrer">IEEE Xplore</a><a href="/zh/publications/">全部论文</a></div>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
+</body>
+</html>

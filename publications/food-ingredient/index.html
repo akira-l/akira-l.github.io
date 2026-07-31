@@ -1,123 +1,290 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Food and Ingredient Joint Learning 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="Food and Ingredient Joint Learning for Fine-Grained Recognition 中文解读：把菜品识别与 ingredient prediction 联合建模，用成分线索增强细粒度识别。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/food-ingredient/" />
-  <meta property="og:title" content="Food and Ingredient Joint Learning 中文解读" />
-  <meta property="og:description" content="细粒度食物识别不能只看菜名，ingredient supervision 提供了更可解释的中间语义。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/food-ingredient/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Food and Ingredient Joint Learning 中文解读" />
-  <meta name="twitter:description" content="Jointly learning food categories and ingredient semantics for fine-grained recognition." />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food and Ingredient Joint Learning for Fine-Grained Recognition — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="The paper jointly learns food categories and ingredients with an Attention Fusion Network that emphasizes discriminative regions and a Food-Ingredient Joint Learning module using balance focal loss to address ingredient imbalance.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/food-ingredient/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/food-ingredient/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/food-ingredient/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/food-ingredient/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/food-ingredient/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/food-ingredient/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/food-ingredient/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Food and Ingredient Joint Learning for Fine-Grained Recognition — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="The paper jointly learns food categories and ingredients with an Attention Fusion Network that emphasizes discriminative regions and a Food-Ingredient Joint Learning module using balance focal loss to address ingredient imbalance.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/food-ingredient/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Food and Ingredient Joint Learning for Fine-Grained Recognition — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="The paper jointly learns food categories and ingredients with an Attention Fusion Network that emphasizes discriminative regions and a Food-Ingredient Joint Learning module using balance focal loss to address ingredient imbalance.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Food and Ingredient Joint Learning for Fine-Grained Recognition">
+  <meta name="citation_author" content="Chengxu Liu">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Yao Xue">
+  <meta name="citation_author" content="Xueming Qian">
+  <meta name="citation_author" content="Jianlong Fu">
+  <meta name="citation_publication_date" content="2021-06">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/food-ingredient/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="fine-grained food recognition; ingredient recognition; attention fusion; joint learning; class imbalance">
+  <meta name="citation_abstract" content="Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.">
+  <meta name="citation_journal_title" content="IEEE Transactions on Circuits and Systems for Video Technology">
+  <meta name="citation_publisher" content="IEEE">
+  <meta name="citation_doi" content="10.1109/TCSVT.2020.3020079">
+  <meta name="citation_volume" content="31">
+  <meta name="citation_issue" content="6">
+  <meta name="citation_firstpage" content="2480">
+  <meta name="citation_lastpage" content="2493">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "name": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/food-ingredient/#explainer",
       "url": "https://akira-l.github.io/publications/food-ingredient/",
-      "sameAs": "https://doi.org/10.1109/TCSVT.2020.3020079",
-      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+      "headline": "Paper explainer: Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "description": "The paper jointly learns food categories and ingredients with an Attention Fusion Network that emphasizes discriminative regions and a Food-Ingredient Joint Learning module using balance focal loss to address ingredient imbalance.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://doi.org/10.1109/TCSVT.2020.3020079",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/food-ingredient/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/food-ingredient/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/food-ingredient/#paper",
+      "name": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "headline": "Food and Ingredient Joint Learning for Fine-Grained Recognition",
+      "abstract": "Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Chengxu Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Yao Xue"
+        },
+        {
+          "@type": "Person",
+          "name": "Xueming Qian"
+        },
+        {
+          "@type": "Person",
+          "name": "Jianlong Fu"
+        }
+      ],
+      "datePublished": "2021-06",
+      "inLanguage": "en",
+      "keywords": [
+        "fine-grained food recognition",
+        "ingredient recognition",
+        "attention fusion",
+        "joint learning",
+        "class imbalance"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/TCSVT.2020.3020079",
+          "url": "https://doi.org/10.1109/TCSVT.2020.3020079"
+        }
+      ],
+      "sameAs": [
+        "https://doi.org/10.1109/TCSVT.2020.3020079",
+        "https://dblp.org/rec/journals/tcsv/LiuLXQF21"
+      ],
+      "url": "https://doi.org/10.1109/TCSVT.2020.3020079",
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "IEEE Transactions on Circuits and Systems for Video Technology"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "pagination": "2480-2493",
+      "volumeNumber": "31",
+      "issueNumber": "6"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/food-ingredient/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Food–Ingredient Joint Learning",
+          "item": "https://akira-l.github.io/publications/food-ingredient/"
+        }
+      ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Food–Ingredient Joint Learning</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>Food Ingredient
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>Food and Ingredient Joint Learning：用成分理解细粒度食物</h1>
-      <p class="subtitle">食物识别的难点在于类间差异小、类内变化大。Ingredient semantics 提供了比类别名更细、更可解释的监督。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Fine-Grained Recognition</span>
-      <span class="tag">Food Recognition</span>
-      <span class="tag">Ingredient Learning</span>
-      <span class="tag">TCSVT</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          这篇论文把 food category recognition 和 ingredient prediction 联合起来做。
-          直觉很直接：很多菜品外观相似，仅靠整体图像很难分；但 ingredient 是更细粒度的语义线索，可以帮助模型理解“为什么这是这道菜”。
-          联合学习让类别监督和成分监督互相补充：类别提供全局目标，ingredient 提供局部/语义解释，从而提升 fine-grained recognition 的鲁棒性。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>Food and Ingredient Joint Learning for Fine-Grained Recognition</h1>
+      <p class="paper-authors"><strong>Authors:</strong> Chengxu Liu, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Yao Xue, Xueming Qian, Jianlong Fu</p>
+      <p class="paper-venue">IEEE Transactions on Circuits and Systems for Video Technology · 2021 · vol. 31(6) · pp. 2480-2493</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">fine-grained food recognition</span><span class="tag">ingredient recognition</span><span class="tag">attention fusion</span><span class="tag">joint learning</span><span class="tag">class imbalance</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/food-ingredient/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://dblp.org/rec/journals/tcsv/LiuLXQF21" target="_blank" rel="noopener noreferrer">DBLP</a>
       </div>
+    </header>
 
-      <h2>1. 问题：食物类别名太粗</h2>
-      <p>
-        食物图像常有遮挡、摆盘变化、光照变化，而且同一类别内部差异很大。
-        只用菜名做监督，模型容易抓住背景、容器或拍摄风格等 shortcut。
-        Ingredient labels 能提供更贴近食物本身的中间语义。
-      </p>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Chengxu Liu, Yuanzhi Liang, Yao Xue, Xueming Qian, and Jianlong Fu</dd>
+          <dt>Recommended paper citation</dt><dd>Chengxu Liu, Yuanzhi Liang, Yao Xue, Xueming Qian, and Jianlong Fu. “Food and Ingredient Joint Learning for Fine-Grained Recognition.” IEEE Transactions on Circuits and Systems for Video Technology (2021), 31(6), 2480-2493. https://doi.org/10.1109/TCSVT.2020.3020079.</dd>
 
-      <h2>2. 核心思路：类别与成分联合优化</h2>
-      <p>
-        联合学习把两个任务放在一起：预测 food category，同时预测 ingredients。
-        这样模型不仅学习“这是什么菜”，也学习“它由哪些可见或隐含成分构成”。
-        成分任务相当于给细粒度识别增加了一层语义 regularization。
-      </p>
-
-      <h2>3. Key Insights：可解释中间语义能提升泛化</h2>
-      <p>
-        Fine-grained recognition 不是只堆更深 backbone。
-        当类别之间差异很细时，引入更接近人类判断过程的中间语义，往往能减少 shortcut 并提升可解释性。
-        Ingredient supervision 正是这种中间语义的自然来源。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        This work improves fine-grained food recognition by jointly learning food categories and ingredient semantics.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        Food categories are visually diverse within each class and often similar across classes. Category labels alone can encourage shortcuts based on background, plating, or imaging style.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Use ingredient prediction as a complementary task. Food labels provide the global classification objective, while ingredient labels provide interpretable semantic cues that support finer discrimination.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        Fine-grained recognition can benefit from intermediate semantic supervision. The model becomes less dependent on superficial visual cues and more aligned with human reasoning about food.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener">Paper</a>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>First published online</dt><dd>2020-08-28</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>The paper jointly learns food categories and ingredients with an Attention Fusion Network that emphasizes discriminative regions and a Food-Ingredient Joint Learning module using balance focal loss to address ingredient imbalance.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>Global dish appearance alone can miss regional ingredient evidence in unstructured Chinese food images, while ingredient labels are imbalanced.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Introduces an Attention Fusion Network (AFN) for region-sensitive food and ingredient features.</li><li>Jointly optimizes fine-grained food-category and ingredient recognition.</li><li>Uses balance focal loss to reduce the effect of ingredient-class imbalance.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>Experiments report state-of-the-art ingredient-recognition performance on VIREO Food-172 at publication time. Exact metrics, splits, and comparisons should be cited from the IEEE article.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>The reported dataset and food domain are specific; ingredient taxonomies, regional cuisine variation, and label imbalance may differ in other settings. The abstract supports AFN, joint learning, and balance focal loss—not only a generic multi-task formulation.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>This work connects fine-grained food recognition with explicit ingredient prediction and regional attention, treating ingredient composition as both an auxiliary semantic signal and a target affected by imbalance.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Liu et al. jointly model fine-grained food categories and ingredients using an Attention Fusion Network and balance focal loss to capture discriminative regions and mitigate ingredient imbalance.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Fine-grained food recognition is the detailed classification that provides more specialized and professional attribute information of food. It is the basic work to realize healthy diet recommendations and cooking instructions, nutrition intake management, and cafeteria self-checkout system. Chinese food lacks structured information, and ingredients composition is an important consideration. The current approaches mostly focus on global dish appearance without any analysis of ingredient composition and fully considering the attention of regional features. In this paper, we propose an Attention Fusion Network (AFN) and Food-Ingredient Joint Learning module for fine-grained food and ingredients recognition. The AFN first focuses on the food discrimination region against unstructured defeat and generates the feature embeddings jointly aware of the ingredients and food. The Food-Ingredient Joint Learning module aims at alleviating the issue of ingredients imbalance. Therefore, we propose a balance focal loss to optimize the feature expression ability of the network for ingredients. In experiments, the results of ingredients recognition show the state-of-the-art performances on fine-grained Chinese food dataset VIREO Food-172.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; Attention Fusion Network, joint-learning module, and balance focal loss</td></tr><tr><td>Evaluation statement</td><td>Abstract; VIREO Food-172 experiments</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">IEEE version of record</a> (IEEE early access 2020-08-28; TCSVT 31(6), June 2021).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Chengxu Liu, Yuanzhi Liang, Yao Xue, Xueming Qian, and Jianlong Fu. “Food and Ingredient Joint Learning for Fine-Grained Recognition.” IEEE Transactions on Circuits and Systems for Video Technology (2021), 31(6), 2480-2493. https://doi.org/10.1109/TCSVT.2020.3020079.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/food-ingredient/citation.bib">BibTeX</a><a href="/publications/food-ingredient/citation.ris">RIS</a><a href="/publications/food-ingredient/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://dblp.org/rec/journals/tcsv/LiuLXQF21" target="_blank" rel="noopener noreferrer">DBLP</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

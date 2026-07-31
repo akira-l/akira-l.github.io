@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "slug": "freelong",
+  "canonical_url": "https://akira-l.github.io/publications/freelong/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/freelong/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/freelong/"
+  },
+  "title": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention",
+  "short_title": "FreeLong",
+  "authors": [
+    "Yu Lu",
+    "Yuanzhi Liang",
+    "Linchao Zhu",
+    "Yi Yang"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "Advances in Neural Information Processing Systems (NeurIPS 2024)",
+    "citation_container_title": "Advances in Neural Information Processing Systems",
+    "status": "published",
+    "year": 2024,
+    "publication_date": "2024",
+    "publisher": "Curran Associates, Inc.",
+    "editors": [
+      "A. Globerson",
+      "L. Mackey",
+      "D. Belgrave",
+      "A. Fan",
+      "U. Paquet",
+      "J. Tomczak",
+      "C. Zhang"
+    ],
+    "volume": "37",
+    "pages": "131434-131455"
+  },
+  "identifiers": {
+    "doi": "10.52202/079017-4177",
+    "arxiv": "2407.19918",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2024-07-29",
+    "last_revised": "2024-07-29"
+  },
+  "keywords": [
+    "long video generation",
+    "training-free",
+    "video diffusion",
+    "frequency decomposition",
+    "temporal attention"
+  ],
+  "official_abstract": "Video diffusion models have made substantial progress in various video generation applications. However, training models for long video generation tasks require significant computational and data resources, posing a challenge to developing long video diffusion models. This paper investigates a straightforward and training-free approach to extend an existing short video diffusion model (e.g. pre-trained on 16-frame videos) for consistent long video generation (e.g. 128 frames). Our preliminary observation has found that directly applying the short video diffusion model to generate long videos can lead to severe video quality degradation. Further investigation reveals that this degradation is primarily due to the distortion of high-frequency components in long videos, characterized by a decrease in spatial high-frequency components and an increase in temporal high-frequency components. Motivated by this, we propose a novel solution named FreeLong to balance the frequency distribution of long video features during the denoising process. FreeLong blends the low-frequency components of global video features, which encapsulate the entire video sequence, with the high-frequency components of local video features that focus on shorter subsequences of frames. This approach maintains global consistency while incorporating diverse and high-quality spatiotemporal details from local videos, enhancing both the consistency and fidelity of long video generation. We evaluated FreeLong on multiple base video diffusion models and observed significant improvements. Additionally, our method supports coherent multi-prompt generation, ensuring both visual coherence and seamless transitions between scenes.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "NeurIPS proceedings record",
+    "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/ed67dff7cb96e7e86c4d91c0d5db49bb-Abstract-Conference.html",
+    "version": "NeurIPS 2024 proceedings version; arXiv:2407.19918v1 cross-checked",
+    "method_locator": "Abstract; SpectralBlend Temporal Attention method section",
+    "evidence_locator": "Abstract; experiments on multiple base video diffusion models"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "FreeLong extends pretrained short-video diffusion models without additional training by blending low-frequency global features with high-frequency local-subsequence features during denoising, targeting global consistency and local spatiotemporal detail at once.",
+      "problem": "Directly running a short-video diffusion model on a much longer sequence degrades quality; the paper associates this with reduced spatial high-frequency content and excessive temporal high-frequency content.",
+      "contributions": [
+        "Diagnoses a frequency-distribution distortion when short-video models are extended to long sequences.",
+        "Introduces a training-free blend of low-frequency global and high-frequency local video features during denoising.",
+        "Supports coherent long and multi-prompt generation without retraining the base model."
+      ],
+      "evidence": "The paper evaluates FreeLong on multiple base video diffusion models and reports improved consistency and fidelity, including multi-prompt transitions. Exact frame lengths, base models, and metrics are experiment-specific.",
+      "limitations": "The training-free method depends on the capabilities of the pretrained short-video model and the chosen global/local feature decomposition. It extends temporal range but does not remove all long-horizon semantic or physical-consistency limitations.",
+      "positioning": "FreeLong is an inference-time, training-free approach to long-video generation. It differs from retraining or distillation methods by modifying temporal feature mixing during denoising.",
+      "citation_ready": "Lu et al. propose FreeLong, a training-free long-video generation method that blends low-frequency global features with high-frequency local features during denoising to extend short-video diffusion models."
+    },
+    "zh-CN": {
+      "summary": "FreeLong 无需额外训练，在去噪过程中融合全局视频特征的低频部分与局部子序列特征的高频部分，使预训练短视频 diffusion model 同时兼顾长时全局一致性和局部时空细节。",
+      "problem": "直接让短视频 diffusion model 生成更长序列会明显退化；论文将其与空间高频成分下降和时间高频成分上升的频率失真联系起来。",
+      "contributions": [
+        "分析短视频模型扩展到长序列时的频率分布失真。",
+        "在去噪时融合低频全局特征和高频局部特征，无需重新训练。",
+        "支持连贯的长视频与 multi-prompt 生成。"
+      ],
+      "evidence": "论文在多个基础 video diffusion model 上评测 FreeLong，并报告一致性、保真度和多 prompt 转场的改善；准确帧长、底模和指标依实验设置而定。",
+      "limitations": "该方法依赖预训练短视频模型本身的能力以及全局/局部特征分解方式。它扩展了时间范围，但并不能自动解决所有长时语义或物理一致性问题。",
+      "positioning": "FreeLong 是 inference-time、training-free 的长视频生成方法，区别于重训练或蒸馏路线，主要改变去噪阶段的 temporal feature mixing。",
+      "citation_ready": "Lu 等提出 FreeLong，在去噪时融合低频全局特征与高频局部特征，无需训练即可扩展短视频 diffusion model 的长视频生成能力。"
+    }
+  },
+  "citation": {
+    "id": "lu2024freelong",
+    "type": "paper-conference",
+    "title": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention",
+    "author": [
+      {
+        "given": "Yu",
+        "family": "Lu"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Linchao",
+        "family": "Zhu"
+      },
+      {
+        "given": "Yi",
+        "family": "Yang"
+      }
+    ],
+    "container-title": "Advances in Neural Information Processing Systems",
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "URL": "https://doi.org/10.52202/079017-4177",
+    "abstract": "Video diffusion models have made substantial progress in various video generation applications. However, training models for long video generation tasks require significant computational and data resources, posing a challenge to developing long video diffusion models. This paper investigates a straightforward and training-free approach to extend an existing short video diffusion model (e.g. pre-trained on 16-frame videos) for consistent long video generation (e.g. 128 frames). Our preliminary observation has found that directly applying the short video diffusion model to generate long videos can lead to severe video quality degradation. Further investigation reveals that this degradation is primarily due to the distortion of high-frequency components in long videos, characterized by a decrease in spatial high-frequency components and an increase in temporal high-frequency components. Motivated by this, we propose a novel solution named FreeLong to balance the frequency distribution of long video features during the denoising process. FreeLong blends the low-frequency components of global video features, which encapsulate the entire video sequence, with the high-frequency components of local video features that focus on shorter subsequences of frames. This approach maintains global consistency while incorporating diverse and high-quality spatiotemporal details from local videos, enhancing both the consistency and fidelity of long video generation. We evaluated FreeLong on multiple base video diffusion models and observed significant improvements. Additionally, our method supports coherent multi-prompt generation, ensuring both visual coherence and seamless transitions between scenes.",
+    "keyword": "long video generation, training-free, video diffusion, frequency decomposition, temporal attention",
+    "editor": [
+      {
+        "given": "A.",
+        "family": "Globerson"
+      },
+      {
+        "given": "L.",
+        "family": "Mackey"
+      },
+      {
+        "given": "D.",
+        "family": "Belgrave"
+      },
+      {
+        "given": "A.",
+        "family": "Fan"
+      },
+      {
+        "given": "U.",
+        "family": "Paquet"
+      },
+      {
+        "given": "J.",
+        "family": "Tomczak"
+      },
+      {
+        "given": "C.",
+        "family": "Zhang"
+      }
+    ],
+    "publisher": "Curran Associates, Inc.",
+    "DOI": "10.52202/079017-4177",
+    "volume": "37",
+    "page": "131434-131455"
+  },
+  "resources": [
+    {
+      "label": "Paper",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/ed67dff7cb96e7e86c4d91c0d5db49bb-Abstract-Conference.html"
+    },
+    {
+      "label": "DOI",
+      "url": "https://doi.org/10.52202/079017-4177"
+    },
+    {
+      "label": "Project",
+      "url": "https://yulu.net.cn/freelong/"
+    },
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2407.19918"
+    },
+    {
+      "label": "PDF",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/ed67dff7cb96e7e86c4d91c0d5db49bb-Paper-Conference.pdf"
+    }
+  ]
+}

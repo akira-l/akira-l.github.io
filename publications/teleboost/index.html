@@ -1,148 +1,329 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TeleBoost 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="TeleBoost（arXiv:2602.07595）中文解读：面向视频生成的系统化后训练与对齐框架，强调可控性、稳定性与长时一致性。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/teleboost/" />
-
-  <meta property="og:title" content="TeleBoost 中文解读" />
-  <meta property="og:description" content="面向视频生成的系统化后训练与对齐框架：从监督塑形到奖励驱动与偏好优化的稳定堆栈。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/teleboost/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TeleBoost 中文解读" />
-  <meta name="twitter:description" content="视频生成的系统化后训练与对齐框架：强调稳定、可控与长时鲁棒。" />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/teleboost/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/teleboost/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/teleboost/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/teleboost/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/teleboost/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/teleboost/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/teleboost/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/teleboost/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Xuan&#x27;er Wu">
+  <meta name="citation_author" content="Yirui Liu">
+  <meta name="citation_author" content="Yijie Fang">
+  <meta name="citation_author" content="Yizhen Fan">
+  <meta name="citation_author" content="Ke Hao">
+  <meta name="citation_author" content="Rui Li">
+  <meta name="citation_author" content="Ruiying Liu">
+  <meta name="citation_author" content="Ziqi Ni">
+  <meta name="citation_author" content="Peng Yu">
+  <meta name="citation_author" content="Yanbo Wang">
+  <meta name="citation_author" content="Haibin Huang">
+  <meta name="citation_author" content="Qizhen Weng">
+  <meta name="citation_author" content="Chi Zhang">
+  <meta name="citation_author" content="Xuelong Li">
+  <meta name="citation_publication_date" content="2026-02-07">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/teleboost/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="video generation; post-training; alignment; reinforcement learning; preference optimization">
+  <meta name="citation_abstract" content="Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.">
+  <meta name="citation_arxiv_id" content="2602.07595">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/teleboost/#explainer",
+      "url": "https://akira-l.github.io/publications/teleboost/",
+      "headline": "Paper explainer: TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "description": "TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2602.07595",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/teleboost/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/teleboost/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/teleboost/#paper",
+      "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "headline": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "abstract": "Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.",
+      "author": [
         {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://akira-l.github.io/" },
-            { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://akira-l.github.io/publications/" },
-            { "@type": "ListItem", "position": 3, "name": "TeleBoost", "item": "https://akira-l.github.io/publications/teleboost/" }
-          ]
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
         },
         {
-          "@type": "ScholarlyArticle",
-          "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
-          "identifier": "arXiv:2602.07595",
-          "url": "https://akira-l.github.io/publications/teleboost/",
-          "sameAs": "https://arxiv.org/abs/2602.07595",
-          "datePublished": "2026-02-07",
-          "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yirui Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yijie Fang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yizhen Fan"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Peng Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yanbo Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-02-07",
+      "inLanguage": "en",
+      "keywords": [
+        "video generation",
+        "post-training",
+        "alignment",
+        "reinforcement learning",
+        "preference optimization"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2602.07595",
+          "url": "https://arxiv.org/abs/2602.07595"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2602.07595",
+        "https://tele-ai.github.io/TeleBoost/",
+        "https://arxiv.org/pdf/2602.07595"
+      ],
+      "url": "https://arxiv.org/abs/2602.07595",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "arXiv"
+      },
+      "dateModified": "2026-02-07"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/teleboost/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "TeleBoost",
+          "item": "https://akira-l.github.io/publications/teleboost/"
         }
       ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">TeleBoost</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>TeleBoost
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>TeleBoost：视频生成的系统化后训练与对齐</h1>
-      <p class="subtitle">把"后训练"从单一算法（GRPO/DPO）拉回到系统工程：数据、奖励、信用分配、loss 细节与训练系统共同决定稳定性与可控性。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Video Generation</span>
-      <span class="tag">Post-training</span>
-      <span class="tag">Alignment</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          TeleBoost 将视频生成的 post-training 组织为"稳定约束的优化堆栈"：先用监督信号做策略塑形，再引入奖励驱动的强化学习，最后用偏好数据做更细的对齐与修正。
-          重点不是某个技巧，而是把长时序视频里的失败模式（误差累积、提示偏离、控制失真）当作诊断对象，按阶段逐步收敛。
-          从工程视角看，post-training 更像是一个高度耦合系统：输入数据结构、reward 表达能力、advantage/credit assignment、loss 细节与训练系统规模都会改变最终优化行为。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</h1>
+      <p class="paper-authors"><strong>Authors:</strong> <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Xuan&#x27;er Wu, Yirui Liu, Yijie Fang, Yizhen Fan, Ke Hao, Rui Li, Ruiying Liu, Ziqi Ni, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue">arXiv · 2026</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">video generation</span><span class="tag">post-training</span><span class="tag">alignment</span><span class="tag">reinforcement learning</span><span class="tag">preference optimization</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/teleboost/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2602.07595" target="_blank" rel="noopener noreferrer">PDF</a>
       </div>
+    </header>
 
-      <h2>1. 为什么要把"后训练"当成系统工程</h2>
-      <p>
-        在视频生成里，单纯替换一个 RL 算法很难稳定地带来提升。真实瓶颈往往出在：奖励信号不稳定、长时序误差累积、控制目标与视觉质量之间的冲突，以及训练/采样流程的工程细节。
-      </p>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Yuanzhi Liang, Xuan&#x27;er Wu, Yirui Liu, Yijie Fang, Yizhen Fan, Ke Hao, Rui Li, Ruiying Liu, Ziqi Ni, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, and Xuelong Li</dd>
+          <dt>Recommended paper citation</dt><dd>Yuanzhi Liang, Xuan&#x27;er Wu, Yirui Liu, Yijie Fang, Yizhen Fan, Ke Hao, Rui Li, Ruiying Liu, Ziqi Ni, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, and Xuelong Li. “TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation.” arXiv (2026). arXiv:2602.07595.</dd>
 
-      <h2>2. 关键直觉：先把模型"塑形"，再做奖励优化，再做偏好对齐</h2>
-      <p>
-        这是一条更稳的路线：监督信号提供底层可控性与基本结构，奖励用于推动目标指标，偏好对齐用于修正细粒度主观质量与人类偏好。
-      </p>
-
-      <h2>3. Key Insights：post-training 更像在放大 pre-train 的上限</h2>
-      <p>
-        在相同的后训练设置下，不同预训练基座会表现出完全不同的响应：有的稳定受益，有的收益有限，甚至会出现退化。
-        这意味着 post-training 更像是在"放大已有能力"而非凭空创造新能力；其上限在很大程度上由 pre-train 决定。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        TeleBoost studies post-training for video generation models with a practical goal: improving controllability, prompt adherence, and long-horizon stability without sacrificing visual fidelity.
-        The key message is that video post-training behaves like a coupled system. Stable gains depend on how data, objectives (rewards or preferences), and sequence-level credit assignment interact during optimization.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        Long video generation amplifies small errors into visible failures: identity drift, spatial inconsistency, motion collapse, and gradual prompt deviation. Simple fine-tuning often trades one failure mode for another.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Organize post-training as a staged stack. Use supervised signals to stabilize the model and shape basic controllability.
-        Then apply reward-driven optimization to push explicit target behaviors.
-        Finally, use preference signals to refine subjective quality and alignment aspects that are difficult to encode as a scalar reward.
-      </p>
-
-      <h3>Why This Helps</h3>
-      <p>
-        Staging reduces instability. Early supervision constrains the model to produce plausible trajectories.
-        Reward optimization then operates in a safer region, reducing reward hacking and collapse.
-        Preference optimization provides a flexible correction layer for subtle artifacts and alignment mismatches.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        Evaluate failures by category (coherence, controllability, fidelity) and select interventions that target the dominant failure mode.
-        In long-horizon settings, reward design and sequence-level credit assignment can matter as much as the optimizer choice.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://arxiv.org/pdf/2602.07595" target="_blank" rel="noopener">PDF</a>
-        <a href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener">Project</a>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2026-02-07</dd><dt>arXiv last revised</dt><dd>2026-02-07</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>TeleBoost treats video post-training as a staged, stability-constrained system that connects supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement while diagnosing costly rollouts, compounding temporal failures, and uncertain feedback.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>A pretrained video generator is not automatically instruction-following, controllable, temporally robust, or deployment-ready. Video rollouts are expensive, errors compound over time, and heterogeneous feedback can be uncertain or weakly discriminative.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Organizes supervised policy shaping, reward-driven RL, and preference refinement into one staged optimization stack.</li><li>Frames diagnostics and stability constraints as first-class components of video-model post-training.</li><li>Provides a deployment-oriented blueprint for improving fidelity, temporal coherence, and prompt adherence while preserving initial controllability.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>TeleBoost is a systematic framework and report rather than a single isolated algorithm. Its claims should be read as a combined post-training recipe supported by the report&#x27;s analyses and experiments, not as evidence that any one stage alone produces all reported properties.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>The framework requires expensive video rollouts, multiple feedback sources, diagnostic infrastructure, and careful stage-specific tuning. Reproduction and comparison should preserve the full training stack and initialization assumptions.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>TeleBoost is suitable for related work on production-oriented video-generation alignment and post-training systems. It emphasizes orchestration and stability across SFT-, RL-, and preference-based stages rather than proposing only one optimizer.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Liang et al. present TeleBoost, a stability-constrained video-generation post-training framework that stages supervised policy shaping, reward-driven reinforcement learning, and preference refinement to improve fidelity, controllability, temporal coherence, and prompt adherence.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Post-training is the decisive step for converting a pretrained video generator into a production-oriented model that is instruction-following, controllable, and robust over long temporal horizons. This report presents a systematical post-training framework that organizes supervised policy shaping, reward-driven reinforcement learning, and preference-based refinement into a single stability-constrained optimization stack. The framework is designed around practical video-generation constraints, including high rollout cost, temporally compounding failure modes, and feedback that is heterogeneous, uncertain, and often weakly discriminative. By treating optimization as a staged, diagnostic-driven process rather than a collection of isolated tricks, the report summarizes a cohesive recipe for improving perceptual fidelity, temporal coherence, and prompt adherence while preserving the controllability established at initialization. The resulting framework provides a clear blueprint for building scalable post-training pipelines that remain stable, extensible, and effective in real-world deployment settings.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; framework sections on supervised shaping, reward-driven RL, and preference refinement</td></tr><tr><td>Evaluation statement</td><td>Abstract; report&#x27;s diagnostic and deployment-oriented analysis</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2602.07595v1).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Yuanzhi Liang, Xuan&#x27;er Wu, Yirui Liu, Yijie Fang, Yizhen Fan, Ke Hao, Rui Li, Ruiying Liu, Ziqi Ni, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, and Xuelong Li. “TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation.” arXiv (2026). arXiv:2602.07595.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/teleboost/citation.bib">BibTeX</a><a href="/publications/teleboost/citation.ris">RIS</a><a href="/publications/teleboost/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2602.07595" target="_blank" rel="noopener noreferrer">PDF</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-          <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

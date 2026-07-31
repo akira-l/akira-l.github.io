@@ -1,124 +1,285 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TaRoS 中文解读 | Yuanzhi Liang</title>
-  <meta name="description" content="Rethinking Reward Signals in Video GRPO 中文解读：重新审视 Video GRPO 中 reward score 如何变成优化 target，以及为什么目标校准比盲目追分更重要。" />
-  <link rel="canonical" href="https://akira-l.github.io/publications/taros/" />
-  <meta property="og:title" content="TaRoS 中文解读" />
-  <meta property="og:description" content="Video GRPO 中，reward score 一旦被直接当成 target，优化目标可能偏移。TaRoS 关注 reward signal 的校准与稳健转换。" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://akira-l.github.io/publications/taros/" />
-  <meta property="og:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TaRoS 中文解读" />
-  <meta name="twitter:description" content="当 reward score 变成 target，Video GRPO 需要更稳健的信号校准。" />
-  <meta name="twitter:image" content="https://akira-l.github.io/img/kuku.jpg" />
-  <link rel="stylesheet" href="../../dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="../../dist/css/screen.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rethinking Reward Signals in Video GRPO: When Scores Become Targets — Paper Explainer | Yuanzhi Liang</title>
+  <meta name="description" content="TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/publications/taros/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/taros/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/taros/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/taros/">
+  <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/taros/citation.json">
+  <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/taros/citation.bib">
+  <link rel="alternate" type="application/json" title="Full research record" href="/publications/taros/record.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Rethinking Reward Signals in Video GRPO: When Scores Become Targets — Paper Explainer | Yuanzhi Liang">
+  <meta property="og:description" content="TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.">
+  <meta property="og:url" content="https://akira-l.github.io/publications/taros/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Yuanzhi Liang">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1359">
+  <meta property="article:modified_time" content="2026-07-31">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Rethinking Reward Signals in Video GRPO: When Scores Become Targets — Paper Explainer | Yuanzhi Liang">
+  <meta name="twitter:description" content="TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.">
+  <meta name="twitter:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta name="citation_title" content="Rethinking Reward Signals in Video GRPO: When Scores Become Targets">
+  <meta name="citation_author" content="Rui Li">
+  <meta name="citation_author" content="Yuanzhi Liang">
+  <meta name="citation_author" content="Ziqi Ni">
+  <meta name="citation_author" content="Haibin Huang">
+  <meta name="citation_author" content="Chi Zhang">
+  <meta name="citation_author" content="Xuelong Li">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_abstract_html_url" content="https://akira-l.github.io/publications/taros/">
+  <meta name="citation_language" content="en">
+  <meta name="citation_keywords" content="video generation; GRPO; reward saturation; reward hacking; Goodhart&#x27;s law">
+  <meta name="citation_abstract" content="Group Relative Policy Optimization (GRPO) enables stable and preference-oriented updates via group-wise comparisons for post-training video generation. However, GRPO directly optimizes reward-induced advantages. Under sustained optimization, the reward score can lose fidelity as a proxy for true video quality, consistent with the phenomenon described by Goodhart&#x27;s Law. This leads to two recurring issues: (i) shortcut-driven optimization under composite objectives and (ii) reward saturation within prompt groups. To address these issues, we introduce TaRoS, a Target-Robust Reward Signaling framework for Video generation GRPO. TaRoS leverages component level performance assessment together with intra-group sparsity to organize multi-aspect rewards towards optimization objectives. In addition, it adaptively downweights components that exhibit saturation, thereby preserving effective optimization directions and mitigating redundancy. This maintains meaningful optimization directions and preserves within-group ranking separation, thereby preventing reward hacking and leading to more reliable policy updates. Extensive experiments show consistent improvements in visual fidelity, motion coherence, and text-video alignment over strong baselines.">
+  <meta name="citation_conference_title" content="European Conference on Computer Vision (ECCV 2026)">
+  <meta name="citation_arxiv_id" content="2511.19356">
+  <link rel="stylesheet" href="/dist/css/screen.css">
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
-      "identifier": "arXiv:2511.19356",
+      "@type": "Article",
+      "@id": "https://akira-l.github.io/publications/taros/#explainer",
       "url": "https://akira-l.github.io/publications/taros/",
-      "sameAs": "https://arxiv.org/abs/2511.19356",
-      "author": [{ "@type": "Person", "name": "Yuanzhi Liang" }]
+      "headline": "Paper explainer: Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "description": "TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.",
+      "inLanguage": "en",
+      "dateModified": "2026-07-31",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isBasedOn": "https://arxiv.org/abs/2511.19356",
+      "about": {
+        "@id": "https://akira-l.github.io/publications/taros/#paper"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/publications/taros/#paper"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "reviewedBy": {
+        "@id": "https://akira-l.github.io/#person"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/taros/#paper",
+      "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "headline": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "abstract": "Group Relative Policy Optimization (GRPO) enables stable and preference-oriented updates via group-wise comparisons for post-training video generation. However, GRPO directly optimizes reward-induced advantages. Under sustained optimization, the reward score can lose fidelity as a proxy for true video quality, consistent with the phenomenon described by Goodhart's Law. This leads to two recurring issues: (i) shortcut-driven optimization under composite objectives and (ii) reward saturation within prompt groups. To address these issues, we introduce TaRoS, a Target-Robust Reward Signaling framework for Video generation GRPO. TaRoS leverages component level performance assessment together with intra-group sparsity to organize multi-aspect rewards towards optimization objectives. In addition, it adaptively downweights components that exhibit saturation, thereby preserving effective optimization directions and mitigating redundancy. This maintains meaningful optimization directions and preserves within-group ranking separation, thereby preventing reward hacking and leading to more reliable policy updates. Extensive experiments show consistent improvements in visual fidelity, motion coherence, and text-video alignment over strong baselines.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang",
+          "sameAs": "https://orcid.org/0009-0008-2746-5947"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "video generation",
+        "GRPO",
+        "reward saturation",
+        "reward hacking",
+        "Goodhart's law"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2511.19356",
+          "url": "https://arxiv.org/abs/2511.19356"
+        }
+      ],
+      "sameAs": [
+        "https://arxiv.org/abs/2511.19356",
+        "https://arxiv.org/pdf/2511.19356"
+      ],
+      "url": "https://arxiv.org/abs/2511.19356",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "name": "European Conference on Computer Vision (ECCV 2026)"
+      },
+      "creativeWorkStatus": "Forthcoming",
+      "dateModified": "2026-07-17"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/publications/taros/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Publications",
+          "item": "https://akira-l.github.io/publications/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "TaRoS",
+          "item": "https://akira-l.github.io/publications/taros/"
+        }
+      ]
     }
+  ]
+}
   </script>
 </head>
 <body class="pub-page">
-  <nav class="pub-nav">
-    <a class="pub-nav-brand" href="../../index.html">Yuanzhi Liang</a>
-    <ul class="pub-nav-links">
-      <li><a href="../../index.html#about">Biography</a></li>
-      <li><a href="../index.html" class="active">Publications</a></li>
-      <li><a href="../../index.html#publication">Highlights</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a class="active" href="/publications/">Publications</a></li><li><a href="/#publication">Highlights</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="/publications/">All publications</a><span aria-hidden="true">/</span>
+      <span aria-current="page">TaRoS</span>
+    </nav>
 
-  <div class="note-container">
-    <div class="note-breadcrumb">
-      <a href="../../index.html">Home</a><span>/</span><a href="../index.html">Publications</a><span>/</span>TaRoS
-    </div>
-
-    <div class="note-header">
-      <div class="kicker">Paper Note</div>
-      <h1>TaRoS：当 Video GRPO 把分数当成目标</h1>
-      <p class="subtitle">正式题目把论文重点说得很清楚：reward signal 的形状，会直接决定 Video GRPO 到底在优化什么。</p>
-    </div>
-
-    <div class="note-tags">
-      <span class="tag">Video Generation</span>
-      <span class="tag">GRPO</span>
-      <span class="tag">Reward Signal</span>
-      <span class="tag">ECCV 2026</span>
-    </div>
-
-    <article class="note-body">
-      <div class="note-callout">
-        <strong>TL;DR</strong>
-        <p>
-          这篇论文重新审视 Video GRPO 里一个容易被忽略的问题：reward model 给出的 score 并不天然等于优化 target。
-          如果把 raw score 或 softmax 后的相对分数直接拿来驱动更新，模型可能学会追逐奖励模型的校准偏差，而不是生成更好的视频。
-          TaRoS 的核心是把 reward signal 做成更稳健的训练目标：强调相对偏好、目标校准和随 generator 质量变化的自适应信号，让 GRPO 在视频生成中少一点“追分”，多一点真实改进。
-        </p>
+    <header class="note-header">
+      <div class="kicker">Paper overview · author-verified</div>
+      <h1>Rethinking Reward Signals in Video GRPO: When Scores Become Targets</h1>
+      <p class="paper-authors"><strong>Authors:</strong> Rui Li, <a href="https://akira-l.github.io/#person" rel="author">Yuanzhi Liang</a>, Ziqi Ni, Haibin Huang, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue">European Conference on Computer Vision (ECCV 2026, accepted) · 2026 · forthcoming</p>
+      <div class="note-tags" aria-label="Keywords"><span class="tag">video generation</span><span class="tag">GRPO</span><span class="tag">reward saturation</span><span class="tag">reward hacking</span><span class="tag">Goodhart&#x27;s law</span></div>
+      <div class="record-actions">
+        <a href="https://akira-l.github.io/zh/publications/taros/" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a class="primary" href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.19356" target="_blank" rel="noopener noreferrer">PDF</a>
       </div>
+    </header>
 
-      <h2>1. 问题：reward score 不等于可靠 target</h2>
-      <p>
-        在视频生成中，reward model 通常只能给出整体或片段级分数。
-        这些分数带有校准误差：有些视频虽然 reward 高，但可能是奖励模型偏好的模板；有些视频质量真实提升，却不一定被分数线性反映。
-        当 GRPO 把分数差异直接转成 advantage，优化器会放大奖励模型自己的偏见。
-      </p>
-
-      <h2>2. 核心思路：先校准信号，再做策略更新</h2>
-      <p>
-        TaRoS 关注 reward-to-target 的转换过程。它不是简单换一个 reward model，而是让 reward signal 更符合视频生成的训练动态：
-        相对偏好比绝对分数更稳，目标强度需要随 generator 当前能力调整，且训练信号不能让模型过早过拟合某一类高分模式。
-      </p>
-
-      <h2>3. Key Insights：Video RL 的危险在于“看起来可优化”</h2>
-      <p>
-        一个分数可以被优化，并不代表它就是好目标。Video generation 的质量是多因素的：语义、运动、身份、物理、审美与时序一致性互相牵制。
-        TaRoS 的 insight 是把 reward signal 本身当成需要设计的对象。
-        对视觉后训练来说，reward 的“表达方式”常常和 reward 的“来源”一样重要。
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>English Summary</h2>
-      <p>
-        TaRoS studies a subtle but important issue in applying GRPO to video generation: reward scores are not automatically reliable optimization targets. A score can reflect calibration bias, reward-model shortcuts, or weak sensitivity to real visual improvements.
-      </p>
-
-      <h3>Problem</h3>
-      <p>
-        If raw or softmaxed reward scores are used directly as training targets, GRPO may optimize the reward model's scoring artifacts instead of improving temporal coherence, prompt adherence, and visual quality.
-      </p>
-
-      <h3>Core Idea</h3>
-      <p>
-        Calibrate reward signals before policy updates. The method emphasizes robust target construction, relative preference information, and self-paced adaptation as the generator improves.
-      </p>
-
-      <h3>Practical Takeaways</h3>
-      <p>
-        In video post-training, reward design includes not only which model scores outputs, but also how those scores are transformed into optimization pressure. Better signal shaping can be as important as a stronger reward model.
-      </p>
-
-      <div class="note-divider"></div>
-      <h2>Links</h2>
-      <div class="note-links">
-        <a class="primary" href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://arxiv.org/pdf/2511.19356" target="_blank" rel="noopener">PDF</a>
+    <section class="record-grid" aria-label="Publication details">
+      <div>
+        <h2>Publication details</h2>
+        <dl>
+          <dt>Authors</dt><dd>Rui Li, Yuanzhi Liang, Ziqi Ni, Haibin Huang, Chi Zhang, and Xuelong Li</dd>
+          <dt>Recommended paper citation</dt><dd>Rui Li, Yuanzhi Liang, Ziqi Ni, Haibin Huang, Chi Zhang, and Xuelong Li. “Rethinking Reward Signals in Video GRPO: When Scores Become Targets.” European Conference on Computer Vision (ECCV 2026) (2026, forthcoming). arXiv:2511.19356.</dd>
+<dt>Bibliographic note</dt><dd>The status “accepted at ECCV 2026” is author-supplied. The paper-level Springer/ECVA proceedings record, DOI, volume, and pagination were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.</dd>
+        </dl>
       </div>
+      <div>
+        <h2>Version dates</h2>
+        <dl><dt>arXiv first posted</dt><dd>2025-11-24</dd><dt>arXiv last revised</dt><dd>2026-07-17</dd><dt>Source checked</dt><dd>2026-07-31</dd><dt>Verification status</dt><dd>Author-verified on 2026-07-31</dd></dl>
+      </div>
+    </section>
+
+    <article class="note-body" aria-labelledby="interpretation-heading">
+      <section class="note-callout">
+        <h2 id="interpretation-heading">Summary</h2>
+        <p>TaRoS v4 addresses reward hacking and saturation in video GRPO by organizing multi-aspect feedback with component-level performance assessment and intra-group sparsity, then adaptively downweighting components whose scores have saturated.</p>
+      </section>
+
+      <section>
+        <h2>Research question</h2>
+        <p>When GRPO repeatedly optimizes reward-induced advantages, reward scores can stop being faithful proxies for true video quality: composite objectives invite shortcuts and scores within a prompt group may saturate, erasing useful rankings.</p>
+      </section>
+
+      <section>
+        <h2>What the paper contributes</h2>
+        <ul><li>Assesses performance at the reward-component level rather than treating a composite score as one stable target.</li><li>Uses intra-group sparsity to organize multi-aspect rewards toward optimization objectives.</li><li>Adaptively downweights saturated components to preserve effective directions and within-group ranking separation.</li></ul>
+      </section>
+
+      <section>
+        <h2>Evidence and evaluation scope</h2>
+        <p>The current arXiv v4 reports consistent improvements in visual fidelity, motion coherence, and text–video alignment over strong baselines. Earlier descriptions centered on generic target calibration should not be used for this version.</p>
+      </section>
+
+      <section>
+        <h2>Scope and limitations</h2>
+        <p>TaRoS diagnoses behavior through the available reward components, so missing or systematically biased aspects remain outside its correction mechanism. The public record is a revised preprint associated with an accepted ECCV 2026 paper; final proceedings metadata may change.</p>
+      </section>
+
+      <section>
+        <h2>Positioning for related work</h2>
+        <p>TaRoS belongs to robust reward signaling for video-generation RL. Unlike reward aggregation alone, it explicitly responds to Goodhart-style shortcut optimization and component saturation during continued GRPO training.</p>
+      </section>
+
+      <section class="citation-ready">
+        <h2>Related-work context</h2>
+        <blockquote>Li et al. propose TaRoS, a target-robust reward-signaling framework for video GRPO that combines component-level assessment, intra-group sparsity, and adaptive downweighting of saturated reward components to reduce reward hacking.</blockquote>
+        <p class="fine-print">A concise, neutral description of how this paper can be situated in related work.</p>
+      </section>
+
+      <section>
+        <h2>Official abstract</h2>
+        <p lang="en">Group Relative Policy Optimization (GRPO) enables stable and preference-oriented updates via group-wise comparisons for post-training video generation. However, GRPO directly optimizes reward-induced advantages. Under sustained optimization, the reward score can lose fidelity as a proxy for true video quality, consistent with the phenomenon described by Goodhart&#x27;s Law. This leads to two recurring issues: (i) shortcut-driven optimization under composite objectives and (ii) reward saturation within prompt groups. To address these issues, we introduce TaRoS, a Target-Robust Reward Signaling framework for Video generation GRPO. TaRoS leverages component level performance assessment together with intra-group sparsity to organize multi-aspect rewards towards optimization objectives. In addition, it adaptively downweights components that exhibit saturation, thereby preserving effective optimization directions and mitigating redundancy. This maintains meaningful optimization directions and preserves within-group ranking separation, thereby preventing reward hacking and leading to more reliable policy updates. Extensive experiments show consistent improvements in visual fidelity, motion coherence, and text-video alignment over strong baselines.</p>
+        <p class="rights-note">The abstract is reproduced for scholarly identification and remains under the paper publisher/authors’ original copyright; it is not covered by this page’s CC BY license.</p>
+      </section>
+
+      <section>
+        <h2>Evidence references</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What to verify</th><th>Location in the paper</th></tr></thead>
+            <tbody><tr><td>Problem statement</td><td>Abstract</td></tr><tr><td>Method and contributions</td><td>Abstract; TaRoS sections on component-level assessment, intra-group sparsity, and saturation downweighting</td></tr><tr><td>Evaluation statement</td><td>Abstract; video generation experiments in v4</td></tr></tbody>
+          </table>
+        </div>
+        <p><strong>Primary source:</strong> <a href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener noreferrer">arXiv record</a> (arXiv:2511.19356v4, revised 2026-07-17).</p>
+      </section>
+
+      <section>
+        <h2>How to cite</h2>
+        <p>Cite the paper—not this explainer—for scientific claims. Cite this page only when reusing its original commentary.</p>
+        <pre class="paper-citation">Rui Li, Yuanzhi Liang, Ziqi Ni, Haibin Huang, Chi Zhang, and Xuelong Li. “Rethinking Reward Signals in Video GRPO: When Scores Become Targets.” European Conference on Computer Vision (ECCV 2026) (2026, forthcoming). arXiv:2511.19356.</pre>
+        <div class="citation-downloads" aria-label="Download citation"><a href="/publications/taros/citation.bib">BibTeX</a><a href="/publications/taros/citation.ris">RIS</a><a href="/publications/taros/citation.json">CSL-JSON</a></div>
+      </section>
+
+      <section>
+        <h2>Reuse policy</h2>
+        <p>Original explanatory text on this page is licensed under CC BY 4.0 with attribution and a link to this page. Paper title, abstract, figures, and bibliographic metadata are excluded and retain their original rights. <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International</a>.</p>
+      </section>
+
+      <section>
+        <h2>Primary sources and resources</h2>
+        <div class="note-links"><a class="primary" href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener noreferrer">arXiv</a><a href="https://arxiv.org/pdf/2511.19356" target="_blank" rel="noopener noreferrer">PDF</a><a href="/publications/">All publications</a></div>
+      </section>
     </article>
-
-    <footer class="pub-page-footer">
-      <p><a href="../index.html">Back to Publications</a> · <a href="../../index.html">Home</a></p>
-    </footer>
-  </div>
+  </main>
+  <footer class="site-footer">
+    <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
+  </footer>
 </body>
 </html>

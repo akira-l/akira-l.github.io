@@ -1,153 +1,344 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://akira-l.github.io/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-07-31</lastmod>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/embodied-brains/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/embodied-brains/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/embodied-brains/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/embodied-brains/"/>
   </url>
   <url>
-    <loc>https://akira-l.github.io/publications/otca/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://akira-l.github.io/publications/rats/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://akira-l.github.io/zh/publications/embodied-brains/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/embodied-brains/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/embodied-brains/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/embodied-brains/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/teleboost/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/teleboost/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/teleboost/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/teleboost/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/teleboost/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/teleboost/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/teleboost/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/teleboost/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/rl-vgm/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rl-vgm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rl-vgm/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rl-vgm/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/rl-vgm/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rl-vgm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rl-vgm/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rl-vgm/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/vipo/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vipo/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vipo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vipo/"/>
   </url>
   <url>
-    <loc>https://akira-l.github.io/publications/bpgo/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://akira-l.github.io/zh/publications/vipo/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vipo/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vipo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vipo/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/rats/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rats/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rats/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rats/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/rats/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rats/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rats/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rats/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/taros/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/taros/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/taros/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/taros/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/taros/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/taros/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/taros/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/taros/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/otca/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/otca/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/otca/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/otca/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/otca/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/otca/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/otca/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/otca/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/bpgo/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/bpgo/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/bpgo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/bpgo/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/bpgo/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/bpgo/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/bpgo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/bpgo/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/laxmotion/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/laxmotion/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/laxmotion/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/laxmotion/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/laxmotion/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/laxmotion/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/laxmotion/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/laxmotion/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/teleworld/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/teleworld/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/teleworld/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/teleworld/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/teleworld/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/teleworld/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/teleworld/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/teleworld/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/uni-inter/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/uni-inter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/uni-inter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/uni-inter/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/uni-inter/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/uni-inter/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/uni-inter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/uni-inter/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/intersyn/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/intersyn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/intersyn/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/intersyn/"/>
   </url>
   <url>
-    <loc>https://akira-l.github.io/publications/freelong/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://akira-l.github.io/zh/publications/intersyn/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/intersyn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/intersyn/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/intersyn/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/vast/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vast/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vast/"/>
   </url>
   <url>
-    <loc>https://akira-l.github.io/publications/anteval/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://akira-l.github.io/publications/maal/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://akira-l.github.io/publications/icocap/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://akira-l.github.io/publications/elp/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://akira-l.github.io/publications/seeg/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://akira-l.github.io/zh/publications/vast/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vast/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vast/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/mhem/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/mhem/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/mhem/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/mhem/"/>
   </url>
   <url>
-    <loc>https://akira-l.github.io/publications/rain-one-go/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://akira-l.github.io/zh/publications/mhem/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/mhem/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/mhem/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/mhem/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/anteval/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/anteval/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/anteval/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/anteval/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/anteval/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/anteval/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/anteval/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/anteval/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/icocap/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/icocap/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/icocap/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/icocap/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/icocap/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/icocap/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/icocap/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/icocap/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/freelong/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/freelong/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/freelong/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/freelong/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/freelong/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/freelong/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/freelong/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/freelong/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/maal/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/maal/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/maal/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/maal/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/maal/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/maal/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/maal/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/maal/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/seeg/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/seeg/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/seeg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/seeg/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/seeg/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/seeg/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/seeg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/seeg/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/elp/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/elp/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/elp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/elp/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/elp/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/elp/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/elp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/elp/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/food-ingredient/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/food-ingredient/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/food-ingredient/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/food-ingredient/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/food-ingredient/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/food-ingredient/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/food-ingredient/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/food-ingredient/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/publications/rain-one-go/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rain-one-go/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rain-one-go/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rain-one-go/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/rain-one-go/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/rain-one-go/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/rain-one-go/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/rain-one-go/"/>
   </url>
   <url>
     <loc>https://akira-l.github.io/publications/vrr-vg/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vrr-vg/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vrr-vg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vrr-vg/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/publications/vrr-vg/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/publications/vrr-vg/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vrr-vg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vrr-vg/"/>
   </url>
 </urlset>

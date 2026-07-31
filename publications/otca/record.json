@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "slug": "otca",
+  "canonical_url": "https://akira-l.github.io/publications/otca/",
+  "language_urls": {
+    "en": "https://akira-l.github.io/publications/otca/",
+    "zh-CN": "https://akira-l.github.io/zh/publications/otca/"
+  },
+  "title": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+  "short_title": "OTCA",
+  "authors": [
+    "Rui Li",
+    "Ke Hao",
+    "Yuanzhi Liang",
+    "Haibin Huang",
+    "Chi Zhang",
+    "Yun Gu",
+    "XueLong Li"
+  ],
+  "publication": {
+    "kind": "conference",
+    "venue": "ACM Multimedia 2026 (accepted)",
+    "citation_container_title": "34th ACM International Conference on Multimedia (ACM Multimedia 2026)",
+    "status": "forthcoming",
+    "year": 2026,
+    "publication_date": "2026",
+    "publisher": "ACM"
+  },
+  "identifiers": {
+    "arxiv": "2604.19234",
+    "arxiv_primary_class": "cs.CV"
+  },
+  "arxiv_dates": {
+    "first_posted": "2026-04-21",
+    "last_revised": "2026-04-27"
+  },
+  "keywords": [
+    "visual generation",
+    "GRPO",
+    "credit assignment",
+    "multi-objective optimization",
+    "diffusion models"
+  ],
+  "official_abstract": "Reinforcement learning, particularly Group Relative Policy Optimization (GRPO), has emerged as an effective framework for post-training visual generative models with human preference signals. However, its effectiveness is fundamentally limited by coarse reward credit assignment. In modern visual generation, multiple reward models are often used to capture heterogeneous objectives, such as visual quality, motion consistency, and text alignment. Existing GRPO pipelines typically collapse these rewards into a single static scalar and propagate it uniformly across the entire diffusion trajectory. This design ignores the stage-specific roles of different denoising steps and produces mistimed or incompatible optimization signals. To address this issue, we propose Objective-aware Trajectory Credit Assignment (OTCA), a structured framework for fine-grained GRPO training. OTCA consists of two key components. Trajectory-Level Credit Decomposition estimates the relative importance of different denoising steps. Multi-Objective Credit Allocation adaptively weights and combines multiple reward signals throughout the denoising process. By jointly modeling temporal credit and objective-level credit, OTCA converts coarse reward supervision into a structured, timestep-aware training signal that better matches the iterative nature of diffusion-based generation. Extensive experiments show that OTCA consistently improves both image and video generation quality across evaluation metrics.",
+  "official_abstract_rights": "Excluded from the site's CC BY 4.0 license; original paper rights apply.",
+  "primary_source": {
+    "label": "arXiv record",
+    "url": "https://arxiv.org/abs/2604.19234",
+    "version": "arXiv:2604.19234v2",
+    "method_locator": "Abstract; method sections on Trajectory-Level Credit Decomposition and Multi-Objective Credit Allocation",
+    "evidence_locator": "Abstract; image and video experiments"
+  },
+  "source_checked": "2026-07-31",
+  "verification_status": "author-verified",
+  "bibliographic_note": "The status “accepted at ACM Multimedia 2026” is author-supplied. The paper-level proceedings record, DOI, pagination, and final ACM citation were not yet public on 2026-07-31; this export is explicitly marked forthcoming and includes the current arXiv identifier.",
+  "author_verified_on": "2026-07-31",
+  "commentary": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "en": {
+      "summary": "OTCA replaces uniform, scalar reward propagation in visual GRPO with structured credit assignment along two axes: which denoising steps matter and which reward objectives should matter at each point in the trajectory.",
+      "problem": "Visual GRPO commonly collapses heterogeneous rewards into one scalar and applies it uniformly to every denoising step, even though different stages play different roles and different objectives may become relevant at different times.",
+      "contributions": [
+        "Trajectory-Level Credit Decomposition estimates the relative importance of denoising steps instead of assigning equal credit across the trajectory.",
+        "Multi-Objective Credit Allocation adaptively weights and combines heterogeneous rewards during denoising.",
+        "The joint formulation produces a timestep-aware, objective-aware signal aligned with iterative diffusion generation."
+      ],
+      "evidence": "The authors report consistent improvements for both image and video generation across evaluation metrics. This page intentionally does not restate numerical gains; consult the paper's experimental tables for model-, dataset-, and metric-specific comparisons.",
+      "limitations": "The method is formulated for GRPO-style post-training of diffusion-based visual generators and still relies on the coverage and validity of the underlying reward models. Accepted-conference metadata should be updated when final proceedings metadata becomes available.",
+      "positioning": "OTCA is best positioned as a fine-grained credit-assignment method for visual-generation RL. It differs from methods that only aggregate multiple rewards or only reweight samples by jointly structuring credit over denoising time and reward objectives.",
+      "citation_ready": "Li et al. propose Objective-aware Trajectory Credit Assignment (OTCA), which decomposes credit across denoising steps and adaptively allocates multiple reward objectives to provide structured supervision for GRPO-based image and video generation."
+    },
+    "zh-CN": {
+      "summary": "OTCA 不再把一个标量 reward 平均传给所有去噪步，而是同时回答两个问题：轨迹中的哪些 step 更重要，以及每个阶段应该强调哪些 reward objective。",
+      "problem": "视觉 GRPO 往往把画质、运动一致性、文本对齐等异构奖励压成一个静态标量，并对整个 diffusion trajectory 均匀传播，忽略了不同去噪阶段的职责差异。",
+      "contributions": [
+        "Trajectory-Level Credit Decomposition 估计不同去噪 step 的相对重要性。",
+        "Multi-Objective Credit Allocation 在去噪过程中自适应组合多个奖励目标。",
+        "两者联合把粗粒度 reward 转化为同时具备 timestep awareness 与 objective awareness 的训练信号。"
+      ],
+      "evidence": "论文报告了在图像和视频生成任务及多项评测指标上的一致改进。本页不转述具体数值，模型、数据集与指标层面的比较应以论文实验表格为准。",
+      "limitations": "方法面向 diffusion visual generator 的 GRPO 后训练，仍然依赖底层 reward model 的覆盖范围和可靠性；会议正式 proceedings 发布后还需更新最终书目信息。",
+      "positioning": "OTCA 适合被定位为视觉生成 RL 的细粒度 credit assignment 方法。它不是只做多奖励聚合或样本重权重，而是同时建模时间维度与目标维度的 credit。",
+      "citation_ready": "Li 等提出 Objective-aware Trajectory Credit Assignment（OTCA），通过分解不同去噪步的贡献并自适应分配多种奖励目标，为基于 GRPO 的图像和视频生成提供结构化训练信号。"
+    }
+  },
+  "citation": {
+    "id": "li2026otca",
+    "type": "paper-conference",
+    "title": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+    "author": [
+      {
+        "given": "Rui",
+        "family": "Li"
+      },
+      {
+        "given": "Ke",
+        "family": "Hao"
+      },
+      {
+        "given": "Yuanzhi",
+        "family": "Liang"
+      },
+      {
+        "given": "Haibin",
+        "family": "Huang"
+      },
+      {
+        "given": "Chi",
+        "family": "Zhang"
+      },
+      {
+        "given": "Yun",
+        "family": "Gu"
+      },
+      {
+        "given": "XueLong",
+        "family": "Li"
+      }
+    ],
+    "container-title": "34th ACM International Conference on Multimedia (ACM Multimedia 2026)",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "URL": "https://arxiv.org/abs/2604.19234",
+    "abstract": "Reinforcement learning, particularly Group Relative Policy Optimization (GRPO), has emerged as an effective framework for post-training visual generative models with human preference signals. However, its effectiveness is fundamentally limited by coarse reward credit assignment. In modern visual generation, multiple reward models are often used to capture heterogeneous objectives, such as visual quality, motion consistency, and text alignment. Existing GRPO pipelines typically collapse these rewards into a single static scalar and propagate it uniformly across the entire diffusion trajectory. This design ignores the stage-specific roles of different denoising steps and produces mistimed or incompatible optimization signals. To address this issue, we propose Objective-aware Trajectory Credit Assignment (OTCA), a structured framework for fine-grained GRPO training. OTCA consists of two key components. Trajectory-Level Credit Decomposition estimates the relative importance of different denoising steps. Multi-Objective Credit Allocation adaptively weights and combines multiple reward signals throughout the denoising process. By jointly modeling temporal credit and objective-level credit, OTCA converts coarse reward supervision into a structured, timestep-aware training signal that better matches the iterative nature of diffusion-based generation. Extensive experiments show that OTCA consistently improves both image and video generation quality across evaluation metrics.",
+    "keyword": "visual generation, GRPO, credit assignment, multi-objective optimization, diffusion models",
+    "publisher": "ACM",
+    "archive": "arXiv",
+    "archive_location": "2604.19234",
+    "genre": "Forthcoming conference paper",
+    "status": "forthcoming"
+  },
+  "resources": [
+    {
+      "label": "arXiv",
+      "url": "https://arxiv.org/abs/2604.19234"
+    },
+    {
+      "label": "PDF",
+      "url": "https://arxiv.org/pdf/2604.19234"
+    }
+  ]
+}
