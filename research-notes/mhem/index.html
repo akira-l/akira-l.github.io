@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MHEM: Learning from Hard Examples without Letting Them Dominate | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/mhem/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/mhem/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MHEM: Learning from Hard Examples without Letting Them Dominate">
+  <meta property="og:description" content="Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/mhem/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MHEM: Learning from Hard Examples without Letting Them Dominate">
+  <meta name="twitter:description" content="Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/mhem/#webpage",
+      "url": "https://akira-l.github.io/research-notes/mhem/",
+      "name": "MHEM: Learning from Hard Examples without Letting Them Dominate",
+      "description": "Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/mhem/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/mhem/#article",
+      "url": "https://akira-l.github.io/research-notes/mhem/",
+      "headline": "MHEM: Learning from Hard Examples without Letting Them Dominate",
+      "description": "Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/mhem/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/mhem/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/mhem/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/mhem/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "fine-grained recognition",
+        "hard examples",
+        "loss modulation",
+        "generalization",
+        "MHEM"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/mhem/#paper",
+      "url": "https://akira-l.github.io/publications/mhem/",
+      "name": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+      "headline": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024-05",
+      "inLanguage": "en",
+      "keywords": [
+        "fine-grained recognition",
+        "hard examples",
+        "loss modulation",
+        "generalization",
+        "MHEM"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE Transactions on Neural Networks and Learning Systems · 2024 · vol. 35(5) · pp. 7048-7059"
+      },
+      "pagination": "7048-7059"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/mhem/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "MHEM: Learning from Hard Examples without Letting Them Dominate",
+          "item": "https://akira-l.github.io/research-notes/mhem/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">MHEM</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>MHEM: Learning from Hard Examples without Letting Them Dominate</h1>
+      <p class="subtitle">Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/mhem/">Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, Yi Yang</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE Transactions on Neural Networks and Learning Systems · 2024 · vol. 35(5) · pp. 7048-7059</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">fine-grained recognition</span><span class="tag">hard examples</span><span class="tag">loss modulation</span><span class="tag">generalization</span><span class="tag">MHEM</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> Its central optimization question—how to learn from hard cases without allowing them unlimited influence—extends beyond the original fine-grained benchmarks.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#why-hard-training-examples-can-be-deceptively-easy-to-memorize">Why hard training examples can be deceptively easy to memorize</a></li><li><a href="#the-three-mhem-conditions">The three MHEM conditions</a></li><li><a href="#how-it-differs-from-focal-loss-and-other-controls">How it differs from focal loss and other controls</a></li><li><a href="#what-the-three-benchmark-gains-establish">What the three benchmark gains establish</a></li><li><a href="#when-hard-example-modulation-stops-helping">When hard-example modulation stops helping</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>Fine-grained recognition is decided by difficult cases: nearly identical birds, cars with subtle trim differences, or aircraft separated by small structural cues. It seems natural to increase the weight of low-confidence examples. But “hard” is not a diagnosis. A sample may contain a useful class boundary, a rare pose, a misleading background, or a wrong label. If its weight grows without restraint, a small set of noisy or memorized examples can control the gradient.</p><p>Moderate Hard Example Modulation (MHEM) formalizes a middle position. Hard samples should receive more attention than easy ones, but their relative weight and sensitivity must be bounded. The paper derives three conditions and instantiates them in the Moderate Modulation Baseline (M2B), a loss-level method that adds no inference branch. Its message is not to avoid difficult training data. It is to distinguish productive emphasis from an optimization regime in which extreme samples are allowed to dominate indefinitely.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>MHEM keeps the benefit of hard-example emphasis while placing mathematical limits on how much low-confidence samples can outweigh the rest of the training set.</p></section>
+      <section id="why-hard-training-examples-can-be-deceptively-easy-to-memorize"><h2>Why hard training examples can be deceptively easy to memorize</h2><p>Deep networks can drive training accuracy to nearly 100% even on fine-grained cases that remain difficult at test time. The model has solved those particular samples, but not necessarily the visual distinction they represent. Repeated textures, backgrounds, or annotation quirks can provide shortcuts. An aggressive hard-mining loss keeps returning to the same low-confidence examples, amplifying their peculiarities. The resulting classifier may look attentive to difficulty while becoming less able to recognize new hard examples.</p><p>Cross-entropy already assigns substantial gradient to mistakes. Additional modulation changes the relative contribution among samples. A function that grows too sharply as target probability falls can make extreme cases disproportionately influential. Lowering the global learning rate does not solve this relationship because it scales easy and hard gradients together. MHEM focuses on the shape of the weighting function: it asks how importance changes with difficulty and whether that change remains controlled at the low-confidence end.</p></section><section id="the-three-mhem-conditions"><h2>The three MHEM conditions</h2><p>The hard-mining condition requires harder examples to receive at least as much emphasis as easier ones; otherwise the method abandons its purpose. The moderate condition places an upper bound on their relative coefficient, preventing the hardest sample from outweighing an easy sample without limit. The moderately sensitive condition controls how abruptly that relationship changes, avoiding a weighting curve that becomes unstable around a particular confidence region. Together, the conditions describe behavior rather than prescribing one arbitrary formula.</p><p>M2B is the paper’s concrete modulation function satisfying those constraints. It rises in emphasis as examples become harder, but the rise is moderated. This is why the paper’s formal name is Moderate Hard Example Modulation, even though the discussion connects naturally to hard mining. M2B does not identify mislabeled data, estimate uncertainty, or assign permanent sample types. It changes the current loss weight as a function of the model’s prediction under a bounded rule.</p></section><section id="how-it-differs-from-focal-loss-and-other-controls"><h2>How it differs from focal loss and other controls</h2><p>Focal-style losses are designed to suppress easy examples and concentrate learning on difficult ones, especially under class imbalance. MHEM asks a subsequent question: at what point does concentration become excessive for fine-grained generalization? The paper shows that typical focal formulations do not satisfy all three moderate conditions. This is a difference in the desired low-confidence behavior, not merely a different name for multiplying cross-entropy by a difficulty-dependent factor.</p><p>Label smoothing changes the target distribution and discourages extreme confidence; class-balanced sampling changes how often examples or classes appear; a smaller learning rate changes the overall step size. M2B changes sample-to-sample gradient proportions while keeping the architecture intact. These techniques can coexist, but an experiment must isolate their roles. If class frequency and example difficulty are correlated, a gain from M2B may partly reflect how the modulation redistributes attention across classes, which makes per-class analysis valuable.</p></section><section id="what-the-three-benchmark-gains-establish"><h2>What the three benchmark gains establish</h2><p>Using ResNet50, the paper reports that the naive baseline improves from 85.5 to 88.2 on CUB-200-2011, from 92.7 to 94.2 on Stanford Cars, and from 90.3 to 92.9 on FGVC-Aircraft. These are gains of 2.7, 1.5, and 2.6 percentage points under the stated protocols. M2B can also be incorporated into existing fine-grained methods, where the paper reports further improvements, supporting its role as a portable loss-level baseline rather than a specialized visual module.</p><p>The evidence is centered on fine-grained classification. It does not imply the same optimum for detection anchors, segmentation pixels, noisy web labels, or language-model tokens. Even across the three datasets, the composition of hard examples differs. Training curves, confidence bins, and gradient shares help interpret why a particular bound works. Final accuracy alone cannot tell whether M2B reduced memorization, changed class balance, or simply regularized the optimizer in another way, so mechanism claims should remain tied to the paper’s analyses.</p></section><section id="when-hard-example-modulation-stops-helping"><h2>When hard-example modulation stops helping</h2><p>MHEM treats low confidence uniformly, but hard examples have different causes. A reliable boundary case deserves attention; a mislabeled image should perhaps be corrected or removed; an occluded image may need augmentation; a rare subclass may require balanced sampling. Bounded modulation limits harm without identifying the source. An overly tight bound can also suppress exactly the subtle examples that define a fine-grained category. The right setting depends on the data’s difficulty composition.</p><p>A modern extension could combine moderate weighting with uncertainty, annotation auditing, or example-history signals, while preserving a clear cap on influence. Reporting how many gradients come from each confidence and class region would make the trade-off visible. MHEM’s lasting contribution is a useful constraint on a popular intuition: difficult examples are informative, but difficulty alone does not grant unlimited authority. Generalization can improve when optimization listens to hard cases without letting the most extreme cases set the entire agenda.</p><p>Example history can separate transient difficulty from persistent extremity. A clean boundary sample may become easier as a useful feature emerges; a mislabeled sample may remain confidently contradictory; a rare but valid case may improve slowly. Plotting M2B weights over that history would show whether the cap protects training at the right time. It could also motivate schedules in which the bound changes only when validation evidence supports it, rather than treating one modulation curve as equally appropriate from the first epoch to the last.</p><p>The same audit should be class-aware. In a rare class, most examples may remain low-confidence early, so a global cap can interact with imbalance in unexpected ways. Report effective weight by class frequency and by difficulty bin, then compare with class-balanced sampling. This reveals whether M2B improves within-class generalization or mainly changes how much the optimizer attends to tail categories. It also prevents difficulty modulation and frequency correction from being credited as though they were exactly the same mechanism in practical model training.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. propose Moderate Hard Example Modulation (MHEM), a loss-modulation strategy that limits overemphasis on extreme hard samples to improve generalization in fine-grained visual classification.</blockquote>
+        <p><strong>Scope:</strong> MHEM does not automatically identify whether every extreme sample is mislabeled, atypical, or genuinely informative; it controls influence through loss design. Its evidence is centered on fine-grained classification.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>MHEM defines hard-mining, moderate, and moderately sensitive conditions for a loss modulator.</td><td>TNNLS article, Section III-A and the formal condition definitions.</td></tr><tr><td>M2B is the concrete moderate modulation baseline and introduces no inference-time branch.</td><td>TNNLS article, Section III-C and M2B formulation/curve figure.</td></tr><tr><td>The ResNet50 baseline gains are 2.7, 1.5, and 2.6 points on CUB, Cars, and Aircraft.</td><td>TNNLS article, Table IV and accompanying fine-grained benchmark analysis.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/mhem/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification.” IEEE Transactions on Neural Networks and Learning Systems (2024), 35(5), 7048-7059. https://doi.org/10.1109/TNNLS.2022.3213563.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/mhem/citation.bib">BibTeX</a><a href="/publications/mhem/citation.ris">RIS</a><a href="/publications/mhem/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

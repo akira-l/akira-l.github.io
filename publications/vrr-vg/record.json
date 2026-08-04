@@ -88,6 +88,24 @@
       "citation_ready": "Liang 等从 Visual Genome 中剪除 visually irrelevant relationships 构建 VrR-VG，并联合建模实例、属性和关系来学习 relationship-aware feature。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "VrR-VG uses a no-image relationship predictor to expose benchmark shortcuts, establishing the principle that performance must be tested against the information a model actually used.",
+        "zh-CN": "VrR-VG 用不读取图像的关系预测器暴露数据捷径，强调性能必须结合模型实际使用的信息进行判断。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2019vrrvg",
     "type": "paper-conference",

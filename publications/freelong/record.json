@@ -91,6 +91,24 @@
       "citation_ready": "Lu 等提出 FreeLong，在去噪时融合低频全局特征与高频局部特征，无需训练即可扩展短视频 diffusion model 的长视频生成能力。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "FreeLong extends pretrained short-video diffusion models through frequency-aware temporal feature blending, addressing duration without retraining the base generator.",
+        "zh-CN": "FreeLong 通过频率感知的时序特征融合扩展预训练短视频扩散模型，在不重新训练基础模型的情况下延长生成时长。"
+      }
+    }
+  ],
   "citation": {
     "id": "lu2024freelong",
     "type": "paper-conference",

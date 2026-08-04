@@ -13,6 +13,7 @@
   <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/otca/">
   <link rel="alternate" type="application/vnd.citationstyles.csl+json" title="CSL-JSON citation" href="/publications/otca/citation.json">
   <link rel="alternate" type="application/x-bibtex" title="BibTeX citation" href="/publications/otca/citation.bib">
+  <link rel="alternate" type="application/x-research-info-systems" title="RIS citation" href="/publications/otca/citation.ris">
   <link rel="alternate" type="application/json" title="Full research record" href="/publications/otca/record.json">
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
   <meta property="og:type" content="article">
@@ -165,11 +166,11 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <nav class="pub-nav" aria-label="主导航">
   <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
-  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/#publication">代表工作</a></li></ul>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a class="active" href="/zh/publications/">论文与解读</a></li><li><a href="/zh/research/">研究方向</a></li></ul>
 </nav>
   <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="返回主页"><a href="/"><span aria-hidden="true">←</span>返回主页</a></nav>
     <nav class="note-breadcrumb" aria-label="Breadcrumb">
-      <a href="/">主页</a><span aria-hidden="true">/</span>
       <a href="/zh/publications/">全部论文</a><span aria-hidden="true">/</span>
       <span aria-current="page">OTCA</span>
     </nav>
@@ -206,6 +207,10 @@
         <h2 id="interpretation-heading">论文概要</h2>
         <p>OTCA 不再把一个标量 reward 平均传给所有去噪步，而是同时回答两个问题：轨迹中的哪些 step 更重要，以及每个阶段应该强调哪些 reward objective。</p>
       </section>
+
+<section class="related-note"><h2>英文 Research Note</h2><p><a class="primary" href="/research-notes/otca/">阅读英文 Research Note 长文: OTCA: Assigning Final Rewards to the Generation Steps That Matter</a></p></section>
+
+<section class="research-context"><h2>所属研究路径</h2><p>这篇论文在本站研究脉络中的位置。</p><ul class="path-link-list"><li><a href="/zh/research/video-generation-world-models/">视频生成与世界模型</a><span class="path-role">衔接工作</span><p>OTCA 将最终图像或视频奖励分配到不同去噪时刻和目标，而不是假设每个生成决策承担相同责任。</p></li><li><a href="/zh/research/trustworthy-visual-post-training/">可信视觉生成后训练</a><span class="path-role">核心工作</span><p>OTCA 沿去噪时间分解最终奖励责任，并把多个目标分配到它们最有信息量的生成阶段。</p></li></ul></section>
 
       <section>
         <h2>研究问题</h2>
@@ -276,5 +281,6 @@
   <footer class="site-footer">
     <p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p>
   </footer>
+  <script data-local-file-preview src="../../../dist/js/file-preview.js"></script>
 </body>
 </html>

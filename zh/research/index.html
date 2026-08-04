@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>研究方向 | Yuanzhi Liang</title>
+  <meta name="description" content="AI 系统需要表示哪些信息，才能泛化到训练分布之外？完成预训练后，新的证据又应该怎样更新系统？">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/research/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/">
+  <link rel="alternate" type="application/json" title="Research path data" href="/research/paths.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="研究方向 | Yuanzhi Liang">
+  <meta property="og:description" content="AI 系统需要表示哪些信息，才能泛化到训练分布之外？完成预训练后，新的证据又应该怎样更新系统？">
+  <meta property="og:url" content="https://akira-l.github.io/zh/research/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://akira-l.github.io/zh/research/#collection",
+      "url": "https://akira-l.github.io/zh/research/",
+      "name": "研究方向",
+      "description": "AI 系统需要表示哪些信息，才能泛化到训练分布之外？完成预训练后，新的证据又应该怎样更新系统？",
+      "inLanguage": "zh-CN",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/zh/research/#paths"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://akira-l.github.io/zh/research/#paths",
+      "numberOfItems": 3,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://akira-l.github.io/zh/research/video-generation-world-models/",
+          "name": "视频生成与世界模型"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/",
+          "name": "可信视觉生成后训练"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/",
+          "name": "语义动作与具身交互"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page research-page">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a href="/zh/publications/">论文与解读</a></li><li><a class="active" href="/zh/research/">研究方向</a></li></ul>
+</nav>
+  <main id="main" class="research-container"><nav class="page-home-return" aria-label="返回主页"><a href="/"><span aria-hidden="true">←</span>返回主页</a></nav><header class="research-hero">
+  <p class="eyebrow">研究地图</p>
+  <h1>研究方向</h1>
+  <p class="research-dek">AI 系统需要表示哪些信息，才能泛化到训练分布之外？完成预训练后，新的证据又应该怎样更新系统？</p>
+
+  <p class="language-switch"><a href="https://akira-l.github.io/research/" hreflang="en">English</a></p>
+</header>
+<nav class="research-section-nav" aria-label="研究内容导航">
+  <a class="active" href="#research-paths"><span>研究路径</span><small>理解工作之间的关系</small></a>
+  <a href="/research-notes/"><span>Research Notes</span><small>英文论文长文解读</small></a>
+  <a href="/zh/publications/"><span>全部论文</span><small>论文记录、摘要与引用</small></a>
+</nav>
+<section class="research-intro"><p>现代视觉模型的能力广度在很大程度上来自对数据、模型容量与计算规模的扩展。这一路线十分有效，但学习过程仍受部署前已收集信息的约束。模型可以泛化到单个训练样本之外，但离线训练本身并没有规定：当预测失败时，系统应当获取什么新证据。我的研究关注的正是离线数据上的泛化与持续适应之间的缺口。这个问题在我的工作中逐步展开：表示能否泛化到训练样本之外；表示能否进一步包含与任务相关的关系和时序状态；以及模型能否在预训练后利用不完美的奖励或偏好反馈继续改进。</p><p>后训练让模型开始从对自身输出的评价中学习，但这还不是交互学习：提示与评价器仍然预先确定，模型输出也不会改变外部环境。我的长期目标是闭合预测、行动与观测之间的循环。智能体应当评价候选行动，观测由行动产生的状态转移，再利用结果更新模型或策略。数字环境适合大规模研究记忆、工具调用、探索与持续适应；物理环境则引入几何、动力学、不确定性与安全约束。下面三条路径研究的是从经验中学习所需要的不同条件，而不是同一架构中的组成模块。</p></section>
+<section class="research-arc-section" id="research-arc">
+  <div class="section-heading"><p class="eyebrow">一条更长的脉络</p><h2>从固定数据集到反馈驱动的学习</h2><p>前三个主题扩展模型表示的内容：可判别特征、与任务相关的语义和持久场景状态。第四个主题改变优化设置，让模型从对生成结果的评价中学习。这一演进连接的是研究问题，而不是模型架构，也不暗示直接的技术继承关系。</p></div>
+  <div class="research-arc-list"><article class="research-arc-step"><p class="arc-number">01</p><div><h3>学习能够泛化到训练集之外的表示</h3><p>泛化能力取决于模型学到的表示，而不只是训练准确率。ELP 使用周期性重新初始化的线性探针监测特征可分性，并对探针与主分类器之间的差异进行正则化。MHEM 则限制可能被模型记忆的极难样本所产生的影响。ELP 作用于表示质量，MHEM 调整样本权重；两者都研究优化能否产生对未见数据有效的特征。</p><p class="method-papers"><a href="/zh/publications/elp/">ELP</a> · <a href="/zh/publications/mhem/">MHEM</a></p></div></article><article class="research-arc-step"><p class="arc-number">02</p><div><h3>表示与任务相关的语义和关系</h3><p>类别标签不足以完整描述关系识别、手势生成、组合式图像描述或交互生成所需的语义。VrR-VG 区分由视觉证据支持的关系与物体、几何先验；SEEG 使手势与语音语义对齐；IcoCap 在数据增强中保留复合概念；Uni-Inter 则把人物、物体和场景编码到共享语义占据体中。每种方法都让监督信息与任务相关语义对齐，而不只依赖数据集相关性。</p><p class="method-papers"><a href="/zh/publications/vrr-vg/">VrR-VG</a> · <a href="/zh/publications/seeg/">SEEG</a> · <a href="/zh/publications/icocap/">IcoCap</a> · <a href="/zh/publications/uni-inter/">Uni-Inter</a></p></div></article><article class="research-arc-step"><p class="arc-number">03</p><div><h3>建模场景动态与持久状态</h3><p>视频要求模型理解场景如何演化，而不只是单帧画面如何呈现。VAST 引入姿态与布局条件以实现可控生成，FreeLong 扩展短视频扩散模型的时间范围，TeleWorld 则把生成观测连接到动态 4D 重建与持久记忆。三项工作研究长时视频生成与世界建模的三类互补要求：可控性、时间一致性与持久场景状态。</p><p class="method-papers"><a href="/zh/publications/vast/">VAST 1.0</a> · <a href="/zh/publications/freelong/">FreeLong</a> · <a href="/zh/publications/teleworld/">TeleWorld</a></p></div></article><article class="research-arc-step"><p class="arc-number">04</p><div><h3>利用可靠反馈改进生成模型</h3><p>视觉后训练在基于数据集的预训练之外，引入由奖励模型或偏好模型评价的生成样本与去噪轨迹。核心问题是奖励可靠性与信用分配。ViPO 将更新定位到空间或时空区域；BPGO 降低不确定比较的权重；TaRoS 调整多个奖励；OTCA 在去噪时间步与目标之间分配信用。RATS 把偏好反馈与少步蒸馏结合，TeleBoost 则整合多个训练阶段。这些方法仍在预先定义的提示与奖励分布内运行；与外部环境交互属于另一类研究设置。</p><p class="method-papers"><a href="/zh/publications/vipo/">ViPO</a> · <a href="/zh/publications/bpgo/">BPGO</a> · <a href="/zh/publications/taros/">TaRoS</a> · <a href="/zh/publications/otca/">OTCA</a> · <a href="/zh/publications/rats/">RATS</a> · <a href="/zh/publications/teleboost/">TeleBoost</a></p></div></article></div>
+</section>
+<section class="research-horizon-section">
+  <div class="section-heading"><p class="eyebrow">长期方向</p><h2>从后训练到通过交互学习</h2><p>基于奖励模型的后训练是一座重要桥梁，但它仍受预先定义的提示、生成模型和评价器约束。交互学习改变了数据来源：智能体的行动会影响未来观测，由此产生的状态转移成为新的训练证据。我关注这一问题的两类互补场景。数字环境支持可扩展的执行、工具调用与长期交互；物理环境则检验预测和策略在几何、动力学、不确定性与安全约束下是否仍然有效。</p></div>
+  <div class="research-horizon-grid"><article class="research-horizon-card"><h3>数字环境：能够长期学习的持久智能体</h3><p>AntEval 评价多智能体协作中的信息交换与意图表达，而不只关注最终任务是否成功。更早的 Tachikuma 项目促使我关注能够保留经验、使用工具、修正计划并跨任务适应的持久数字智能体。开放问题包括长期记忆、探索、课程生成、持续学习，以及分布变化下对交互过程的评价。</p><p class="method-papers"><a href="/zh/publications/anteval/">AntEval</a></p></article><article class="research-horizon-card"><h3>物理环境：从真实世界的行动后果中学习</h3><p>物理智能体需要判断行动是否可行，与人物和物体协调，并在几何与动力学约束下执行。MAAL 研究动作条件可供性，InterSyn 研究多人协调，Uni-Inter 表示多类交互场景。Embodied Brains 路线图进一步把这些模型与状态估计、工具和控制器、执行及验证连接起来。更长期的问题是怎样把观测到的状态转移转化为可复用的训练经验。</p><p class="method-papers"><a href="/zh/publications/maal/">MAAL</a> · <a href="/zh/publications/intersyn/">InterSyn</a> · <a href="/zh/publications/uni-inter/">Uni-Inter</a> · <a href="/zh/publications/embodied-brains/">Embodied Brains Roadmap</a></p></article></div>
+  <p class="research-horizon-closing">长期共同问题是形成完整的行动—观测—学习闭环。智能体需要估计当前状态、选择行动、观测状态转移，再根据经过验证的结果更新模型或策略。数字智能体适合研究大规模持续适应，物理智能体则检验这些原则在真实动力学和安全约束下是否仍然成立。解决这一闭环对应着更通用 AI 的一项具体要求：不只依赖固定训练语料，而是能够通过交互获得并修正知识。</p>
+</section>
+<section class="research-paths-section" id="research-paths" aria-label="研究路径">
+  <div class="section-heading"><p class="eyebrow">当前研究路径</p><h2>三条研究方向</h2><p>每条路径分别定义一组具体的建模、学习与评价问题。</p></div>
+  <div class="research-path-grid"><article class="research-path-card path-card-1">
+  <p class="path-number">01</p>
+  <h2><a href="/zh/research/video-generation-world-models/">视频生成与世界模型</a></h2>
+  <p class="path-question">能够生成合理视频片段的模型，与能够维护状态并稳定预测未来观测的世界模型之间，还缺少哪些能力？</p>
+  <p>研究视频生成走向世界模型所需的条件：空间控制、长时时间一致性、持久状态与以行动为条件的预测。</p>
+  <p class="path-paper-line">IcoCap · VAST 1.0 · FreeLong · TeleWorld · TeleBoost · TaRoS · …</p>
+  <a class="path-arrow" href="/zh/research/video-generation-world-models/">查看这条路径 <span aria-hidden="true">→</span></a>
+</article><article class="research-path-card path-card-2">
+  <p class="path-number">02</p>
+  <h2><a href="/zh/research/trustworthy-visual-post-training/">可信视觉生成后训练</a></h2>
+  <p class="path-question">当奖励不完整、不确定，或粒度过粗而无法指出生成过程中的哪些部分需要改变时，应该怎样更新视觉生成模型？</p>
+  <p>研究奖励有效性、不确定性与信用分配怎样决定视觉生成模型后训练的可靠性。</p>
+  <p class="path-paper-line">VrR-VG · ELP · MHEM · IcoCap · ViPO · BPGO · …</p>
+  <a class="path-arrow" href="/zh/research/trustworthy-visual-post-training/">查看这条路径 <span aria-hidden="true">→</span></a>
+</article><article class="research-path-card path-card-3">
+  <p class="path-number">03</p>
+  <h2><a href="/zh/research/semantic-motion-embodied-interaction/">语义动作与具身交互</a></h2>
+  <p class="path-question">需要怎样的表示与评价标准，才能让生成动作表达预期语义、满足物理可行性，并与其他实体协调？</p>
+  <p>研究动作生成怎样在人–人、人–物和人–场景交互中满足语义、关系与物理约束。</p>
+  <p class="path-paper-line">SEEG · MAAL · InterSyn · Uni-Inter · LaxMotion · AntEval · …</p>
+  <a class="path-arrow" href="/zh/research/semantic-motion-embodied-interaction/">查看这条路径 <span aria-hidden="true">→</span></a>
+</article></div>
+</section>
+<section class="methodology-section" id="beyond-proxy-metrics">
+  <div class="section-heading"><p class="eyebrow">共同方法论</p><h2>不把代理指标当成真实能力</h2><p>在这些任务中，训练和评价信号都只是目标能力的代理。准确率可能来自数据集捷径，分类器置信度可能来自记忆，标量奖励也可能掩盖生成质量在什么位置或阶段发生变化。共同问题是：信号测量了什么，何时不再可靠，以及它应该以多大强度影响参数更新。</p></div>
+  <div class="method-grid"><article class="method-card"><h3>视觉证据，而不是数据捷径</h3><p>VrR-VG 检查关系模型究竟使用了图像证据，还是仅凭物体类别和几何位置进行猜测。通过刻意移除像素信息，它把数据捷径诊断纳入数据集构建，而不是把基准准确率直接等同于视觉推理能力。</p><p class="method-papers"><a href="/zh/publications/vrr-vg/">VrR-VG</a></p></article><article class="method-card"><h3>泛化能力，而不只是置信度或难度</h3><p>ELP 比较主分类器与在分离特征上训练、周期性重置的线性探针，从而区分分类器积累的置信度与当前特征可分性。MHEM 则限制极难训练样本的影响，避免模型主要记忆这些样本而没有形成可泛化的判别能力。</p><p class="method-papers"><a href="/zh/publications/elp/">ELP</a> · <a href="/zh/publications/mhem/">MHEM</a></p></article><article class="method-card"><h3>输入改变后，监督也必须改变</h3><p>IcoCap 将图像—视频复合与视觉语义引导的描述学习结合起来。视觉内容改变后，原始描述可能不再准确对应输入，因此数据增强和目标构造需要被共同设计。</p><p class="method-papers"><a href="/zh/publications/icocap/">IcoCap</a></p></article><article class="method-card"><h3>交互过程，而不只是最终结果</h3><p>AntEval 将任务完成与信息交换、意图表达分开评价。多智能体系统可能完成任务，却只交换了很少与任务相关的信息，因此除最终结果之外，还需要评价交互过程。</p><p class="method-papers"><a href="/zh/publications/anteval/">AntEval</a></p></article><article class="method-card"><h3>可用的反馈，而不只是一个最终分数</h3><p>近期视觉后训练工作研究样本级标量奖励的不同局限。ViPO 将更新信号分配到空间或时空区域，BPGO 根据奖励置信度调整比较权重，TaRoS 在训练中动态调整多个奖励分量，OTCA 则在去噪步骤与目标之间分配信用。TeleBoost 将多类信号整合进带有诊断机制的分阶段管线。</p><p class="method-papers"><a href="/zh/publications/vipo/">ViPO</a> · <a href="/zh/publications/bpgo/">BPGO</a> · <a href="/zh/publications/taros/">TaRoS</a> · <a href="/zh/publications/otca/">OTCA</a> · <a href="/zh/publications/teleboost/">TeleBoost</a></p></article></div>
+</section>
+<section class="adjacent-section">
+  <div class="section-heading"><h2>早期与相邻工作</h2><p>早期的真实场景去雨与细粒度食物识别工作分别涉及数据覆盖、局部视觉证据、联合监督和鲁棒性。这些经验影响了我处理视觉学习问题的方式，但它们不是当前三条路径的直接技术前身。</p></div>
+  <div class="adjacent-grid"><article class="adjacent-item"><h3><a href="/zh/publications/rain-one-go/">Removing Raindrops and Rain Streaks in One Go</a></h3><p>该工作通过互补的恢复顺序和真实混合雨数据集处理复合退化，体现了在网络结构与数据覆盖方面的经验；这里不把它描述为生成模型对齐的直接前身。</p></article><article class="adjacent-item"><h3><a href="/zh/publications/food-ingredient/">Food and Ingredient Joint Learning for Fine-Grained Recognition</a></h3><p>该项目通过区域注意力、食物—食材联合预测和不平衡感知损失学习局部语义证据。其监督设计经验仍有参考价值，但应用与评估范围明确属于细粒度食物识别。</p></article></div>
+</section>
+<section class="research-closing"><p>Research Notes 为部分论文提供更长的英文解读。只有在逐篇完成作者审阅后，路径页才会公开显示对应入口；在此之前，规范的论文记录仍是查阅摘要、书目信息、证据概述和引用下载的公开来源。</p></section></main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

@@ -87,6 +87,7 @@
       "citation_ready": "Liang 等系统综述了视觉生成模型中的 reinforcement learning，覆盖图像、视频和 3D/4D 生成，并将 RL 概括为优化偏好驱动、不可微和结构化目标的通用机制。"
     }
   },
+  "research_paths": [],
   "citation": {
     "id": "liang2026rlvisualgeneration",
     "type": "article-journal",

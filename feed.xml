@@ -4,9 +4,153 @@
   <id>https://akira-l.github.io/feed.xml</id>
   <link href="https://akira-l.github.io/feed.xml" rel="self"/>
   <link href="https://akira-l.github.io/publications/"/>
-  <updated>2026-07-31T00:00:00+08:00</updated>
+  <updated>2026-08-04T00:00:00+08:00</updated>
   <author><name>Yuanzhi Liang</name></author>
   <entry>
+    <title>Video Generation and World Models</title>
+    <id>https://akira-l.github.io/research/video-generation-world-models/</id>
+    <link href="https://akira-l.github.io/research/video-generation-world-models/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Path"/>
+    <summary>Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.</summary>
+  </entry>  <entry>
+    <title>Trustworthy Visual Generation Post-Training</title>
+    <id>https://akira-l.github.io/research/trustworthy-visual-post-training/</id>
+    <link href="https://akira-l.github.io/research/trustworthy-visual-post-training/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Path"/>
+    <summary>Studying how reward validity, uncertainty, and credit assignment determine the reliability of post-training for visual generative models.</summary>
+  </entry>  <entry>
+    <title>Semantic Motion and Embodied Interaction</title>
+    <id>https://akira-l.github.io/research/semantic-motion-embodied-interaction/</id>
+    <link href="https://akira-l.github.io/research/semantic-motion-embodied-interaction/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Path"/>
+    <summary>Studying how motion generation can satisfy semantic, relational, and physical constraints across human–human, human–object, and human–scene interaction.</summary>
+  </entry>  <entry>
+    <title>TeleBoost: Video Generation Post-Training as a Systems Problem</title>
+    <id>https://akira-l.github.io/research-notes/teleboost/</id>
+    <link href="https://akira-l.github.io/research-notes/teleboost/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together. Based on: TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation.</summary>
+  </entry>  <entry>
+    <title>ViPO: From Scalar Rewards to Pixel-Level Advantage Maps</title>
+    <id>https://akira-l.github.io/research-notes/vipo/</id>
+    <link href="https://akira-l.github.io/research-notes/vipo/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals. Based on: Seeing What Matters: Visual Preference Policy Optimization for Visual Generation.</summary>
+  </entry>  <entry>
+    <title>TaRoS: Adapting Reward Signals as the Video Model Changes</title>
+    <id>https://akira-l.github.io/research-notes/taros/</id>
+    <link href="https://akira-l.github.io/research-notes/taros/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>TaRoS examines how fixed reward components can become optimization targets rather than useful feedback, then reshapes video GRPO signals by component, group sparsity, and saturation. Based on: Rethinking Reward Signals in Video GRPO: When Scores Become Targets.</summary>
+  </entry>  <entry>
+    <title>OTCA: Assigning Final Rewards to the Generation Steps That Matter</title>
+    <id>https://akira-l.github.io/research-notes/otca/</id>
+    <link href="https://akira-l.github.io/research-notes/otca/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful. Based on: Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation.</summary>
+  </entry>  <entry>
+    <title>BPGO: Learning What to Trust under Reward Uncertainty</title>
+    <id>https://akira-l.github.io/research-notes/bpgo/</id>
+    <link href="https://akira-l.github.io/research-notes/bpgo/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally. Based on: Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation.</summary>
+  </entry>  <entry>
+    <title>Uni-Inter: A Unified Model for Motion Interaction</title>
+    <id>https://akira-l.github.io/research-notes/uni-inter/</id>
+    <link href="https://akira-l.github.io/research-notes/uni-inter/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>Uni-Inter maps three previously separate 3D interaction settings into a shared volumetric language, then predicts probabilistic human motion while preserving each task’s entities and constraints. Based on: Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts.</summary>
+  </entry>  <entry>
+    <title>MHEM: Learning from Hard Examples without Letting Them Dominate</title>
+    <id>https://akira-l.github.io/research-notes/mhem/</id>
+    <link href="https://akira-l.github.io/research-notes/mhem/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training. Based on: Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification.</summary>
+  </entry>  <entry>
+    <title>AntEval: Measuring Social Interaction in AI Agents</title>
+    <id>https://akira-l.github.io/research-notes/anteval/</id>
+    <link href="https://akira-l.github.io/research-notes/anteval/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way. Based on: AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents.</summary>
+  </entry>  <entry>
+    <title>IcoCap: Using Images to Enrich Video Semantics</title>
+    <id>https://akira-l.github.io/research-notes/icocap/</id>
+    <link href="https://akira-l.github.io/research-notes/icocap/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels. Based on: IcoCap: Improving Video Captioning by Compounding Images.</summary>
+  </entry>  <entry>
+    <title>MAAL: Learning How Articulated Objects Can Be Used</title>
+    <id>https://akira-l.github.io/research-notes/maal/</id>
+    <link href="https://akira-l.github.io/research-notes/maal/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone. Based on: MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects.</summary>
+  </entry>  <entry>
+    <title>SEEG: From Rhythmic Motion to Semantic Gesture</title>
+    <id>https://akira-l.github.io/research-notes/seeg/</id>
+    <link href="https://akira-l.github.io/research-notes/seeg/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics. Based on: SEEG: Semantic Energized Co-speech Gesture Generation.</summary>
+  </entry>  <entry>
+    <title>ELP: High Confidence Does Not Imply High-Quality Features</title>
+    <id>https://akira-l.github.io/research-notes/elp/</id>
+    <link href="https://akira-l.github.io/research-notes/elp/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn. Based on: A Simple Episodic Linear Probe Improves Visual Recognition in the Wild.</summary>
+  </entry>  <entry>
+    <title>VrR-VG: Making Models Rely on Visual Evidence</title>
+    <id>https://akira-l.github.io/research-notes/vrr-vg/</id>
+    <link href="https://akira-l.github.io/research-notes/vrr-vg/"/>
+    <updated>2026-08-04T00:00:00+08:00</updated>
+    <published>2026-08-04T00:00:00+08:00</published>
+    <author><name>Yuanzhi Liang</name></author>
+    <category term="Research Note"/>
+    <summary>VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence. Based on: VrR-VG: Refocusing Visually-Relevant Relationships.</summary>
+  </entry>  <entry>
     <title>From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</title>
     <id>https://akira-l.github.io/publications/embodied-brains/</id>
     <link href="https://akira-l.github.io/publications/embodied-brains/"/>

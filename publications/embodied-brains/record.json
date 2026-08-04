@@ -79,6 +79,40 @@
       "citation_ready": "Liang 等提出了从 World Action Models 走向 embodied brains 的路线图，主张将预测模型与 physical harness、共享 contracts 和闭环后训练结合，以构建模块化的开放世界物理智能系统。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "horizon",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "The Embodied Brains roadmap places predictive world and action models inside a larger stack of shared contracts, physical harnesses, verification, and closed-loop learning.",
+        "zh-CN": "Embodied Brains 路线图将预测式世界与动作模型放入由共享契约、物理执行层、验证和闭环学习组成的更大系统。"
+      }
+    },
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "horizon",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "The Embodied Brains roadmap connects predictive models to physical harnesses, shared contracts, verification, and experience reuse, defining a system horizon for grounded interaction.",
+        "zh-CN": "Embodied Brains 路线图将预测模型连接到物理执行层、共享契约、验证和经验复用，为落地交互定义系统方向。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2026embodiedbrains",
     "type": "article",

@@ -1,4 +1,4 @@
-name: Site and publication checks
+name: Site, publication, Research Note, and Research Path checks
 
 on:
   pull_request:
@@ -22,3 +22,9 @@ jobs:
         run: python tests/validate_site.py
       - name: Validate citation exports
         run: python tests/validate_citations.py
+      - name: Validate Research Notes
+        run: python tests/validate_research_notes.py
+      - name: Validate Research Paths
+        run: python tests/validate_research_paths.py
+      - name: Validate local file preview routing
+        run: node tests/validate_file_preview.js

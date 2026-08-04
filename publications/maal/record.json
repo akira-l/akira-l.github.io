@@ -76,6 +76,24 @@
       "citation_ready": "Liang 等提出 MAAL，通过 MultiModal Energized Encoder 联合表示三维物体与机器人动作信息，并以单阶段 autoencoder 框架学习 articulated-object affordance。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "MAAL models articulated-object affordance as compatibility among geometry, object state, contact, and candidate robot action rather than appearance alone.",
+        "zh-CN": "MAAL 将关节物体可供性建模为几何、物体状态、接触位置和候选机器人动作之间的兼容关系，而不只是外观。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2023maal",
     "type": "paper-conference",

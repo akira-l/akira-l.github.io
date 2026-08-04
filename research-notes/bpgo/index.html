@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPGO: Learning What to Trust under Reward Uncertainty | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/bpgo/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/bpgo/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="BPGO: Learning What to Trust under Reward Uncertainty">
+  <meta property="og:description" content="An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/bpgo/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BPGO: Learning What to Trust under Reward Uncertainty">
+  <meta name="twitter:description" content="An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/bpgo/#webpage",
+      "url": "https://akira-l.github.io/research-notes/bpgo/",
+      "name": "BPGO: Learning What to Trust under Reward Uncertainty",
+      "description": "An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/bpgo/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/bpgo/#article",
+      "url": "https://akira-l.github.io/research-notes/bpgo/",
+      "headline": "BPGO: Learning What to Trust under Reward Uncertainty",
+      "description": "An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/bpgo/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/bpgo/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/bpgo/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/bpgo/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "reward uncertainty",
+        "Bayesian prior",
+        "BPGO"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/bpgo/#paper",
+      "url": "https://akira-l.github.io/publications/bpgo/",
+      "name": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+      "headline": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Tianshu Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "reward uncertainty",
+        "Bayesian prior",
+        "BPGO"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · pp. 34408-34417"
+      },
+      "pagination": "34408-34417"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/bpgo/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "BPGO: Learning What to Trust under Reward Uncertainty",
+          "item": "https://akira-l.github.io/research-notes/bpgo/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">BPGO</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>BPGO: Learning What to Trust under Reward Uncertainty</h1>
+      <p class="subtitle">An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/bpgo/">Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Ruiying Liu, Yuanzhi Liang, Haibin Huang, Tianshu Yu, Chi Zhang</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · pp. 34408-34417</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">visual generation</span><span class="tag">GRPO</span><span class="tag">reward uncertainty</span><span class="tag">Bayesian prior</span><span class="tag">BPGO</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#why-relative-rewards-can-still-be-unreliable">Why relative rewards can still be unreliable</a></li><li><a href="#the-role-of-the-semantic-prior">The role of the semantic prior</a></li><li><a href="#two-calibration-levels-across-groups-and-within-a-group">Two calibration levels: across groups and within a group</a></li><li><a href="#reading-the-experimental-evidence-carefully">Reading the experimental evidence carefully</a></li><li><a href="#how-bpgo-differs-from-nearby-post-training-methods">How BPGO differs from nearby post-training methods</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>Preference optimization often begins with a deceptively clean table: several images or videos, one reward score for each, and a ranking from best to worst. In practice, close scores may reflect reward noise rather than a meaningful quality difference. A prompt may also produce a group in which every candidate is weak, or several candidates are semantically similar enough that their relative order is unstable. Standard Group Relative Policy Optimization (GRPO) still turns those comparisons into advantages, which can give uncertain evidence the authority of a confident judgment.</p><p>Bayesian Prior-Guided Optimization (BPGO) changes the question from “which sample scored higher?” to “how much should this comparison be trusted?” It introduces a semantic prior and two levels of calibration: reward-aware allocation across groups and confidence-aware renormalization within a group. The result is not a claim that Bayesian machinery makes reward models correct. It is a training rule that reduces the influence of ambiguous comparisons while preserving stronger, semantically supported signals for visual generation.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>BPGO treats trust as a first-class optimization variable, allocating less influence to uncertain reward comparisons before they can dominate a visual generator’s policy update.</p></section>
+      <section id="why-relative-rewards-can-still-be-unreliable"><h2>Why relative rewards can still be unreliable</h2><p>GRPO normalizes rewards among outputs produced for the same prompt. This removes the need for a learned critic and makes optimization depend on relative quality rather than an absolute scale. Yet normalization does not remove uncertainty. If all rewards are nearly tied, small modeling errors can flip the order. If one group contains clear semantic matches and another contains uniformly off-topic samples, their normalized advantages may appear equally decisive even though the evidence behind them differs. Relative scoring answers comparison, not confidence.</p><p>Visual rewards are especially heterogeneous. Text alignment, perceptual fidelity, aesthetics, and motion quality may agree on easy cases and disagree on borderline ones. A single score can conceal that disagreement. Repeatedly updating on low-confidence groups can produce oscillation or reward chasing: the generator learns to exploit whichever cue happens to separate samples in that batch. BPGO frames the problem as uncertainty-aware policy optimization, where the amount of learning assigned to a comparison should depend on the credibility of the underlying semantic and reward evidence.</p></section><section id="the-role-of-the-semantic-prior"><h2>The role of the semantic prior</h2><p>A Bayesian prior is useful here because a reward observation need not be treated in isolation. BPGO introduces prior knowledge about semantic quality, then combines it with observed reward behavior to estimate how trustworthy an update should be. At an intuitive level, the prior provides a reference when a sampled group is noisy or sparse. It does not replace the reward models; it changes how their evidence is interpreted. A group that aligns with the prior and exhibits clear reward separation can carry more confidence than an ambiguous group with unstable signals.</p><p>The word “prior” can invite overclaiming, so its scope should remain concrete. It is not universal human preference and it does not prove that a visually plausible output is factually or ethically correct. It encodes assumptions available to the method about semantic quality. Those assumptions can be helpful when rewards are uncertain, but they can also be wrong for rare concepts, unusual styles, or a shifted domain. Professionals evaluating BPGO should therefore ask what supplied the prior, how sensitive the results are to it, and where it may systematically underrepresent valid outputs.</p></section><section id="two-calibration-levels-across-groups-and-within-a-group"><h2>Two calibration levels: across groups and within a group</h2><p>BPGO separates two kinds of trust. Reliability-Adaptive Scaling (RAS) addresses inter-group allocation: some prompt groups offer clearer learning evidence than others, so their overall contribution should differ. Contrastive Reward Transformation (CRT) addresses intra-group behavior: even within one set of candidates, normalized advantages should reflect how confidently the samples can be distinguished. This two-level view prevents a global confidence weight from hiding local ambiguity, and prevents a locally sharp ranking from implying that the whole group is reliable.</p><p>That decomposition is the method’s most reusable conceptual contribution. Many uncertainty-aware systems attach one confidence score to an output. BPGO instead asks where uncertainty enters the optimization hierarchy. Across groups, it affects how training budget is distributed; within a group, it affects how relative advantages are renormalized. The approach remains compatible with GRPO’s group comparison structure, so it is better described as a trust-calibrated GRPO variant for visual generation than as a new reward model or a general Bayesian generator.</p></section><section id="reading-the-experimental-evidence-carefully"><h2>Reading the experimental evidence carefully</h2><p>The paper reports experiments on image and video generation, covering semantic alignment, perceptual quality, and convergence behavior. The meaningful comparison is not merely whether BPGO produces a larger final number, but whether its calibrated updates remain stable when rewards are ambiguous. Main benchmark tables establish outcome quality; convergence plots and component ablations help connect those outcomes to RAS, CRT, and the semantic prior. Exact claims should stay tied to the official CVPR tables because baselines, generators, reward combinations, and metrics vary by setting.</p><p>These results support the statement that trust-aware allocation can outperform standard GRPO and recent variants under the evaluated protocols. They do not show that posterior confidence equals the probability a human will prefer an output. Nor do they imply that every metric improves in every domain. A reward system may be confidently biased. In that case BPGO can calibrate ambiguity without correcting the shared bias. This is why human preference studies, domain shifts, and deliberately conflicting reward components are useful complements to benchmark averages.</p></section><section id="how-bpgo-differs-from-nearby-post-training-methods"><h2>How BPGO differs from nearby post-training methods</h2><p>BPGO belongs in related work on reinforcement learning and preference optimization for visual generators, specifically methods that model reward uncertainty or confidence. It differs from ViPO, which changes where a preference signal acts across the visual output; BPGO changes how much uncertain reward evidence should be trusted. It also differs from methods that redesign the reward components themselves. Better reward design, uncertainty calibration, and localized credit assignment address distinct failure points and can be combined rather than treated as mutually exclusive alternatives.</p><p>The next questions concern calibration under shift. Does a prior learned on familiar objects remain useful for specialist imagery? Can trust estimates detect reward hacking rather than merely downweight close scores? How do RAS and CRT behave when all reward components share the same blind spot? BPGO’s enduring insight is that a normalized ranking is not automatically a reliable teaching signal. Once uncertainty is made explicit, visual policy optimization can spend its updates on comparisons that carry evidence, rather than treating every numerical difference as equally meaningful.</p><p>A practical calibration report should show more than final quality. Bin comparisons by estimated trust and measure how often humans or an independent evaluator agree with the reward ordering in each bin. Then repeat under prompt and style shifts. If high-trust bins are not more reliable, the mechanism may be reallocating gradients without calibrated confidence. This test also separates useful abstention—learning less from ambiguous groups—from a policy that simply avoids difficult or unfamiliar prompts.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liu et al. introduce Bayesian Prior-Guided Optimization (BPGO), using a semantic prior to allocate trust across GRPO groups and renormalize within-group rewards for more reliable image and video generation post-training.</blockquote>
+        <p><strong>Scope:</strong> BPGO&#x27;s behavior depends on the suitability of its semantic prior and the reward models it calibrates. A prior can reduce ambiguity without establishing that every retained signal matches human judgment in all domains.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>BPGO calibrates optimization at both an inter-group and an intra-group level through RAS and CRT.</td><td>CVPR 2026 paper, inter-group trust allocation and intra-group renormalization method sections.</td></tr><tr><td>The evaluation spans image and video generation and reports semantic, perceptual, and convergence comparisons.</td><td>CVPR 2026 paper, image and video experiment sections and main result tables.</td></tr><tr><td>The method uses a semantic prior to interpret reward uncertainty rather than replacing all reward models.</td><td>CVPR 2026 paper, Bayesian prior method section and component ablation tables.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/bpgo/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Ruiying Liu, Yuanzhi Liang, Haibin Huang, Tianshu Yu, and Chi Zhang. “Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2026), 34408-34417.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/bpgo/citation.bib">BibTeX</a><a href="/publications/bpgo/citation.ris">RIS</a><a href="/publications/bpgo/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

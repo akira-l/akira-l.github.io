@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "notes": [
+    {
+      "paper_slug": "vipo",
+      "title": "ViPO: From Scalar Rewards to Pixel-Level Advantage Maps",
+      "dek": "A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": false,
+      "retrospective_context": "",
+      "keywords": ["visual generation", "GRPO", "preference optimization", "pixel-level credit assignment", "ViPO"],
+      "lede": [
+        "Suppose a text-to-image model generates an almost perfect scene except for a malformed hand. A conventional reward model may assign the whole image one score. Group Relative Policy Optimization (GRPO) can then say which sampled image is better than its peers, but every spatial location inherits essentially the same verdict. The background, composition, face, and hand are pushed together even though only a small region needs correction. For visual generators, that is not just an imprecise explanation; it is an imprecise training signal.",
+        "Visual Preference Policy Optimization (ViPO) addresses this mismatch by turning a global preference comparison into a structured advantage map. Its Perceptual Structuring Module uses pretrained visual features to estimate which pixels or spatiotemporal regions belong together, then distributes preference feedback over those regions. The concise answer is that ViPO does not invent a separate reward for every pixel. It uses perceptual structure to decide where a sample-level preference should exert more or less influence during policy optimization."
+      ],
+      "takeaway": "ViPO keeps GRPO’s relative preference signal but changes its granularity, using perceptual structure to deliver different optimization pressure to different regions of an image or video.",
+      "sections": [
+        {
+          "heading": "The granularity mismatch inside visual GRPO",
+          "paragraphs": [
+            "GRPO is attractive because it can compare several outputs for the same prompt without requiring a separately learned value network. Scores within a group are normalized into relative advantages, and outputs that look better than their peers receive positive pressure. That logic works naturally when an output is treated as one indivisible sequence. An image or video, however, contains many local decisions: object shape, texture, identity, background layout, motion, and temporal consistency. Collapsing them into one number hides which decisions earned the reward and which caused the failure.",
+            "The failure mode is easiest to see when good and bad content coexist. If a high-scoring sample contains a weak local region, a uniform positive advantage can reinforce that region along with everything else. Conversely, a low score caused by one artifact can suppress well-formed regions. Over many updates, the model receives a noisy mixture of deserved and undeserved credit. ViPO treats this as a spatial or spatiotemporal credit-assignment problem, rather than assuming that a better reward model alone will make a scalar signal sufficiently precise."
+          ]
+        },
+        {
+          "heading": "What the Perceptual Structuring Module actually does",
+          "paragraphs": [
+            "The Perceptual Structuring Module (PSM) begins from features produced by a pretrained visual backbone. Those features encode affinities between locations: pixels on the same object or frames depicting the same moving entity tend to be more related than arbitrary positions. PSM uses this structure to transform a group-level advantage into a map whose values vary over the visual field. Related locations can share evidence, while regions that are perceptually distinct need not receive identical pressure. For video, the same idea extends beyond a single frame and considers structure across space and time.",
+            "This distinction matters: ViPO is not supervised segmentation, and it does not require a human mask saying where every error lies. The map is induced from the generator outputs and pretrained representations. Nor is it simply multiplying the loss by an attention heat map chosen for presentation. The structured advantage participates in the policy update, so localization changes which visual decisions are reinforced. The method is best understood as a bridge between preference-level evaluation and dense generative optimization, with the backbone supplying a useful—but not infallible—perceptual prior."
+          ]
+        },
+        {
+          "heading": "How ViPO differs from nearby approaches",
+          "paragraphs": [
+            "One nearby direction builds several specialized reward models for attributes such as text alignment, aesthetics, or motion. That can improve what is measured, but each component may still return one score for an entire output. ViPO asks a different question: after a preference score has been computed, how should its optimization effect be allocated across the generated content? The method is therefore complementary to better reward design. A localized update based on an unreliable reward is still unreliable, while a strong scalar reward can still be too coarse for correcting a small region.",
+            "Another nearby direction uses token-level or step-level credit assignment. Those methods distinguish decisions along an autoregressive sequence or a denoising trajectory. ViPO focuses on the structure of the visual result: which spatial or spatiotemporal locations should share an advantage. The axes can be combined in future systems, but they are not interchangeable. For a related-work section, the clean positioning is localized preference optimization for visual generation, not a new image-quality assessor, a segmentation model, or a generic replacement for every part of GRPO."
+          ]
+        },
+        {
+          "heading": "What the experiments support—and what they do not",
+          "paragraphs": [
+            "The paper evaluates the method on both image and video generation and compares it with vanilla GRPO and recent optimization variants. The reported evidence covers in-domain preference alignment and out-of-domain behavior, rather than one hand-picked prompt. The ablations are especially important because a strong final score alone would not show that perceptual structuring caused the gain. Readers should inspect the image and video benchmark tables together with the PSM analysis to see which backbones, reward signals, metrics, and evaluation domains were used.",
+            "The correct conclusion is bounded: under the paper’s generators, rewards, and benchmark protocols, structured advantages improve optimization over applying the same relative signal everywhere. It would be too strong to claim that every pixel receives a causally correct reward or that all visual errors are localized. Many metrics summarize the final output again, so quantitative gains are evidence of better generation, not a direct proof that each map value has a human-interpretable causal meaning. Qualitative maps help inspect that mechanism but do not replace controlled evaluation."
+          ]
+        },
+        {
+          "heading": "Limits of the perceptual prior",
+          "paragraphs": [
+            "ViPO inherits the strengths and blind spots of the pretrained features used by PSM. If a backbone groups objects well but is insensitive to fine text, unusual anatomy, or subtle motion, the advantage map may organize precisely the wrong abstraction for those errors. The reward model remains another dependency. Localization can distribute a score more selectively, but it cannot establish that the score reflects human preference, safety, factuality, or the intended domain. These two sources of uncertainty should be separated when diagnosing a failed run.",
+            "A useful extension would test whether gains persist across perceptual backbones, reward families, resolutions, and longer videos, and whether map quality correlates with region-specific human judgments. It would also be valuable to combine spatial allocation with denoising-step credit: where did the error appear, and at which update stage could it have been prevented? The lasting insight is broader than one module. When an output has internal structure, the optimization signal should respect that structure instead of pretending the entire sample made one indivisible decision.",
+            "For reproduction, the most revealing audit is not a montage of attractive maps but a controlled regional test. Hold the prompt and reward fixed, introduce a known local defect, and measure whether optimization pressure changes in the affected region without degrading untouched content. Report the feature backbone, layer, resolution, normalization, and any temporal aggregation because each choice changes the structure PSM sees. This turns localization from an appealing visualization into a falsifiable part of the training method."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "ViPO converts group-level preference feedback into spatially or spatiotemporally structured advantages through PSM.", "locator": "CVPR 2026 paper, Perceptual Structuring Module section and method figure."},
+        {"claim": "The reported evaluation covers both image and video generation and compares against vanilla GRPO and recent variants.", "locator": "CVPR 2026 paper, image and video benchmark sections and their main result tables."},
+        {"claim": "The contribution depends on pretrained visual features rather than human-provided dense error masks.", "locator": "CVPR 2026 paper, PSM formulation and ablation section."}
+      ]
+    },
+    {
+      "paper_slug": "bpgo",
+      "title": "BPGO: Learning What to Trust under Reward Uncertainty",
+      "dek": "An intuitive and technical guide to Bayesian Prior-Guided Optimization, which treats reward confidence as part of visual policy optimization instead of trusting every group comparison equally.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": false,
+      "retrospective_context": "",
+      "keywords": ["visual generation", "GRPO", "reward uncertainty", "Bayesian prior", "BPGO"],
+      "lede": [
+        "Preference optimization often begins with a deceptively clean table: several images or videos, one reward score for each, and a ranking from best to worst. In practice, close scores may reflect reward noise rather than a meaningful quality difference. A prompt may also produce a group in which every candidate is weak, or several candidates are semantically similar enough that their relative order is unstable. Standard Group Relative Policy Optimization (GRPO) still turns those comparisons into advantages, which can give uncertain evidence the authority of a confident judgment.",
+        "Bayesian Prior-Guided Optimization (BPGO) changes the question from “which sample scored higher?” to “how much should this comparison be trusted?” It introduces a semantic prior and two levels of calibration: reward-aware allocation across groups and confidence-aware renormalization within a group. The result is not a claim that Bayesian machinery makes reward models correct. It is a training rule that reduces the influence of ambiguous comparisons while preserving stronger, semantically supported signals for visual generation."
+      ],
+      "takeaway": "BPGO treats trust as a first-class optimization variable, allocating less influence to uncertain reward comparisons before they can dominate a visual generator’s policy update.",
+      "sections": [
+        {
+          "heading": "Why relative rewards can still be unreliable",
+          "paragraphs": [
+            "GRPO normalizes rewards among outputs produced for the same prompt. This removes the need for a learned critic and makes optimization depend on relative quality rather than an absolute scale. Yet normalization does not remove uncertainty. If all rewards are nearly tied, small modeling errors can flip the order. If one group contains clear semantic matches and another contains uniformly off-topic samples, their normalized advantages may appear equally decisive even though the evidence behind them differs. Relative scoring answers comparison, not confidence.",
+            "Visual rewards are especially heterogeneous. Text alignment, perceptual fidelity, aesthetics, and motion quality may agree on easy cases and disagree on borderline ones. A single score can conceal that disagreement. Repeatedly updating on low-confidence groups can produce oscillation or reward chasing: the generator learns to exploit whichever cue happens to separate samples in that batch. BPGO frames the problem as uncertainty-aware policy optimization, where the amount of learning assigned to a comparison should depend on the credibility of the underlying semantic and reward evidence."
+          ]
+        },
+        {
+          "heading": "The role of the semantic prior",
+          "paragraphs": [
+            "A Bayesian prior is useful here because a reward observation need not be treated in isolation. BPGO introduces prior knowledge about semantic quality, then combines it with observed reward behavior to estimate how trustworthy an update should be. At an intuitive level, the prior provides a reference when a sampled group is noisy or sparse. It does not replace the reward models; it changes how their evidence is interpreted. A group that aligns with the prior and exhibits clear reward separation can carry more confidence than an ambiguous group with unstable signals.",
+            "The word “prior” can invite overclaiming, so its scope should remain concrete. It is not universal human preference and it does not prove that a visually plausible output is factually or ethically correct. It encodes assumptions available to the method about semantic quality. Those assumptions can be helpful when rewards are uncertain, but they can also be wrong for rare concepts, unusual styles, or a shifted domain. Professionals evaluating BPGO should therefore ask what supplied the prior, how sensitive the results are to it, and where it may systematically underrepresent valid outputs."
+          ]
+        },
+        {
+          "heading": "Two calibration levels: across groups and within a group",
+          "paragraphs": [
+            "BPGO separates two kinds of trust. Reliability-Adaptive Scaling (RAS) addresses inter-group allocation: some prompt groups offer clearer learning evidence than others, so their overall contribution should differ. Contrastive Reward Transformation (CRT) addresses intra-group behavior: even within one set of candidates, normalized advantages should reflect how confidently the samples can be distinguished. This two-level view prevents a global confidence weight from hiding local ambiguity, and prevents a locally sharp ranking from implying that the whole group is reliable.",
+            "That decomposition is the method’s most reusable conceptual contribution. Many uncertainty-aware systems attach one confidence score to an output. BPGO instead asks where uncertainty enters the optimization hierarchy. Across groups, it affects how training budget is distributed; within a group, it affects how relative advantages are renormalized. The approach remains compatible with GRPO’s group comparison structure, so it is better described as a trust-calibrated GRPO variant for visual generation than as a new reward model or a general Bayesian generator."
+          ]
+        },
+        {
+          "heading": "Reading the experimental evidence carefully",
+          "paragraphs": [
+            "The paper reports experiments on image and video generation, covering semantic alignment, perceptual quality, and convergence behavior. The meaningful comparison is not merely whether BPGO produces a larger final number, but whether its calibrated updates remain stable when rewards are ambiguous. Main benchmark tables establish outcome quality; convergence plots and component ablations help connect those outcomes to RAS, CRT, and the semantic prior. Exact claims should stay tied to the official CVPR tables because baselines, generators, reward combinations, and metrics vary by setting.",
+            "These results support the statement that trust-aware allocation can outperform standard GRPO and recent variants under the evaluated protocols. They do not show that posterior confidence equals the probability a human will prefer an output. Nor do they imply that every metric improves in every domain. A reward system may be confidently biased. In that case BPGO can calibrate ambiguity without correcting the shared bias. This is why human preference studies, domain shifts, and deliberately conflicting reward components are useful complements to benchmark averages."
+          ]
+        },
+        {
+          "heading": "How BPGO differs from nearby post-training methods",
+          "paragraphs": [
+            "BPGO belongs in related work on reinforcement learning and preference optimization for visual generators, specifically methods that model reward uncertainty or confidence. It differs from ViPO, which changes where a preference signal acts across the visual output; BPGO changes how much uncertain reward evidence should be trusted. It also differs from methods that redesign the reward components themselves. Better reward design, uncertainty calibration, and localized credit assignment address distinct failure points and can be combined rather than treated as mutually exclusive alternatives.",
+            "The next questions concern calibration under shift. Does a prior learned on familiar objects remain useful for specialist imagery? Can trust estimates detect reward hacking rather than merely downweight close scores? How do RAS and CRT behave when all reward components share the same blind spot? BPGO’s enduring insight is that a normalized ranking is not automatically a reliable teaching signal. Once uncertainty is made explicit, visual policy optimization can spend its updates on comparisons that carry evidence, rather than treating every numerical difference as equally meaningful.",
+            "A practical calibration report should show more than final quality. Bin comparisons by estimated trust and measure how often humans or an independent evaluator agree with the reward ordering in each bin. Then repeat under prompt and style shifts. If high-trust bins are not more reliable, the mechanism may be reallocating gradients without calibrated confidence. This test also separates useful abstention—learning less from ambiguous groups—from a policy that simply avoids difficult or unfamiliar prompts."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "BPGO calibrates optimization at both an inter-group and an intra-group level through RAS and CRT.", "locator": "CVPR 2026 paper, inter-group trust allocation and intra-group renormalization method sections."},
+        {"claim": "The evaluation spans image and video generation and reports semantic, perceptual, and convergence comparisons.", "locator": "CVPR 2026 paper, image and video experiment sections and main result tables."},
+        {"claim": "The method uses a semantic prior to interpret reward uncertainty rather than replacing all reward models.", "locator": "CVPR 2026 paper, Bayesian prior method section and component ablation tables."}
+      ]
+    },
+    {
+      "paper_slug": "teleboost",
+      "title": "TeleBoost: Video Generation Post-Training as a Systems Problem",
+      "dek": "TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": false,
+      "retrospective_context": "",
+      "keywords": ["video generation", "post-training", "GRPO", "DPO", "TeleBoost"],
+      "lede": [
+        "A video generator can fail in several incompatible ways. It may ignore the prompt, lose the subject halfway through, produce implausible motion, collapse under camera changes, or render an attractive clip that violates a requested constraint. Optimizing one aggregate reward rarely repairs all of these failures at once. Worse, a training recipe that looks good in an equation can be impractical when every rollout is expensive and a small data or reward defect is multiplied across thousands of frames.",
+        "TeleBoost treats post-training as an alignment pipeline rather than a contest to find one decisive loss. The framework stages supervised shaping, reward-driven reinforcement learning, and preference refinement, supported by diagnostics and resource-aware engineering. Each stage has a different job: establish controllable behavior, explore improvements under reward, and resolve preference details that a scalar objective may miss. The paper’s central claim is therefore systemic: the final behavior comes from the interfaces among stages, data, rewards, and infrastructure."
+      ],
+      "takeaway": "TeleBoost’s main lesson is that robust video alignment emerges from a staged and diagnosed training system; no single objective should receive credit for the properties of the entire pipeline.",
+      "sections": [
+        {
+          "heading": "Why video alignment resists a one-loss solution",
+          "paragraphs": [
+            "Images already combine semantics, composition, style, and fidelity. Video adds temporal identity, motion coherence, physics, camera behavior, and much higher sampling cost. A reward that recognizes text alignment may overlook flicker; an aesthetic reward may prefer polished but static clips; a motion reward can be gamed by movement that is large yet meaningless. Combining all components into one weighted sum does not remove conflict. It hides decisions about scale, reliability, and the stage at which each objective can be learned safely.",
+            "The generator’s starting point also matters. Reinforcement learning is inefficient if the model cannot yet follow basic controls, while supervised learning alone is limited by the demonstrations it sees. Pairwise preferences can express subtle choices but are expensive to curate and do not automatically explore new behavior. TeleBoost organizes these tools according to their strengths. This makes the report useful as a map of post-training decisions, not just a model card attached to one set of final samples."
+          ]
+        },
+        {
+          "heading": "Three stages with different responsibilities",
+          "paragraphs": [
+            "The supervised shaping stage establishes a stable behavioral region. Carefully selected demonstrations teach prompt following, controllability, and baseline visual quality without requiring the model to discover everything through expensive rollouts. The reward-driven reinforcement learning stage then searches beyond those demonstrations, using group-relative signals to improve properties that can be evaluated at scale. Finally, preference refinement uses pairwise choices to sharpen distinctions that reward models or demonstrations represent poorly. The sequence matters because each later stage assumes capabilities created by the earlier one.",
+            "This is not a claim that supervised fine-tuning (SFT), Group Relative Policy Optimization (GRPO), or Direct Preference Optimization (DPO) must always appear in exactly one order. It is a statement about functional decomposition. If SFT data narrow diversity too aggressively, reinforcement learning begins from a restricted policy. If GRPO pursues a misspecified reward, DPO may only polish the wrong behavior. If preference pairs are inconsistent, refinement can undo broader gains. A reproducible account therefore records stage inputs, checkpoints, reward versions, and transition criteria rather than reporting only the final objective."
+          ]
+        },
+        {
+          "heading": "Diagnostics are part of the method",
+          "paragraphs": [
+            "Video post-training can fail silently. A reward curve may rise because the model exploits a shortcut, because easier prompts dominate the batch, or because one component overwhelms the others. TeleBoost emphasizes diagnostics that separate behavior dimensions and trace failures back to data, reward, or optimization. This turns evaluation from a final leaderboard into an instrument used during training. The operational question is not only “did the score improve?” but “which behavior changed, on which prompt slice, after which stage, and at what cost?”",
+            "That framing is professionally important because end-to-end numbers obscure causal responsibility. If subject consistency improves after data filtering but the report attributes it to reinforcement learning, another team will tune the wrong mechanism. If preference win rate rises while robustness prompts regress, a single mean hides the trade-off. Stage-level ablations, prompt-stratified evaluation, reward audits, and qualitative failure review are not decorative appendices. They are the evidence needed to decide whether an alignment pipeline is actually under control."
+          ]
+        },
+        {
+          "heading": "What the reported numbers mean",
+          "paragraphs": [
+            "In the reported comparison against the Wan2.2-14B image-to-video baseline, the report gives an overall win rate of 71.18%, a preference rate of 66.38%, and a margin of 32.71. These figures summarize a particular pipeline, evaluator setup, prompt distribution, and baseline. They are useful because they test the combined system under a common protocol. They should not be detached from that protocol or presented as a universal improvement attributable to one stage, one reward, or all video-generation backbones.",
+            "A win rate also needs a denominator and a judge. Human preferences, automated assessors, and mixed evaluation panels measure different things; ties and prompt difficulty affect interpretation. The system-level evidence is strongest when aggregate results are read beside component diagnostics and deployment-oriented analyses. TeleBoost’s claim is that the pipeline produces high-fidelity, controllable, and robust behavior as a package. Reproduction should therefore preserve model initialization, rollout budget, feedback sources, filtering, and stage schedule before treating a numerical gap as comparable."
+          ]
+        },
+        {
+          "heading": "What belongs to the method—and what belongs to the system",
+          "paragraphs": [
+            "TeleBoost sits between algorithm design and training-systems research. It uses familiar families of objectives, but its contribution is the systematic arrangement of those objectives for video. That position matters in a survey. Classifying it only as a GRPO method misses supervised shaping and preference refinement; classifying it only as a dataset recipe misses reward-driven search and diagnostics. The relevant comparison set includes multimodal post-training pipelines, video preference learning, reward engineering, and resource-efficient rollout systems.",
+            "The limitations are equally systemic. Video rollouts are costly, reward models inherit biases, preference data can be inconsistent, and a multi-stage stack has many interaction effects. A pipeline that works at one compute scale may change when batch diversity or rollout length is reduced. Future work should expose stage-specific compute, sensitivity to reward replacement, and rollback criteria when a later stage harms an earlier capability. The durable insight is modest but consequential: alignment quality is an emergent property of the training system, so evidence and credit must be assigned at system level.",
+            "For teams adapting the recipe, a stage ledger is more useful than a single training log. Record the checkpoint entering each stage, data filters, reward versions, rollout counts, preference-source mix, compute, and evaluations that gate progression. Preserve a small regression set for capabilities established earlier and rerun it after every transition. Without that record, a final win rate cannot reveal whether a later stage created a new strength, merely recovered an earlier loss, or traded one form of robustness for another. The ledger also makes failed runs scientifically useful instead of invisible engineering cost, and makes later comparisons reproducible."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "TeleBoost is organized around supervised shaping, reward-driven reinforcement learning, and preference refinement rather than one isolated objective.", "locator": "arXiv:2602.07595v1, framework sections describing the three post-training stages."},
+        {"claim": "The report evaluates the combined pipeline with diagnostic and deployment-oriented analysis.", "locator": "arXiv:2602.07595v1, diagnostic analysis and evaluation sections."},
+        {"claim": "The Wan2.2-14B I2V comparison reports 71.18% overall win rate, 66.38% preference, and a 32.71 margin.", "locator": "arXiv:2602.07595v1, Table 1 (GSB human evaluation against Wan2.2-14B I2V)."}
+      ]
+    },
+    {
+      "paper_slug": "otca",
+      "title": "OTCA: Assigning Final Rewards to the Generation Steps That Matter",
+      "dek": "OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": false,
+      "retrospective_context": "",
+      "keywords": ["diffusion models", "process optimization", "credit assignment", "GRPO", "OTCA"],
+      "lede": [
+        "A diffusion generator reaches an image or video through a sequence of denoising decisions. Early steps establish coarse layout and global semantics; later steps refine texture, edges, identity, and small artifacts. Yet many reinforcement-learning objectives observe only the final output and send the same outcome-level verdict back through the trajectory. If the prompt is correct but the texture fails, or the composition fails before detail emerges, uniform credit gives no direct account of which decisions deserved reinforcement.",
+        "Objective-aware Trajectory Credit Assignment (OTCA) treats this as a process problem. Trajectory-Level Credit Decomposition (TCD) estimates how responsibility should vary across denoising steps, while Multi-Objective Credit Allocation (MOCA) recognizes that different rewards may become informative at different parts of the trajectory. The concise idea is not to manufacture intermediate ground truth. It is to stop assuming that a final scalar reward should be copied equally onto every step that produced the sample."
+      ],
+      "takeaway": "OTCA preserves outcome-based rewards while assigning them over the denoising process, so different timesteps and objectives can influence the decisions they are best positioned to evaluate.",
+      "sections": [
+        {
+          "heading": "Outcome optimization hides a temporal attribution problem",
+          "paragraphs": [
+            "In an outcome-only update, the generated sample is judged after the full denoising chain. This is convenient because reward models generally understand finished images or videos better than noisy intermediate states. Convenience, however, produces a long credit path. Every timestep participates in the final output, but not in the same way. Penalizing all steps equally for a local late artifact can disturb early semantic structure; rewarding all steps for a good final image can reinforce intermediate choices that happened to be rescued later.",
+            "The issue resembles delayed reward in sequential decision-making, but diffusion trajectories have a distinctive geometry. The state changes from noise-dominated to signal-dominated, and the meaning of an evaluator can change along that path. A text-alignment cue may matter when composition is established, while a fine-detail preference becomes reliable only later. OTCA asks when an objective is useful and how much each step contributed, making process optimization an explicit part of visual alignment rather than an implicit consequence of backpropagation."
+          ]
+        },
+        {
+          "heading": "TCD: decomposing trajectory-level responsibility",
+          "paragraphs": [
+            "Trajectory-Level Credit Decomposition (TCD) provides step-sensitive credit derived from the completed trajectory. Instead of assigning one identical advantage everywhere, it estimates a distribution of responsibility over denoising time. The goal is not to label an intermediate noisy state as beautiful or ugly. It is to infer which portions of the process were more consequential for the final objective, so the policy update can emphasize decisions that plausibly shaped the observed result.",
+            "This distinction separates TCD from adding a reward model at every timestep. Intermediate evaluators can be unreliable because their inputs are not natural images. TCD remains anchored to the final objective while changing attribution across the process. It also differs from merely reweighting timesteps according to a fixed schedule. A handcrafted early-versus-late curve assumes the same responsibility pattern for every objective and sample; trajectory-aware decomposition is designed to let the observed generation process inform the allocation."
+          ]
+        },
+        {
+          "heading": "MOCA: objectives do not mature at the same time",
+          "paragraphs": [
+            "Multi-Objective Credit Allocation (MOCA) addresses a second layer. Visual alignment rarely uses one reward: text alignment, aesthetics, perceptual quality, identity, and motion may all contribute. Summing them before credit assignment assumes that their timing and reliability are identical. MOCA allocates objective-specific influence over the trajectory, allowing global semantic signals and local fidelity signals to have different temporal profiles. This makes the update objective-aware as well as timestep-aware.",
+            "The separation is valuable when rewards conflict. A late detail update should not casually rewrite a sound global layout, and an early semantic correction should not be drowned by a reward that becomes meaningful only after texture appears. MOCA does not guarantee perfect disentanglement—objectives can overlap and reward models can disagree—but it exposes the allocation decision. In related work, OTCA therefore belongs under process-level and multi-objective credit assignment for diffusion post-training, not simply under reward-model ensembling."
+          ]
+        },
+        {
+          "heading": "Reading the image and video results",
+          "paragraphs": [
+            "The paper reports improvements across image and video generation. In the stated Flux image-level reward ablation, Table 4 lists CLIP-T 0.3071, HPS 0.3225, PickScore 22.97, and ImageReward 1.1998 for the full method. These metrics view different aspects of output quality, so their joint movement is more informative than treating one as a universal score. The video experiments test whether process credit remains useful when temporal coherence and motion add further dependencies across the output.",
+            "Those values must remain attached to the model, prompts, reward setup, and baselines in the official table. They do not show that OTCA dominates every metric or generator, and metric gains do not directly prove the inferred timestep credits are causally exact. Component ablations provide the more relevant mechanism test: compare outcome-only optimization, temporal decomposition, and objective-aware allocation. A strong interpretation combines final quality with sensitivity analysis, rather than reading one benchmark row as a universal law of denoising."
+          ]
+        },
+        {
+          "heading": "Where process credit can still fail",
+          "paragraphs": [
+            "OTCA is limited by the reward models whose outcomes it decomposes. If an aesthetic model rewards a shortcut, distributing its credit more precisely can make exploitation more efficient. Timestep attribution is also model- and schedule-dependent: few-step generators, long diffusion chains, and different parameterizations may concentrate decisions differently. An apparent early or late responsibility pattern should not be transplanted without testing. Multiple objectives add another risk because correlated rewards can create the illusion of independent evidence.",
+            "The natural next step is to validate attribution, not only generation quality. One can perturb selected timesteps, replace individual reward components, or compare inferred credits with controlled edits that introduce a known error at a known stage. Combining temporal credit with ViPO-style spatial structure would ask both when and where the decisive mistake occurred. OTCA’s broader insight is that final outcomes are produced by processes. Alignment methods become more precise when they assign learning signal to the process rather than treating every intermediate decision as equally responsible.",
+            "Reproduction should also keep the sampling schedule visible. A nominal timestep does not represent the same signal-to-noise level across schedulers or few-step distillations, so plotting credit only against step index can suggest false transferability. Report credit against both index and noise level, and test whether the learned allocation changes when the number of steps changes. If the mechanism is genuinely process-aware, it should adapt to the new trajectory rather than replay a curve tied to one discretization.",
+            "Multi-objective analysis needs a similar control. Remove or deliberately corrupt one reward component and observe whether MOCA reduces its influence or propagates the error. Compare that behavior with a fixed weighted sum under equal total reward scale. Such interventions clarify whether the method is discovering useful timing, smoothing optimization, or simply changing effective weights. They also expose a critical boundary: sophisticated credit allocation cannot compensate for an evaluator that is confidently wrong throughout the trajectory."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "OTCA separates trajectory-level decomposition from multi-objective allocation through TCD and MOCA.", "locator": "arXiv:2604.19234v2, method sections on Trajectory-Level Credit Decomposition and Multi-Objective Credit Allocation."},
+        {"claim": "The method is evaluated on both image and video generation rather than a single modality.", "locator": "arXiv:2604.19234v2, image and video experiment sections and main tables."},
+        {"claim": "The full-method image ablation reports CLIP-T 0.3071, HPS 0.3225, PickScore 22.97, and ImageReward 1.1998.", "locator": "arXiv:2604.19234v2, Table 4 (image-level reward metric ablation)."}
+      ]
+    },
+    {
+      "paper_slug": "taros",
+      "title": "TaRoS: Adapting Reward Signals as the Video Model Changes",
+      "dek": "TaRoS examines how fixed reward components can become optimization targets rather than useful feedback, then reshapes video GRPO signals by component, group sparsity, and saturation.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": false,
+      "retrospective_context": "",
+      "keywords": ["video generation", "GRPO", "reward saturation", "reward shaping", "TaRoS"],
+      "lede": [
+        "A reward begins as a measurement, but repeated optimization can turn it into a target. In video generation, that transition is dangerous because a composite score may combine text alignment, visual fidelity, and motion. The generator learns whichever component offers the easiest gradient, even if that component has saturated or no longer distinguishes useful behavior. A rising total reward can therefore coexist with static motion, brittle prompt following, or improvements concentrated in only one dimension.",
+        "TaRoS—a Target-Robust Reward Signaling framework for Video generation GRPO—reworks the signal used by video Group Relative Policy Optimization (GRPO). It examines reward components separately, detects when within-group comparisons are too sparse to teach much, and downweights components that have saturated. The answer is not a permanently “better” weighted sum. TaRoS makes reward influence depend on the current samples and training state, so measurements remain feedback instead of hardening into fixed targets."
+      ],
+      "takeaway": "TaRoS keeps video GRPO informative by adapting reward influence when components disagree, groups provide little separation, or a metric has already saturated.",
+      "sections": [
+        {
+          "heading": "The hidden lifecycle of a reward component",
+          "paragraphs": [
+            "At the start of post-training, a reward component may cleanly separate obviously good and bad clips. As the policy improves, scores can bunch near the top. The component still contributes to the total, but its remaining differences may be noise, evaluator quirks, or tiny variations unrelated to human preference. Continuing to optimize it with the same strength encourages overfitting to the assessor. A second component with lower average scores may contain more useful room for improvement, yet a fixed weighting scheme cannot recognize that shift.",
+            "Video makes this lifecycle visible because dimensions improve at different rates. Text alignment may converge before motion coherence; aesthetic quality may rise while subject consistency remains fragile. If all signals are normalized and summed once, their training roles are frozen even though their information content changes. TaRoS treats reward composition as a dynamic diagnostic problem: which component still separates candidates, which is sparse within the current group, and which is so saturated that more pressure is unlikely to produce meaningful progress?"
+          ]
+        },
+        {
+          "heading": "Component-level assessment before aggregation",
+          "paragraphs": [
+            "TaRoS first avoids collapsing reward components too early. Component-level assessment preserves evidence about what each evaluator sees. This matters when two clips receive similar totals for opposite reasons—one may follow the prompt but move poorly, while another moves well but drifts semantically. A scalar sum declares a tie; the component view reveals two different training opportunities. The method can then shape advantages according to the state of each signal rather than allowing a dominant component to define every comparison.",
+            "This does not mean each reward corresponds to a perfectly independent capability. Alignment and aesthetics can correlate, and a motion assessor may be sensitive to image quality. Component-level analysis is an accounting tool, not a causal decomposition of video quality. Its benefit is transparency: researchers can see which evaluator drives an update and whether that evaluator remains discriminative. In a survey, TaRoS is therefore more accurately positioned under dynamic multi-reward shaping for video GRPO than under the broad label of adding more reward models."
+          ]
+        },
+        {
+          "heading": "Intra-group sparsity and saturation are different failures",
+          "paragraphs": [
+            "Intra-group sparsity occurs when candidates for the same prompt provide too little useful variation for a reward component. If every clip receives nearly the same value, a relative advantage is unstable or uninformative. Saturation is related but temporal: a component may have approached the ceiling across training and no longer deserve its original weight. TaRoS handles both, because one is a property of the present sampled group and the other describes how the signal’s usefulness changes as the policy evolves.",
+            "Keeping these cases separate prevents crude fixes. Increasing group size may reveal more variation when sparsity is caused by sampling, but it will not repair an evaluator that has saturated globally. Rescaling a saturated component can make numerical differences larger without adding information. TaRoS instead reduces the authority of weak signals so more informative components can guide the update. The approach is a reminder that normalization creates comparable scales, not comparable reliability or comparable potential for further improvement."
+          ]
+        },
+        {
+          "heading": "What the reported evidence supports",
+          "paragraphs": [
+            "The current arXiv v4 evaluates TaRoS on multiple video generators, including Wan2.1-T2V-1.3B, Wan2.1-T2V-14B, and HunyuanVideo settings. The paper reports consistent improvements across visual fidelity, motion coherence, and text–video alignment against strong baselines. The important word is “across”: a dynamic reward method should be judged on whether it avoids trading all progress into one component, not only on whether the arithmetic mean of selected metrics increases.",
+            "The evidence should still be read row by row. Different backbones, prompt sets, reward components, and evaluator scales prevent one percentage from representing the entire method. “Consistent” should not be rewritten as “best on every metric.” Component ablations are central because they test the claimed mechanism: performance with component assessment, sparsity handling, and saturation downweighting should be compared with fixed aggregation. The revision version also matters; earlier summaries built around generic target calibration do not accurately describe the v4 formulation."
+          ]
+        },
+        {
+          "heading": "What dynamic shaping cannot observe",
+          "paragraphs": [
+            "TaRoS can respond only to reward components that exist. If none measure identity drift, physical implausibility, or a domain-specific failure, dynamic weighting cannot recover the missing signal. It can also downweight a saturated component that remains important: a high text-alignment score may still conceal rare catastrophic misses. Average saturation and tail reliability are not the same. Professionals should inspect prompt slices and failure rates before concluding that a component has finished its job.",
+            "Future work could distinguish benign saturation from reward hacking, estimate uncertainty alongside sparsity, and test whether dynamic weights transfer across domains. It could also connect reward dynamics to temporal credit assignment, asking not only which objective remains useful but at which denoising steps it should act. TaRoS contributes a disciplined question to video alignment: is this score still informative for the current policy? Treating that question as part of optimization helps keep rewards as instruments rather than letting them become the task itself.",
+            "A useful monitoring panel would plot, for every reward component, its mean, within-group variance, effective optimization weight, and human-agreement rate over training. Mean alone confuses progress with saturation; variance alone confuses diversity with useful ordering. The joint view reveals whether a component is still separating meaningful behaviors or only producing numerical motion. Publishing those trajectories would also make cross-paper comparisons more honest, because two methods with the same final reward can have reached it through very different allocation dynamics.",
+            "Sampling policy is another part of the signal. If prompts become easier or groups become less diverse, sparsity can rise even though the reward model has not changed. A controlled study should hold the reward fixed while varying group size, prompt difficulty, and sampling temperature. This separates an evaluator that lacks resolution from a sampler that supplies no informative contrast, and it prevents dynamic downweighting from masking a data-generation problem."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "TaRoS uses component-level assessment, intra-group sparsity handling, and saturation-aware downweighting.", "locator": "arXiv:2511.19356v4, method sections on the three reward-shaping components."},
+        {"claim": "The v4 experiments include Wan2.1-T2V-1.3B, Wan2.1-T2V-14B, and HunyuanVideo settings.", "locator": "arXiv:2511.19356v4, video-generation experiment section and configuration tables."},
+        {"claim": "Reported evidence covers visual fidelity, motion coherence, and text–video alignment rather than one aggregate metric.", "locator": "arXiv:2511.19356v4, main comparison tables and ablation section."}
+      ]
+    },
+    {
+      "paper_slug": "uni-inter",
+      "title": "Uni-Inter: A Unified Model for Motion Interaction",
+      "dek": "Uni-Inter maps three previously separate 3D interaction settings into a shared volumetric language, then predicts probabilistic human motion while preserving each task’s entities and constraints.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": false,
+      "retrospective_context": "",
+      "keywords": ["3D human motion", "interaction synthesis", "voxel representation", "multi-task learning", "Uni-Inter"],
+      "lede": [
+        "Picking up a box, shaking another person’s hand, and sitting on a chair all require a body to coordinate with something in three-dimensional space. Yet motion synthesis has usually treated human–object, human–human, and human–scene interaction as separate tasks, each with its own input representation, network interface, and evaluation protocol. That fragmentation makes it difficult for a model to reuse basic knowledge about approach, contact, occupancy, and avoidance across interaction types.",
+        "Uni-Inter proposes a common spatial interface. Its Unified Interactive Volume (UIV) represents people, movable objects, and static scenes in a shared voxel grid with semantic channels, while a probabilistic predictor models possible joint locations and motions. The model does not erase the differences among the three tasks. It gives their entities a shared geometric language, allowing one synthesis framework to learn across contexts while keeping task-specific inputs, supervision, and evaluations intact."
+      ],
+      "takeaway": "Uni-Inter unifies interaction through representation: heterogeneous entities share a semantic occupancy volume, enabling one motion model to reuse spatial knowledge across three task families.",
+      "sections": [
+        {
+          "heading": "The common denominator is occupied space",
+          "paragraphs": [
+            "The labels “person,” “object,” and “scene” invite different pipelines, but the body must solve related geometric questions in every case. Where is free space? Which region should a hand approach? Which joints must coordinate with another body? Where would a step or limb collide? A shared representation can expose these commonalities only if all entities enter the same coordinate system. Simply alternating batches from three datasets leaves their incompatible interfaces untouched and provides little reason for learned features to align.",
+            "UIV divides a bounded 3D region into voxels and encodes occupancy together with semantic identity. A chair, another body, and a carried object become spatial fields that the motion model can read through the same operations. Semantic channels prevent unification from collapsing all occupied cells into one category. This is an interface choice rather than a claim that people and objects are equivalent. The benefit is that approaching, contacting, and avoiding can be learned over a shared spatial carrier while entity type remains visible."
+          ]
+        },
+        {
+          "heading": "Why probabilistic joint prediction matters",
+          "paragraphs": [
+            "Interaction conditions rarely determine a single valid pose. A person may approach a chair from different sides; two people can begin a handshake at different distances; a box can be grasped with several body configurations. Directly regressing one coordinate for each joint encourages an average of plausible modes, which may itself be implausible. Uni-Inter predicts joint-wise probability distributions in the interaction volume, retaining multiple spatial possibilities before a coherent motion is recovered.",
+            "Probability does not solve diversity automatically. The learned distributions, sampling process, and temporal constraints must still produce a physically and stylistically coherent sequence. Joint-wise uncertainty can also miss correlations if hands, feet, and torso are treated too independently. The paper’s contribution is a unified probabilistic interface, not a guarantee that every valid interaction mode is represented. Researchers should distinguish coverage of multiple possibilities from simple metric variance and inspect contact, collision, and trajectory behavior alongside distributional scores."
+          ]
+        },
+        {
+          "heading": "One framework does not mean one undifferentiated dataset",
+          "paragraphs": [
+            "The three source tasks differ in skeletons, sequence lengths, entity annotations, and available constraints. A unified model still needs to know which entities are present and which outputs should be supervised. Training balance matters because a large dataset can dominate shared features and create negative transfer. Uni-Inter’s architecture enables shared learning, but the scientific claim requires comparisons against task-specific alternatives and against a naive multi-dataset baseline that does not use the same unified volume.",
+            "This distinction is important for related work. Uni-Inter is not merely a larger model trained on more motion data, nor is it a world model covering language, perception, planning, and physical execution. Its demonstrated scope is 3D human motion synthesis in three representative interaction contexts. The unification claim concerns the conditioning representation and generation framework. New tasks qualify only if their entities and constraints can be expressed usefully in UIV and if adding them does not erase performance on existing contexts."
+          ]
+        },
+        {
+          "heading": "How to read three sets of FID results",
+          "paragraphs": [
+            "The paper evaluates human–object interaction on FullBodyManipulation, human–scene interaction on TRUMANS, and human–human interaction on NTU120-AS. Within those protocols, it reports FID 0.51 versus 0.69 for CHOIS on FullBodyManipulation, 2.650 versus 13.290 for the original method on TRUMANS, and 2.216 versus 3.045 for ReGenNet on NTU120-AS. Additional measures examine contact, hand control, and trajectory errors where the task provides them.",
+            "These FID values are not on one universal scale. Each dataset uses its own samples, feature representation, sequence distribution, and baselines. A lower number on one task does not say that the task is easier than another, and the numerical gap cannot be compared across rows as an effect size. The supported conclusion is within-task: under each stated evaluation protocol, the shared framework is competitive or better than the listed specialized approaches. Professionals should also examine contact and collision evidence, because distributional similarity alone does not establish usable interaction."
+          ]
+        },
+        {
+          "heading": "Limits of the shared volumetric representation",
+          "paragraphs": [
+            "Voxel resolution creates a direct trade-off. Coarse grids are efficient but blur thin objects, precise hand contact, and narrow free space. Fine grids increase memory and computation, especially over long sequences or large scenes. A bounded volume can also be awkward for interactions involving substantial travel. Semantic occupancy describes geometry but does not supply friction, force, balance, or a physics engine. Motions can look spatially plausible while remaining difficult to execute in the real world.",
+            "Useful next tests would control total parameter count while comparing joint and separate training, measure transfer from one interaction type to another under limited data, and evaluate unseen entity combinations without changing the representation. Robustness to noisy geometry and missing entities also matters outside curated datasets. Uni-Inter’s broader insight is that heterogeneous interaction tasks may share a carefully chosen intermediate language. The value of that language is measured not by how many datasets fit into it, but by whether it enables genuine transfer without sacrificing the constraints that make each interaction meaningful.",
+            "A particularly clean transfer experiment would remove most labels from one task while retaining full data for the other two. Compare a unified model, three isolated models, and a parameter-matched model trained on pooled data without UIV. Improvements in the low-data task would then provide evidence that spatial knowledge crossed task boundaries, rather than that the joint model merely saw more total sequences. Contact and collision errors should be reported with FID so transfer is not purchased by losing the interaction constraint that matters operationally.",
+            "Representation cost should be part of that comparison. Report voxel resolution, active volume, memory, throughput, and how thin geometry is rasterized. A unified interface that doubles compute may still be worthwhile, but the trade should be visible. Testing the same scene at several resolutions can reveal whether gains come from shared interaction knowledge or simply from giving the unified model a denser spatial input than task-specific baselines."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "UIV represents humans, objects, and scenes in a shared semantic occupancy volume.", "locator": "SIGGRAPH Asia 2025 paper, p. 4, Figure 3 and Unified Interactive Volume section."},
+        {"claim": "Evaluation covers human–object, human–scene, and human–human motion synthesis under separate protocols.", "locator": "SIGGRAPH Asia 2025 paper, experiment sections for FullBodyManipulation, TRUMANS, and NTU120-AS."},
+        {"claim": "The reported within-task FID values include 0.51, 2.650, and 2.216 for the three stated settings.", "locator": "SIGGRAPH Asia 2025 paper, main result tables for the three interaction tasks."}
+      ]
+    },
+    {
+      "paper_slug": "anteval",
+      "title": "AntEval: Measuring Social Interaction in AI Agents",
+      "dek": "AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "Models and agent stacks have changed quickly, but the distinction between task completion, fluent dialogue, and effective communication remains useful.",
+      "keywords": ["LLM agents", "multi-agent evaluation", "information exchange", "social interaction", "AntEval"],
+      "lede": [
+        "Two agents can talk for twenty turns, complete a game objective, and still communicate badly. One may repeat facts the other already knows, dump private information unnaturally, or reveal a hidden goal as if reading a system prompt. A success flag hides all of those paths. Fluency hides them too: grammatical, polite dialogue can be empty, while an efficient exchange may be short. Evaluating the final answer alone therefore confuses task competence with the process of social interaction.",
+        "AntEval, introduced in 2024, separates two process questions in tabletop role-playing game scenarios. Information Exchange Precision (IEP) tests whether knowledge actually moves between characters. Intention Expression Gap (IEG) compares how inferable an agent’s underlying intention is with a human interaction reference. Seen in hindsight, the benchmark’s value is not that role-playing games reproduce all social life. It is that they make private knowledge, goals, and actions explicit enough to audit communication rather than merely count successful outcomes."
+      ],
+      "takeaway": "AntEval evaluates communication as a process, separating whether agents exchange information from whether they express intentions in a way that resembles human interaction.",
+      "sections": [
+        {
+          "heading": "Why a tabletop game is a useful laboratory",
+          "paragraphs": [
+            "A tabletop role-playing game (TRPG) gives each character a role, private information, and reasons to act without revealing everything directly. Those ingredients create controlled asymmetry: an evaluator can know what one participant should learn from another and what intention sits behind an action. In ordinary open-domain chat, the ground truth for “good social interaction” is much harder to specify. The game is therefore an instrument for measurement, not the paper’s claim about where agents will ultimately be deployed.",
+            "The setup also exposes shortcuts. An agent can maximize task success by stating private objectives mechanically or by relying on information that should not be shared. Human players often imply, negotiate, and respond to context instead. By preserving role constraints, AntEval tests whether an interaction carries useful information while maintaining an intelligible social process. The benchmark remains bounded by scripted scenarios and language-based play, but it gives evaluators a way to inspect intermediate behavior that a terminal score cannot reveal."
+          ]
+        },
+        {
+          "heading": "IEP asks whether knowledge changed",
+          "paragraphs": [
+            "Information Exchange Precision is built around checkable knowledge points. The evaluation considers what participants know before an interaction and what the other party can recover afterward. It is not a word-overlap metric. Mentioning a term does not prove that the listener received the intended fact, and long dialogue receives no automatic bonus. A concise exchange that transmits the relevant information can outperform a verbose conversation that circles around it without changing either participant’s understanding.",
+            "Open-text judgments require an evaluator, so the paper uses large language models with explicit criteria and repeated sampling to assess whether information was conveyed. This makes IEP scalable but introduces a second model into the measurement loop. Prompt wording, judge version, aggregation, and human agreement become part of the experimental protocol. From today’s perspective, that dependency looks even more important: stronger judges may improve semantic matching, while shared style preferences between judge and agent can still reward polished but shallow interaction."
+          ]
+        },
+        {
+          "heading": "IEG measures a gap, not maximal explicitness",
+          "paragraphs": [
+            "Intention Expression Gap uses a virtual Dungeon Master to infer action intentions from the interaction, then compares agent-generated dialogue with human references. The use of a gap is deliberate. If intention cannot be inferred at all, the character’s behavior may be vague. If the character announces a hidden skill check or internal label verbatim, prediction becomes easy but the exchange ceases to resemble natural role play. Good expression lies between opacity and mechanical disclosure.",
+            "IEG is therefore not a score where making every intention more explicit is automatically better. It evaluates relative distance from the human reference process under the benchmark’s action structure. That makes it complementary to IEP. A dialogue can transmit facts effectively while expressing motives awkwardly, or maintain natural role behavior while failing to deliver crucial information. Separating the axes prevents one attractive total score from hiding two different product or research problems."
+          ]
+        },
+        {
+          "heading": "What the experiments reveal about agent communication",
+          "paragraphs": [
+            "The paper evaluates several LLM-driven agent settings and reports that stronger models generally exchange information more effectively, while a gap from human interaction remains. In an analysis of GPT-4 samples with IEP below 50%, human descriptions frequently included “boring,” “mechanical,” “rigid,” and “insincere.” These are pragmatic failures rather than basic syntax failures. The agents can produce correct sentences while failing to respond, adapt, and reveal information in a socially convincing way.",
+            "That evidence should not be generalized into a complete ranking of social intelligence. The sample analysis concerns defined TRPG interactions, chosen models, prompts, judges, and knowledge points. Low IEP can arise from withholding, misunderstanding, distraction, or evaluation error; the metric alone does not diagnose every cause. Figure-level examples and the word analysis make the failure legible, while the quantitative tables establish broader patterns. Both are needed before concluding that one agent architecture communicates better than another."
+          ]
+        },
+        {
+          "heading": "What still holds—and what needs stronger evidence",
+          "paragraphs": [
+            "The 2024 paper predates many current memory systems, tool-using agents, and longer-context orchestration patterns. Those systems can change the meaning of information exchange. If agents share a memory store or can inspect one another’s state, IEP no longer measures communication in the same way. Models and LLM judges have also changed. A modern replication should report the exact agent scaffold, available tools, turn budget, judge prompts, sampling, and whether knowledge could travel through channels outside dialogue.",
+            "The conceptual separation still holds. Task success, conversational fluency, information transfer, and intention expression are distinct. AntEval belongs in work on process-level evaluation of multi-agent social interaction, not as a universal chat benchmark or a safety certification. Future extensions could weight knowledge by importance and privacy, measure how many turns it takes to become actionable, and test whether agents correct misunderstandings. Hindsight makes the paper easier to place: its durable contribution is a vocabulary for asking what happened inside a successful interaction.",
+            "There is also a precision–privacy tension that the original axes make visible. Maximizing information exchange without regard to authorization can reward oversharing, while minimizing disclosure can look like communication failure. A modern benchmark should label which facts are relevant, permitted, sensitive, or intentionally withheld, then score whether the right recipient learns the right fact at the right time. This would extend IEP without turning all information flow into a virtue and would better match tool-using agents operating with user data.",
+            "Longer interactions need temporal accounting as well. Mark when a fact is first offered, when it is acknowledged, when it is used in a decision, and whether later dialogue corrupts it. An agent may briefly acquire the correct information yet act on an outdated version ten turns later. This sequence separates delivery, comprehension, retention, and use—four stages that a single post-conversation judgment can merge. It also exposes whether extra turns repair misunderstandings or merely add fluent noise."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "AntEval defines separate information-exchange and intention-expression scenarios with IEP and IEG.", "locator": "arXiv:2401.06509v3, p. 4, Figure 2 and evaluation framework section."},
+        {"claim": "IEP evaluates knowledge transfer, while IEG compares inferred intentions with human interaction references.", "locator": "arXiv:2401.06509v3, p. 5, Figure 3 and metric definitions."},
+        {"claim": "Low-IEP GPT-4 samples were often described as boring, mechanical, rigid, or insincere.", "locator": "arXiv:2401.06509v3, p. 8, Figure 4 and accompanying qualitative analysis."}
+      ]
+    },
+    {
+      "paper_slug": "maal",
+      "title": "MAAL: Learning How Articulated Objects Can Be Used",
+      "dek": "MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "The distinction between geometric visibility and action-conditioned affordance remains useful, while simulation-to-real evidence and broader hardware validation still define the boundary.",
+      "keywords": ["3D affordance", "articulated objects", "robot manipulation", "multimodal learning", "MAAL"],
+      "lede": [
+        "A robot may detect a drawer and segment its handle perfectly, yet still not know where to contact it, which direction to move, or whether the current joint state permits the action. Affordance is not object recognition with a heat map added afterward. It relates geometry, visual appearance, physical state, contact point, and a candidate action. Learning that relation is expensive when a system must explore many failures for every articulated object it encounters.",
+        "MAAL—Multimodality-Aware Autoencoder-Based Affordance Learning—approaches the problem through reconstruction of successful interaction. A MultiModal Energized Encoder (MME) fuses object and robot modalities, an action memory represents successful patterns, and a decoder reconstructs candidate actions. Reconstruction errors are calibrated with neighbors from a validation distribution to estimate actionability and success likelihood. In hindsight, the important move is to model “does this action resemble known success here?” rather than treating visible parts as intrinsically operable."
+      ],
+      "takeaway": "MAAL learns articulated-object affordance as compatibility with a multimodal distribution of successful actions, reducing reliance on multi-stage exploration while keeping success claims tied to its evaluation setting.",
+      "sections": [
+        {
+          "heading": "Affordance lives between an object and an action",
+          "paragraphs": [
+            "The same point on an object can have different meanings under pushing and pulling, from different approach directions, or at different joint states. Point clouds provide surface shape; images provide appearance and semantic cues; robot variables describe pose, direction, and motion. No single modality fully specifies the interaction. Naively concatenating them can let a high-dimensional stream dominate, while separately trained modules may miss the contact-dependent relationships that determine whether a manipulation is possible.",
+            "MME uses modality-specific and interaction branches to learn these signals at multiple levels before producing a shared representation. Its name matters: the paper’s component is MultiModal Energized Encoder, while the overall pipeline is Multimodality-Aware Autoencoder-Based Affordance Learning. The encoder is not merely a feature stack. It is designed to preserve evidence from object and action modalities while modeling their interaction, so the later reconstruction asks about a conditioned manipulation rather than a generic object category."
+          ]
+        },
+        {
+          "heading": "Why remember successful actions",
+          "paragraphs": [
+            "Action memory stores latent patterns drawn from successful interactions. Given an object state and candidate action, the system queries that memory and reconstructs the action through the decoder. Low error indicates compatibility with patterns the model has learned; high error suggests the proposal falls outside that successful distribution. This provides a training path that uses relatively few positive samples and avoids repeatedly training separate critics or decoders in a multi-stage actor–critic loop.",
+            "The efficiency comes with a coverage assumption. An action can be physically valid yet reconstruct poorly because the memory never saw that strategy. Multiple valid grasps and trajectories can also be averaged if the latent representation does not preserve modes. Success-only learning avoids the need to label large numbers of failures, but failures contain boundary information that positive memory may miss. MAAL’s score is therefore best interpreted as learned familiarity with successful interaction, not a proof that every unfamiliar action is impossible."
+          ]
+        },
+        {
+          "heading": "From reconstruction error to an affordance heat map",
+          "paragraphs": [
+            "Raw reconstruction error has no universal threshold. Its scale changes with model capacity, object type, and data split. MAAL uses a k-nearest-neighbors procedure over validation errors to convert that scale into actionability and success-likelihood estimates. Candidate contact points can then be visualized as a heat map: brighter regions are more consistent with successful patterns under the paper’s action and object conditions. The calibration makes scores easier to compare within the protocol than an arbitrary fixed cutoff.",
+            "“Success likelihood” should not be read as a hardware-independent probability. The neighborhood comes from a particular simulation, sensor representation, robot action space, and validation distribution. Change the gripper, friction, camera noise, controller, or object family and the mapping can shift. A heat map is also not an execution result. For real deployment, the calibrated score should be evaluated beside actual manipulation success, failure type, and uncertainty under distribution shift."
+          ]
+        },
+        {
+          "heading": "What the PartNet-Mobility evidence shows",
+          "paragraphs": [
+            "The paper evaluates pushing and pulling on PartNet-Mobility and reports both predictive performance and efficiency. In the stated comparison with AdaAfford, MAAL uses about 17.69% as much data for pushing and 9.63% for pulling. For 100 training epochs, the reported average time ratios for AdaAfford relative to MAAL are about 23.34 and 12.72 on the two tasks. Visualizations show high-scoring regions on articulated parts under the learned interaction conditions.",
+            "Those ratios demonstrate efficiency within the implementations and protocol, not a universal speed law for all reinforcement-learning approaches. Data collection cost, simulation steps, hardware, and candidate sampling affect fairness. The paper’s tables, ablations, and heat maps together support the claim that multimodal encoding plus action memory can learn affordances from fewer successful interactions. They do not establish equivalent performance on real robots, unseen physical properties, or object categories that are structurally outside the training distribution."
+          ]
+        },
+        {
+          "heading": "What remains useful—and what real-world evidence is missing",
+          "paragraphs": [
+            "MAAL fits into multimodal, low-sample affordance learning for articulated 3D objects. It differs from pure geometric part prediction because action variables enter the model; from multi-stage actor–critic exploration because it reconstructs successful patterns in one training pipeline; and from a generic action generator because its output is used to assess actionable locations. This positioning is more informative than saying only that the method uses an autoencoder, a component shared by many unrelated systems.",
+            "A modern extension should separate unseen instances from unseen categories, test missing or corrupted modalities, and report simulation-to-real manipulation. It should also ask whether memory can represent genuinely novel but valid strategies and whether calibration remains meaningful off distribution. The durable lesson is that affordance is relational. A handle’s appearance may suggest an action, but operability depends on the object state, robot, and motion together. MAAL made that dependency explicit in both its representation and its scoring rule.",
+            "The most informative real-robot study would calibrate reconstruction scores on one hardware setup, then vary one factor at a time: gripper geometry, friction, camera viewpoint, depth noise, or controller. Plot predicted likelihood against empirical success and report calibration error, not only ranking accuracy. This would show which changes merely reorder candidate points and which invalidate the score scale. It would also distinguish perception failures from execution failures, a distinction that simulated affordance heat maps cannot settle on their own.",
+            "Memory coverage can be audited by clustering successful actions and measuring whether low-score test actions fall into genuinely new modes. If a physically valid strategy is rejected because it is novel, additional exploration or a generative memory may be needed; if failures receive high scores near familiar modes, the representation lacks a relevant physical variable. These analyses turn reconstruction error into a diagnostic of what the model knows, rather than treating it as an opaque surrogate for success. They also identify where another successful demonstration would add genuinely new information instead of merely duplicating the memory already stored."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "MAAL consists of MME, action memory, and an action decoder trained in one pipeline.", "locator": "ICCV 2023 paper, p. 5, Figure 3 and method overview."},
+        {"claim": "MME uses modality-specific and interaction branches to model object and robot information.", "locator": "ICCV 2023 paper, p. 4, Figure 2 and MultiModal Energized Encoder section."},
+        {"claim": "The paper reports data and training-efficiency ratios for pushing and pulling against AdaAfford.", "locator": "ICCV 2023 paper, p. 7, Figure 4 and efficiency analysis."}
+      ]
+    },
+    {
+      "paper_slug": "icocap",
+      "title": "IcoCap: Using Images to Enrich Video Semantics",
+      "dek": "IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "Foundation models and video-language pretraining have expanded substantially, but the coupling between visual augmentation and supervision remains directly relevant.",
+      "keywords": ["video captioning", "image-video training", "data augmentation", "caption supervision", "IcoCap"],
+      "lede": [
+        "Video-caption datasets are expensive, while image-caption datasets are abundant. It is tempting to mix them and assume that more visual-language pairs will improve a video captioner. But a still image contains no full motion, and a video often contains redundant or unmentioned content. Worse, once an image is inserted into a video representation, the original video caption may no longer describe the altered input. Data augmentation then becomes label corruption.",
+        "IcoCap couples two mechanisms to avoid that trap. The Image-Video Compounding Strategy (ICS) changes frozen visual features by combining image and video content. Visual-Semantic Guided Captioning (VGC) then chooses a description that better matches the compounded visual semantics from available candidates. Looking back, the paper’s key lesson is not simply that images help videos. It is that visual augmentation and textual supervision must change together, or the additional data becomes a source of contradictory training signals."
+      ],
+      "takeaway": "IcoCap treats image–video augmentation and caption selection as one loop: when visual content changes, the target text must be reconsidered rather than copied automatically.",
+      "sections": [
+        {
+          "heading": "What images contribute—and what they cannot",
+          "paragraphs": [
+            "A well-captioned image often concentrates objects, attributes, and relations in one visual unit. A video caption compresses many frames into a sentence and may omit background details or intermediate actions. Images can therefore add dense semantic combinations that are underrepresented in video-caption data. They cannot substitute for temporal evolution. An image of a person beside a ball does not specify whether the person throws, catches, or merely observes it, so a method that treats static images as ordinary videos risks learning appearance without motion.",
+            "IcoCap respects this boundary by working with visual features extracted by a frozen CLIP model. Images act as controlled semantic compounds in a video feature sequence, not as claims about a true underlying motion. The captioner is pushed to handle richer and more ambiguous content while the base visual representation remains fixed. This positions the method as a learning strategy for video captioners, rather than a new motion encoder, optical-flow model, or claim that temporal information is unnecessary."
+          ]
+        },
+        {
+          "heading": "ICS changes the input distribution on purpose",
+          "paragraphs": [
+            "ICS includes operations such as feature concatenation, inter-feature mixup, and frame swap. Each changes the feature sequence differently: adding content, interpolating representations, or replacing selected positions with an image or another video feature. The transformations expose the captioner to combinations beyond the original training pair. Their strength matters. A small compound can enrich context, while an aggressive mix or swap may produce a representation with no coherent semantic interpretation.",
+            "This resembles mixup only at the level of a particular operation. In classification, interpolating inputs and labels can be defined numerically. A natural-language caption is not a vector target that can be mixed into a valid sentence. A compounded video may overlap with several candidate descriptions or none. ICS therefore creates the need for the second half of the method. Describing IcoCap as “positive noise” is an intuition, not the formal method name; the research contribution is the Image-Video Compounding Strategy together with supervision selected for the result."
+          ]
+        },
+        {
+          "heading": "VGC keeps the label aligned with the changed content",
+          "paragraphs": [
+            "Visual-Semantic Guided Captioning compares the compounded visual representation with candidate text representations and selects a description that is more consistent with the current input. Candidates can come from the original video, an auxiliary video, or the added image. VGC does not generate a new sentence or guarantee that every visual detail is described. It chooses among available ground truths, replacing the brittle rule that the original video caption must remain correct after augmentation.",
+            "The pairing creates a closed training loop. ICS without VGC can strengthen label noise because the input changes while the target stays fixed. VGC without new compounded samples has less reason to select an alternative target. Together, they let the captioner encounter richer visual combinations while retaining a plausible semantic objective. The approach depends on CLIP’s cross-modal similarity: if the frozen representation misses specialist objects, subtle actions, or domain language, the caption choice can be consistently wrong rather than randomly noisy."
+          ]
+        },
+        {
+          "heading": "Why more images or more frames did not always help",
+          "paragraphs": [
+            "The paper evaluates IcoCap on MSVD, MSR-VTT, and VATEX and reports competitive or superior captioning results in the stated settings. Its ablations make the boundary clearer. Increasing external image data improves CIDEr up to a point and then yields diminishing benefit; the paper uses 10,000 images by default after observing saturation. In the reported frame-count comparison, 32 frames perform better than 64. Mixup ratios and frame-swap proportions also have non-monotonic optima.",
+            "These patterns are evidence against the slogan “more multimodal data is always better.” Additional images can drift from the target video domain, and more frames can add redundancy or unmatched semantics that a short caption cannot cover. Exact metrics depend on the captioner, frozen features, sampling, dataset, and candidate descriptions. The experiments support controlled compounding plus guided supervision under those protocols. They do not show that static images universally improve long-form video understanding or that temporal modeling can be discarded."
+          ]
+        },
+        {
+          "heading": "Where image–video compounding remains useful",
+          "paragraphs": [
+            "IcoCap belongs in related work on image–video joint training, multimodal augmentation, and supervision selection for video captioning. It differs from simply appending image-caption data because it explicitly alters video features; from ordinary video augmentation because it reconsiders the text label; and from pseudo-caption generation because VGC selects an existing candidate. That three-way distinction remains useful even as larger video-language models absorb more heterogeneous data.",
+            "A current extension would report image–video domain overlap, the source distribution of selected captions, and human judgments of semantic faithfulness in addition to CIDEr. It could generate or edit captions when no candidate fits, while auditing hallucination. Motion-specific tests would show whether semantic enrichment helps or distracts from verbs and temporal order. The lasting idea is simple but easy to neglect: an augmentation is only valid relative to its supervision. Change the visual evidence, and the target sentence must be part of the design.",
+            "One revealing audit is to stratify samples by which source supplied the VGC target: original video, auxiliary video, or image. For each group, measure caption faithfulness, motion verbs, and the degree of visual alteration. If most gains come from selecting the unchanged caption, compounding may be too weak; if image captions dominate, temporal semantics may be diluted. Publishing this routing distribution would make the supervision mechanism inspectable and help explain why an image scale or swap ratio stops helping.",
+            "A counterfactual supervision test would keep the compounded feature fixed and train with the original caption, the VGC-selected caption, and a randomly chosen candidate. Differences among those runs isolate label selection from visual augmentation. Human reviewers can then judge whether the selected sentence describes the resulting semantics, rather than only whether an automatic metric rewards it. This is especially important when CLIP similarity prefers nouns and scene categories but underweights direction, count, or temporal order."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "IcoCap combines Image-Video Compounding Strategy with Visual-Semantic Guided Captioning.", "locator": "IEEE TMM article, pp. 4390–4393, Figure 2 and ICS/VGC method sections."},
+        {"claim": "The evaluation covers MSVD, MSR-VTT, and VATEX with component and hyperparameter ablations.", "locator": "IEEE TMM article, experiment section and Tables I–VIII."},
+        {"claim": "Image-scale gains saturate and the stated frame-count ablation favors 32 over 64 frames.", "locator": "IEEE TMM article, p. 4395, data-scale and frame-number ablations."}
+      ]
+    },
+    {
+      "paper_slug": "elp",
+      "title": "ELP: High Confidence Does Not Imply High-Quality Features",
+      "dek": "Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "Representation diagnostics have broadened, but a persistent classifier’s confidence can still hide weak or memorized features across modern training pipelines.",
+      "keywords": ["representation learning", "linear probing", "visual recognition", "training diagnostics", "ELP"],
+      "lede": [
+        "A classifier can become highly accurate on its training data even when the underlying features remain hard to reuse. The final linear head has watched every update, adapted to quirks, and may memorize examples through the backbone. Its confidence therefore mixes two things: how clearly the representation separates classes and how well one persistent decision boundary has fitted the data. Waiting until training ends to run a linear probe reveals the problem only after the expensive learning process is over.",
+        "Episodic Linear Probe (ELP) moves that diagnostic into training. A separate linear classifier reads detached features, is periodically reset, and must relearn the current class boundary from scratch. ELP-Suitable Regularization (ELP-SR) then uses disagreement between the main classifier and this short-lived probe to reweight the primary learning objective. The core idea is to measure how quickly a simple new reader can recover structure, not merely how confident the long-serving classifier has become."
+      ],
+      "takeaway": "ELP distinguishes a classifier that has learned the training set from a representation that a freshly initialized linear model can read quickly, then uses that gap as a regularization signal.",
+      "sections": [
+        {
+          "heading": "From a final report card to an in-training instrument",
+          "paragraphs": [
+            "Traditional linear probing freezes a trained backbone, learns a linear classifier on its features, and reports accuracy as a measure of linear separability. The protocol is widely useful because a low-capacity reader limits how much new structure can be invented during evaluation. Its usual timing is the weakness ELP addresses. If the probe is trained only after representation learning, it can compare final models but cannot influence the trajectory that produced them.",
+            "ELP runs alongside the main model. Its input features are detached, so the probe’s classification loss does not directly update the backbone. After a fixed episode it is reinitialized, creating a repeated stress test. A representation with clear class structure should allow the new probe to recover quickly. A main head that is confident while the reset probe struggles suggests that long-term adaptation, not immediately readable features, explains part of the success. The periodic accuracy drops are deliberate measurement events, not optimization failures."
+          ]
+        },
+        {
+          "heading": "How ELP-SR turns diagnosis into learning pressure",
+          "paragraphs": [
+            "A diagnostic branch alone would only produce curves. ELP-SR compares predictions from the main classifier and ELP, together with their confidence in the target class, to modulate the original classification loss. When both heads read a sample easily, it may already be well represented. When the persistent head is confident but the fresh probe is uncertain, the discrepancy suggests that the backbone should form features that a simple boundary can recover more readily. The probe is an observer used for weighting, not a teacher supplying new labels.",
+            "This distinguishes ELP-SR from knowledge distillation, where a fixed or slowly changing teacher provides target distributions. It also differs from conventional hard-example mining, which often uses loss or confidence alone. Here the informative variable is the gap between a long-memory classifier and an episodically reset reader. The method does not add a new inference ensemble; the probe exists during training and can be discarded afterward. Its related-work position is training-time representation measurement and regularization."
+          ]
+        },
+        {
+          "heading": "Why recovery speed is more informative than one probe score",
+          "paragraphs": [
+            "Immediately after a reset, ELP accuracy falls because its weights are random. It then recovers as the probe learns from current features. The trajectory contains more information than a single endpoint: fast recovery indicates readily accessible linear structure, while slow recovery suggests the reader must work harder to reconstruct the boundary. Comparisons require the same reset interval, optimizer, initialization, and training budget; otherwise apparent representation differences can be artifacts of the probe protocol.",
+            "Recovery on training samples can still reflect memorization. A stronger diagnostic compares validation recovery, per-class behavior, and transfer alongside the training curve. Class imbalance creates another complication because overall probe accuracy can be dominated by head classes. Macro averages or class-wise recovery help show whether ELP-SR improves broad readability or only common categories. The probe’s capacity must remain controlled as well: replacing it with a deep nonlinear network changes the question from linear accessibility to the fitting power of a second model."
+          ]
+        },
+        {
+          "heading": "What the experiments establish",
+          "paragraphs": [
+            "The paper evaluates fine-grained, long-tailed, and generic visual recognition. With ResNet50 in the reported fine-grained settings, ELP-SR reaches 88.8 on CUB-200-2011, 94.2 on Stanford Cars, and 92.7 on FGVC-Aircraft. It does not require part boxes or additional inference branches. The breadth of tasks matters because it tests whether the regularization is tied only to one small benchmark, while the method and recovery-curve figures connect the gains to the episodic probe mechanism.",
+            "Those numbers are protocol-specific accuracies, not universal properties of the datasets. They support better recognition under the stated backbones and training recipes. They do not prove that every downstream capability—distribution-shift robustness, calibration, fairness, or nonlinear transfer—improves with linear separability. A good professional reading keeps “feature quality” operational: ELP measures suitability for a linear classifier under a defined schedule. That is useful evidence, but it is one view of representation quality rather than a complete definition."
+          ]
+        },
+        {
+          "heading": "What the result still tells us about representation quality",
+          "paragraphs": [
+            "The paper’s distinction has become more relevant as models acquire increasingly capable heads, adapters, and prompt-conditioned decoders. Strong task performance can reside in those interfaces while the reusable representation changes less than expected. An episodic reader remains a simple way to ask whether current features make a task easy for a newly initialized low-capacity model. The exact ELP schedule may not transfer unchanged to foundation models, but the measurement principle does.",
+            "Future work can extend the idea beyond class labels: reset lightweight readers for attributes, domains, calibration, or temporal concepts and compare their recovery without allowing them to dominate training. It should also study when optimizing for probe suitability narrows useful nonlinear information. ELP’s enduring contribution is a clean separation between “this classifier can answer” and “this representation makes the answer easy to relearn.” That is a more precise claim than equating output confidence with the quality of everything below it.",
+            "A robust evaluation should also compare multiple probe budgets. If one representation wins after ten updates but loses after a full epoch, “readability” depends on the time horizon. Area under the recovery curve, final probe accuracy, and validation generalization answer different questions. Reporting all three prevents a regularizer from appearing superior merely because it matches one reset cadence. It also makes the method easier to transfer to settings where an episode contains far fewer or far more optimizer steps than in the original experiments.",
+            "Probe leakage deserves attention when labels or batches are reused. Even though ELP is reset, a deterministic data order and repeated episode structure may let recovery reflect curriculum regularities rather than feature quality. Shuffle seeds, vary reset boundaries, and evaluate on held-out samples after each episode. If the signal is stable across these controls, the gap with the persistent head is more plausibly about representation accessibility than an artifact of the probe’s local training path."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "ELP differs from a standard post-training linear probe by running during training and periodically resetting.", "locator": "CVPR 2022 paper, p. 2, Figure 1 and Episodic Linear Probe section."},
+        {"claim": "ELP reads detached features, and ELP-SR uses main-head/probe differences to modulate training.", "locator": "CVPR 2022 paper, p. 3, Figure 2 and ELP-SR formulation."},
+        {"claim": "The paper reports ResNet50 accuracies of 88.8, 94.2, and 92.7 on CUB, Cars, and Aircraft in the stated settings.", "locator": "CVPR 2022 paper, experiment tables and p. 8, Figure 3 recovery analysis."}
+      ]
+    },
+    {
+      "paper_slug": "seeg",
+      "title": "SEEG: From Rhythmic Motion to Semantic Gesture",
+      "dek": "SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "Diffusion and foundation-model approaches now dominate much of motion generation, but the decomposition of beat and semantic gesture—and the question of what a test set measures—remains methodologically useful.",
+      "keywords": ["co-speech gesture", "motion generation", "semantic gesture", "multimodal learning", "SEEG"],
+      "lede": [
+        "A digital character can move its hands on every stressed syllable and still communicate almost nothing. Beat gestures track rhythm and emphasis; semantic gestures depict size, direction, refusal, location, or an idea carried by the utterance. Training data contain many regular rhythmic motions but fewer semantically distinctive ones. A model minimizing average reconstruction error can therefore look synchronized while collapsing toward safe, generic gestures that ignore what the speaker actually says.",
+        "SEEG—Semantic Energized Co-Speech Gesture Generation—addresses both the input and output sides of that imbalance. The DEcoupled Mining module (DEM) separates semantic-relevant cues from semantic-irrelevant beat cues and learns them through different paths. The Semantic Energizing Module (SEM) constrains generated motion to retain recognizable meaning using a semantic prompt gallery and a fixed prompter. The answer is not strict word-to-pose alignment; it is explicit semantic learning that tolerates natural timing offsets."
+      ],
+      "takeaway": "SEEG separates rhythm from meaning in the conditioning signal and checks that generated motion preserves semantic content, rather than assuming synchronized movement is communicative movement.",
+      "sections": [
+        {
+          "heading": "Why audio-driven gesture favors the easy majority",
+          "paragraphs": [
+            "Audio amplitude, onset, and speaker rhythm provide dense signals. Beat gestures correlate with them and occur frequently, so a model can reduce loss by learning rhythmic movement first. Semantic gesture is rarer and more variable: different people can express the same concept with different trajectories, and many valid utterances need no iconic motion at all. Without an explicit learning route, text may be present in the network yet contribute little to the generated pose because the audio path already explains the dominant patterns.",
+            "Timing adds another difficulty. A speaker may begin a gesture before saying the relevant word and complete it afterward. Frame-aligned regression treats that lead or lag as error, even though anticipation and follow-through are natural. The problem is therefore not only that semantic examples are sparse. Their supervision is weakly aligned in time. SEEG’s design seeks semantic similarity over an appropriate motion context rather than requiring one lexical token to correspond to one pose at the same timestamp."
+          ]
+        },
+        {
+          "heading": "DEM gives rhythm and semantics separate learning paths",
+          "paragraphs": [
+            "DEcoupled Mining uses input decomposition to distinguish cues closely related to speech content from cues carrying mostly beat information. Separate encoders and decoders mine information for semantic and rhythmic gesture. This prevents high-frequency prosodic patterns from monopolizing a single shared representation. The decomposition is not a claim that real gestures divide perfectly into two boxes; many movements carry both emphasis and meaning. It is an inductive bias that makes the underlearned semantic signal visible to the model.",
+            "The exact expansion matters for accurate citation: DEM is the DEcoupled Mining module, not a generic disentangled embedding layer. Its purpose is to reduce pressure to infer semantics from inputs that largely lack semantic denotation. By handling beat and semantic cues explicitly, DEM changes what the generator has an opportunity to learn. It does not by itself prove that the output gesture conveys meaning, which is why the paper adds a second mechanism on the generated motion."
+          ]
+        },
+        {
+          "heading": "SEM asks whether meaning can be recovered from motion",
+          "paragraphs": [
+            "The Semantic Energizing Module uses a semantic prompt gallery and a prompter trained to map gesture clips into semantic categories. During gesture generation, the prompter is fixed and supplies a constraint that encourages the generated motion to express semantics similar to the reference. The signal operates at the level of a clip or semantic context, making it more tolerant of gestures that begin before or end after their associated words than an exact frame-wise target.",
+            "A prompter is still a learned evaluator. A generator could repeat exaggerated patterns that the prompter recognizes without producing diverse or natural behavior. Semantic classification also covers only the categories represented by the gallery. SEM should therefore be read together with distributional quality, beat alignment, qualitative videos, and human judgment. DEM organizes the conditions; SEM checks the semantic content of the output. Treating them as two interchangeable attention modules misses this division of responsibility."
+          ]
+        },
+        {
+          "heading": "Evaluation must contain the behavior being claimed",
+          "paragraphs": [
+            "If a test set is dominated by beat gestures, a model can score well while rarely expressing specific content. The paper constructs SatTED to increase the share of semantic gestures and introduces semantic-aware evaluation, including accuracy based on whether semantics can be recognized from generated motion. It also reports conventional and qualitative measures across multiple benchmarks. The aim is not to replace naturalness metrics but to prevent them from standing in for semantic communication.",
+            "Each metric can be gamed in isolation. Fréchet-style distribution scores can reward realistic but generic movement. Semantic-aware accuracy can reward a small set of obvious, repeated gestures. Beat alignment says little about meaning. Strong evidence requires the measures to agree and the evaluation clips to include the relevant phenomenon. SEEG’s test design is part of the contribution because it asks whether the benchmark actually contains enough semantic gesture to support a semantic-generation claim."
+          ]
+        },
+        {
+          "heading": "What remains useful beyond the original architecture",
+          "paragraphs": [
+            "SEEG belongs in semantic-aware co-speech gesture generation, not merely audio-to-motion synthesis. It differs from pure prosody models by explicitly learning speech content and from strict alignment approaches by tolerating temporal offset through semantic motion constraints. Newer generative backbones may improve diversity and realism, but they do not automatically solve class imbalance, weak semantic alignment, or evaluation composition. A diffusion model can also learn the safest high-frequency gesture if the objective rewards it.",
+            "The boundary remains important. Semantic categories reflect a dataset and culture; a recognized gesture may carry different force across speakers, languages, and contexts. The paper does not model every emotion, identity style, facial cue, or long-range conversational intention. Modern extensions should separate content meaning from expressive style, report cross-language transfer, and evaluate long conversations rather than selected clips. The durable lesson is that motion can synchronize without communicating, so semantics must appear in the model’s signal and in the evidence used to judge it.",
+            "For an evaluation set, semantic density should be reported rather than assumed. Annotate which intervals contain identifiable semantic gestures, their relation to words, and the lead or lag between speech and motion. Then provide scores separately for semantic and beat-dominant intervals. This avoids two opposite distortions: a natural corpus whose majority beat gestures hides semantic failure, and a curated corpus of exaggerated gestures that overstates how often explicit meaning appears in ordinary conversation.",
+            "Prompter robustness is another necessary control. Train or evaluate semantic recognition with speakers, motion styles, and recording sessions held out, then inspect whether high accuracy survives changes in gesture amplitude and timing. If the prompter recognizes one performer’s habitual pose rather than the intended meaning, SEM can reward identity leakage. Cross-speaker confusion matrices and human judgments of the same generated clips help distinguish semantic content from shortcuts in the motion classifier. A timing-shift test can move the same gesture relative to speech and reveal whether the evaluator recognizes meaning or memorizes alignment."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "SEEG separates semantic-relevant and beat-related cues through the DEcoupled Mining module.", "locator": "CVPR 2022 paper, pp. 10473–10476, Figure 3 and DEM section."},
+        {"claim": "SEM uses a semantic prompt gallery and a fixed prompter to constrain generated gesture semantics.", "locator": "CVPR 2022 paper, Semantic Energizing Module section and prompter figure."},
+        {"claim": "The paper adds semantic-aware evaluation and a semantic-focused SatTED test setting.", "locator": "CVPR 2022 paper, evaluation section and semantic-aware quantitative tables."}
+      ]
+    },
+    {
+      "paper_slug": "mhem",
+      "title": "MHEM: Learning from Hard Examples without Letting Them Dominate",
+      "dek": "Moderate Hard Example Modulation emphasizes difficult fine-grained samples while bounding their relative influence so that noise and memorized exceptions do not dominate training.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "Its central optimization question—how to learn from hard cases without allowing them unlimited influence—extends beyond the original fine-grained benchmarks.",
+      "keywords": ["fine-grained recognition", "hard examples", "loss modulation", "generalization", "MHEM"],
+      "lede": [
+        "Fine-grained recognition is decided by difficult cases: nearly identical birds, cars with subtle trim differences, or aircraft separated by small structural cues. It seems natural to increase the weight of low-confidence examples. But “hard” is not a diagnosis. A sample may contain a useful class boundary, a rare pose, a misleading background, or a wrong label. If its weight grows without restraint, a small set of noisy or memorized examples can control the gradient.",
+        "Moderate Hard Example Modulation (MHEM) formalizes a middle position. Hard samples should receive more attention than easy ones, but their relative weight and sensitivity must be bounded. The paper derives three conditions and instantiates them in the Moderate Modulation Baseline (M2B), a loss-level method that adds no inference branch. Its message is not to avoid difficult training data. It is to distinguish productive emphasis from an optimization regime in which extreme samples are allowed to dominate indefinitely."
+      ],
+      "takeaway": "MHEM keeps the benefit of hard-example emphasis while placing mathematical limits on how much low-confidence samples can outweigh the rest of the training set.",
+      "sections": [
+        {
+          "heading": "Why hard training examples can be deceptively easy to memorize",
+          "paragraphs": [
+            "Deep networks can drive training accuracy to nearly 100% even on fine-grained cases that remain difficult at test time. The model has solved those particular samples, but not necessarily the visual distinction they represent. Repeated textures, backgrounds, or annotation quirks can provide shortcuts. An aggressive hard-mining loss keeps returning to the same low-confidence examples, amplifying their peculiarities. The resulting classifier may look attentive to difficulty while becoming less able to recognize new hard examples.",
+            "Cross-entropy already assigns substantial gradient to mistakes. Additional modulation changes the relative contribution among samples. A function that grows too sharply as target probability falls can make extreme cases disproportionately influential. Lowering the global learning rate does not solve this relationship because it scales easy and hard gradients together. MHEM focuses on the shape of the weighting function: it asks how importance changes with difficulty and whether that change remains controlled at the low-confidence end."
+          ]
+        },
+        {
+          "heading": "The three MHEM conditions",
+          "paragraphs": [
+            "The hard-mining condition requires harder examples to receive at least as much emphasis as easier ones; otherwise the method abandons its purpose. The moderate condition places an upper bound on their relative coefficient, preventing the hardest sample from outweighing an easy sample without limit. The moderately sensitive condition controls how abruptly that relationship changes, avoiding a weighting curve that becomes unstable around a particular confidence region. Together, the conditions describe behavior rather than prescribing one arbitrary formula.",
+            "M2B is the paper’s concrete modulation function satisfying those constraints. It rises in emphasis as examples become harder, but the rise is moderated. This is why the paper’s formal name is Moderate Hard Example Modulation, even though the discussion connects naturally to hard mining. M2B does not identify mislabeled data, estimate uncertainty, or assign permanent sample types. It changes the current loss weight as a function of the model’s prediction under a bounded rule."
+          ]
+        },
+        {
+          "heading": "How it differs from focal loss and other controls",
+          "paragraphs": [
+            "Focal-style losses are designed to suppress easy examples and concentrate learning on difficult ones, especially under class imbalance. MHEM asks a subsequent question: at what point does concentration become excessive for fine-grained generalization? The paper shows that typical focal formulations do not satisfy all three moderate conditions. This is a difference in the desired low-confidence behavior, not merely a different name for multiplying cross-entropy by a difficulty-dependent factor.",
+            "Label smoothing changes the target distribution and discourages extreme confidence; class-balanced sampling changes how often examples or classes appear; a smaller learning rate changes the overall step size. M2B changes sample-to-sample gradient proportions while keeping the architecture intact. These techniques can coexist, but an experiment must isolate their roles. If class frequency and example difficulty are correlated, a gain from M2B may partly reflect how the modulation redistributes attention across classes, which makes per-class analysis valuable."
+          ]
+        },
+        {
+          "heading": "What the three benchmark gains establish",
+          "paragraphs": [
+            "Using ResNet50, the paper reports that the naive baseline improves from 85.5 to 88.2 on CUB-200-2011, from 92.7 to 94.2 on Stanford Cars, and from 90.3 to 92.9 on FGVC-Aircraft. These are gains of 2.7, 1.5, and 2.6 percentage points under the stated protocols. M2B can also be incorporated into existing fine-grained methods, where the paper reports further improvements, supporting its role as a portable loss-level baseline rather than a specialized visual module.",
+            "The evidence is centered on fine-grained classification. It does not imply the same optimum for detection anchors, segmentation pixels, noisy web labels, or language-model tokens. Even across the three datasets, the composition of hard examples differs. Training curves, confidence bins, and gradient shares help interpret why a particular bound works. Final accuracy alone cannot tell whether M2B reduced memorization, changed class balance, or simply regularized the optimizer in another way, so mechanism claims should remain tied to the paper’s analyses."
+          ]
+        },
+        {
+          "heading": "When hard-example modulation stops helping",
+          "paragraphs": [
+            "MHEM treats low confidence uniformly, but hard examples have different causes. A reliable boundary case deserves attention; a mislabeled image should perhaps be corrected or removed; an occluded image may need augmentation; a rare subclass may require balanced sampling. Bounded modulation limits harm without identifying the source. An overly tight bound can also suppress exactly the subtle examples that define a fine-grained category. The right setting depends on the data’s difficulty composition.",
+            "A modern extension could combine moderate weighting with uncertainty, annotation auditing, or example-history signals, while preserving a clear cap on influence. Reporting how many gradients come from each confidence and class region would make the trade-off visible. MHEM’s lasting contribution is a useful constraint on a popular intuition: difficult examples are informative, but difficulty alone does not grant unlimited authority. Generalization can improve when optimization listens to hard cases without letting the most extreme cases set the entire agenda.",
+            "Example history can separate transient difficulty from persistent extremity. A clean boundary sample may become easier as a useful feature emerges; a mislabeled sample may remain confidently contradictory; a rare but valid case may improve slowly. Plotting M2B weights over that history would show whether the cap protects training at the right time. It could also motivate schedules in which the bound changes only when validation evidence supports it, rather than treating one modulation curve as equally appropriate from the first epoch to the last.",
+            "The same audit should be class-aware. In a rare class, most examples may remain low-confidence early, so a global cap can interact with imbalance in unexpected ways. Report effective weight by class frequency and by difficulty bin, then compare with class-balanced sampling. This reveals whether M2B improves within-class generalization or mainly changes how much the optimizer attends to tail categories. It also prevents difficulty modulation and frequency correction from being credited as though they were exactly the same mechanism in practical model training."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "MHEM defines hard-mining, moderate, and moderately sensitive conditions for a loss modulator.", "locator": "TNNLS article, Section III-A and the formal condition definitions."},
+        {"claim": "M2B is the concrete moderate modulation baseline and introduces no inference-time branch.", "locator": "TNNLS article, Section III-C and M2B formulation/curve figure."},
+        {"claim": "The ResNet50 baseline gains are 2.7, 1.5, and 2.6 points on CUB, Cars, and Aircraft.", "locator": "TNNLS article, Table IV and accompanying fine-grained benchmark analysis."}
+      ]
+    },
+    {
+      "paper_slug": "vrr-vg",
+      "title": "VrR-VG: Making Models Rely on Visual Evidence",
+      "dek": "VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.",
+      "status": "published",
+      "drafted_on": "2026-08-04",
+      "published_on": "2026-08-04",
+      "retrospective": true,
+      "retrospective_context": "Scene-graph models have changed substantially, but using a no-image baseline to expose language and geometry shortcuts remains a practical dataset-audit principle.",
+      "keywords": ["visual relationships", "scene graphs", "dataset bias", "Visual Genome", "VrR-VG"],
+      "lede": [
+        "Give a model two boxes labeled “person” and “shirt,” and it may predict “wearing” without looking at the image. Give it one box above another, and geometry may make “on” an easy guess. If those correlations dominate the dataset, a relationship detector can score well while learning little about pixels. Class imbalance is only part of the problem; the stronger shortcut is conditional predictability from object categories and layout.",
+        "VrR-VG: Refocusing Visually-Relevant Relationships turns that concern into a dataset construction test. Its Visual Discriminator Network (VD-Net) deliberately receives no image features—only subject and object labels plus bounding-box geometry. Relations that remain highly predictable are candidates for pruning after the original vocabulary is normalized. The point is not that context is illegitimate. It is to create a benchmark where performance more often requires visual evidence and to test whether relationship-aware features transfer to captioning and visual question answering."
+      ],
+      "takeaway": "VrR-VG audits relationship labels with a model that cannot see pixels, using its success to identify dataset shortcuts and refocus evaluation on visually grounded distinctions.",
+      "sections": [
+        {
+          "heading": "Why balancing the label histogram is not enough",
+          "paragraphs": [
+            "Visual Genome contains frequent relations such as “on,” “has,” and “wearing,” so long-tail imbalance is obvious. Resampling can reduce the dominance of head labels. It does not remove conditional shortcuts. Even a balanced set of person–clothing pairs may still make “wearing” predictable from the nouns, and bounding-box layout can reveal many spatial relations. A model that uses these priors may be statistically effective without learning the visual interaction the benchmark name appears to promise.",
+            "VrR-VG asks a counterfactual question: what can be predicted after image appearance is removed? High no-image accuracy signals that the relation category may not force visual reasoning in the present distribution. This is stricter than counting frequency and more operational than declaring certain words visually relevant by intuition. It also reveals that dataset bias is conditional on the available annotations and model class, not simply a property of a label in isolation."
+          ]
+        },
+        {
+          "heading": "VD-Net is intentionally deprived of pixels",
+          "paragraphs": [
+            "VD-Net receives word embeddings for subject and object categories together with geometric features from their boxes. It predicts the relation without convolutional image features. If it succeeds consistently on one class, labels and layout already contain much of the answer. The model acts as an adversarial auditor for dataset design. Its weakness is the point: a visual benchmark should not be solved too easily by a system that has no access to visual appearance.",
+            "The paper first consolidates duplicate and synonymous relationship terms into 180 normalized classes. Using a 50% VD-Net accuracy threshold, it retains 117 classes for VrR-VG. That threshold is a design trade-off between dataset size and visual dependence, not a universal definition of visual relevance. A stronger diagnostic model, different object vocabulary, or noisier boxes would shift the measured predictability. Rebuilding the dataset elsewhere requires rerunning the audit rather than copying 50% as a law."
+          ]
+        },
+        {
+          "heading": "Class-level pruning cannot judge every instance",
+          "paragraphs": [
+            "A relation with a strong prior can still require pixels in a particular image. A person and garment might be holding, wearing, or standing beside one another in unusual configurations. Conversely, a generally visual relation may have easy instances. VrR-VG’s category-level decision improves the aggregate benchmark but cannot certify the visual necessity of each sample. Pruning may remove legitimate mixed relations that combine appearance with ordinary contextual knowledge.",
+            "This limitation suggests complementary instance-level audits. One can compare a visual model with VD-Net per sample, introduce counterfactual object pairs, or measure whether predictions change when appearance is masked while labels and boxes remain. The objective is not to eliminate all priors—real-world relations are statistically structured—but to ensure that visual evidence adds measurable information. Treating every contextual correlation as contamination would produce an artificial world just as surely as ignoring shortcuts would produce an artificial benchmark."
+          ]
+        },
+        {
+          "heading": "Why downstream transfer matters",
+          "paragraphs": [
+            "Making a no-image model worse is not sufficient evidence of a better dataset. Randomizing labels would also defeat VD-Net while destroying useful semantics. The paper therefore learns relationship-aware visual representations from VrR-VG and evaluates them in image captioning and visual question answering. Improvements in those downstream tasks support the claim that the filtered relationships encourage features carrying information beyond the dataset’s own classification score.",
+            "The experimental argument has several layers: analyze the relation distribution, compare learnable visual models with statistical or no-image methods, and test transferred features. Exact margins belong to the ICCV tables because architecture, split, and downstream setup determine them. The important logic is triangulation. A dataset is more plausibly visually grounded when human semantics remain coherent, image-based models gain an advantage over prior-only baselines, and learned representations help tasks that use relationships."
+          ]
+        },
+        {
+          "heading": "Why the diagnostic still belongs in modern evaluations",
+          "paragraphs": [
+            "VrR-VG belongs in related work on scene-graph and visual-relation dataset debiasing, not as a new relation-detection architecture or simple rebalanced subset. Its distinctive contribution is to make no-visual predictability a filtering signal. The same pattern now applies beyond scene graphs: remove the modality a benchmark claims to test, build the strongest reasonable baseline from remaining metadata, and ask how much performance survives. What remains reveals shortcuts that headline metrics conceal.",
+            "Modern multimodal models make the audit harder because language priors are stronger and object labels may be inferred rather than supplied. The principle still holds if interventions are designed carefully. Evaluators can ablate pixels, captions, coordinates, temporal order, or retrieved context while preserving the rest of the task. VrR-VG’s lasting lesson is not to demand that models forget statistics. It is to verify that the named modality contributes. A relationship benchmark should reward seeing relationships, not only knowing which words usually occur together.",
+            "A contemporary audit should include more than one no-image baseline. A shallow classifier measures obvious correlations; a strong language model may recover subtler compositional priors from object names; a geometry-only model isolates layout. Comparing them with image ablations reveals which shortcut is doing the work. The visual model should then be tested on counterfactual pairs where labels and boxes are held constant but the depicted relation changes. That design makes visual contribution observable instead of inferring it only from aggregate accuracy.",
+            "Dataset documentation should preserve the normalized relation vocabulary and mapping rules. Merging synonyms too coarsely can erase meaningful distinctions, while keeping near-duplicates recreates sparse classes. A result on “117 relations” is interpretable only with that mapping and split. The same requirement applies when later work borrows the VrR-VG idea for a new dataset: report whether it uses the original benchmark or only the no-visual diagnostic principle, because those experiments answer different research questions.",
+            "Finally, the no-image baseline should remain in later benchmark reports instead of disappearing after dataset construction. If both the visual model and VD-Net improve by similar amounts, a new method may still be exploiting stronger priors. A widening gap in favor of the visual model is more consistent with better use of appearance. Tracking that gap over time turns debiasing into an ongoing measurement rather than a one-off claim attached to the original release."
+          ]
+        }
+      ],
+      "evidence": [
+        {"claim": "VD-Net predicts relationships from object labels and bounding-box geometry without image features.", "locator": "ICCV 2019 paper, p. 4, Figure 5 and Visual Discriminator Network section."},
+        {"claim": "Vocabulary normalization yields 180 classes, and the 50% diagnostic threshold retains 117 relations.", "locator": "ICCV 2019 paper, dataset construction section and relationship-distribution analysis."},
+        {"claim": "The paper evaluates relationship-aware features through image captioning and visual question answering.", "locator": "ICCV 2019 paper, p. 5, Figure 6 and downstream experiment tables."}
+      ]
+    }
+  ]
+}

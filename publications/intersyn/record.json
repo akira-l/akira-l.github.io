@@ -82,6 +82,24 @@
       "citation_ready": "Ma 等提出 InterSyn，通过 interaction-synthesis 模块交错学习单人和多人动作，并细化相对协调，以改善同步且与文本对齐的交互动作生成。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "InterSyn learns solo and multi-person dynamics together, then refines relative coordination so individual motion and mutual timing are not treated as separate problems.",
+        "zh-CN": "InterSyn 联合学习单人和多人动态，并进一步优化相对协调，使个体动作与相互时序不再被视为彼此割裂的问题。"
+      }
+    }
+  ],
   "citation": {
     "id": "ma2025intersyn",
     "type": "paper-conference",

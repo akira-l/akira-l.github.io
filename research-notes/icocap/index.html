@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IcoCap: Using Images to Enrich Video Semantics | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/icocap/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/icocap/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IcoCap: Using Images to Enrich Video Semantics">
+  <meta property="og:description" content="IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/icocap/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="IcoCap: Using Images to Enrich Video Semantics">
+  <meta name="twitter:description" content="IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/icocap/#webpage",
+      "url": "https://akira-l.github.io/research-notes/icocap/",
+      "name": "IcoCap: Using Images to Enrich Video Semantics",
+      "description": "IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/icocap/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/icocap/#article",
+      "url": "https://akira-l.github.io/research-notes/icocap/",
+      "headline": "IcoCap: Using Images to Enrich Video Semantics",
+      "description": "IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/icocap/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/icocap/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/icocap/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/icocap/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "video captioning",
+        "image-video training",
+        "data augmentation",
+        "caption supervision",
+        "IcoCap"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/icocap/#paper",
+      "url": "https://akira-l.github.io/publications/icocap/",
+      "name": "IcoCap: Improving Video Captioning by Compounding Images",
+      "headline": "IcoCap: Improving Video Captioning by Compounding Images",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024",
+      "inLanguage": "en",
+      "keywords": [
+        "video captioning",
+        "image-video training",
+        "data augmentation",
+        "caption supervision",
+        "IcoCap"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE Transactions on Multimedia · 2024 · vol. 26 · pp. 4389-4400"
+      },
+      "pagination": "4389-4400"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/icocap/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "IcoCap: Using Images to Enrich Video Semantics",
+          "item": "https://akira-l.github.io/research-notes/icocap/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">IcoCap</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>IcoCap: Using Images to Enrich Video Semantics</h1>
+      <p class="subtitle">IcoCap combines image semantics with video features and selects captions that match the resulting visual content instead of preserving noisy original labels.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/icocap/">IcoCap: Improving Video Captioning by Compounding Images</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, Yi Yang</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE Transactions on Multimedia · 2024 · vol. 26 · pp. 4389-4400</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">video captioning</span><span class="tag">image-video training</span><span class="tag">data augmentation</span><span class="tag">caption supervision</span><span class="tag">IcoCap</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/video-generation-world-models/">Video and world models</a><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> Foundation models and video-language pretraining have expanded substantially, but the coupling between visual augmentation and supervision remains directly relevant.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#what-images-contribute-and-what-they-cannot">What images contribute—and what they cannot</a></li><li><a href="#ics-changes-the-input-distribution-on-purpose">ICS changes the input distribution on purpose</a></li><li><a href="#vgc-keeps-the-label-aligned-with-the-changed-content">VGC keeps the label aligned with the changed content</a></li><li><a href="#why-more-images-or-more-frames-did-not-always-help">Why more images or more frames did not always help</a></li><li><a href="#where-image-video-compounding-remains-useful">Where image–video compounding remains useful</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>Video-caption datasets are expensive, while image-caption datasets are abundant. It is tempting to mix them and assume that more visual-language pairs will improve a video captioner. But a still image contains no full motion, and a video often contains redundant or unmentioned content. Worse, once an image is inserted into a video representation, the original video caption may no longer describe the altered input. Data augmentation then becomes label corruption.</p><p>IcoCap couples two mechanisms to avoid that trap. The Image-Video Compounding Strategy (ICS) changes frozen visual features by combining image and video content. Visual-Semantic Guided Captioning (VGC) then chooses a description that better matches the compounded visual semantics from available candidates. Looking back, the paper’s key lesson is not simply that images help videos. It is that visual augmentation and textual supervision must change together, or the additional data becomes a source of contradictory training signals.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>IcoCap treats image–video augmentation and caption selection as one loop: when visual content changes, the target text must be reconsidered rather than copied automatically.</p></section>
+      <section id="what-images-contribute-and-what-they-cannot"><h2>What images contribute—and what they cannot</h2><p>A well-captioned image often concentrates objects, attributes, and relations in one visual unit. A video caption compresses many frames into a sentence and may omit background details or intermediate actions. Images can therefore add dense semantic combinations that are underrepresented in video-caption data. They cannot substitute for temporal evolution. An image of a person beside a ball does not specify whether the person throws, catches, or merely observes it, so a method that treats static images as ordinary videos risks learning appearance without motion.</p><p>IcoCap respects this boundary by working with visual features extracted by a frozen CLIP model. Images act as controlled semantic compounds in a video feature sequence, not as claims about a true underlying motion. The captioner is pushed to handle richer and more ambiguous content while the base visual representation remains fixed. This positions the method as a learning strategy for video captioners, rather than a new motion encoder, optical-flow model, or claim that temporal information is unnecessary.</p></section><section id="ics-changes-the-input-distribution-on-purpose"><h2>ICS changes the input distribution on purpose</h2><p>ICS includes operations such as feature concatenation, inter-feature mixup, and frame swap. Each changes the feature sequence differently: adding content, interpolating representations, or replacing selected positions with an image or another video feature. The transformations expose the captioner to combinations beyond the original training pair. Their strength matters. A small compound can enrich context, while an aggressive mix or swap may produce a representation with no coherent semantic interpretation.</p><p>This resembles mixup only at the level of a particular operation. In classification, interpolating inputs and labels can be defined numerically. A natural-language caption is not a vector target that can be mixed into a valid sentence. A compounded video may overlap with several candidate descriptions or none. ICS therefore creates the need for the second half of the method. Describing IcoCap as “positive noise” is an intuition, not the formal method name; the research contribution is the Image-Video Compounding Strategy together with supervision selected for the result.</p></section><section id="vgc-keeps-the-label-aligned-with-the-changed-content"><h2>VGC keeps the label aligned with the changed content</h2><p>Visual-Semantic Guided Captioning compares the compounded visual representation with candidate text representations and selects a description that is more consistent with the current input. Candidates can come from the original video, an auxiliary video, or the added image. VGC does not generate a new sentence or guarantee that every visual detail is described. It chooses among available ground truths, replacing the brittle rule that the original video caption must remain correct after augmentation.</p><p>The pairing creates a closed training loop. ICS without VGC can strengthen label noise because the input changes while the target stays fixed. VGC without new compounded samples has less reason to select an alternative target. Together, they let the captioner encounter richer visual combinations while retaining a plausible semantic objective. The approach depends on CLIP’s cross-modal similarity: if the frozen representation misses specialist objects, subtle actions, or domain language, the caption choice can be consistently wrong rather than randomly noisy.</p></section><section id="why-more-images-or-more-frames-did-not-always-help"><h2>Why more images or more frames did not always help</h2><p>The paper evaluates IcoCap on MSVD, MSR-VTT, and VATEX and reports competitive or superior captioning results in the stated settings. Its ablations make the boundary clearer. Increasing external image data improves CIDEr up to a point and then yields diminishing benefit; the paper uses 10,000 images by default after observing saturation. In the reported frame-count comparison, 32 frames perform better than 64. Mixup ratios and frame-swap proportions also have non-monotonic optima.</p><p>These patterns are evidence against the slogan “more multimodal data is always better.” Additional images can drift from the target video domain, and more frames can add redundancy or unmatched semantics that a short caption cannot cover. Exact metrics depend on the captioner, frozen features, sampling, dataset, and candidate descriptions. The experiments support controlled compounding plus guided supervision under those protocols. They do not show that static images universally improve long-form video understanding or that temporal modeling can be discarded.</p></section><section id="where-image-video-compounding-remains-useful"><h2>Where image–video compounding remains useful</h2><p>IcoCap belongs in related work on image–video joint training, multimodal augmentation, and supervision selection for video captioning. It differs from simply appending image-caption data because it explicitly alters video features; from ordinary video augmentation because it reconsiders the text label; and from pseudo-caption generation because VGC selects an existing candidate. That three-way distinction remains useful even as larger video-language models absorb more heterogeneous data.</p><p>A current extension would report image–video domain overlap, the source distribution of selected captions, and human judgments of semantic faithfulness in addition to CIDEr. It could generate or edit captions when no candidate fits, while auditing hallucination. Motion-specific tests would show whether semantic enrichment helps or distracts from verbs and temporal order. The lasting idea is simple but easy to neglect: an augmentation is only valid relative to its supervision. Change the visual evidence, and the target sentence must be part of the design.</p><p>One revealing audit is to stratify samples by which source supplied the VGC target: original video, auxiliary video, or image. For each group, measure caption faithfulness, motion verbs, and the degree of visual alteration. If most gains come from selecting the unchanged caption, compounding may be too weak; if image captions dominate, temporal semantics may be diluted. Publishing this routing distribution would make the supervision mechanism inspectable and help explain why an image scale or swap ratio stops helping.</p><p>A counterfactual supervision test would keep the compounded feature fixed and train with the original caption, the VGC-selected caption, and a randomly chosen candidate. Differences among those runs isolate label selection from visual augmentation. Human reviewers can then judge whether the selected sentence describes the resulting semantics, rather than only whether an automatic metric rewards it. This is especially important when CLIP similarity prefers nouns and scene categories but underweights direction, count, or temporal order.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. propose IcoCap, which combines an Image-Video Compounding Strategy with Visual-Semantic Guided Captioning to train video captioners against redundant and ambiguous visual content.</blockquote>
+        <p><strong>Scope:</strong> The method assumes access to suitable image semantics and caption supervision, and its reported evidence is on three established captioning datasets. It should not be summarized merely as generic noise injection or as treating all images as distractions.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>IcoCap combines Image-Video Compounding Strategy with Visual-Semantic Guided Captioning.</td><td>IEEE TMM article, pp. 4390–4393, Figure 2 and ICS/VGC method sections.</td></tr><tr><td>The evaluation covers MSVD, MSR-VTT, and VATEX with component and hyperparameter ablations.</td><td>IEEE TMM article, experiment section and Tables I–VIII.</td></tr><tr><td>Image-scale gains saturate and the stated frame-count ablation favors 32 over 64 frames.</td><td>IEEE TMM article, p. 4395, data-scale and frame-number ablations.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/icocap/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “IcoCap: Improving Video Captioning by Compounding Images.” IEEE Transactions on Multimedia (2024), 26, 4389-4400. https://doi.org/10.1109/TMM.2023.3322329.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/icocap/citation.bib">BibTeX</a><a href="/publications/icocap/citation.ris">RIS</a><a href="/publications/icocap/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

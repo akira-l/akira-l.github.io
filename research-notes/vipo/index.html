@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ViPO: From Scalar Rewards to Pixel-Level Advantage Maps | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/vipo/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/vipo/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ViPO: From Scalar Rewards to Pixel-Level Advantage Maps">
+  <meta property="og:description" content="A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/vipo/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ViPO: From Scalar Rewards to Pixel-Level Advantage Maps">
+  <meta name="twitter:description" content="A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/vipo/#webpage",
+      "url": "https://akira-l.github.io/research-notes/vipo/",
+      "name": "ViPO: From Scalar Rewards to Pixel-Level Advantage Maps",
+      "description": "A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/vipo/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/vipo/#article",
+      "url": "https://akira-l.github.io/research-notes/vipo/",
+      "headline": "ViPO: From Scalar Rewards to Pixel-Level Advantage Maps",
+      "description": "A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/vipo/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/vipo/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/vipo/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/vipo/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "preference optimization",
+        "pixel-level credit assignment",
+        "ViPO"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/vipo/#paper",
+      "url": "https://akira-l.github.io/publications/vipo/",
+      "name": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+      "headline": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "visual generation",
+        "GRPO",
+        "preference optimization",
+        "pixel-level credit assignment",
+        "ViPO"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · pp. 27260-27269"
+      },
+      "pagination": "27260-27269"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/vipo/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ViPO: From Scalar Rewards to Pixel-Level Advantage Maps",
+          "item": "https://akira-l.github.io/research-notes/vipo/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">ViPO</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>ViPO: From Scalar Rewards to Pixel-Level Advantage Maps</h1>
+      <p class="subtitle">A practical explanation of why sequence-level rewards are too coarse for visual generation, and how Visual Preference Policy Optimization turns perceptual structure into localized learning signals.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/vipo/">Seeing What Matters: Visual Preference Policy Optimization for Visual Generation</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Ziqi Ni, Yuanzhi Liang, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026) · 2026 · pp. 27260-27269</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">visual generation</span><span class="tag">GRPO</span><span class="tag">preference optimization</span><span class="tag">pixel-level credit assignment</span><span class="tag">ViPO</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#the-granularity-mismatch-inside-visual-grpo">The granularity mismatch inside visual GRPO</a></li><li><a href="#what-the-perceptual-structuring-module-actually-does">What the Perceptual Structuring Module actually does</a></li><li><a href="#how-vipo-differs-from-nearby-approaches">How ViPO differs from nearby approaches</a></li><li><a href="#what-the-experiments-support-and-what-they-do-not">What the experiments support—and what they do not</a></li><li><a href="#limits-of-the-perceptual-prior">Limits of the perceptual prior</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>Suppose a text-to-image model generates an almost perfect scene except for a malformed hand. A conventional reward model may assign the whole image one score. Group Relative Policy Optimization (GRPO) can then say which sampled image is better than its peers, but every spatial location inherits essentially the same verdict. The background, composition, face, and hand are pushed together even though only a small region needs correction. For visual generators, that is not just an imprecise explanation; it is an imprecise training signal.</p><p>Visual Preference Policy Optimization (ViPO) addresses this mismatch by turning a global preference comparison into a structured advantage map. Its Perceptual Structuring Module uses pretrained visual features to estimate which pixels or spatiotemporal regions belong together, then distributes preference feedback over those regions. The concise answer is that ViPO does not invent a separate reward for every pixel. It uses perceptual structure to decide where a sample-level preference should exert more or less influence during policy optimization.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>ViPO keeps GRPO’s relative preference signal but changes its granularity, using perceptual structure to deliver different optimization pressure to different regions of an image or video.</p></section>
+      <section id="the-granularity-mismatch-inside-visual-grpo"><h2>The granularity mismatch inside visual GRPO</h2><p>GRPO is attractive because it can compare several outputs for the same prompt without requiring a separately learned value network. Scores within a group are normalized into relative advantages, and outputs that look better than their peers receive positive pressure. That logic works naturally when an output is treated as one indivisible sequence. An image or video, however, contains many local decisions: object shape, texture, identity, background layout, motion, and temporal consistency. Collapsing them into one number hides which decisions earned the reward and which caused the failure.</p><p>The failure mode is easiest to see when good and bad content coexist. If a high-scoring sample contains a weak local region, a uniform positive advantage can reinforce that region along with everything else. Conversely, a low score caused by one artifact can suppress well-formed regions. Over many updates, the model receives a noisy mixture of deserved and undeserved credit. ViPO treats this as a spatial or spatiotemporal credit-assignment problem, rather than assuming that a better reward model alone will make a scalar signal sufficiently precise.</p></section><section id="what-the-perceptual-structuring-module-actually-does"><h2>What the Perceptual Structuring Module actually does</h2><p>The Perceptual Structuring Module (PSM) begins from features produced by a pretrained visual backbone. Those features encode affinities between locations: pixels on the same object or frames depicting the same moving entity tend to be more related than arbitrary positions. PSM uses this structure to transform a group-level advantage into a map whose values vary over the visual field. Related locations can share evidence, while regions that are perceptually distinct need not receive identical pressure. For video, the same idea extends beyond a single frame and considers structure across space and time.</p><p>This distinction matters: ViPO is not supervised segmentation, and it does not require a human mask saying where every error lies. The map is induced from the generator outputs and pretrained representations. Nor is it simply multiplying the loss by an attention heat map chosen for presentation. The structured advantage participates in the policy update, so localization changes which visual decisions are reinforced. The method is best understood as a bridge between preference-level evaluation and dense generative optimization, with the backbone supplying a useful—but not infallible—perceptual prior.</p></section><section id="how-vipo-differs-from-nearby-approaches"><h2>How ViPO differs from nearby approaches</h2><p>One nearby direction builds several specialized reward models for attributes such as text alignment, aesthetics, or motion. That can improve what is measured, but each component may still return one score for an entire output. ViPO asks a different question: after a preference score has been computed, how should its optimization effect be allocated across the generated content? The method is therefore complementary to better reward design. A localized update based on an unreliable reward is still unreliable, while a strong scalar reward can still be too coarse for correcting a small region.</p><p>Another nearby direction uses token-level or step-level credit assignment. Those methods distinguish decisions along an autoregressive sequence or a denoising trajectory. ViPO focuses on the structure of the visual result: which spatial or spatiotemporal locations should share an advantage. The axes can be combined in future systems, but they are not interchangeable. For a related-work section, the clean positioning is localized preference optimization for visual generation, not a new image-quality assessor, a segmentation model, or a generic replacement for every part of GRPO.</p></section><section id="what-the-experiments-support-and-what-they-do-not"><h2>What the experiments support—and what they do not</h2><p>The paper evaluates the method on both image and video generation and compares it with vanilla GRPO and recent optimization variants. The reported evidence covers in-domain preference alignment and out-of-domain behavior, rather than one hand-picked prompt. The ablations are especially important because a strong final score alone would not show that perceptual structuring caused the gain. Readers should inspect the image and video benchmark tables together with the PSM analysis to see which backbones, reward signals, metrics, and evaluation domains were used.</p><p>The correct conclusion is bounded: under the paper’s generators, rewards, and benchmark protocols, structured advantages improve optimization over applying the same relative signal everywhere. It would be too strong to claim that every pixel receives a causally correct reward or that all visual errors are localized. Many metrics summarize the final output again, so quantitative gains are evidence of better generation, not a direct proof that each map value has a human-interpretable causal meaning. Qualitative maps help inspect that mechanism but do not replace controlled evaluation.</p></section><section id="limits-of-the-perceptual-prior"><h2>Limits of the perceptual prior</h2><p>ViPO inherits the strengths and blind spots of the pretrained features used by PSM. If a backbone groups objects well but is insensitive to fine text, unusual anatomy, or subtle motion, the advantage map may organize precisely the wrong abstraction for those errors. The reward model remains another dependency. Localization can distribute a score more selectively, but it cannot establish that the score reflects human preference, safety, factuality, or the intended domain. These two sources of uncertainty should be separated when diagnosing a failed run.</p><p>A useful extension would test whether gains persist across perceptual backbones, reward families, resolutions, and longer videos, and whether map quality correlates with region-specific human judgments. It would also be valuable to combine spatial allocation with denoising-step credit: where did the error appear, and at which update stage could it have been prevented? The lasting insight is broader than one module. When an output has internal structure, the optimization signal should respect that structure instead of pretending the entire sample made one indivisible decision.</p><p>For reproduction, the most revealing audit is not a montage of attractive maps but a controlled regional test. Hold the prompt and reward fixed, introduce a known local defect, and measure whether optimization pressure changes in the affected region without degrading untouched content. Report the feature backbone, layer, resolution, normalization, and any temporal aggregation because each choice changes the structure PSM sees. This turns localization from an appealing visualization into a falsifiable part of the training method.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Ni et al. propose Visual Preference Policy Optimization (ViPO), which uses a perceptual structuring module to transform scalar rewards into spatially and temporally aware pixel-level advantages for GRPO-based image and video generation.</blockquote>
+        <p><strong>Scope:</strong> The structured map is induced by pretrained visual features and therefore depends on what those backbones encode. Pixel-level optimization does not by itself guarantee that every reward model is reliable or causally localized.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>ViPO converts group-level preference feedback into spatially or spatiotemporally structured advantages through PSM.</td><td>CVPR 2026 paper, Perceptual Structuring Module section and method figure.</td></tr><tr><td>The reported evaluation covers both image and video generation and compares against vanilla GRPO and recent variants.</td><td>CVPR 2026 paper, image and video benchmark sections and their main result tables.</td></tr><tr><td>The contribution depends on pretrained visual features rather than human-provided dense error masks.</td><td>CVPR 2026 paper, PSM formulation and ablation section.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/vipo/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Ziqi Ni, Yuanzhi Liang, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, and Xuelong Li. “Seeing What Matters: Visual Preference Policy Optimization for Visual Generation.” Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2026), 27260-27269.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/vipo/citation.bib">BibTeX</a><a href="/publications/vipo/citation.ris">RIS</a><a href="/publications/vipo/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

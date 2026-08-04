@@ -79,6 +79,24 @@
       "citation_ready": "Liang 等提出 Moderate Hard Example Modulation（MHEM），通过限制极端困难样本的过度影响，改善细粒度视觉分类的泛化。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "MHEM formalizes bounded emphasis for hard examples, preserving useful learning pressure without allowing extreme samples to dominate indefinitely.",
+        "zh-CN": "MHEM 对困难样本的强调强度设置边界，在保留有效学习压力的同时防止极端样本长期支配梯度。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2024mhem",
     "type": "article-journal",

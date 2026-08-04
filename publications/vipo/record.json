@@ -82,6 +82,24 @@
       "citation_ready": "Ni 等提出 Visual Preference Policy Optimization（ViPO），通过 perceptual structuring module 将标量奖励转换为具备时空感知的像素级优势，用于基于 GRPO 的图像和视频生成。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "ViPO uses perceptual features to convert a sample-level GRPO advantage into spatial or spatiotemporal advantages, changing where the optimization update is applied.",
+        "zh-CN": "ViPO 使用感知特征把样本级 GRPO 优势转化为空间或时空优势，改变优化更新作用的位置。"
+      }
+    }
+  ],
   "citation": {
     "id": "ni2026vipo",
     "type": "paper-conference",

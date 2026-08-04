@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OTCA: Assigning Final Rewards to the Generation Steps That Matter | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/otca/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/otca/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OTCA: Assigning Final Rewards to the Generation Steps That Matter">
+  <meta property="og:description" content="OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/otca/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OTCA: Assigning Final Rewards to the Generation Steps That Matter">
+  <meta name="twitter:description" content="OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/otca/#webpage",
+      "url": "https://akira-l.github.io/research-notes/otca/",
+      "name": "OTCA: Assigning Final Rewards to the Generation Steps That Matter",
+      "description": "OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/otca/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/otca/#article",
+      "url": "https://akira-l.github.io/research-notes/otca/",
+      "headline": "OTCA: Assigning Final Rewards to the Generation Steps That Matter",
+      "description": "OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/otca/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/otca/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/otca/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/otca/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "diffusion models",
+        "process optimization",
+        "credit assignment",
+        "GRPO",
+        "OTCA"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/otca/#paper",
+      "url": "https://akira-l.github.io/publications/otca/",
+      "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "headline": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yun Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026",
+      "inLanguage": "en",
+      "keywords": [
+        "diffusion models",
+        "process optimization",
+        "credit assignment",
+        "GRPO",
+        "OTCA"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "ACM Multimedia 2026 (accepted) · 2026 · forthcoming"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/otca/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "OTCA: Assigning Final Rewards to the Generation Steps That Matter",
+          "item": "https://akira-l.github.io/research-notes/otca/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">OTCA</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>OTCA: Assigning Final Rewards to the Generation Steps That Matter</h1>
+      <p class="subtitle">OTCA reframes diffusion-model alignment as process credit assignment, decomposing an outcome reward over a denoising trajectory and allocating multiple objectives where they are most useful.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/otca/">Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Rui Li, Ke Hao, Yuanzhi Liang, Haibin Huang, Chi Zhang, Yun Gu, XueLong Li</p>
+      <p class="paper-venue"><strong>Venue:</strong> ACM Multimedia 2026 (accepted) · 2026 · forthcoming</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">diffusion models</span><span class="tag">process optimization</span><span class="tag">credit assignment</span><span class="tag">GRPO</span><span class="tag">OTCA</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/video-generation-world-models/">Video and world models</a><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#outcome-optimization-hides-a-temporal-attribution-problem">Outcome optimization hides a temporal attribution problem</a></li><li><a href="#tcd-decomposing-trajectory-level-responsibility">TCD: decomposing trajectory-level responsibility</a></li><li><a href="#moca-objectives-do-not-mature-at-the-same-time">MOCA: objectives do not mature at the same time</a></li><li><a href="#reading-the-image-and-video-results">Reading the image and video results</a></li><li><a href="#where-process-credit-can-still-fail">Where process credit can still fail</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>A diffusion generator reaches an image or video through a sequence of denoising decisions. Early steps establish coarse layout and global semantics; later steps refine texture, edges, identity, and small artifacts. Yet many reinforcement-learning objectives observe only the final output and send the same outcome-level verdict back through the trajectory. If the prompt is correct but the texture fails, or the composition fails before detail emerges, uniform credit gives no direct account of which decisions deserved reinforcement.</p><p>Objective-aware Trajectory Credit Assignment (OTCA) treats this as a process problem. Trajectory-Level Credit Decomposition (TCD) estimates how responsibility should vary across denoising steps, while Multi-Objective Credit Allocation (MOCA) recognizes that different rewards may become informative at different parts of the trajectory. The concise idea is not to manufacture intermediate ground truth. It is to stop assuming that a final scalar reward should be copied equally onto every step that produced the sample.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>OTCA preserves outcome-based rewards while assigning them over the denoising process, so different timesteps and objectives can influence the decisions they are best positioned to evaluate.</p></section>
+      <section id="outcome-optimization-hides-a-temporal-attribution-problem"><h2>Outcome optimization hides a temporal attribution problem</h2><p>In an outcome-only update, the generated sample is judged after the full denoising chain. This is convenient because reward models generally understand finished images or videos better than noisy intermediate states. Convenience, however, produces a long credit path. Every timestep participates in the final output, but not in the same way. Penalizing all steps equally for a local late artifact can disturb early semantic structure; rewarding all steps for a good final image can reinforce intermediate choices that happened to be rescued later.</p><p>The issue resembles delayed reward in sequential decision-making, but diffusion trajectories have a distinctive geometry. The state changes from noise-dominated to signal-dominated, and the meaning of an evaluator can change along that path. A text-alignment cue may matter when composition is established, while a fine-detail preference becomes reliable only later. OTCA asks when an objective is useful and how much each step contributed, making process optimization an explicit part of visual alignment rather than an implicit consequence of backpropagation.</p></section><section id="tcd-decomposing-trajectory-level-responsibility"><h2>TCD: decomposing trajectory-level responsibility</h2><p>Trajectory-Level Credit Decomposition (TCD) provides step-sensitive credit derived from the completed trajectory. Instead of assigning one identical advantage everywhere, it estimates a distribution of responsibility over denoising time. The goal is not to label an intermediate noisy state as beautiful or ugly. It is to infer which portions of the process were more consequential for the final objective, so the policy update can emphasize decisions that plausibly shaped the observed result.</p><p>This distinction separates TCD from adding a reward model at every timestep. Intermediate evaluators can be unreliable because their inputs are not natural images. TCD remains anchored to the final objective while changing attribution across the process. It also differs from merely reweighting timesteps according to a fixed schedule. A handcrafted early-versus-late curve assumes the same responsibility pattern for every objective and sample; trajectory-aware decomposition is designed to let the observed generation process inform the allocation.</p></section><section id="moca-objectives-do-not-mature-at-the-same-time"><h2>MOCA: objectives do not mature at the same time</h2><p>Multi-Objective Credit Allocation (MOCA) addresses a second layer. Visual alignment rarely uses one reward: text alignment, aesthetics, perceptual quality, identity, and motion may all contribute. Summing them before credit assignment assumes that their timing and reliability are identical. MOCA allocates objective-specific influence over the trajectory, allowing global semantic signals and local fidelity signals to have different temporal profiles. This makes the update objective-aware as well as timestep-aware.</p><p>The separation is valuable when rewards conflict. A late detail update should not casually rewrite a sound global layout, and an early semantic correction should not be drowned by a reward that becomes meaningful only after texture appears. MOCA does not guarantee perfect disentanglement—objectives can overlap and reward models can disagree—but it exposes the allocation decision. In related work, OTCA therefore belongs under process-level and multi-objective credit assignment for diffusion post-training, not simply under reward-model ensembling.</p></section><section id="reading-the-image-and-video-results"><h2>Reading the image and video results</h2><p>The paper reports improvements across image and video generation. In the stated Flux image-level reward ablation, Table 4 lists CLIP-T 0.3071, HPS 0.3225, PickScore 22.97, and ImageReward 1.1998 for the full method. These metrics view different aspects of output quality, so their joint movement is more informative than treating one as a universal score. The video experiments test whether process credit remains useful when temporal coherence and motion add further dependencies across the output.</p><p>Those values must remain attached to the model, prompts, reward setup, and baselines in the official table. They do not show that OTCA dominates every metric or generator, and metric gains do not directly prove the inferred timestep credits are causally exact. Component ablations provide the more relevant mechanism test: compare outcome-only optimization, temporal decomposition, and objective-aware allocation. A strong interpretation combines final quality with sensitivity analysis, rather than reading one benchmark row as a universal law of denoising.</p></section><section id="where-process-credit-can-still-fail"><h2>Where process credit can still fail</h2><p>OTCA is limited by the reward models whose outcomes it decomposes. If an aesthetic model rewards a shortcut, distributing its credit more precisely can make exploitation more efficient. Timestep attribution is also model- and schedule-dependent: few-step generators, long diffusion chains, and different parameterizations may concentrate decisions differently. An apparent early or late responsibility pattern should not be transplanted without testing. Multiple objectives add another risk because correlated rewards can create the illusion of independent evidence.</p><p>The natural next step is to validate attribution, not only generation quality. One can perturb selected timesteps, replace individual reward components, or compare inferred credits with controlled edits that introduce a known error at a known stage. Combining temporal credit with ViPO-style spatial structure would ask both when and where the decisive mistake occurred. OTCA’s broader insight is that final outcomes are produced by processes. Alignment methods become more precise when they assign learning signal to the process rather than treating every intermediate decision as equally responsible.</p><p>Reproduction should also keep the sampling schedule visible. A nominal timestep does not represent the same signal-to-noise level across schedulers or few-step distillations, so plotting credit only against step index can suggest false transferability. Report credit against both index and noise level, and test whether the learned allocation changes when the number of steps changes. If the mechanism is genuinely process-aware, it should adapt to the new trajectory rather than replay a curve tied to one discretization.</p><p>Multi-objective analysis needs a similar control. Remove or deliberately corrupt one reward component and observe whether MOCA reduces its influence or propagates the error. Compare that behavior with a fixed weighted sum under equal total reward scale. Such interventions clarify whether the method is discovering useful timing, smoothing optimization, or simply changing effective weights. They also expose a critical boundary: sophisticated credit allocation cannot compensate for an evaluator that is confidently wrong throughout the trajectory.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Li et al. propose Objective-aware Trajectory Credit Assignment (OTCA), which decomposes credit across denoising steps and adaptively allocates multiple reward objectives to provide structured supervision for GRPO-based image and video generation.</blockquote>
+        <p><strong>Scope:</strong> The method is formulated for GRPO-style post-training of diffusion-based visual generators and still relies on the coverage and validity of the underlying reward models. Accepted-conference metadata should be updated when final proceedings metadata becomes available.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>OTCA separates trajectory-level decomposition from multi-objective allocation through TCD and MOCA.</td><td>arXiv:2604.19234v2, method sections on Trajectory-Level Credit Decomposition and Multi-Objective Credit Allocation.</td></tr><tr><td>The method is evaluated on both image and video generation rather than a single modality.</td><td>arXiv:2604.19234v2, image and video experiment sections and main tables.</td></tr><tr><td>The full-method image ablation reports CLIP-T 0.3071, HPS 0.3225, PickScore 22.97, and ImageReward 1.1998.</td><td>arXiv:2604.19234v2, Table 4 (image-level reward metric ablation).</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/otca/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Rui Li, Ke Hao, Yuanzhi Liang, Haibin Huang, Chi Zhang, Yun Gu, and XueLong Li. “Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation.” 34th ACM International Conference on Multimedia (ACM Multimedia 2026) (2026, forthcoming). arXiv:2604.19234.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/otca/citation.bib">BibTeX</a><a href="/publications/otca/citation.ris">RIS</a><a href="/publications/otca/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

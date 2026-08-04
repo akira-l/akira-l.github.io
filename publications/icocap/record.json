@@ -78,6 +78,40 @@
       "citation_ready": "Liang 等提出 IcoCap，结合 Image-Video Compounding Strategy 与 Visual-Semantic Guided Captioning，使视频 captioner 更好地处理冗余和歧义视觉内容。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "IcoCap establishes an early supervision lesson for video-language learning: when visual content is compounded, the target caption must be reconsidered as part of the same operation.",
+        "zh-CN": "IcoCap 提供了视频—语言学习中的早期监督经验：当视觉内容被复合改变时，目标描述也必须在同一过程中重新选择。"
+      }
+    },
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "IcoCap shows that modifying visual inputs requires corresponding changes to text supervision, an early instance of treating target construction as part of the learning system.",
+        "zh-CN": "IcoCap 表明视觉输入改变后文本监督也需要同步调整，是把目标构造视为学习系统组成部分的早期例子。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2024icocap",
     "type": "article-journal",

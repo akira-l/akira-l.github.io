@@ -83,6 +83,40 @@
       "citation_ready": "Li 等提出 Objective-aware Trajectory Credit Assignment（OTCA），通过分解不同去噪步的贡献并自适应分配多种奖励目标，为基于 GRPO 的图像和视频生成提供结构化训练信号。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "bridge",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "OTCA maps final image or video rewards back onto denoising time and multiple objectives instead of treating every generation decision as equally responsible.",
+        "zh-CN": "OTCA 将最终图像或视频奖励分配到不同去噪时刻和目标，而不是假设每个生成决策承担相同责任。"
+      }
+    },
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "OTCA decomposes final reward responsibility over denoising time and allocates multiple objectives where they are most informative.",
+        "zh-CN": "OTCA 沿去噪时间分解最终奖励责任，并把多个目标分配到它们最有信息量的生成阶段。"
+      }
+    }
+  ],
   "citation": {
     "id": "li2026otca",
     "type": "paper-conference",

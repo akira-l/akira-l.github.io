@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AntEval: Measuring Social Interaction in AI Agents | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/anteval/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/anteval/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AntEval: Measuring Social Interaction in AI Agents">
+  <meta property="og:description" content="AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/anteval/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AntEval: Measuring Social Interaction in AI Agents">
+  <meta name="twitter:description" content="AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/anteval/#webpage",
+      "url": "https://akira-l.github.io/research-notes/anteval/",
+      "name": "AntEval: Measuring Social Interaction in AI Agents",
+      "description": "AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/anteval/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/anteval/#article",
+      "url": "https://akira-l.github.io/research-notes/anteval/",
+      "headline": "AntEval: Measuring Social Interaction in AI Agents",
+      "description": "AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/anteval/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/anteval/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/anteval/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/anteval/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "LLM agents",
+        "multi-agent evaluation",
+        "information exchange",
+        "social interaction",
+        "AntEval"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/anteval/#paper",
+      "url": "https://akira-l.github.io/publications/anteval/",
+      "name": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+      "headline": "AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024-01-12",
+      "inLanguage": "en",
+      "keywords": [
+        "LLM agents",
+        "multi-agent evaluation",
+        "information exchange",
+        "social interaction",
+        "AntEval"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "arXiv · 2024"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/anteval/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AntEval: Measuring Social Interaction in AI Agents",
+          "item": "https://akira-l.github.io/research-notes/anteval/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">AntEval</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>AntEval: Measuring Social Interaction in AI Agents</h1>
+      <p class="subtitle">AntEval evaluates LLM-driven agents at the process level: whether information actually moves between participants and whether intent is expressed in a human-like way.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/anteval/">AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Linchao Zhu, Yi Yang</p>
+      <p class="paper-venue"><strong>Venue:</strong> arXiv · 2024</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">LLM agents</span><span class="tag">multi-agent evaluation</span><span class="tag">information exchange</span><span class="tag">social interaction</span><span class="tag">AntEval</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/semantic-motion-embodied-interaction/">Semantic and embodied interaction</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> Models and agent stacks have changed quickly, but the distinction between task completion, fluent dialogue, and effective communication remains useful.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#why-a-tabletop-game-is-a-useful-laboratory">Why a tabletop game is a useful laboratory</a></li><li><a href="#iep-asks-whether-knowledge-changed">IEP asks whether knowledge changed</a></li><li><a href="#ieg-measures-a-gap-not-maximal-explicitness">IEG measures a gap, not maximal explicitness</a></li><li><a href="#what-the-experiments-reveal-about-agent-communication">What the experiments reveal about agent communication</a></li><li><a href="#what-still-holds-and-what-needs-stronger-evidence">What still holds—and what needs stronger evidence</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>Two agents can talk for twenty turns, complete a game objective, and still communicate badly. One may repeat facts the other already knows, dump private information unnaturally, or reveal a hidden goal as if reading a system prompt. A success flag hides all of those paths. Fluency hides them too: grammatical, polite dialogue can be empty, while an efficient exchange may be short. Evaluating the final answer alone therefore confuses task competence with the process of social interaction.</p><p>AntEval, introduced in 2024, separates two process questions in tabletop role-playing game scenarios. Information Exchange Precision (IEP) tests whether knowledge actually moves between characters. Intention Expression Gap (IEG) compares how inferable an agent’s underlying intention is with a human interaction reference. Seen in hindsight, the benchmark’s value is not that role-playing games reproduce all social life. It is that they make private knowledge, goals, and actions explicit enough to audit communication rather than merely count successful outcomes.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>AntEval evaluates communication as a process, separating whether agents exchange information from whether they express intentions in a way that resembles human interaction.</p></section>
+      <section id="why-a-tabletop-game-is-a-useful-laboratory"><h2>Why a tabletop game is a useful laboratory</h2><p>A tabletop role-playing game (TRPG) gives each character a role, private information, and reasons to act without revealing everything directly. Those ingredients create controlled asymmetry: an evaluator can know what one participant should learn from another and what intention sits behind an action. In ordinary open-domain chat, the ground truth for “good social interaction” is much harder to specify. The game is therefore an instrument for measurement, not the paper’s claim about where agents will ultimately be deployed.</p><p>The setup also exposes shortcuts. An agent can maximize task success by stating private objectives mechanically or by relying on information that should not be shared. Human players often imply, negotiate, and respond to context instead. By preserving role constraints, AntEval tests whether an interaction carries useful information while maintaining an intelligible social process. The benchmark remains bounded by scripted scenarios and language-based play, but it gives evaluators a way to inspect intermediate behavior that a terminal score cannot reveal.</p></section><section id="iep-asks-whether-knowledge-changed"><h2>IEP asks whether knowledge changed</h2><p>Information Exchange Precision is built around checkable knowledge points. The evaluation considers what participants know before an interaction and what the other party can recover afterward. It is not a word-overlap metric. Mentioning a term does not prove that the listener received the intended fact, and long dialogue receives no automatic bonus. A concise exchange that transmits the relevant information can outperform a verbose conversation that circles around it without changing either participant’s understanding.</p><p>Open-text judgments require an evaluator, so the paper uses large language models with explicit criteria and repeated sampling to assess whether information was conveyed. This makes IEP scalable but introduces a second model into the measurement loop. Prompt wording, judge version, aggregation, and human agreement become part of the experimental protocol. From today’s perspective, that dependency looks even more important: stronger judges may improve semantic matching, while shared style preferences between judge and agent can still reward polished but shallow interaction.</p></section><section id="ieg-measures-a-gap-not-maximal-explicitness"><h2>IEG measures a gap, not maximal explicitness</h2><p>Intention Expression Gap uses a virtual Dungeon Master to infer action intentions from the interaction, then compares agent-generated dialogue with human references. The use of a gap is deliberate. If intention cannot be inferred at all, the character’s behavior may be vague. If the character announces a hidden skill check or internal label verbatim, prediction becomes easy but the exchange ceases to resemble natural role play. Good expression lies between opacity and mechanical disclosure.</p><p>IEG is therefore not a score where making every intention more explicit is automatically better. It evaluates relative distance from the human reference process under the benchmark’s action structure. That makes it complementary to IEP. A dialogue can transmit facts effectively while expressing motives awkwardly, or maintain natural role behavior while failing to deliver crucial information. Separating the axes prevents one attractive total score from hiding two different product or research problems.</p></section><section id="what-the-experiments-reveal-about-agent-communication"><h2>What the experiments reveal about agent communication</h2><p>The paper evaluates several LLM-driven agent settings and reports that stronger models generally exchange information more effectively, while a gap from human interaction remains. In an analysis of GPT-4 samples with IEP below 50%, human descriptions frequently included “boring,” “mechanical,” “rigid,” and “insincere.” These are pragmatic failures rather than basic syntax failures. The agents can produce correct sentences while failing to respond, adapt, and reveal information in a socially convincing way.</p><p>That evidence should not be generalized into a complete ranking of social intelligence. The sample analysis concerns defined TRPG interactions, chosen models, prompts, judges, and knowledge points. Low IEP can arise from withholding, misunderstanding, distraction, or evaluation error; the metric alone does not diagnose every cause. Figure-level examples and the word analysis make the failure legible, while the quantitative tables establish broader patterns. Both are needed before concluding that one agent architecture communicates better than another.</p></section><section id="what-still-holds-and-what-needs-stronger-evidence"><h2>What still holds—and what needs stronger evidence</h2><p>The 2024 paper predates many current memory systems, tool-using agents, and longer-context orchestration patterns. Those systems can change the meaning of information exchange. If agents share a memory store or can inspect one another’s state, IEP no longer measures communication in the same way. Models and LLM judges have also changed. A modern replication should report the exact agent scaffold, available tools, turn budget, judge prompts, sampling, and whether knowledge could travel through channels outside dialogue.</p><p>The conceptual separation still holds. Task success, conversational fluency, information transfer, and intention expression are distinct. AntEval belongs in work on process-level evaluation of multi-agent social interaction, not as a universal chat benchmark or a safety certification. Future extensions could weight knowledge by importance and privacy, measure how many turns it takes to become actionable, and test whether agents correct misunderstandings. Hindsight makes the paper easier to place: its durable contribution is a vocabulary for asking what happened inside a successful interaction.</p><p>There is also a precision–privacy tension that the original axes make visible. Maximizing information exchange without regard to authorization can reward oversharing, while minimizing disclosure can look like communication failure. A modern benchmark should label which facts are relevant, permitted, sensitive, or intentionally withheld, then score whether the right recipient learns the right fact at the right time. This would extend IEP without turning all information flow into a virtue and would better match tool-using agents operating with user data.</p><p>Longer interactions need temporal accounting as well. Mark when a fact is first offered, when it is acknowledged, when it is used in a decision, and whether later dialogue corrupts it. An agent may briefly acquire the correct information yet act on an outdated version ten turns later. This sequence separates delivery, comprehension, retention, and use—four stages that a single post-conversation judgment can merge. It also exposes whether extra turns repair misunderstandings or merely add fluent noise.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. introduce AntEval, a framework for evaluating LLM-driven social interactions using Information Exchanging Precision and Interaction Expressiveness Gap to quantify information exchange and intention expression.</blockquote>
+        <p><strong>Scope:</strong> The metrics operationalize selected aspects of social interaction and do not constitute a complete measure of social intelligence, safety, relationship quality, or behavior across all cultures and open-ended settings.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>AntEval defines separate information-exchange and intention-expression scenarios with IEP and IEG.</td><td>arXiv:2401.06509v3, p. 4, Figure 2 and evaluation framework section.</td></tr><tr><td>IEP evaluates knowledge transfer, while IEG compares inferred intentions with human interaction references.</td><td>arXiv:2401.06509v3, p. 5, Figure 3 and metric definitions.</td></tr><tr><td>Low-IEP GPT-4 samples were often described as boring, mechanical, rigid, or insincere.</td><td>arXiv:2401.06509v3, p. 8, Figure 4 and accompanying qualitative analysis.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/anteval/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, and Yi Yang. “AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents.” arXiv (2024). arXiv:2401.06509.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/anteval/citation.bib">BibTeX</a><a href="/publications/anteval/citation.ris">RIS</a><a href="/publications/anteval/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Generation and World Models | Yuanzhi Liang</title>
+  <meta name="description" content="Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research/video-generation-world-models/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/video-generation-world-models/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/video-generation-world-models/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/video-generation-world-models/">
+  <link rel="alternate" type="application/json" title="Research path data" href="/research/paths.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Video Generation and World Models | Yuanzhi Liang">
+  <meta property="og:description" content="Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.">
+  <meta property="og:url" content="https://akira-l.github.io/research/video-generation-world-models/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://akira-l.github.io/research/video-generation-world-models/#collection",
+      "url": "https://akira-l.github.io/research/video-generation-world-models/",
+      "name": "Video Generation and World Models",
+      "description": "Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Video Generation and World Models"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research/video-generation-world-models/#papers"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://akira-l.github.io/research/video-generation-world-models/#papers",
+      "numberOfItems": 9,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://akira-l.github.io/publications/icocap/",
+          "name": "IcoCap: Improving Video Captioning by Compounding Images"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://akira-l.github.io/publications/vast/",
+          "name": "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://akira-l.github.io/publications/freelong/",
+          "name": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://akira-l.github.io/publications/teleworld/",
+          "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://akira-l.github.io/publications/teleboost/",
+          "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://akira-l.github.io/publications/taros/",
+          "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://akira-l.github.io/publications/otca/",
+          "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://akira-l.github.io/publications/rats/",
+          "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://akira-l.github.io/publications/embodied-brains/",
+          "name": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research/video-generation-world-models/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research",
+          "item": "https://akira-l.github.io/research/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Video Generation and World Models",
+          "item": "https://akira-l.github.io/research/video-generation-world-models/"
+        }
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/icocap/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/icocap/",
+      "name": "IcoCap: Improving Video Captioning by Compounding Images",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/vast/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/vast/",
+      "name": "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xi Qiu"
+        },
+        {
+          "@type": "Person",
+          "name": "Fangqiu Yi"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2024-12-21"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/freelong/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/freelong/",
+      "name": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yu Lu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/teleworld/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/teleworld/",
+      "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yabo Chen"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Jiepeng Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Tingxi Chen"
+        },
+        {
+          "@type": "Person",
+          "name": "Junfei Cheng"
+        },
+        {
+          "@type": "Person",
+          "name": "Zixiao Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuyang Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Zicheng Jiang"
+        },
+        {
+          "@type": "Person",
+          "name": "Wei Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Tian Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Weichen Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Zuoxin Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Guangce Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Jialun Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Junqi Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Haoyuan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xunzhi Xiang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaoyan Yang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xin Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Shiwen Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Junyu Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Chengcheng Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2025-12-31"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/teleboost/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/teleboost/",
+      "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yirui Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yijie Fang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yizhen Fan"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Peng Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yanbo Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-02-07"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/taros/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/taros/",
+      "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/otca/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/otca/",
+      "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yun Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/rats/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/rats/",
+      "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Bingyu Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/embodied-brains/#scholarly-article",
+      "url": "https://akira-l.github.io/publications/embodied-brains/",
+      "name": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xufeng Zhan"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-07-13"
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page research-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="research-container path-detail">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb"><a href="/research/">Research</a><span aria-hidden="true">/</span><span aria-current="page">Video and world models</span></nav>
+    <nav class="path-return-bar" aria-label="Research Path navigation"><a href="/research/#research-paths"><span class="path-return-arrow" aria-hidden="true">←</span><span><strong>All Research Paths</strong><small>Choose another path</small></span></a></nav>
+    <header class="research-hero path-hero">
+      <p class="eyebrow">Research path</p>
+      <h1>Video Generation and World Models</h1>
+      <p class="research-dek">Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.</p>
+      <p class="language-switch"><a href="https://akira-l.github.io/zh/research/video-generation-world-models/" hreflang="zh-CN">中文</a></p>
+    </header>
+    <section class="path-question-block"><p class="eyebrow">Core question</p><h2>What separates a video generator that produces plausible clips from a world model that maintains state and predicts future observations consistently?</h2><p>Video generation provides a concrete test of temporal modeling, but visual realism alone does not establish a world model. A model intended for prediction or planning must also maintain state across time, represent how actions affect state transitions, and express uncertainty when future observations are not determined.</p></section>
+    <section class="research-intro"><p>Compared with image generation, video generation must model dependencies across time. Entity identity, spatial layout, motion, and event order must remain consistent across frames. Longer sequences expose errors that a short clip can hide, including appearance drift, geometric inconsistency, and motion that is not supported by the preceding state.</p><p>Large-scale training improves coverage, but data scale alone does not define a world model. World modeling introduces additional requirements: a state representation that persists across observations, predictions conditioned on possible actions, and evaluation against observed transitions. The papers on this path address several prerequisites for that goal—consistent supervision, controllable generation, long temporal context, persistent reconstruction, and post-training—without claiming that any single paper solves the complete problem.</p></section>
+    <div class="path-timeline"><section class="path-stage" id="stage-1">
+  <div class="stage-marker" aria-hidden="true">01</div>
+  <div class="stage-content"><h2>Align visual augmentation with language supervision</h2><p>IcoCap changes the content density of video-captioning samples by compounding image semantics with video content. Visual-Semantic Guided Captioning then adapts caption learning to the compounded input. The result is a specific supervision principle: when augmentation changes the semantic content of an input, the target must be adjusted accordingly.</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Foundation</span><span>2024</span></div>
+  <h3><a href="/publications/icocap/">IcoCap: Improving Video Captioning by Compounding Images</a></h3>
+  <p>IcoCap establishes an early supervision lesson for video-language learning: when visual content is compounded, the target caption must be reconsidered as part of the same operation.</p>
+  <div class="links"><a class="primary" href="/publications/icocap/">Paper record</a><a href="/research-notes/icocap/">Research Note</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-2">
+  <div class="stage-marker" aria-hidden="true">02</div>
+  <div class="stage-content"><h2>Control spatial composition and extend temporal context</h2><p>VAST and FreeLong address two different limits of text-to-video generation. VAST introduces a storyboard with human poses and object layouts, providing explicit spatial conditions before synthesis. FreeLong extends a pretrained short-video diffusion model by changing temporal feature blending during denoising, balancing low-frequency global consistency with high-frequency local detail over longer sequences.</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Core work</span><span>2024</span></div>
+  <h3><a href="/publications/vast/">VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation</a></h3>
+  <p>VAST inserts an explicit storyboard between text and video, using human pose and object layout as conditioning signals before synthesis.</p>
+  <div class="links"><a class="primary" href="/publications/vast/">Paper record</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Core work</span><span>2024</span></div>
+  <h3><a href="/publications/freelong/">FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention</a></h3>
+  <p>FreeLong extends pretrained short-video diffusion models through frequency-aware temporal feature blending, addressing duration without retraining the base generator.</p>
+  <div class="links"><a class="primary" href="/publications/freelong/">Paper record</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-3">
+  <div class="stage-marker" aria-hidden="true">03</div>
+  <div class="stage-content"><h2>Maintain state across generation and reconstruction</h2><p>TeleWorld connects video generation with dynamic 4D reconstruction and persistent memory. Generated observations update the reconstructed state, and that state conditions later synthesis. Unlike isolated clip generation, this formulation allows an error in one step to affect the state used by subsequent steps, making state consistency an explicit system concern.</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Core work</span><span>2025</span></div>
+  <h3><a href="/publications/teleworld/">TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model</a></h3>
+  <p>TeleWorld closes a loop between video generation, dynamic reconstruction, and persistent 4D memory so later synthesis can depend on an accumulated world state.</p>
+  <div class="links"><a class="primary" href="/publications/teleworld/">Paper record</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-4">
+  <div class="stage-marker" aria-hidden="true">04</div>
+  <div class="stage-content"><h2>Optimize generation with multiple feedback signals</h2><p>Video post-training often combines feedback on visual quality, text alignment, motion, and temporal consistency. TeleBoost separates supervised, reinforcement-learning, and preference-refinement stages; TaRoS adapts the influence of reward components during training; OTCA assigns outcome credit across denoising steps and objectives; and RATS conditions teacher guidance on relative reward quality. These methods improve visual generators under defined rewards, but do not by themselves provide action-conditioned world modeling.</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Core work</span><span>2026</span></div>
+  <h3><a href="/publications/teleboost/">TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</a></h3>
+  <p>TeleBoost organizes supervised policy shaping, reward-driven reinforcement learning, and preference refinement as distinct training stages, supported by diagnostics and training infrastructure.</p>
+  <div class="links"><a class="primary" href="/publications/teleboost/">Paper record</a><a href="/research-notes/teleboost/">Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Bridge</span><span>2026</span></div>
+  <h3><a href="/publications/taros/">Rethinking Reward Signals in Video GRPO: When Scores Become Targets</a></h3>
+  <p>TaRoS keeps composite video rewards informative when components disagree, group comparisons are sparse, or a metric has saturated during optimization.</p>
+  <div class="links"><a class="primary" href="/publications/taros/">Paper record</a><a href="/research-notes/taros/">Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Bridge</span><span>2026</span></div>
+  <h3><a href="/publications/otca/">Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</a></h3>
+  <p>OTCA maps final image or video rewards back onto denoising time and multiple objectives instead of treating every generation decision as equally responsible.</p>
+  <div class="links"><a class="primary" href="/publications/otca/">Paper record</a><a href="/research-notes/otca/">Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Bridge</span><span>2026</span></div>
+  <h3><a href="/publications/rats/">Reward-Aware Trajectory Shaping for Few-step Visual Generation</a></h3>
+  <p>RATS combines few-step trajectory distillation with preference feedback, relaxing teacher guidance when the student matches or exceeds the teacher under the selected reward.</p>
+  <div class="links"><a class="primary" href="/publications/rats/">Paper record</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-5">
+  <div class="stage-marker" aria-hidden="true">05</div>
+  <div class="stage-content"><h2>Connect predictive models to an embodied system</h2><p>The Embodied Brains roadmap considers the system requirements beyond prediction. A predictive model needs interfaces to tools and controllers, execution in the physical environment, verification of the resulting state transition, and a procedure for reusing verified interaction data. This is a forward-looking systems connection rather than an empirical result of the video-generation papers.</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">Research horizon</span><span>2026</span></div>
+  <h3><a href="/publications/embodied-brains/">From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</a></h3>
+  <p>The Embodied Brains roadmap places predictive world and action models inside a larger stack of shared contracts, physical harnesses, verification, and closed-loop learning.</p>
+  <div class="links"><a class="primary" href="/publications/embodied-brains/">Paper record</a></div>
+</article></div></div>
+</section></div>
+    <section class="path-boundary"><h2>What this path does—and does not—claim</h2><p>Controllable or temporally consistent video generation is not sufficient evidence of a world model suitable for planning. Such a model must also predict action-conditioned state transitions, represent uncertainty, and remain accurate under changes in state and environment. TeleWorld adds persistent reconstruction, but a persistent representation is still not an embodied agent. The path identifies technical connections among the papers without assigning them a shared architecture or evaluation protocol.</p></section>
+    <section class="path-open"><h2>Open questions</h2><p>Open questions include how to represent state and action in a common predictive model, how to calibrate uncertainty over long horizons, and how to distinguish model-generated observations from measurements of the external world. A closed-loop system must also verify whether an executed action produced the predicted transition before that trajectory is reused for training.</p></section>
+    <section class="citation-ready"><h2>Read and cite the papers</h2><p>This page connects collaborative research contributions; it does not replace the individual papers. Use each canonical paper record for evidence, source links, and citation downloads.</p></section>
+    <nav class="path-return-panel" aria-label="Choose another Research Path"><div><p class="eyebrow">Research map</p><h2>Continue through another path</h2><p>Return to the overview to compare the three paths or choose a different line of work.</p></div><a href="/research/#research-paths">Choose another Research Path <span aria-hidden="true">→</span></a></nav>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

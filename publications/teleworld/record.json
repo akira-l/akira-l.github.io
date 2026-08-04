@@ -101,6 +101,24 @@
       "citation_ready": "Chen 等提出 TeleWorld：将生成视频重建为持久 4D 时空状态并用于指导后续生成，同时以层次规划和蒸馏支持长时实时合成。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "TeleWorld closes a loop between video generation, dynamic reconstruction, and persistent 4D memory so later synthesis can depend on an accumulated world state.",
+        "zh-CN": "TeleWorld 把视频生成、动态重建和持久 4D 记忆连接成闭环，使后续合成能够依赖已经积累的世界状态。"
+      }
+    }
+  ],
   "citation": {
     "id": "chen2025teleworld",
     "type": "article",

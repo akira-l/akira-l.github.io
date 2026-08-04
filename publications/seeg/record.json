@@ -83,6 +83,24 @@
       "citation_ready": "Liang 等提出 SEEG，解耦节奏与语义手势线索，并通过 Semantic Energizing Module 的语义感知监督生成 co-speech gesture。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "SEEG separates rhythmic and semantic cues in co-speech gesture, establishing that synchronized motion is not automatically communicative motion.",
+        "zh-CN": "SEEG 在伴随语音手势中区分节奏与语义线索，说明动作同步并不自动等同于具有交流意义。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2022seeg",
     "type": "paper-conference",

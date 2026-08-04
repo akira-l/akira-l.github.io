@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAAL: Learning How Articulated Objects Can Be Used | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/maal/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/maal/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MAAL: Learning How Articulated Objects Can Be Used">
+  <meta property="og:description" content="MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/maal/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MAAL: Learning How Articulated Objects Can Be Used">
+  <meta name="twitter:description" content="MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/maal/#webpage",
+      "url": "https://akira-l.github.io/research-notes/maal/",
+      "name": "MAAL: Learning How Articulated Objects Can Be Used",
+      "description": "MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/maal/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/maal/#article",
+      "url": "https://akira-l.github.io/research-notes/maal/",
+      "headline": "MAAL: Learning How Articulated Objects Can Be Used",
+      "description": "MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/maal/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/maal/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/maal/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/maal/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "3D affordance",
+        "articulated objects",
+        "robot manipulation",
+        "multimodal learning",
+        "MAAL"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/maal/#paper",
+      "url": "https://akira-l.github.io/publications/maal/",
+      "name": "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects",
+      "headline": "MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2023",
+      "inLanguage": "en",
+      "keywords": [
+        "3D affordance",
+        "articulated objects",
+        "robot manipulation",
+        "multimodal learning",
+        "MAAL"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE/CVF International Conference on Computer Vision (ICCV 2023) · 2023 · pp. 217-227"
+      },
+      "pagination": "217-227"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/maal/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "MAAL: Learning How Articulated Objects Can Be Used",
+          "item": "https://akira-l.github.io/research-notes/maal/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">MAAL</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>MAAL: Learning How Articulated Objects Can Be Used</h1>
+      <p class="subtitle">MAAL studies low-sample affordance learning by combining 3D object and robot modalities, retaining successful actions, and scoring candidates through reconstruction rather than appearance alone.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/maal/">MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Xiaohan Wang, Linchao Zhu, Yi Yang</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE/CVF International Conference on Computer Vision (ICCV 2023) · 2023 · pp. 217-227</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">3D affordance</span><span class="tag">articulated objects</span><span class="tag">robot manipulation</span><span class="tag">multimodal learning</span><span class="tag">MAAL</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/semantic-motion-embodied-interaction/">Semantic and embodied interaction</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> The distinction between geometric visibility and action-conditioned affordance remains useful, while simulation-to-real evidence and broader hardware validation still define the boundary.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#affordance-lives-between-an-object-and-an-action">Affordance lives between an object and an action</a></li><li><a href="#why-remember-successful-actions">Why remember successful actions</a></li><li><a href="#from-reconstruction-error-to-an-affordance-heat-map">From reconstruction error to an affordance heat map</a></li><li><a href="#what-the-partnet-mobility-evidence-shows">What the PartNet-Mobility evidence shows</a></li><li><a href="#what-remains-useful-and-what-real-world-evidence-is-missing">What remains useful—and what real-world evidence is missing</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>A robot may detect a drawer and segment its handle perfectly, yet still not know where to contact it, which direction to move, or whether the current joint state permits the action. Affordance is not object recognition with a heat map added afterward. It relates geometry, visual appearance, physical state, contact point, and a candidate action. Learning that relation is expensive when a system must explore many failures for every articulated object it encounters.</p><p>MAAL—Multimodality-Aware Autoencoder-Based Affordance Learning—approaches the problem through reconstruction of successful interaction. A MultiModal Energized Encoder (MME) fuses object and robot modalities, an action memory represents successful patterns, and a decoder reconstructs candidate actions. Reconstruction errors are calibrated with neighbors from a validation distribution to estimate actionability and success likelihood. In hindsight, the important move is to model “does this action resemble known success here?” rather than treating visible parts as intrinsically operable.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>MAAL learns articulated-object affordance as compatibility with a multimodal distribution of successful actions, reducing reliance on multi-stage exploration while keeping success claims tied to its evaluation setting.</p></section>
+      <section id="affordance-lives-between-an-object-and-an-action"><h2>Affordance lives between an object and an action</h2><p>The same point on an object can have different meanings under pushing and pulling, from different approach directions, or at different joint states. Point clouds provide surface shape; images provide appearance and semantic cues; robot variables describe pose, direction, and motion. No single modality fully specifies the interaction. Naively concatenating them can let a high-dimensional stream dominate, while separately trained modules may miss the contact-dependent relationships that determine whether a manipulation is possible.</p><p>MME uses modality-specific and interaction branches to learn these signals at multiple levels before producing a shared representation. Its name matters: the paper’s component is MultiModal Energized Encoder, while the overall pipeline is Multimodality-Aware Autoencoder-Based Affordance Learning. The encoder is not merely a feature stack. It is designed to preserve evidence from object and action modalities while modeling their interaction, so the later reconstruction asks about a conditioned manipulation rather than a generic object category.</p></section><section id="why-remember-successful-actions"><h2>Why remember successful actions</h2><p>Action memory stores latent patterns drawn from successful interactions. Given an object state and candidate action, the system queries that memory and reconstructs the action through the decoder. Low error indicates compatibility with patterns the model has learned; high error suggests the proposal falls outside that successful distribution. This provides a training path that uses relatively few positive samples and avoids repeatedly training separate critics or decoders in a multi-stage actor–critic loop.</p><p>The efficiency comes with a coverage assumption. An action can be physically valid yet reconstruct poorly because the memory never saw that strategy. Multiple valid grasps and trajectories can also be averaged if the latent representation does not preserve modes. Success-only learning avoids the need to label large numbers of failures, but failures contain boundary information that positive memory may miss. MAAL’s score is therefore best interpreted as learned familiarity with successful interaction, not a proof that every unfamiliar action is impossible.</p></section><section id="from-reconstruction-error-to-an-affordance-heat-map"><h2>From reconstruction error to an affordance heat map</h2><p>Raw reconstruction error has no universal threshold. Its scale changes with model capacity, object type, and data split. MAAL uses a k-nearest-neighbors procedure over validation errors to convert that scale into actionability and success-likelihood estimates. Candidate contact points can then be visualized as a heat map: brighter regions are more consistent with successful patterns under the paper’s action and object conditions. The calibration makes scores easier to compare within the protocol than an arbitrary fixed cutoff.</p><p>“Success likelihood” should not be read as a hardware-independent probability. The neighborhood comes from a particular simulation, sensor representation, robot action space, and validation distribution. Change the gripper, friction, camera noise, controller, or object family and the mapping can shift. A heat map is also not an execution result. For real deployment, the calibrated score should be evaluated beside actual manipulation success, failure type, and uncertainty under distribution shift.</p></section><section id="what-the-partnet-mobility-evidence-shows"><h2>What the PartNet-Mobility evidence shows</h2><p>The paper evaluates pushing and pulling on PartNet-Mobility and reports both predictive performance and efficiency. In the stated comparison with AdaAfford, MAAL uses about 17.69% as much data for pushing and 9.63% for pulling. For 100 training epochs, the reported average time ratios for AdaAfford relative to MAAL are about 23.34 and 12.72 on the two tasks. Visualizations show high-scoring regions on articulated parts under the learned interaction conditions.</p><p>Those ratios demonstrate efficiency within the implementations and protocol, not a universal speed law for all reinforcement-learning approaches. Data collection cost, simulation steps, hardware, and candidate sampling affect fairness. The paper’s tables, ablations, and heat maps together support the claim that multimodal encoding plus action memory can learn affordances from fewer successful interactions. They do not establish equivalent performance on real robots, unseen physical properties, or object categories that are structurally outside the training distribution.</p></section><section id="what-remains-useful-and-what-real-world-evidence-is-missing"><h2>What remains useful—and what real-world evidence is missing</h2><p>MAAL fits into multimodal, low-sample affordance learning for articulated 3D objects. It differs from pure geometric part prediction because action variables enter the model; from multi-stage actor–critic exploration because it reconstructs successful patterns in one training pipeline; and from a generic action generator because its output is used to assess actionable locations. This positioning is more informative than saying only that the method uses an autoencoder, a component shared by many unrelated systems.</p><p>A modern extension should separate unseen instances from unseen categories, test missing or corrupted modalities, and report simulation-to-real manipulation. It should also ask whether memory can represent genuinely novel but valid strategies and whether calibration remains meaningful off distribution. The durable lesson is that affordance is relational. A handle’s appearance may suggest an action, but operability depends on the object state, robot, and motion together. MAAL made that dependency explicit in both its representation and its scoring rule.</p><p>The most informative real-robot study would calibrate reconstruction scores on one hardware setup, then vary one factor at a time: gripper geometry, friction, camera viewpoint, depth noise, or controller. Plot predicted likelihood against empirical success and report calibration error, not only ranking accuracy. This would show which changes merely reorder candidate points and which invalidate the score scale. It would also distinguish perception failures from execution failures, a distinction that simulated affordance heat maps cannot settle on their own.</p><p>Memory coverage can be audited by clustering successful actions and measuring whether low-score test actions fall into genuinely new modes. If a physically valid strategy is rejected because it is novel, additional exploration or a generative memory may be needed; if failures receive high scores near familiar modes, the representation lacks a relevant physical variable. These analyses turn reconstruction error into a diagnostic of what the model knows, rather than treating it as an opaque surrogate for success. They also identify where another successful demonstration would add genuinely new information instead of merely duplicating the memory already stored.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. propose MAAL, a one-stage autoencoder-based framework whose MultiModal Energized Encoder jointly represents 3D object and robotic-action information for articulated-object affordance learning.</blockquote>
+        <p><strong>Scope:</strong> The reported scope is articulated-object affordance learning under the PartNet-Mobility setup. Performance in unmodeled real-world sensing, manipulation hardware, or object categories is not established by the abstract.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>MAAL consists of MME, action memory, and an action decoder trained in one pipeline.</td><td>ICCV 2023 paper, p. 5, Figure 3 and method overview.</td></tr><tr><td>MME uses modality-specific and interaction branches to model object and robot information.</td><td>ICCV 2023 paper, p. 4, Figure 2 and MultiModal Energized Encoder section.</td></tr><tr><td>The paper reports data and training-efficiency ratios for pushing and pulling against AdaAfford.</td><td>ICCV 2023 paper, p. 7, Figure 4 and efficiency analysis.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/maal/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Xiaohan Wang, Linchao Zhu, and Yi Yang. “MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects.” 2023 IEEE/CVF International Conference on Computer Vision (ICCV) (2023), 217-227. https://doi.org/10.1109/ICCV51070.2023.00027.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/maal/citation.bib">BibTeX</a><a href="/publications/maal/citation.ris">RIS</a><a href="/publications/maal/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

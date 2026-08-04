@@ -81,6 +81,7 @@
       "citation_ready": "Quan 等通过互补级联网络联合处理雨滴与雨丝，融合两种去除顺序，使用 neural architecture search 设计去雨模块，并提出 RainDS 数据集。"
     }
   },
+  "research_paths": [],
   "citation": {
     "id": "quan2021rain",
     "type": "paper-conference",

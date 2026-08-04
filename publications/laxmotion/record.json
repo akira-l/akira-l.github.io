@@ -78,6 +78,24 @@
       "citation_ready": "Liu 等提出 LaxMotion，以全局轨迹、单目运动学线索和宽松结构正则替代直接 3D pose 监督，用于生成三维人体动作。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "LaxMotion removes direct 3D pose regression and learns from trajectories, monocular cues, and structural regularization, questioning whether exact labels always improve generalization.",
+        "zh-CN": "LaxMotion 移除直接 3D 姿态回归，转而使用轨迹、单目线索和结构正则，重新审视精确标签是否总能带来更好泛化。"
+      }
+    }
+  ],
   "citation": {
     "id": "liu2026laxmotion",
     "type": "paper-conference",

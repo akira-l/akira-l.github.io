@@ -81,6 +81,24 @@
       "citation_ready": "Liang 等提出 Episodic Linear Probing，在训练中反复拟合 detached-feature 线性分类器，并利用其与主分类器的差异正则化表示泛化。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "foundation",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "ELP repeatedly resets a detached-feature reader, distinguishing representation quality from the confidence accumulated by a persistent classifier during training.",
+        "zh-CN": "ELP 反复重置读取分离特征的分类器，把表示质量与持续分类头在训练中积累的置信度区分开。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2022elp",
     "type": "paper-conference",

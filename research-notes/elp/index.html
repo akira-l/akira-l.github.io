@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ELP: High Confidence Does Not Imply High-Quality Features | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/elp/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/elp/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="ELP: High Confidence Does Not Imply High-Quality Features">
+  <meta property="og:description" content="Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/elp/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ELP: High Confidence Does Not Imply High-Quality Features">
+  <meta name="twitter:description" content="Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/elp/#webpage",
+      "url": "https://akira-l.github.io/research-notes/elp/",
+      "name": "ELP: High Confidence Does Not Imply High-Quality Features",
+      "description": "Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/elp/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/elp/#article",
+      "url": "https://akira-l.github.io/research-notes/elp/",
+      "headline": "ELP: High Confidence Does Not Imply High-Quality Features",
+      "description": "Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/elp/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/elp/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/elp/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/elp/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "representation learning",
+        "linear probing",
+        "visual recognition",
+        "training diagnostics",
+        "ELP"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/elp/#paper",
+      "url": "https://akira-l.github.io/publications/elp/",
+      "name": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild",
+      "headline": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2022",
+      "inLanguage": "en",
+      "keywords": [
+        "representation learning",
+        "linear probing",
+        "visual recognition",
+        "training diagnostics",
+        "ELP"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) · 2022 · pp. 9549-9559"
+      },
+      "pagination": "9549-9559"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/elp/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ELP: High Confidence Does Not Imply High-Quality Features",
+          "item": "https://akira-l.github.io/research-notes/elp/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">ELP</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>ELP: High Confidence Does Not Imply High-Quality Features</h1>
+      <p class="subtitle">Episodic Linear Probe repeatedly resets a simple classifier during training to distinguish what the classifier remembers from what the current representation makes easy to learn.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/elp/">A Simple Episodic Linear Probe Improves Visual Recognition in the Wild</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, Yi Yang</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) · 2022 · pp. 9549-9559</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">representation learning</span><span class="tag">linear probing</span><span class="tag">visual recognition</span><span class="tag">training diagnostics</span><span class="tag">ELP</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> Representation diagnostics have broadened, but a persistent classifier’s confidence can still hide weak or memorized features across modern training pipelines.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#from-a-final-report-card-to-an-in-training-instrument">From a final report card to an in-training instrument</a></li><li><a href="#how-elp-sr-turns-diagnosis-into-learning-pressure">How ELP-SR turns diagnosis into learning pressure</a></li><li><a href="#why-recovery-speed-is-more-informative-than-one-probe-score">Why recovery speed is more informative than one probe score</a></li><li><a href="#what-the-experiments-establish">What the experiments establish</a></li><li><a href="#what-the-result-still-tells-us-about-representation-quality">What the result still tells us about representation quality</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>A classifier can become highly accurate on its training data even when the underlying features remain hard to reuse. The final linear head has watched every update, adapted to quirks, and may memorize examples through the backbone. Its confidence therefore mixes two things: how clearly the representation separates classes and how well one persistent decision boundary has fitted the data. Waiting until training ends to run a linear probe reveals the problem only after the expensive learning process is over.</p><p>Episodic Linear Probe (ELP) moves that diagnostic into training. A separate linear classifier reads detached features, is periodically reset, and must relearn the current class boundary from scratch. ELP-Suitable Regularization (ELP-SR) then uses disagreement between the main classifier and this short-lived probe to reweight the primary learning objective. The core idea is to measure how quickly a simple new reader can recover structure, not merely how confident the long-serving classifier has become.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>ELP distinguishes a classifier that has learned the training set from a representation that a freshly initialized linear model can read quickly, then uses that gap as a regularization signal.</p></section>
+      <section id="from-a-final-report-card-to-an-in-training-instrument"><h2>From a final report card to an in-training instrument</h2><p>Traditional linear probing freezes a trained backbone, learns a linear classifier on its features, and reports accuracy as a measure of linear separability. The protocol is widely useful because a low-capacity reader limits how much new structure can be invented during evaluation. Its usual timing is the weakness ELP addresses. If the probe is trained only after representation learning, it can compare final models but cannot influence the trajectory that produced them.</p><p>ELP runs alongside the main model. Its input features are detached, so the probe’s classification loss does not directly update the backbone. After a fixed episode it is reinitialized, creating a repeated stress test. A representation with clear class structure should allow the new probe to recover quickly. A main head that is confident while the reset probe struggles suggests that long-term adaptation, not immediately readable features, explains part of the success. The periodic accuracy drops are deliberate measurement events, not optimization failures.</p></section><section id="how-elp-sr-turns-diagnosis-into-learning-pressure"><h2>How ELP-SR turns diagnosis into learning pressure</h2><p>A diagnostic branch alone would only produce curves. ELP-SR compares predictions from the main classifier and ELP, together with their confidence in the target class, to modulate the original classification loss. When both heads read a sample easily, it may already be well represented. When the persistent head is confident but the fresh probe is uncertain, the discrepancy suggests that the backbone should form features that a simple boundary can recover more readily. The probe is an observer used for weighting, not a teacher supplying new labels.</p><p>This distinguishes ELP-SR from knowledge distillation, where a fixed or slowly changing teacher provides target distributions. It also differs from conventional hard-example mining, which often uses loss or confidence alone. Here the informative variable is the gap between a long-memory classifier and an episodically reset reader. The method does not add a new inference ensemble; the probe exists during training and can be discarded afterward. Its related-work position is training-time representation measurement and regularization.</p></section><section id="why-recovery-speed-is-more-informative-than-one-probe-score"><h2>Why recovery speed is more informative than one probe score</h2><p>Immediately after a reset, ELP accuracy falls because its weights are random. It then recovers as the probe learns from current features. The trajectory contains more information than a single endpoint: fast recovery indicates readily accessible linear structure, while slow recovery suggests the reader must work harder to reconstruct the boundary. Comparisons require the same reset interval, optimizer, initialization, and training budget; otherwise apparent representation differences can be artifacts of the probe protocol.</p><p>Recovery on training samples can still reflect memorization. A stronger diagnostic compares validation recovery, per-class behavior, and transfer alongside the training curve. Class imbalance creates another complication because overall probe accuracy can be dominated by head classes. Macro averages or class-wise recovery help show whether ELP-SR improves broad readability or only common categories. The probe’s capacity must remain controlled as well: replacing it with a deep nonlinear network changes the question from linear accessibility to the fitting power of a second model.</p></section><section id="what-the-experiments-establish"><h2>What the experiments establish</h2><p>The paper evaluates fine-grained, long-tailed, and generic visual recognition. With ResNet50 in the reported fine-grained settings, ELP-SR reaches 88.8 on CUB-200-2011, 94.2 on Stanford Cars, and 92.7 on FGVC-Aircraft. It does not require part boxes or additional inference branches. The breadth of tasks matters because it tests whether the regularization is tied only to one small benchmark, while the method and recovery-curve figures connect the gains to the episodic probe mechanism.</p><p>Those numbers are protocol-specific accuracies, not universal properties of the datasets. They support better recognition under the stated backbones and training recipes. They do not prove that every downstream capability—distribution-shift robustness, calibration, fairness, or nonlinear transfer—improves with linear separability. A good professional reading keeps “feature quality” operational: ELP measures suitability for a linear classifier under a defined schedule. That is useful evidence, but it is one view of representation quality rather than a complete definition.</p></section><section id="what-the-result-still-tells-us-about-representation-quality"><h2>What the result still tells us about representation quality</h2><p>The paper’s distinction has become more relevant as models acquire increasingly capable heads, adapters, and prompt-conditioned decoders. Strong task performance can reside in those interfaces while the reusable representation changes less than expected. An episodic reader remains a simple way to ask whether current features make a task easy for a newly initialized low-capacity model. The exact ELP schedule may not transfer unchanged to foundation models, but the measurement principle does.</p><p>Future work can extend the idea beyond class labels: reset lightweight readers for attributes, domains, calibration, or temporal concepts and compare their recovery without allowing them to dominate training. It should also study when optimizing for probe suitability narrows useful nonlinear information. ELP’s enduring contribution is a clean separation between “this classifier can answer” and “this representation makes the answer easy to relearn.” That is a more precise claim than equating output confidence with the quality of everything below it.</p><p>A robust evaluation should also compare multiple probe budgets. If one representation wins after ten updates but loses after a full epoch, “readability” depends on the time horizon. Area under the recovery curve, final probe accuracy, and validation generalization answer different questions. Reporting all three prevents a regularizer from appearing superior merely because it matches one reset cadence. It also makes the method easier to transfer to settings where an episode contains far fewer or far more optimizer steps than in the original experiments.</p><p>Probe leakage deserves attention when labels or batches are reused. Even though ELP is reset, a deterministic data order and repeated episode structure may let recovery reflect curriculum regularities rather than feature quality. Shuffle seeds, vary reset boundaries, and evaluate on held-out samples after each episode. If the signal is stable across these controls, the gap with the persistent head is more plausibly about representation accessibility than an artifact of the probe’s local training path.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. introduce Episodic Linear Probing, which repeatedly trains a detached-feature linear classifier during learning and uses its disagreement with the main classifier to regularize representation generalization.</blockquote>
+        <p><strong>Scope:</strong> ELP measures suitability for linear classification, which is informative but not equivalent to every notion of representation quality. Its behavior depends on probe schedule, classifier design, and task labels.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>ELP differs from a standard post-training linear probe by running during training and periodically resetting.</td><td>CVPR 2022 paper, p. 2, Figure 1 and Episodic Linear Probe section.</td></tr><tr><td>ELP reads detached features, and ELP-SR uses main-head/probe differences to modulate training.</td><td>CVPR 2022 paper, p. 3, Figure 2 and ELP-SR formulation.</td></tr><tr><td>The paper reports ResNet50 accuracies of 88.8, 94.2, and 92.7 on CUB, Cars, and Aircraft in the stated settings.</td><td>CVPR 2022 paper, experiment tables and p. 8, Figure 3 recovery analysis.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/elp/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Linchao Zhu, Xiaohan Wang, and Yi Yang. “A Simple Episodic Linear Probe Improves Visual Recognition in the Wild.” 2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2022), 9549-9559. https://doi.org/10.1109/CVPR52688.2022.00934.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/elp/citation.bib">BibTeX</a><a href="/publications/elp/citation.ris">RIS</a><a href="/publications/elp/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

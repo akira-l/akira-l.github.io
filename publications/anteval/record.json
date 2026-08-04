@@ -77,6 +77,24 @@
       "citation_ready": "Liang 等提出 AntEval，利用 Information Exchanging Precision 与 Interaction Expressiveness Gap 定量评估 LLM-driven agent 互动中的信息交换和意图表达。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "bridge",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "AntEval evaluates task completion separately from information exchange and intention expression, showing that successful outcomes do not establish that agents communicated effectively.",
+        "zh-CN": "AntEval 将任务完成与信息交换、意图表达分开评价，说明成功结果本身不能证明智能体进行了有效沟通。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2024anteval",
     "type": "article",

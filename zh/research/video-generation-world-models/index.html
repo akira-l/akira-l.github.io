@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>视频生成与世界模型 | Yuanzhi Liang</title>
+  <meta name="description" content="研究视频生成走向世界模型所需的条件：空间控制、长时时间一致性、持久状态与以行动为条件的预测。">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/research/video-generation-world-models/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/video-generation-world-models/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/video-generation-world-models/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/video-generation-world-models/">
+  <link rel="alternate" type="application/json" title="Research path data" href="/research/paths.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="视频生成与世界模型 | Yuanzhi Liang">
+  <meta property="og:description" content="研究视频生成走向世界模型所需的条件：空间控制、长时时间一致性、持久状态与以行动为条件的预测。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/research/video-generation-world-models/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://akira-l.github.io/zh/research/video-generation-world-models/#collection",
+      "url": "https://akira-l.github.io/zh/research/video-generation-world-models/",
+      "name": "视频生成与世界模型",
+      "description": "研究视频生成走向世界模型所需的条件：空间控制、长时时间一致性、持久状态与以行动为条件的预测。",
+      "inLanguage": "zh-CN",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "视频生成与世界模型"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/zh/research/video-generation-world-models/#papers"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://akira-l.github.io/zh/research/video-generation-world-models/#papers",
+      "numberOfItems": 9,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://akira-l.github.io/zh/publications/icocap/",
+          "name": "IcoCap: Improving Video Captioning by Compounding Images"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://akira-l.github.io/zh/publications/vast/",
+          "name": "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://akira-l.github.io/zh/publications/freelong/",
+          "name": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://akira-l.github.io/zh/publications/teleworld/",
+          "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://akira-l.github.io/zh/publications/teleboost/",
+          "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://akira-l.github.io/zh/publications/taros/",
+          "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://akira-l.github.io/zh/publications/otca/",
+          "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://akira-l.github.io/zh/publications/rats/",
+          "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://akira-l.github.io/zh/publications/embodied-brains/",
+          "name": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/research/video-generation-world-models/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research",
+          "item": "https://akira-l.github.io/zh/research/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "视频生成与世界模型",
+          "item": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+        }
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/icocap/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/icocap/",
+      "name": "IcoCap: Improving Video Captioning by Compounding Images",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/vast/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/vast/",
+      "name": "VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xi Qiu"
+        },
+        {
+          "@type": "Person",
+          "name": "Fangqiu Yi"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2024-12-21"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/freelong/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/freelong/",
+      "name": "FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yu Lu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/teleworld/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/teleworld/",
+      "name": "TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yabo Chen"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Jiepeng Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Tingxi Chen"
+        },
+        {
+          "@type": "Person",
+          "name": "Junfei Cheng"
+        },
+        {
+          "@type": "Person",
+          "name": "Zixiao Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuyang Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Zicheng Jiang"
+        },
+        {
+          "@type": "Person",
+          "name": "Wei Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Tian Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Weichen Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Zuoxin Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Guangce Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Jialun Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Junqi Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Haoyuan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xunzhi Xiang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaoyan Yang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xin Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Shiwen Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Junyu Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Chengcheng Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2025-12-31"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/teleboost/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/teleboost/",
+      "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yirui Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yijie Fang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yizhen Fan"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Peng Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yanbo Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-02-07"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/taros/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/taros/",
+      "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/otca/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/otca/",
+      "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yun Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/rats/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/rats/",
+      "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Bingyu Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/embodied-brains/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/embodied-brains/",
+      "name": "From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xufeng Zhan"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-07-13"
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page research-page">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a href="/zh/publications/">论文与解读</a></li><li><a class="active" href="/zh/research/">研究方向</a></li></ul>
+</nav>
+  <main id="main" class="research-container path-detail">
+    <nav class="page-home-return" aria-label="返回主页"><a href="/"><span aria-hidden="true">←</span>返回主页</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb"><a href="/zh/research/">研究方向</a><span aria-hidden="true">/</span><span aria-current="page">视频与世界模型</span></nav>
+    <nav class="path-return-bar" aria-label="研究路径导航"><a href="/zh/research/#research-paths"><span class="path-return-arrow" aria-hidden="true">←</span><span><strong>全部研究路径</strong><small>重新选择研究路径</small></span></a></nav>
+    <header class="research-hero path-hero">
+      <p class="eyebrow">研究路径</p>
+      <h1>视频生成与世界模型</h1>
+      <p class="research-dek">研究视频生成走向世界模型所需的条件：空间控制、长时时间一致性、持久状态与以行动为条件的预测。</p>
+      <p class="language-switch"><a href="https://akira-l.github.io/research/video-generation-world-models/" hreflang="en">English</a></p>
+    </header>
+    <section class="path-question-block"><p class="eyebrow">核心问题</p><h2>能够生成合理视频片段的模型，与能够维护状态并稳定预测未来观测的世界模型之间，还缺少哪些能力？</h2><p>视频生成为时序建模提供了具体试验，但视觉真实感本身不能证明模型已经形成世界模型。用于预测或规划的模型还需要跨时间维护状态，表示行动怎样影响状态转移，并在未来观测不确定时表达不确定性。</p></section>
+    <section class="research-intro"><p>与图像生成相比，视频生成必须建模跨时间依赖。人物与物体的身份、空间布局、运动和事件顺序都需要在连续帧中保持一致。序列变长后，短视频中不明显的外观漂移、几何不一致和缺乏前序状态支持的运动会持续积累。</p><p>大规模训练能够提高数据覆盖，但数据规模本身不能定义世界模型。世界建模还需要持久的状态表示、以可能行动为条件的预测，以及用真实观测到的状态转移进行评价。这条路径中的论文分别研究一致监督、可控生成、长时上下文、持久重建和后训练，它们是相关前提，但没有任何单篇论文被描述为已经解决完整问题。</p></section>
+    <div class="path-timeline"><section class="path-stage" id="stage-1">
+  <div class="stage-marker" aria-hidden="true">01</div>
+  <div class="stage-content"><h2>让视觉增强与语言监督保持一致</h2><p>IcoCap 通过把图像语义复合进视频内容来改变视频描述样本的内容密度，再使用 Visual-Semantic Guided Captioning 调整复合输入对应的描述学习。这里的监督原则很具体：当数据增强改变了输入的语义内容，目标也必须随之调整。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">基础工作</span><span>2024</span></div>
+  <h3><a href="/zh/publications/icocap/">IcoCap: Improving Video Captioning by Compounding Images</a></h3>
+  <p>IcoCap 提供了视频—语言学习中的早期监督经验：当视觉内容被复合改变时，目标描述也必须在同一过程中重新选择。</p>
+  <div class="links"><a class="primary" href="/zh/publications/icocap/">论文记录</a><a href="/research-notes/icocap/">英文 Research Note</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-2">
+  <div class="stage-marker" aria-hidden="true">02</div>
+  <div class="stage-content"><h2>控制空间构图并扩展时间上下文</h2><p>VAST 与 FreeLong 处理文本到视频生成的两个不同限制。VAST 在合成前加入包含人体姿态和物体布局的故事板，提供显式空间条件；FreeLong 保留预训练短视频扩散模型，在去噪过程中改变时序特征融合，以平衡长序列中的低频全局一致性与高频局部细节。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2024</span></div>
+  <h3><a href="/zh/publications/vast/">VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation</a></h3>
+  <p>VAST 在文本与视频之间加入显式故事板，在合成之前把人物姿态和物体布局作为条件信号。</p>
+  <div class="links"><a class="primary" href="/zh/publications/vast/">论文记录</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2024</span></div>
+  <h3><a href="/zh/publications/freelong/">FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention</a></h3>
+  <p>FreeLong 通过频率感知的时序特征融合扩展预训练短视频扩散模型，在不重新训练基础模型的情况下延长生成时长。</p>
+  <div class="links"><a class="primary" href="/zh/publications/freelong/">论文记录</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-3">
+  <div class="stage-marker" aria-hidden="true">03</div>
+  <div class="stage-content"><h2>在生成与重建之间维护状态</h2><p>TeleWorld 将视频生成、动态 4D 重建和持久记忆连接起来。生成观测更新重建状态，该状态再作为后续合成的条件。与孤立视频生成不同，某一步的误差会改变后续步骤使用的状态，因此状态一致性成为显式的系统问题。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2025</span></div>
+  <h3><a href="/zh/publications/teleworld/">TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model</a></h3>
+  <p>TeleWorld 把视频生成、动态重建和持久 4D 记忆连接成闭环，使后续合成能够依赖已经积累的世界状态。</p>
+  <div class="links"><a class="primary" href="/zh/publications/teleworld/">论文记录</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-4">
+  <div class="stage-marker" aria-hidden="true">04</div>
+  <div class="stage-content"><h2>使用多类反馈优化生成过程</h2><p>视频后训练通常同时使用画面质量、文本对齐、运动和时间一致性等反馈。TeleBoost 区分监督、强化学习和偏好细化阶段；TaRoS 在训练中调整不同奖励分量的影响；OTCA 在去噪步骤和目标之间分配结果信用；RATS 则根据相对奖励质量调整教师指导。这些方法在既定奖励下改进视觉生成器，但本身并不提供以行动为条件的世界建模。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/teleboost/">TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</a></h3>
+  <p>TeleBoost 将监督策略塑形、奖励驱动强化学习和偏好细化组织为不同训练阶段，并用诊断与训练基础设施支持完整管线。</p>
+  <div class="links"><a class="primary" href="/zh/publications/teleboost/">论文记录</a><a href="/research-notes/teleboost/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">衔接工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/taros/">Rethinking Reward Signals in Video GRPO: When Scores Become Targets</a></h3>
+  <p>TaRoS 在奖励分量冲突、组内比较稀疏或指标已经饱和时动态调整视频奖励，使反馈继续保持信息量。</p>
+  <div class="links"><a class="primary" href="/zh/publications/taros/">论文记录</a><a href="/research-notes/taros/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">衔接工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/otca/">Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</a></h3>
+  <p>OTCA 将最终图像或视频奖励分配到不同去噪时刻和目标，而不是假设每个生成决策承担相同责任。</p>
+  <div class="links"><a class="primary" href="/zh/publications/otca/">论文记录</a><a href="/research-notes/otca/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">衔接工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/rats/">Reward-Aware Trajectory Shaping for Few-step Visual Generation</a></h3>
+  <p>RATS 把少步轨迹蒸馏与偏好反馈结合起来，当学生在所选奖励下达到或超过教师时，适当减弱教师约束。</p>
+  <div class="links"><a class="primary" href="/zh/publications/rats/">论文记录</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-5">
+  <div class="stage-marker" aria-hidden="true">05</div>
+  <div class="stage-content"><h2>把预测模型连接到具身系统</h2><p>Embodied Brains 路线图讨论预测之外的系统要求：预测模型需要连接工具与控制器，在物理环境中执行，验证实际状态转移，并将经过验证的交互数据重新用于训练。这是面向未来的系统联系，不是视频生成论文已经验证的实验结果。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">长期方向</span><span>2026</span></div>
+  <h3><a href="/zh/publications/embodied-brains/">From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</a></h3>
+  <p>Embodied Brains 路线图将预测式世界与动作模型放入由共享契约、物理执行层、验证和闭环学习组成的更大系统。</p>
+  <div class="links"><a class="primary" href="/zh/publications/embodied-brains/">论文记录</a></div>
+</article></div></div>
+</section></div>
+    <section class="path-boundary"><h2>这条路径主张什么，又不主张什么</h2><p>可控或时间一致的视频生成不足以证明模型适合用于规划。这样的世界模型还需要预测以行动为条件的状态转移、表达不确定性，并在状态和环境变化时保持准确。TeleWorld 加入了持久重建，但持久表示仍不等同于具身智能体。这条路径只说明论文之间的技术联系，不为它们虚构共同架构或评测协议。</p></section>
+    <section class="path-open"><h2>开放问题</h2><p>开放问题包括：怎样在同一预测模型中表示状态与行动，怎样校准长轨迹预测的不确定性，以及怎样区分模型生成的观测与外部世界的测量结果。闭环系统还需要验证执行后的状态转移是否符合预测，再决定能否将该轨迹重新用于训练。</p></section>
+    <section class="citation-ready"><h2>阅读并引用论文</h2><p>本页用于连接多项合作研究，不替代单篇论文。请通过各论文规范记录核对证据、原始来源并下载引用。</p></section>
+    <nav class="path-return-panel" aria-label="选择其他研究路径"><div><p class="eyebrow">研究地图</p><h2>继续浏览其他研究路径</h2><p>返回总览，对照三条研究路径，或选择另一条研究主线。</p></div><a href="/zh/research/#research-paths">选择其他研究路径 <span aria-hidden="true">→</span></a></nav>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../../dist/js/file-preview.js"></script>
+</body>
+</html>

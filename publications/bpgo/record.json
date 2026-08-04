@@ -80,6 +80,24 @@
       "citation_ready": "Liu 等提出 Bayesian Prior-Guided Optimization（BPGO），利用 semantic prior 在 GRPO group 之间分配信任并重整组内奖励，以提高图像和视频生成后训练信号的可靠性。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "BPGO uses a semantic prior to weight group-level and within-group reward comparisons, reducing the influence of comparisons judged to be uncertain.",
+        "zh-CN": "BPGO 使用语义先验调整组间与组内奖励比较的权重，降低不确定比较对参数更新的影响。"
+      }
+    }
+  ],
   "citation": {
     "id": "liu2026bpgo",
     "type": "paper-conference",

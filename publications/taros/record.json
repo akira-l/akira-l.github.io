@@ -81,6 +81,40 @@
       "citation_ready": "Li 等提出 TaRoS，一种面向 video GRPO 的 target-robust reward-signaling 框架，通过 component-level assessment、intra-group sparsity 和对饱和奖励分量的自适应降权减少 reward hacking。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "bridge",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "TaRoS keeps composite video rewards informative when components disagree, group comparisons are sparse, or a metric has saturated during optimization.",
+        "zh-CN": "TaRoS 在奖励分量冲突、组内比较稀疏或指标已经饱和时动态调整视频奖励，使反馈继续保持信息量。"
+      }
+    },
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "TaRoS changes reward-component influence when comparisons become sparse, objectives disagree, or a component saturates as training progresses.",
+        "zh-CN": "TaRoS 在比较变得稀疏、目标发生冲突或奖励分量随训练饱和时，动态改变各分量的影响。"
+      }
+    }
+  ],
   "citation": {
     "id": "li2026taros",
     "type": "paper-conference",

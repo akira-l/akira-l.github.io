@@ -341,4 +341,116 @@
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/publications/vrr-vg/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/publications/vrr-vg/"/>
   </url>
+  <url>
+    <loc>https://akira-l.github.io/research/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/research/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research/video-generation-world-models/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/video-generation-world-models/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/video-generation-world-models/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/video-generation-world-models/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/research/video-generation-world-models/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/video-generation-world-models/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/video-generation-world-models/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/video-generation-world-models/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research/trustworthy-visual-post-training/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/trustworthy-visual-post-training/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/trustworthy-visual-post-training/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/research/trustworthy-visual-post-training/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/trustworthy-visual-post-training/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/trustworthy-visual-post-training/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research/semantic-motion-embodied-interaction/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/semantic-motion-embodied-interaction/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/semantic-motion-embodied-interaction/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/semantic-motion-embodied-interaction/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/semantic-motion-embodied-interaction/"/>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/teleboost/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/vipo/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/taros/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/otca/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/bpgo/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/uni-inter/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/mhem/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/anteval/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/icocap/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/maal/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/seeg/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/elp/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://akira-l.github.io/research-notes/vrr-vg/</loc>
+    <lastmod>2026-08-04</lastmod>
+  </url>
 </urlset>

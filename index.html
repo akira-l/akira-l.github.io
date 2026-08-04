@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta name="description" content="Yuanzhi Liang — Research Scientist at TeleAI, China Telecom. PhD from UTS. Specializing in generative AI, post-training, alignment, video generation, and world models.">
-   <meta name="keywords" content="Yuanzhi Liang, 梁远智, generative AI, post-training, alignment, video generation, world models, TeleAI, China Telecom, computer vision, deep learning">
    <meta name="author" content="Yuanzhi Liang">
    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
    <link rel="canonical" href="https://akira-l.github.io/">
@@ -40,7 +39,8 @@
          "@id": "https://akira-l.github.io/#website",
          "url": "https://akira-l.github.io/",
          "name": "Yuanzhi Liang",
-         "description": "Personal homepage of Yuanzhi Liang, Research Scientist specializing in generative AI."
+         "description": "Personal homepage of Yuanzhi Liang, Research Scientist specializing in generative AI.",
+         "publisher": { "@id": "https://akira-l.github.io/#person" }
        },
        {
          "@type": "ProfilePage",
@@ -48,7 +48,9 @@
          "url": "https://akira-l.github.io/",
          "name": "Yuanzhi Liang — Research Scientist | Generative AI, Post-training & Alignment",
          "isPartOf": { "@id": "https://akira-l.github.io/#website" },
+         "mainEntity": { "@id": "https://akira-l.github.io/#person" },
          "about": { "@id": "https://akira-l.github.io/#person" },
+         "inLanguage": "en",
          "dateModified": "2026-07-31"
        },
        {
@@ -57,6 +59,7 @@
          "name": "Yuanzhi Liang",
          "alternateName": ["梁远智", "akira-l"],
          "url": "https://akira-l.github.io/",
+         "mainEntityOfPage": { "@id": "https://akira-l.github.io/#webpage" },
          "image": "https://akira-l.github.io/img/liangyzh.jpg",
          "identifier": {
            "@type": "PropertyValue",
@@ -178,18 +181,19 @@
 
  <body style="font-size: 18px;"> 
   
-  <nav class="navbar navbar-inverse navbar-fixed-top"> 
+  <nav class="navbar navbar-inverse navbar-fixed-top" aria-label="Main navigation">
    <div class="container">
 	<div class="navbar-header">
 
-	 <a class="navbar-brand"><b>Yuanzhi Liang</b></a>
+	 <a class="navbar-brand" href="/"><b>Yuanzhi Liang</b></a>
 	</div>
 	<div id="navbar" class="collapse navbar-collapse">
 	 <ul class="nav navbar-nav">
-			<li ><a href="#about"><b>Biography</b></a></li>
+		<li ><a href="#about"><b>Biography</b></a></li>
 			<li ><a href="#exp"><b>Experience</b></a></li>
 			<li ><a href="#honors"><b>Honors</b></a></li>
 			<li ><a href="#publication"><b>Publications</b></a></li>
+			<li ><a href="research/"><b>Research</b></a></li>
 			<li ><a href="#academic"><b>Activities</b></a></li>
 	 </ul> 
 	</div> 
@@ -197,7 +201,7 @@
    </div> 
    </nav> 
 
-	<br/><br/><br/>
+	<div class="homepage-nav-spacer" aria-hidden="true"></div>
 
     <div class="container">
 
@@ -245,17 +249,11 @@
 				I received a Master's degree from Xi'an Jiaotong University in 2020 and was a member of the SMILES LAB, advised by Prof. <a href="https://scholar.google.com/citations?user=skQCiQQAAAAJ&hl=zh-CN">Xueming Qian</a> and Prof. <a href="https://gr.xjtu.edu.cn/web/zhuli">Li Zhu</a>.
 			  </p>
 
-			<p>	
-				<!-- My research focuses on improving machine intelligence that learns and generalizes from visual content, with particular interests in post-training of generative visual systems, video generation, and world models. I am also interested in theoretical innovations in generative models. -->
+			<!-- RESEARCH_PROFILE_START -->
+			<p>My research focuses on visual learning systems that generalize beyond fixed training distributions and continue to improve after pre-training. The work studies both the content of learned representations—discriminative visual features, semantic relationships, temporal dependencies, and scene state—and the evidence used to update them, including labels, preference data, reward estimates, and observed state transitions. This agenda spans visual recognition, video generation, world models, and visual post-training.</p>
 
-				My research focuses on generative AI with an emphasis on post-training, alignment, and structured world understanding built on large-scale data-driven foundations. I am interested in how models develop coherent internal representations, respect real-world structure, and refine their behavior through principled signals—including physical priors, aesthetic objectives, and human-aligned guidance. The aim is to move toward generative systems that remain grounded in data while becoming more reliable, structurally consistent, and capable of progressive self-improvement.
-				</p>
-
-				<p>
-				More broadly, I am interested in learning frameworks where generative models improve through simulation, interaction, and self-directed refinement rather than static supervision alone. This includes the use of world models, controlled training environments, and structured feedback to provide richer learning signals—enabling models to test hypotheses, adapt, and grow through experience. The long-term goal is to support a trajectory toward generative intelligence that is grounded, aligned, and continuously advancing through both data and experience.
-
-
-			</p>
+			<p>My long-term goal is to build agents that can predict the consequences of candidate actions, execute an action, compare predicted and observed state transitions, and use the discrepancy to improve their models or policies. I study this closed loop in digital environments, where interaction can be repeated and scaled, and in physical environments, where actions must satisfy geometric, dynamical, and safety constraints.</p>
+	  <!-- RESEARCH_PROFILE_END -->
 			  <div style="border: 2px solid #007acc; padding: 15px; border-radius: 5px; background-color: #eef6fc;">
 				<p style="margin: 0;">
 				  I am always looking for highly motivated research interns and long-term collaborators. We currently have multiple positions available, focusing on, but not limited to, multimodal large models, video generation/editing, and 3D generation. If you are interested in exploring these areas or discussing potential research collaborations, please feel free to contact me via email. (Applicants for internships are encouraged to include your CV.)
@@ -265,6 +263,10 @@
 
 		</div>
       </div>
+
+	  <!-- RESEARCH_PATHS_START -->
+
+	  <!-- RESEARCH_PATHS_END -->
 
 
 	  <a id="exp"></a> <hr>
@@ -333,56 +335,55 @@
 	  
       <div class="row">
 		<div class="span12">
-		<h3>Recent Preprints and Surveys <small style="font-size: 14px; color: #666;">(<a href="https://akira-l.github.io/publications/">all publications</a>)</small></h3>
+		<h3>Recent Work <small style="font-size: 14px; color: #666;">(<a href="https://akira-l.github.io/publications/">all publications</a>)</small></h3>
 			<ul class="publication-list">
-			    <li>From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/embodied-brains/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2607.11689" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Xufeng Zhan*, Haibin Huang, Chi Zhang, Xuelong Li.<br> arXiv, 2026 <br><br></li>
-			    <li>TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/teleboost/">Overview</a><a class="badge-home" href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Xuan'er Wu, Yirui Liu, Yijie Fang*, Yizhen Fan, Ke Hao*, Rui Li*, Ruiying Liu*, Ziqi Ni*, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, Xuelong Li.<br> arXiv, 2026 <br><br></li>
-			    <li>TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/teleworld/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener">Link</a></span><br>Yabo Chen, <b>Yuanzhi Liang</b>, Jiepeng Wang, Tingxi Chen, Junfei Cheng, Zixiao Gu, Yuyang Huang, Zicheng Jiang, Wei Li, Tian Li, Weichen Li, Zuoxin Li, Guangce Liu, Jialun Liu, Junqi Liu, Haoyuan Wang, Qizhen Weng, Xuan'er Wu, Xunzhi Xiang, Xiaoyan Yang, Xin Zhang, Shiwen Zhang, Junyu Zhou, Chengcheng Zhou, Haibin Huang, Chi Zhang, Xuelong Li.<br> arXiv, 2025 <br><br></li>
-			    <li>Integrating Reinforcement Learning with Visual Generative Models: Foundations and Advances <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/rl-vgm/">Overview</a><a class="badge-home" href="https://visgenrlsurvey.liangyzh18.workers.dev/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://link.springer.com/article/10.1007/s44336-025-00030-z" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Yijie Fang*, Rui Li*, Ziqi Ni*, Ruijie Su*, Chi Zhang.<br> Vicinagearth, 2026 <br><br></li>
+			    <li><a class="publication-title" href="https://akira-l.github.io/publications/embodied-brains/">From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/embodied-brains/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2607.11689" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Xufeng Zhan*, Haibin Huang, Chi Zhang, Xuelong Li.<br> arXiv, 2026 <br><br></li>
+			    <li><a class="publication-title" href="https://akira-l.github.io/publications/teleboost/">TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/teleboost/">Overview</a><a class="badge-home" href="https://tele-ai.github.io/TeleBoost/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://arxiv.org/abs/2602.07595" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Xuan'er Wu, Yirui Liu, Yijie Fang*, Yizhen Fan, Ke Hao*, Rui Li*, Ruiying Liu*, Ziqi Ni*, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, Xuelong Li.<br> arXiv, 2026 <br><br></li>
+			    <li><a class="publication-title" href="https://akira-l.github.io/publications/teleworld/">TeleWorld: Towards Dynamic Multimodal Synthesis with a 4D World Model</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/teleworld/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2601.00051" target="_blank" rel="noopener">Link</a></span><br>Yabo Chen, <b>Yuanzhi Liang</b>, Jiepeng Wang, Tingxi Chen, Junfei Cheng, Zixiao Gu, Yuyang Huang, Zicheng Jiang, Wei Li, Tian Li, Weichen Li, Zuoxin Li, Guangce Liu, Jialun Liu, Junqi Liu, Haoyuan Wang, Qizhen Weng, Xuan'er Wu, Xunzhi Xiang, Xiaoyan Yang, Xin Zhang, Shiwen Zhang, Junyu Zhou, Chengcheng Zhou, Haibin Huang, Chi Zhang, Xuelong Li.<br> arXiv, 2025 <br><br></li>
 			    <!-- <li>CtrlVDiff: Controllable Video Generation via Unified Multimodal Video Diffusion <br>Dianbing Xi, Jiepeng Wang, <b>Yuanzhi Liang</b>, Xi Qiu, Jialun Liu, Hao Pan, Yuchi Huo, Rui Wang, Haibin Huang, Chi Zhang, Xuelong Li.<br> Arxiv, 2025 <br><br></li> -->
-			    <li>VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/vast/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2412.16677" target="_blank" rel="noopener">Link</a></span><br>Chi Zhang, <b>Yuanzhi Liang</b>, Xi Qiu, Fangqiu Yi, Xuelong Li.<br> arXiv, 2024 <br><br></li>
+			    <li><a class="publication-title" href="https://akira-l.github.io/publications/vast/">VAST 1.0: A Unified Framework for Controllable and Consistent Video Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/vast/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2412.16677" target="_blank" rel="noopener">Link</a></span><br>Chi Zhang, <b>Yuanzhi Liang</b>, Xi Qiu, Fangqiu Yi, Xuelong Li.<br> arXiv, 2024 <br><br></li>
 				<!-- <li>Tachikuma: Understading Complex Interactions with Multi-Character and Novel Objects by Large Language Models.  <br><b>Yuanzhi Liang</b>, Linchao Zhu, Yi Yang.<br> Arxiv, 2023  <br><br></li> -->
 
 			</ul>
 			<h3>Selected Publications</h3>
 			<ul class="publication-list">
-				<li>Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/otca/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener">Link</a></span><br>Rui Li*<sup>†</sup>, Ke Hao*<sup>†</sup>, <b>Yuanzhi Liang</b>, Haibin Huang, Chi Zhang, Yun Gu, Xuelong Li.<br> Accepted by ACM MM 2026 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/otca/">Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/otca/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2604.19234" target="_blank" rel="noopener">Link</a></span><br>Rui Li*<sup>†</sup>, Ke Hao*<sup>†</sup>, <b>Yuanzhi Liang</b>, Haibin Huang, Chi Zhang, Yun Gu, Xuelong Li.<br> ACM MM 2026 <br><br></li>
 
-				<li>Reward-Aware Trajectory Shaping for Few-step Visual Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/rats/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener">Link</a></span><br>Rui Li*<sup>†</sup>, Bingyu Li<sup>†</sup>, <b>Yuanzhi Liang</b>, Haibin Huang, Chi Zhang, Xuelong Li.<br> Accepted by ACM MM 2026 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/rats/">Reward-Aware Trajectory Shaping for Few-step Visual Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/rats/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2604.14910" target="_blank" rel="noopener">Link</a></span><br>Rui Li*<sup>†</sup>, Bingyu Li<sup>†</sup>, <b>Yuanzhi Liang</b>, Haibin Huang, Chi Zhang, Xuelong Li.<br> ACM MM 2026 <br><br></li>
 
-				<li>Seeing What Matters: Visual Preference Policy Optimization for Visual Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/vipo/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener">Link</a></span><br>Ziqi Ni*, <b>Yuanzhi Liang<sup>†</sup></b>, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, Xuelong Li.<br> Accepted by CVPR 2026 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/vipo/">Seeing What Matters: Visual Preference Policy Optimization for Visual Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/vipo/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2026/html/Ni_Seeing_What_Matters_Visual_Preference_Policy_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener">Link</a></span><br>Ziqi Ni*, <b>Yuanzhi Liang<sup>†</sup></b>, Rui Li, Yi Zhou, Haibin Huang, Chi Zhang, Xuelong Li.<br> CVPR 2026 <br><br></li>
 
-				<li>Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/bpgo/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener">Link</a></span><br>Ruiying Liu*, <b>Yuanzhi Liang<sup>†</sup></b>, Haibin Huang, Tianshu Yu, Chi Zhang.<br> Accepted by CVPR 2026 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/bpgo/">Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/bpgo/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2026/html/Liu_Learning_What_to_Trust_Bayesian_Prior-Guided_Optimization_for_Visual_Generation_CVPR_2026_paper.html" target="_blank" rel="noopener">Link</a></span><br>Ruiying Liu*, <b>Yuanzhi Liang<sup>†</sup></b>, Haibin Huang, Tianshu Yu, Chi Zhang.<br> CVPR 2026 <br><br></li>
 
-				<li>Rethinking Reward Signals in Video GRPO: When Scores Become Targets <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/taros/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener">Link</a></span><br>Rui Li*, <b>Yuanzhi Liang<sup>†</sup></b>, Ziqi Ni, Haibin Huang, Chi Zhang, Xuelong Li.<br> Accepted by ECCV 2026 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/taros/">Rethinking Reward Signals in Video GRPO: When Scores Become Targets</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/taros/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2511.19356" target="_blank" rel="noopener">Link</a></span><br>Rui Li*, <b>Yuanzhi Liang<sup>†</sup></b>, Ziqi Ni, Haibin Huang, Chi Zhang, Xuelong Li.<br> ECCV 2026 <br><br></li>
 
-				<li>LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/laxmotion/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener">Link</a></span><br>Sheng Liu*, <b>Yuanzhi Liang</b>, Sidan Du.<br> Accepted by ECCV 2026 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/laxmotion/">LaxMotion: Rethinking Supervision Granularity for 3D Human Motion Generation</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/laxmotion/">Overview</a><a class="badge-paper" href="https://arxiv.org/abs/2511.11368" target="_blank" rel="noopener">Link</a></span><br>Sheng Liu*, <b>Yuanzhi Liang</b>, Sidan Du.<br> ECCV 2026 <br><br></li>
 
-				<li>Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/uni-inter/">Overview</a><a class="badge-paper" href="https://dl.acm.org/doi/10.1145/3757377.3763954" target="_blank" rel="noopener">Link</a></span><br>Sheng Liu*, <b>Yuanzhi Liang<sup>†</sup></b>, Jiepeng Wang, Sidan Du, Chi Zhang, Xuelong Li.<br> SIGGRAPH Asia 2025 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/uni-inter/">Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/uni-inter/">Overview</a><a class="badge-paper" href="https://dl.acm.org/doi/10.1145/3757377.3763954" target="_blank" rel="noopener">Link</a></span><br>Sheng Liu*, <b>Yuanzhi Liang<sup>†</sup></b>, Jiepeng Wang, Sidan Du, Chi Zhang, Xuelong Li.<br> SIGGRAPH Asia 2025 <br><br></li>
 
-				<li>InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/intersyn/">Overview</a><a class="badge-home" href="https://myy888.github.io/InterSyn/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener">Link</a></span><br>Yiyi Ma*, <b>Yuanzhi Liang</b>, Xiu Li, Chi Zhang, Xuelong Li.<br> ICCV 2025 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/intersyn/">InterSyn: Interleaved Learning for Dynamic Motion Synthesis in the Wild</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/intersyn/">Overview</a><a class="badge-home" href="https://myy888.github.io/InterSyn/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/ICCV2025/html/Ma_InterSyn_Interleaved_Learning_for_Dynamic_Motion_Synthesis_in_the_Wild_ICCV_2025_paper.html" target="_blank" rel="noopener">Link</a></span><br>Yiyi Ma*, <b>Yuanzhi Liang</b>, Xiu Li, Chi Zhang, Xuelong Li.<br> ICCV 2025 <br><br></li>
 
-				<li>FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/freelong/">Overview</a><a class="badge-home" href="https://yulu.net.cn/freelong/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://arxiv.org/abs/2407.19918" target="_blank" rel="noopener">Link</a></span><br>Yu Lu, <b>Yuanzhi Liang</b>, Linchao Zhu, Yi Yang.<br> NeurIPS 2024 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/freelong/">FreeLong: Training-Free Long Video Generation with SpectralBlend Temporal Attention</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/freelong/">Overview</a><a class="badge-home" href="https://yulu.net.cn/freelong/" target="_blank" rel="noopener">Homepage</a><a class="badge-paper" href="https://arxiv.org/abs/2407.19918" target="_blank" rel="noopener">Link</a></span><br>Yu Lu, <b>Yuanzhi Liang</b>, Linchao Zhu, Yi Yang.<br> NeurIPS 2024 <br><br></li>
 
-				<li>MAAL: Multimodality-Aware Autoencoder-Based Affordance Learning for 3D Articulated Objects. <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/maal/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Xiaohan Wang, Linchao Zhu, Yi Yang.<br> ICCV 2023 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/maal/">MAAL: Multimodality-Aware Autoencoder-Based Affordance Learning for 3D Articulated Objects.</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/maal/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/ICCV2023/html/Liang_MAAL_Multimodality-Aware_Autoencoder-Based_Affordance_Learning_for_3D_Articulated_Objects_ICCV_2023_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Xiaohan Wang, Linchao Zhu, Yi Yang.<br> ICCV 2023 <br><br></li>
 
-				<li>IcoCap: Improving Video Captioning by Compounding Images. <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/icocap/">Overview</a><a class="badge-paper" href="https://doi.org/10.1109/TMM.2023.3322329" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Linchao Zhu, Xiaohan Wang, Yi Yang.<br> IEEE TMM 26, 2024 (online 2023) <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/icocap/">IcoCap: Improving Video Captioning by Compounding Images.</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/icocap/">Overview</a><a class="badge-paper" href="https://doi.org/10.1109/TMM.2023.3322329" target="_blank" rel="noopener">Link</a></span><br><b>Yuanzhi Liang</b>, Linchao Zhu, Xiaohan Wang, Yi Yang.<br> IEEE TMM 26, 2024 <br><br></li>
 
-				<li>A Simple Episodic Linear Probe Improves Visual Recognition in the Wild. <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/elp/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Linchao Zhu, Xiaohan Wang, Yi Yang.<br> CVPR 2022 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/elp/">A Simple Episodic Linear Probe Improves Visual Recognition in the Wild.</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/elp/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_A_Simple_Episodic_Linear_Probe_Improves_Visual_Recognition_in_the_CVPR_2022_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Linchao Zhu, Xiaohan Wang, Yi Yang.<br> CVPR 2022 <br><br></li>
 
-				<li>SEEG: Semantic Energized Co-Speech Gesture Generation. <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/seeg/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_SEEG_Semantic_Energized_Co-Speech_Gesture_Generation_CVPR_2022_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Qianyu Feng, Linchao Zhu, Li Hu, Pan Pan, Yi Yang.<br> CVPR 2022 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/seeg/">SEEG: Semantic Energized Co-Speech Gesture Generation.</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/seeg/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2022/html/Liang_SEEG_Semantic_Energized_Co-Speech_Gesture_Generation_CVPR_2022_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Qianyu Feng, Linchao Zhu, Li Hu, Pan Pan, Yi Yang.<br> CVPR 2022 <br><br></li>
 
-				<li>Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification. <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/mhem/">Overview</a><a class="badge-paper" href="https://doi.org/10.1109/TNNLS.2022.3213563" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Linchao Zhu, Xiaohan Wang, Yi Yang.<br> IEEE TNNLS 35(5), 2024 (online 2022) <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/mhem/">Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification.</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/mhem/">Overview</a><a class="badge-paper" href="https://doi.org/10.1109/TNNLS.2022.3213563" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Linchao Zhu, Xiaohan Wang, Yi Yang.<br> IEEE TNNLS 35(5), 2024 <br><br></li>
 
-				<!-- <li>Product Recognition for Unmanned Vending Machines. <br>Chengxu Liu, Zongyang Da, <b>Yuanzhi Liang</b>, Yao Xue, Guoshuai Zhao, Xueming Qian.<br> Accepted by TNNLS 2022 <br><br></li> -->
+				<!-- <li>Product Recognition for Unmanned Vending Machines. <br>Chengxu Liu, Zongyang Da, <b>Yuanzhi Liang</b>, Yao Xue, Guoshuai Zhao, Xueming Qian.<br> TNNLS 2022 <br><br></li> -->
 
-				<li>Removing Raindrops and Rain Streaks in One Go <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/rain-one-go/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener">Link</a></span><br>Ruijie Quan, Xin Yu, <b>Yuanzhi Liang</b>, Yi Yang.<br> CVPR 2021 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/rain-one-go/">Removing Raindrops and Rain Streaks in One Go</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/rain-one-go/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content/CVPR2021/html/Quan_Removing_Raindrops_and_Rain_Streaks_in_One_Go_CVPR_2021_paper.html" target="_blank" rel="noopener">Link</a></span><br>Ruijie Quan, Xin Yu, <b>Yuanzhi Liang</b>, Yi Yang.<br> CVPR 2021 <br><br></li>
 
-				<!-- <li>Towards Better Railway Service: Passengers Counting in Railway Compartment.  <br><b>Yuanzhi Liang</b>, Zhu Li, Xueming Qian.<br> Accepted by TCSVT 2020 <br><br></li> -->
+				<!-- <li>Towards Better Railway Service: Passengers Counting in Railway Compartment.  <br><b>Yuanzhi Liang</b>, Zhu Li, Xueming Qian.<br> TCSVT 2020 <br><br></li> -->
 
-				<li>Food and Ingredient Joint Learning for Fine-Grained Recognition <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/food-ingredient/">Overview</a><a class="badge-paper" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener">Link</a></span><br>Chengxu Liu, <b>Yuanzhi Liang</b>, Yao Xue, Xueming Qian, Jianlong Fu.<br> IEEE TCSVT 31(6), 2021 (online 2020) <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/food-ingredient/">Food and Ingredient Joint Learning for Fine-Grained Recognition</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/food-ingredient/">Overview</a><a class="badge-paper" href="https://doi.org/10.1109/TCSVT.2020.3020079" target="_blank" rel="noopener">Link</a></span><br>Chengxu Liu, <b>Yuanzhi Liang</b>, Yao Xue, Xueming Qian, Jianlong Fu.<br> IEEE TCSVT 31(6), 2021 <br><br></li>
 
-				<li>VrR-VG: Refocusing Visually-Relevant Relationships. <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/vrr-vg/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Yalong Bai, Wei Zhang, Xueming Qian, Li Zhu, Tao Mei.<br> ICCV 2019 <br><br></li>
+				<li><a class="publication-title" href="https://akira-l.github.io/publications/vrr-vg/">VrR-VG: Refocusing Visually-Relevant Relationships.</a> <span class="pub-badges"><a class="badge-tldr" href="https://akira-l.github.io/publications/vrr-vg/">Overview</a><a class="badge-paper" href="https://openaccess.thecvf.com/content_ICCV_2019/html/Liang_VrR-VG_Refocusing_Visually-Relevant_Relationships_ICCV_2019_paper.html" target="_blank" rel="noopener">Link</a></span> <br><b>Yuanzhi Liang</b>, Yalong Bai, Wei Zhang, Xueming Qian, Li Zhu, Tao Mei.<br> ICCV 2019 <br><br></li>
 				
 				</ul>
 				<p><i>Note *</i>: interns that I mentored. <i>Note †</i>: equal contribution.</p>
@@ -436,4 +437,5 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
+  <script data-local-file-preview src="dist/js/file-preview.js"></script>
 </body></html>

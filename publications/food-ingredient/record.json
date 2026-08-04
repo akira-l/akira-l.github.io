@@ -80,6 +80,7 @@
       "citation_ready": "Liu 等利用 Attention Fusion Network 与 balance focal loss 联合建模细粒度菜品类别和食材，以提取判别区域并缓解 ingredient imbalance。"
     }
   },
+  "research_paths": [],
   "citation": {
     "id": "liu2021foodingredient",
     "type": "article-journal",

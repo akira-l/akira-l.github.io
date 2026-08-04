@@ -14,6 +14,34 @@ Use the local research-record links below for structured metadata, official abst
 - [Full publication corpus](https://akira-l.github.io/llms-full.txt): abstracts and source-checked summaries.
 - [Atom feed](https://akira-l.github.io/feed.xml): update discovery.
 
+- [Research paths](https://akira-l.github.io/research/): What information must an AI system represent to generalize beyond its training distribution, and how should new evidence update the system after pre-training?
+- [研究方向](https://akira-l.github.io/zh/research/): AI 系统需要表示哪些信息，才能泛化到训练分布之外？完成预训练后，新的证据又应该怎样更新系统？
+- [Research path data](https://akira-l.github.io/research/paths.json): bilingual path-to-paper relationships.
+
+## Research paths
+
+- [Video Generation and World Models](https://akira-l.github.io/research/video-generation-world-models/) — Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.
+- [Trustworthy Visual Generation Post-Training](https://akira-l.github.io/research/trustworthy-visual-post-training/) — Studying how reward validity, uncertainty, and credit assignment determine the reliability of post-training for visual generative models.
+- [Semantic Motion and Embodied Interaction](https://akira-l.github.io/research/semantic-motion-embodied-interaction/) — Studying how motion generation can satisfy semantic, relational, and physical constraints across human–human, human–object, and human–scene interaction.
+
+- [Research Notes](https://akira-l.github.io/research-notes/): long-form, source-linked paper explanations.
+
+## Research Notes
+
+- [TeleBoost: Video Generation Post-Training as a Systems Problem](https://akira-l.github.io/research-notes/teleboost/) — explainer for “TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation.”
+- [ViPO: From Scalar Rewards to Pixel-Level Advantage Maps](https://akira-l.github.io/research-notes/vipo/) — explainer for “Seeing What Matters: Visual Preference Policy Optimization for Visual Generation.”
+- [TaRoS: Adapting Reward Signals as the Video Model Changes](https://akira-l.github.io/research-notes/taros/) — explainer for “Rethinking Reward Signals in Video GRPO: When Scores Become Targets.”
+- [OTCA: Assigning Final Rewards to the Generation Steps That Matter](https://akira-l.github.io/research-notes/otca/) — explainer for “Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation.”
+- [BPGO: Learning What to Trust under Reward Uncertainty](https://akira-l.github.io/research-notes/bpgo/) — explainer for “Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation.”
+- [Uni-Inter: A Unified Model for Motion Interaction](https://akira-l.github.io/research-notes/uni-inter/) — explainer for “Uni-Inter: Unifying 3D Human Motion Synthesis Across Diverse Interaction Contexts.”
+- [MHEM: Learning from Hard Examples without Letting Them Dominate](https://akira-l.github.io/research-notes/mhem/) — explainer for “Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification.”
+- [AntEval: Measuring Social Interaction in AI Agents](https://akira-l.github.io/research-notes/anteval/) — explainer for “AntEval: Evaluation of Social Interaction Competencies in LLM-Driven Agents.”
+- [IcoCap: Using Images to Enrich Video Semantics](https://akira-l.github.io/research-notes/icocap/) — explainer for “IcoCap: Improving Video Captioning by Compounding Images.”
+- [MAAL: Learning How Articulated Objects Can Be Used](https://akira-l.github.io/research-notes/maal/) — explainer for “MAAL: Multimodality-Aware Autoencoder-based Affordance Learning for 3D Articulated Objects.”
+- [SEEG: From Rhythmic Motion to Semantic Gesture](https://akira-l.github.io/research-notes/seeg/) — explainer for “SEEG: Semantic Energized Co-speech Gesture Generation.”
+- [ELP: High Confidence Does Not Imply High-Quality Features](https://akira-l.github.io/research-notes/elp/) — explainer for “A Simple Episodic Linear Probe Improves Visual Recognition in the Wild.”
+- [VrR-VG: Making Models Rely on Visual Evidence](https://akira-l.github.io/research-notes/vrr-vg/) — explainer for “VrR-VG: Refocusing Visually-Relevant Relationships.”
+
 ## Research records
 
 - [From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence](https://akira-l.github.io/publications/embodied-brains/) — arXiv 2026; arXiv 2607.11689.

@@ -89,6 +89,40 @@
       "citation_ready": "Liang 等提出 TeleBoost，将 supervised policy shaping、reward-driven reinforcement learning 与 preference refinement 组织为受稳定性约束的视频后训练框架，以提升画面质量、可控性、时间一致性和指令遵循。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "TeleBoost organizes supervised policy shaping, reward-driven reinforcement learning, and preference refinement as distinct training stages, supported by diagnostics and training infrastructure.",
+        "zh-CN": "TeleBoost 将监督策略塑形、奖励驱动强化学习和偏好细化组织为不同训练阶段，并用诊断与训练基础设施支持完整管线。"
+      }
+    },
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "TeleBoost places supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems constraints in one staged post-training pipeline.",
+        "zh-CN": "TeleBoost 将监督塑形、奖励驱动强化学习、偏好细化、诊断和系统约束放入统一的分阶段后训练管线。"
+      }
+    }
+  ],
   "citation": {
     "id": "liang2026teleboost",
     "type": "article",

@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>可信视觉生成后训练 | Yuanzhi Liang</title>
+  <meta name="description" content="研究奖励有效性、不确定性与信用分配怎样决定视觉生成模型后训练的可靠性。">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/zh/research/trustworthy-visual-post-training/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/trustworthy-visual-post-training/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/trustworthy-visual-post-training/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/trustworthy-visual-post-training/">
+  <link rel="alternate" type="application/json" title="Research path data" href="/research/paths.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="可信视觉生成后训练 | Yuanzhi Liang">
+  <meta property="og:description" content="研究奖励有效性、不确定性与信用分配怎样决定视觉生成模型后训练的可靠性。">
+  <meta property="og:url" content="https://akira-l.github.io/zh/research/trustworthy-visual-post-training/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/#collection",
+      "url": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/",
+      "name": "可信视觉生成后训练",
+      "description": "研究奖励有效性、不确定性与信用分配怎样决定视觉生成模型后训练的可靠性。",
+      "inLanguage": "zh-CN",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "可信视觉生成后训练"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/#papers"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/#papers",
+      "numberOfItems": 10,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://akira-l.github.io/zh/publications/vrr-vg/",
+          "name": "VrR-VG: Refocusing Visually-Relevant Relationships"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://akira-l.github.io/zh/publications/elp/",
+          "name": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://akira-l.github.io/zh/publications/mhem/",
+          "name": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://akira-l.github.io/zh/publications/icocap/",
+          "name": "IcoCap: Improving Video Captioning by Compounding Images"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://akira-l.github.io/zh/publications/vipo/",
+          "name": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://akira-l.github.io/zh/publications/bpgo/",
+          "name": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://akira-l.github.io/zh/publications/taros/",
+          "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://akira-l.github.io/zh/publications/otca/",
+          "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://akira-l.github.io/zh/publications/rats/",
+          "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "url": "https://akira-l.github.io/zh/publications/teleboost/",
+          "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research",
+          "item": "https://akira-l.github.io/zh/research/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "可信视觉生成后训练",
+          "item": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+        }
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/vrr-vg/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/vrr-vg/",
+      "name": "VrR-VG: Refocusing Visually-Relevant Relationships",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yalong Bai"
+        },
+        {
+          "@type": "Person",
+          "name": "Wei Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xueming Qian"
+        },
+        {
+          "@type": "Person",
+          "name": "Li Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Tao Mei"
+        }
+      ],
+      "datePublished": "2019"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/elp/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/elp/",
+      "name": "A Simple Episodic Linear Probe Improves Visual Recognition in the Wild",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2022"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/mhem/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/mhem/",
+      "name": "Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024-05"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/icocap/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/icocap/",
+      "name": "IcoCap: Improving Video Captioning by Compounding Images",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Xiaohan Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2024"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/vipo/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/vipo/",
+      "name": "Seeing What Matters: Visual Preference Policy Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Zhou"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/bpgo/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/bpgo/",
+      "name": "Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Tianshu Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/taros/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/taros/",
+      "name": "Rethinking Reward Signals in Video GRPO: When Scores Become Targets",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/otca/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/otca/",
+      "name": "Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yun Gu"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/rats/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/rats/",
+      "name": "Reward-Aware Trajectory Shaping for Few-step Visual Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Bingyu Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "XueLong Li"
+        }
+      ],
+      "datePublished": "2026"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/zh/publications/teleboost/#scholarly-article",
+      "url": "https://akira-l.github.io/zh/publications/teleboost/",
+      "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yirui Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yijie Fang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yizhen Fan"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Peng Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yanbo Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-02-07"
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page research-page">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <nav class="pub-nav" aria-label="主导航">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/">个人主页</a></li><li><a href="/zh/publications/">论文与解读</a></li><li><a class="active" href="/zh/research/">研究方向</a></li></ul>
+</nav>
+  <main id="main" class="research-container path-detail">
+    <nav class="page-home-return" aria-label="返回主页"><a href="/"><span aria-hidden="true">←</span>返回主页</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb"><a href="/zh/research/">研究方向</a><span aria-hidden="true">/</span><span aria-current="page">可信视觉后训练</span></nav>
+    <nav class="path-return-bar" aria-label="研究路径导航"><a href="/zh/research/#research-paths"><span class="path-return-arrow" aria-hidden="true">←</span><span><strong>全部研究路径</strong><small>重新选择研究路径</small></span></a></nav>
+    <header class="research-hero path-hero">
+      <p class="eyebrow">研究路径</p>
+      <h1>可信视觉生成后训练</h1>
+      <p class="research-dek">研究奖励有效性、不确定性与信用分配怎样决定视觉生成模型后训练的可靠性。</p>
+      <p class="language-switch"><a href="https://akira-l.github.io/research/trustworthy-visual-post-training/" hreflang="en">English</a></p>
+    </header>
+    <section class="path-question-block"><p class="eyebrow">核心问题</p><h2>当奖励不完整、不确定，或粒度过粗而无法指出生成过程中的哪些部分需要改变时，应该怎样更新视觉生成模型？</h2><p>视觉后训练能够直接优化预训练损失没有完整表达的画面质量、语义对齐、运动和偏好目标。它是否可靠取决于三个问题：奖励是否测量了预期属性，奖励不确定性怎样影响更新，以及信用怎样分配到样本、区域、时间步和不同目标。</p></section>
+    <section class="research-intro"><p>预训练在固定数据集上优化似然、重建或相关替代目标。视觉后训练则采样生成结果或去噪轨迹，使用奖励模型或偏好信号进行评价，再让生成器朝更高分的方向更新。它改变了优化目标，但不会自动产生一个能够从外部环境持续学习的智能体。</p><p>核心困难在于奖励模型只是有误差的测量工具。一个标量分数可能混合多个目标，在陌生提示上可能不可靠，也不能直接说明结果由哪个区域或哪个去噪步骤造成。近期工作分别研究这些失效来源：奖励粒度、不确定性感知加权、多目标动态调整、时间信用分配、高效生成，以及完整训练管线中的系统集成。</p></section>
+    <div class="path-timeline"><section class="path-stage" id="stage-1">
+  <div class="stage-marker" aria-hidden="true">01</div>
+  <div class="stage-content"><h2>区分训练信号与目标能力</h2><p>VrR-VG、ELP、MHEM 和 IcoCap 面向不同训练设置，但建立了同一条诊断原则：基准准确率可能依赖数据捷径，分类器置信度可能不同于特征可分性，困难样本损失可能促进记忆，数据增强后标签也可能与输入不一致。任何信号都需要结合其产生方式解释。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">基础工作</span><span>2019</span></div>
+  <h3><a href="/zh/publications/vrr-vg/">VrR-VG: Refocusing Visually-Relevant Relationships</a></h3>
+  <p>VrR-VG 用不读取图像的关系预测器暴露数据捷径，强调性能必须结合模型实际使用的信息进行判断。</p>
+  <div class="links"><a class="primary" href="/zh/publications/vrr-vg/">论文记录</a><a href="/research-notes/vrr-vg/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">基础工作</span><span>2022</span></div>
+  <h3><a href="/zh/publications/elp/">A Simple Episodic Linear Probe Improves Visual Recognition in the Wild</a></h3>
+  <p>ELP 反复重置读取分离特征的分类器，把表示质量与持续分类头在训练中积累的置信度区分开。</p>
+  <div class="links"><a class="primary" href="/zh/publications/elp/">论文记录</a><a href="/research-notes/elp/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">基础工作</span><span>2024</span></div>
+  <h3><a href="/zh/publications/mhem/">Penalizing the Hard Example But Not Too Much: A Strong Baseline for Fine-Grained Visual Classification</a></h3>
+  <p>MHEM 对困难样本的强调强度设置边界，在保留有效学习压力的同时防止极端样本长期支配梯度。</p>
+  <div class="links"><a class="primary" href="/zh/publications/mhem/">论文记录</a><a href="/research-notes/mhem/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">基础工作</span><span>2024</span></div>
+  <h3><a href="/zh/publications/icocap/">IcoCap: Improving Video Captioning by Compounding Images</a></h3>
+  <p>IcoCap 表明视觉输入改变后文本监督也需要同步调整，是把目标构造视为学习系统组成部分的早期例子。</p>
+  <div class="links"><a class="primary" href="/zh/publications/icocap/">论文记录</a><a href="/research-notes/icocap/">英文 Research Note</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-2">
+  <div class="stage-marker" aria-hidden="true">02</div>
+  <div class="stage-content"><h2>定义优化目标及其有效范围</h2><p>视觉生成需要评价文本对齐、感知质量、运动一致性和人类偏好等属性，而似然或重建损失只能覆盖其中一部分。后训练为这些属性引入奖励，但每个奖励的有效范围都受到训练数据、模型假设和校准方式限制。因此，奖励设计与奖励评价始终是优化问题的一部分。</p><div class="path-paper-grid"></div></div>
+</section><section class="path-stage" id="stage-3">
+  <div class="stage-marker" aria-hidden="true">03</div>
+  <div class="stage-content"><h2>表示空间信用与奖励不确定性</h2><p>ViPO 与 BPGO 处理样本级 GRPO 奖励的两个不同局限。ViPO 利用感知特征将相对优势分配到空间或时空区域；BPGO 使用语义先验，根据奖励置信度重新加权比较。ViPO 改变更新作用的位置，BPGO 改变不确定比较对更新的贡献。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/vipo/">Seeing What Matters: Visual Preference Policy Optimization for Visual Generation</a></h3>
+  <p>ViPO 使用感知特征把样本级 GRPO 优势转化为空间或时空优势，改变优化更新作用的位置。</p>
+  <div class="links"><a class="primary" href="/zh/publications/vipo/">论文记录</a><a href="/research-notes/vipo/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/bpgo/">Learning What to Trust: Bayesian Prior-Guided Optimization for Visual Generation</a></h3>
+  <p>BPGO 使用语义先验调整组间与组内奖励比较的权重，降低不确定比较对参数更新的影响。</p>
+  <div class="links"><a class="primary" href="/zh/publications/bpgo/">论文记录</a><a href="/research-notes/bpgo/">英文 Research Note</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-4">
+  <div class="stage-marker" aria-hidden="true">04</div>
+  <div class="stage-content"><h2>动态调整多类奖励并分配时间信用</h2><p>TaRoS 在奖励分量冲突、组内区分较弱或训练中出现饱和时，调整多个奖励分量的影响。OTCA 则将最终奖励分解到不同去噪时间步，并沿轨迹分配多个目标。前者处理复合奖励怎样随优化过程变化，后者处理结果级奖励怎样分配给中间决策。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/taros/">Rethinking Reward Signals in Video GRPO: When Scores Become Targets</a></h3>
+  <p>TaRoS 在比较变得稀疏、目标发生冲突或奖励分量随训练饱和时，动态改变各分量的影响。</p>
+  <div class="links"><a class="primary" href="/zh/publications/taros/">论文记录</a><a href="/research-notes/taros/">英文 Research Note</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/otca/">Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation</a></h3>
+  <p>OTCA 沿去噪时间分解最终奖励责任，并把多个目标分配到它们最有信息量的生成阶段。</p>
+  <div class="links"><a class="primary" href="/zh/publications/otca/">论文记录</a><a href="/research-notes/otca/">英文 Research Note</a></div>
+</article></div></div>
+</section><section class="path-stage" id="stage-5">
+  <div class="stage-marker" aria-hidden="true">05</div>
+  <div class="stage-content"><h2>将奖励训练扩展到高效模型和完整管线</h2><p>RATS 根据相对奖励质量决定少步学生何时遵循多步教师，将偏好优化与轨迹蒸馏连接起来。TeleBoost 处理的是另一层问题：把监督策略塑形、奖励驱动强化学习和偏好细化组织为分阶段视频后训练管线，再由诊断与训练基础设施支持稳定训练。</p><div class="path-paper-grid"><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">衔接工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/rats/">Reward-Aware Trajectory Shaping for Few-step Visual Generation</a></h3>
+  <p>RATS 根据教师与学生的相对奖励质量调整轨迹指导，把偏好对齐与高效少步生成连接起来。</p>
+  <div class="links"><a class="primary" href="/zh/publications/rats/">论文记录</a></div>
+</article><article class="path-paper-card">
+  <div class="path-paper-head"><span class="path-role">核心工作</span><span>2026</span></div>
+  <h3><a href="/zh/publications/teleboost/">TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</a></h3>
+  <p>TeleBoost 将监督塑形、奖励驱动强化学习、偏好细化、诊断和系统约束放入统一的分阶段后训练管线。</p>
+  <div class="links"><a class="primary" href="/zh/publications/teleboost/">论文记录</a><a href="/research-notes/teleboost/">英文 Research Note</a></div>
+</article></div></div>
+</section></div>
+    <section class="path-boundary"><h2>这里所说的可信意味着什么</h2><p>这里的可信不意味着奖励模型对所有提示都正确，也不意味着归因到某个区域或时间步的信用就是真实的因果贡献。这些方法规定的是在特定图像和视频训练设置中怎样加权或分配现有奖励。结论仍取决于奖励模型覆盖范围、提示分布、生成器架构，以及评价是否使用独立于训练奖励的证据。</p></section>
+    <section class="path-open"><h2>开放问题</h2><p>开放问题包括：怎样在分布变化下校准奖励不确定性，怎样在汇总指标上升时仍能发现奖励投机，以及怎样跨不同生成器架构比较过程级信用。面向部署，还需要研究经过验证的结果应如何更新奖励模型、生成器和评价协议，同时避免三者共同强化同一种偏差。</p></section>
+    <section class="citation-ready"><h2>阅读并引用论文</h2><p>本页用于连接多项合作研究，不替代单篇论文。请通过各论文规范记录核对证据、原始来源并下载引用。</p></section>
+    <nav class="path-return-panel" aria-label="选择其他研究路径"><div><p class="eyebrow">研究地图</p><h2>继续浏览其他研究路径</h2><p>返回总览，对照三条研究路径，或选择另一条研究主线。</p></div><a href="/zh/research/#research-paths">选择其他研究路径 <span aria-hidden="true">→</span></a></nav>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../../dist/js/file-preview.js"></script>
+</body>
+</html>

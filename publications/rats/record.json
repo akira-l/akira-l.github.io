@@ -82,6 +82,40 @@
       "citation_ready": "Li 等提出 Reward-Aware Trajectory Shaping（RATS），利用 horizon matching 对齐师生轨迹，并通过 reward-aware gate 有条件地调节 teacher guidance，以实现偏好对齐的少步视觉生成。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "bridge",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "RATS combines few-step trajectory distillation with preference feedback, relaxing teacher guidance when the student matches or exceeds the teacher under the selected reward.",
+        "zh-CN": "RATS 把少步轨迹蒸馏与偏好反馈结合起来，当学生在所选奖励下达到或超过教师时，适当减弱教师约束。"
+      }
+    },
+    {
+      "slug": "trustworthy-visual-post-training",
+      "role": "bridge",
+      "urls": {
+        "en": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+        "zh-CN": "https://akira-l.github.io/zh/research/trustworthy-visual-post-training/"
+      },
+      "names": {
+        "en": "Trustworthy Visual Generation Post-Training",
+        "zh-CN": "可信视觉生成后训练"
+      },
+      "relationship": {
+        "en": "RATS makes teacher-student trajectory guidance conditional on relative reward quality, connecting preference alignment with efficient few-step generation.",
+        "zh-CN": "RATS 根据教师与学生的相对奖励质量调整轨迹指导，把偏好对齐与高效少步生成连接起来。"
+      }
+    }
+  ],
   "citation": {
     "id": "li2026rats",
     "type": "paper-conference",

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research | Yuanzhi Liang</title>
+  <meta name="description" content="What information must an AI system represent to generalize beyond its training distribution, and how should new evidence update the system after pre-training?">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research/">
+  <link rel="alternate" hreflang="en" href="https://akira-l.github.io/research/">
+  <link rel="alternate" hreflang="zh-CN" href="https://akira-l.github.io/zh/research/">
+  <link rel="alternate" hreflang="x-default" href="https://akira-l.github.io/research/">
+  <link rel="alternate" type="application/json" title="Research path data" href="/research/paths.json">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Research | Yuanzhi Liang">
+  <meta property="og:description" content="What information must an AI system represent to generalize beyond its training distribution, and how should new evidence update the system after pre-training?">
+  <meta property="og:url" content="https://akira-l.github.io/research/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://akira-l.github.io/research/#collection",
+      "url": "https://akira-l.github.io/research/",
+      "name": "Research",
+      "description": "What information must an AI system represent to generalize beyond its training distribution, and how should new evidence update the system after pre-training?",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research/#paths"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://akira-l.github.io/research/#paths",
+      "numberOfItems": 3,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://akira-l.github.io/research/video-generation-world-models/",
+          "name": "Video Generation and World Models"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://akira-l.github.io/research/trustworthy-visual-post-training/",
+          "name": "Trustworthy Visual Generation Post-Training"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+          "name": "Semantic Motion and Embodied Interaction"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page research-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="research-container"><nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav><header class="research-hero">
+  <p class="eyebrow">Research map</p>
+  <h1>Research</h1>
+  <p class="research-dek">What information must an AI system represent to generalize beyond its training distribution, and how should new evidence update the system after pre-training?</p>
+
+  <p class="language-switch"><a href="https://akira-l.github.io/zh/research/" hreflang="zh-CN">中文</a></p>
+</header>
+<nav class="research-section-nav" aria-label="Research sections">
+  <a class="active" href="#research-paths"><span>Research Paths</span><small>How the work connects</small></a>
+  <a href="/research-notes/"><span>Research Notes</span><small>Long-form paper explanations</small></a>
+  <a href="/publications/"><span>All Publications</span><small>Records, abstracts, and citations</small></a>
+</nav>
+<section class="research-intro"><p>Modern visual models derive much of their breadth from scaling data, model capacity, and computation. This paradigm is powerful, but learning remains bounded by information collected before deployment. A model may generalize beyond individual examples, yet offline training does not specify what new evidence it should collect when its predictions fail. My research is motivated by this gap between offline generalization and continued adaptation. Across my work, the question develops in stages: whether representations generalize beyond training samples; whether they capture task-relevant relationships and temporal state; and whether a model can improve from imperfect reward or preference feedback after pre-training.</p><p>Post-training lets a model learn from evaluations of its own outputs, but it is not yet interactive learning: prompts and evaluators are predefined, and outputs do not change an external environment. My longer-term goal is to close the loop between prediction, action, and observation. An agent should evaluate candidate actions, observe the resulting state transition, and use the outcome to update its model or policy. Digital environments support scalable studies of memory, tools, exploration, and continual adaptation; physical environments introduce geometry, dynamics, uncertainty, and safety constraints. The three paths below study requirements for learning from experience, not components of one architecture.</p></section>
+<section class="research-arc-section" id="research-arc">
+  <div class="section-heading"><p class="eyebrow">A longer arc</p><h2>From fixed datasets to feedback-driven learning</h2><p>The first three themes broaden what a model represents: discriminative features, task-relevant semantics, and persistent scene state. The fourth changes the optimization setting by learning from evaluations of model-generated outputs. This progression connects research questions, not architectures, and does not imply direct technical inheritance.</p></div>
+  <div class="research-arc-list"><article class="research-arc-step"><p class="arc-number">01</p><div><h3>Learn representations that generalize beyond the training set</h3><p>Generalization depends on the learned representation, not only on training accuracy. ELP uses an episodically reinitialized linear probe to monitor feature discriminability and regularizes its disagreement with the main classifier. MHEM limits the influence of extremely hard examples that may otherwise be memorized. ELP acts on representation quality; MHEM reweights examples. Both ask whether optimization yields features effective on unseen data.</p><p class="method-papers"><a href="/publications/elp/">ELP</a> · <a href="/publications/mhem/">MHEM</a></p></div></article><article class="research-arc-step"><p class="arc-number">02</p><div><h3>Represent task-relevant semantics and relationships</h3><p>Category labels do not fully specify the semantics required by relationship recognition, gesture generation, compositional captioning, or interaction synthesis. VrR-VG separates visually grounded relationships from object and geometric priors; SEEG aligns gesture with speech semantics; IcoCap preserves compound concepts under augmentation; and Uni-Inter encodes humans, objects, and scenes in a shared semantic occupancy volume. Each aligns supervision with task-relevant semantics rather than dataset correlations alone.</p><p class="method-papers"><a href="/publications/vrr-vg/">VrR-VG</a> · <a href="/publications/seeg/">SEEG</a> · <a href="/publications/icocap/">IcoCap</a> · <a href="/publications/uni-inter/">Uni-Inter</a></p></div></article><article class="research-arc-step"><p class="arc-number">03</p><div><h3>Model scene dynamics and persistent state</h3><p>Video requires modeling how a scene evolves, not only how individual frames appear. VAST introduces pose and layout conditions for controllable synthesis, FreeLong extends the temporal range of short-video diffusion models, and TeleWorld connects generated observations to dynamic 4D reconstruction and persistent memory. Together, they study three complementary requirements for long-horizon video generation and world modeling: controllability, temporal consistency, and persistent scene state.</p><p class="method-papers"><a href="/publications/vast/">VAST 1.0</a> · <a href="/publications/freelong/">FreeLong</a> · <a href="/publications/teleworld/">TeleWorld</a></p></div></article><article class="research-arc-step"><p class="arc-number">04</p><div><h3>Improve generative models with reliable feedback</h3><p>Visual post-training augments dataset-based pre-training with generated samples or denoising trajectories evaluated by reward or preference models. The central problems are reward reliability and credit assignment. ViPO localizes the update to spatial or spatiotemporal regions; BPGO downweights uncertain comparisons; TaRoS adapts multiple rewards; and OTCA assigns credit across denoising timesteps and objectives. RATS combines preference feedback with few-step distillation, while TeleBoost integrates multiple training stages. These methods remain within predefined prompt and reward distributions; interaction with an external environment is a separate research setting.</p><p class="method-papers"><a href="/publications/vipo/">ViPO</a> · <a href="/publications/bpgo/">BPGO</a> · <a href="/publications/taros/">TaRoS</a> · <a href="/publications/otca/">OTCA</a> · <a href="/publications/rats/">RATS</a> · <a href="/publications/teleboost/">TeleBoost</a></p></div></article></div>
+</section>
+<section class="research-horizon-section">
+  <div class="section-heading"><p class="eyebrow">Research horizon</p><h2>From post-training to learning through interaction</h2><p>Post-training with reward models is an important bridge, but it remains bounded by predefined prompts, generators, and evaluators. Interactive learning changes the source of data: an agent&#x27;s actions influence future observations, and the resulting state transitions provide new evidence for learning. I am interested in this problem in two complementary settings. Digital environments support scalable execution, tool use, and long-lived interaction; physical environments test whether predictions and policies remain valid under geometry, dynamics, uncertainty, and safety constraints.</p></div>
+  <div class="research-horizon-grid"><article class="research-horizon-card"><h3>Digital environments: persistent agents that learn over time</h3><p>AntEval evaluates information exchange and intention expression during multi-agent collaboration, not only final task success. My earlier Tachikuma project motivates a broader interest in persistent digital agents that retain experience, use tools, revise plans, and adapt across tasks. Open problems include long-term memory, exploration, curriculum generation, continual learning, and process-aware evaluation under distribution shift.</p><p class="method-papers"><a href="/publications/anteval/">AntEval</a></p></article><article class="research-horizon-card"><h3>Physical environments: learning from real-world consequences</h3><p>Physical agents must estimate feasible actions, coordinate with people and objects, and execute under geometric and dynamic constraints. MAAL studies action-conditioned affordance, InterSyn studies multi-person coordination, and Uni-Inter represents several interaction settings. The Embodied Brains roadmap connects these models with state estimation, tools and controllers, execution, and verification. The longer-term question is how observed state transitions can become reusable training experience.</p><p class="method-papers"><a href="/publications/maal/">MAAL</a> · <a href="/publications/intersyn/">InterSyn</a> · <a href="/publications/uni-inter/">Uni-Inter</a> · <a href="/publications/embodied-brains/">Embodied Brains Roadmap</a></p></article></div>
+  <p class="research-horizon-closing">The shared long-term problem is a closed action–observation–learning loop. An agent must estimate the current state, select an action, observe the resulting transition, and update its model or policy from verified outcomes. Digital agents offer a practical setting for studying continual adaptation at scale, while physical agents test whether the same principles remain valid under real dynamics and safety constraints. Progress on this loop would address one concrete requirement for more general AI: acquiring and revising knowledge through interaction rather than relying only on a fixed training corpus.</p>
+</section>
+<section class="research-paths-section" id="research-paths" aria-label="Research paths">
+  <div class="section-heading"><p class="eyebrow">Current research paths</p><h2>Three research directions</h2><p>Each path defines a specific set of problems in modeling, learning, and evaluation.</p></div>
+  <div class="research-path-grid"><article class="research-path-card path-card-1">
+  <p class="path-number">01</p>
+  <h2><a href="/research/video-generation-world-models/">Video Generation and World Models</a></h2>
+  <p class="path-question">What separates a video generator that produces plausible clips from a world model that maintains state and predicts future observations consistently?</p>
+  <p>Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.</p>
+  <p class="path-paper-line">IcoCap · VAST 1.0 · FreeLong · TeleWorld · TeleBoost · TaRoS · …</p>
+  <a class="path-arrow" href="/research/video-generation-world-models/">Follow this path <span aria-hidden="true">→</span></a>
+</article><article class="research-path-card path-card-2">
+  <p class="path-number">02</p>
+  <h2><a href="/research/trustworthy-visual-post-training/">Trustworthy Visual Generation Post-Training</a></h2>
+  <p class="path-question">How should a visual generative model be updated when the available reward is incomplete, uncertain, or too coarse to identify which parts of the generation process should change?</p>
+  <p>Studying how reward validity, uncertainty, and credit assignment determine the reliability of post-training for visual generative models.</p>
+  <p class="path-paper-line">VrR-VG · ELP · MHEM · IcoCap · ViPO · BPGO · …</p>
+  <a class="path-arrow" href="/research/trustworthy-visual-post-training/">Follow this path <span aria-hidden="true">→</span></a>
+</article><article class="research-path-card path-card-3">
+  <p class="path-number">03</p>
+  <h2><a href="/research/semantic-motion-embodied-interaction/">Semantic Motion and Embodied Interaction</a></h2>
+  <p class="path-question">What representations and evaluation criteria are needed to generate motion that conveys the intended semantics, remains physically feasible, and coordinates with other entities?</p>
+  <p>Studying how motion generation can satisfy semantic, relational, and physical constraints across human–human, human–object, and human–scene interaction.</p>
+  <p class="path-paper-line">SEEG · MAAL · InterSyn · Uni-Inter · LaxMotion · AntEval · …</p>
+  <a class="path-arrow" href="/research/semantic-motion-embodied-interaction/">Follow this path <span aria-hidden="true">→</span></a>
+</article></div>
+</section>
+<section class="methodology-section" id="beyond-proxy-metrics">
+  <div class="section-heading"><p class="eyebrow">Common method</p><h2>Beyond proxy metrics</h2><p>Across these tasks, training and evaluation signals are proxies for the underlying capability. Accuracy can reflect dataset shortcuts, classifier confidence can reflect memorization, and scalar rewards can hide where or when generation quality changed. The common question is what a signal measures, when it becomes unreliable, and how strongly it should affect an update.</p></div>
+  <div class="method-grid"><article class="method-card"><h3>Evidence, not shortcuts</h3><p>VrR-VG asks whether a relationship model is using image evidence or predicting from object labels and geometry. The no-image diagnostic turns shortcut detection into part of dataset construction rather than treating benchmark accuracy as sufficient proof of visual reasoning.</p><p class="method-papers"><a href="/publications/vrr-vg/">VrR-VG</a></p></article><article class="method-card"><h3>Generalization, not confidence or difficulty alone</h3><p>ELP compares the main classifier with an episodically reinitialized linear probe trained on detached features, separating accumulated classifier confidence from current feature discriminability. MHEM limits the influence of extremely hard training examples that may otherwise be memorized rather than generalized.</p><p class="method-papers"><a href="/publications/elp/">ELP</a> · <a href="/publications/mhem/">MHEM</a></p></article><article class="method-card"><h3>Supervision must follow the changed input</h3><p>IcoCap couples image–video compounding with visual-semantic guided captioning. Once visual content changes, the original caption may no longer describe the input accurately; data augmentation and target construction therefore have to be specified jointly.</p><p class="method-papers"><a href="/publications/icocap/">IcoCap</a></p></article><article class="method-card"><h3>Process, not outcome alone</h3><p>AntEval evaluates task completion separately from information exchange and intention expression. Multi-agent systems can complete a task while exchanging little task-relevant information, so the interaction process must be evaluated in addition to the final outcome.</p><p class="method-papers"><a href="/publications/anteval/">AntEval</a></p></article><article class="method-card"><h3>Usable feedback, not one final score</h3><p>The recent visual post-training work studies different limitations of sample-level scalar rewards. ViPO distributes the update over spatial or spatiotemporal regions, BPGO weights comparisons by reward confidence, TaRoS adapts multiple reward components during training, and OTCA assigns credit over denoising steps and objectives. TeleBoost integrates several such signals into a staged pipeline with diagnostics.</p><p class="method-papers"><a href="/publications/vipo/">ViPO</a> · <a href="/publications/bpgo/">BPGO</a> · <a href="/publications/taros/">TaRoS</a> · <a href="/publications/otca/">OTCA</a> · <a href="/publications/teleboost/">TeleBoost</a></p></article></div>
+</section>
+<section class="adjacent-section">
+  <div class="section-heading"><h2>Earlier and adjacent work</h2><p>Earlier work on real-world deraining and fine-grained food recognition addresses dataset coverage, local visual evidence, joint supervision, and robustness. These projects inform my approach to visual learning, but they are not direct technical predecessors of the three current paths.</p></div>
+  <div class="adjacent-grid"><article class="adjacent-item"><h3><a href="/publications/rain-one-go/">Removing Raindrops and Rain Streaks in One Go</a></h3><p>This work combines complementary restoration orders with a real-world mixed-rain dataset. It contributes experience in compound degradation, architecture design, and dataset coverage, but it is not presented as a direct precursor to generative-model alignment.</p></article><article class="adjacent-item"><h3><a href="/publications/food-ingredient/">Food and Ingredient Joint Learning for Fine-Grained Recognition</a></h3><p>This project uses regional attention, joint food-ingredient prediction, and imbalance-aware loss design. Its concern with local semantic evidence and supervision remains relevant, while the application and evaluation stay specific to fine-grained food recognition.</p></article></div>
+</section>
+<section class="research-closing"><p>Research Notes provide the longer explanation for selected papers. They are linked from these paths only after article-by-article author approval; until then, the canonical publication records remain the public source for abstracts, bibliographic metadata, evidence summaries, and citation downloads.</p></section></main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../dist/js/file-preview.js"></script>
+</body>
+</html>

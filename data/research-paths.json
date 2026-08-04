@@ -1,0 +1,777 @@
+{
+  "schema_version": 1,
+  "hub": {
+    "status": "published",
+    "published_on": "2026-08-04",
+    "drafted_on": "2026-08-04",
+    "en": {
+      "title": "Research",
+      "dek": "What information must an AI system represent to generalize beyond its training distribution, and how should new evidence update the system after pre-training?",
+      "profile_paragraphs": [
+        "My research focuses on visual learning systems that generalize beyond fixed training distributions and continue to improve after pre-training. The work studies both the content of learned representations—discriminative visual features, semantic relationships, temporal dependencies, and scene state—and the evidence used to update them, including labels, preference data, reward estimates, and observed state transitions. This agenda spans visual recognition, video generation, world models, and visual post-training.",
+        "My long-term goal is to build agents that can predict the consequences of candidate actions, execute an action, compare predicted and observed state transitions, and use the discrepancy to improve their models or policies. I study this closed loop in digital environments, where interaction can be repeated and scaled, and in physical environments, where actions must satisfy geometric, dynamical, and safety constraints."
+      ],
+      "intro": [
+        "Modern visual models derive much of their breadth from scaling data, model capacity, and computation. This paradigm is powerful, but learning remains bounded by information collected before deployment. A model may generalize beyond individual examples, yet offline training does not specify what new evidence it should collect when its predictions fail. My research is motivated by this gap between offline generalization and continued adaptation. Across my work, the question develops in stages: whether representations generalize beyond training samples; whether they capture task-relevant relationships and temporal state; and whether a model can improve from imperfect reward or preference feedback after pre-training.",
+        "Post-training lets a model learn from evaluations of its own outputs, but it is not yet interactive learning: prompts and evaluators are predefined, and outputs do not change an external environment. My longer-term goal is to close the loop between prediction, action, and observation. An agent should evaluate candidate actions, observe the resulting state transition, and use the outcome to update its model or policy. Digital environments support scalable studies of memory, tools, exploration, and continual adaptation; physical environments introduce geometry, dynamics, uncertainty, and safety constraints. The three paths below study requirements for learning from experience, not components of one architecture."
+      ],
+      "arc_title": "From fixed datasets to feedback-driven learning",
+      "arc_intro": "The first three themes broaden what a model represents: discriminative features, task-relevant semantics, and persistent scene state. The fourth changes the optimization setting by learning from evaluations of model-generated outputs. This progression connects research questions, not architectures, and does not imply direct technical inheritance.",
+      "horizon_title": "From post-training to learning through interaction",
+      "horizon_intro": "Post-training with reward models is an important bridge, but it remains bounded by predefined prompts, generators, and evaluators. Interactive learning changes the source of data: an agent's actions influence future observations, and the resulting state transitions provide new evidence for learning. I am interested in this problem in two complementary settings. Digital environments support scalable execution, tool use, and long-lived interaction; physical environments test whether predictions and policies remain valid under geometry, dynamics, uncertainty, and safety constraints.",
+      "horizon_closing": "The shared long-term problem is a closed action–observation–learning loop. An agent must estimate the current state, select an action, observe the resulting transition, and update its model or policy from verified outcomes. Digital agents offer a practical setting for studying continual adaptation at scale, while physical agents test whether the same principles remain valid under real dynamics and safety constraints. Progress on this loop would address one concrete requirement for more general AI: acquiring and revising knowledge through interaction rather than relying only on a fixed training corpus.",
+      "methodology_title": "Beyond proxy metrics",
+      "methodology_intro": "Across these tasks, training and evaluation signals are proxies for the underlying capability. Accuracy can reflect dataset shortcuts, classifier confidence can reflect memorization, and scalar rewards can hide where or when generation quality changed. The common question is what a signal measures, when it becomes unreliable, and how strongly it should affect an update.",
+      "adjacent_title": "Earlier and adjacent work",
+      "adjacent_intro": "Earlier work on real-world deraining and fine-grained food recognition addresses dataset coverage, local visual evidence, joint supervision, and robustness. These projects inform my approach to visual learning, but they are not direct technical predecessors of the three current paths.",
+      "closing": [
+        "Research Notes provide the longer explanation for selected papers. They are linked from these paths only after article-by-article author approval; until then, the canonical publication records remain the public source for abstracts, bibliographic metadata, evidence summaries, and citation downloads."
+      ]
+    },
+    "zh": {
+      "title": "研究方向",
+      "dek": "AI 系统需要表示哪些信息，才能泛化到训练分布之外？完成预训练后，新的证据又应该怎样更新系统？",
+      "profile_paragraphs": [
+        "我的研究关注能够泛化到固定训练分布之外、并在预训练后继续改进的视觉学习系统。具体工作既研究表示所包含的内容，包括可判别视觉特征、语义关系、时序依赖和场景状态，也研究模型更新所依据的证据，包括标签、偏好数据、奖励估计和观测到的状态转移。这一研究范围涵盖视觉识别、视频生成、世界模型和视觉后训练。",
+        "我的长期目标是构建能够预测候选行动的后果、执行行动、比较预测与实际状态转移，并利用二者差异改进模型或策略的智能体。我同时在数字环境和物理环境中研究这一闭环：前者便于重复和扩展交互，后者则要求行动满足几何、动力学和安全约束。"
+      ],
+      "intro": [
+        "现代视觉模型的能力广度在很大程度上来自对数据、模型容量与计算规模的扩展。这一路线十分有效，但学习过程仍受部署前已收集信息的约束。模型可以泛化到单个训练样本之外，但离线训练本身并没有规定：当预测失败时，系统应当获取什么新证据。我的研究关注的正是离线数据上的泛化与持续适应之间的缺口。这个问题在我的工作中逐步展开：表示能否泛化到训练样本之外；表示能否进一步包含与任务相关的关系和时序状态；以及模型能否在预训练后利用不完美的奖励或偏好反馈继续改进。",
+        "后训练让模型开始从对自身输出的评价中学习，但这还不是交互学习：提示与评价器仍然预先确定，模型输出也不会改变外部环境。我的长期目标是闭合预测、行动与观测之间的循环。智能体应当评价候选行动，观测由行动产生的状态转移，再利用结果更新模型或策略。数字环境适合大规模研究记忆、工具调用、探索与持续适应；物理环境则引入几何、动力学、不确定性与安全约束。下面三条路径研究的是从经验中学习所需要的不同条件，而不是同一架构中的组成模块。"
+      ],
+      "arc_title": "从固定数据集到反馈驱动的学习",
+      "arc_intro": "前三个主题扩展模型表示的内容：可判别特征、与任务相关的语义和持久场景状态。第四个主题改变优化设置，让模型从对生成结果的评价中学习。这一演进连接的是研究问题，而不是模型架构，也不暗示直接的技术继承关系。",
+      "horizon_title": "从后训练到通过交互学习",
+      "horizon_intro": "基于奖励模型的后训练是一座重要桥梁，但它仍受预先定义的提示、生成模型和评价器约束。交互学习改变了数据来源：智能体的行动会影响未来观测，由此产生的状态转移成为新的训练证据。我关注这一问题的两类互补场景。数字环境支持可扩展的执行、工具调用与长期交互；物理环境则检验预测和策略在几何、动力学、不确定性与安全约束下是否仍然有效。",
+      "horizon_closing": "长期共同问题是形成完整的行动—观测—学习闭环。智能体需要估计当前状态、选择行动、观测状态转移，再根据经过验证的结果更新模型或策略。数字智能体适合研究大规模持续适应，物理智能体则检验这些原则在真实动力学和安全约束下是否仍然成立。解决这一闭环对应着更通用 AI 的一项具体要求：不只依赖固定训练语料，而是能够通过交互获得并修正知识。",
+      "methodology_title": "不把代理指标当成真实能力",
+      "methodology_intro": "在这些任务中，训练和评价信号都只是目标能力的代理。准确率可能来自数据集捷径，分类器置信度可能来自记忆，标量奖励也可能掩盖生成质量在什么位置或阶段发生变化。共同问题是：信号测量了什么，何时不再可靠，以及它应该以多大强度影响参数更新。",
+      "adjacent_title": "早期与相邻工作",
+      "adjacent_intro": "早期的真实场景去雨与细粒度食物识别工作分别涉及数据覆盖、局部视觉证据、联合监督和鲁棒性。这些经验影响了我处理视觉学习问题的方式，但它们不是当前三条路径的直接技术前身。",
+      "closing": [
+        "Research Notes 为部分论文提供更长的英文解读。只有在逐篇完成作者审阅后，路径页才会公开显示对应入口；在此之前，规范的论文记录仍是查阅摘要、书目信息、证据概述和引用下载的公开来源。"
+      ]
+    },
+    "arc": [
+      {
+        "key": "perceive",
+        "paper_slugs": ["elp", "mhem"],
+        "en": {
+          "heading": "Learn representations that generalize beyond the training set",
+          "text": "Generalization depends on the learned representation, not only on training accuracy. ELP uses an episodically reinitialized linear probe to monitor feature discriminability and regularizes its disagreement with the main classifier. MHEM limits the influence of extremely hard examples that may otherwise be memorized. ELP acts on representation quality; MHEM reweights examples. Both ask whether optimization yields features effective on unseen data."
+        },
+        "zh": {
+          "heading": "学习能够泛化到训练集之外的表示",
+          "text": "泛化能力取决于模型学到的表示，而不只是训练准确率。ELP 使用周期性重新初始化的线性探针监测特征可分性，并对探针与主分类器之间的差异进行正则化。MHEM 则限制可能被模型记忆的极难样本所产生的影响。ELP 作用于表示质量，MHEM 调整样本权重；两者都研究优化能否产生对未见数据有效的特征。"
+        }
+      },
+      {
+        "key": "understand",
+        "paper_slugs": ["vrr-vg", "seeg", "icocap", "uni-inter"],
+        "en": {
+          "heading": "Represent task-relevant semantics and relationships",
+          "text": "Category labels do not fully specify the semantics required by relationship recognition, gesture generation, compositional captioning, or interaction synthesis. VrR-VG separates visually grounded relationships from object and geometric priors; SEEG aligns gesture with speech semantics; IcoCap preserves compound concepts under augmentation; and Uni-Inter encodes humans, objects, and scenes in a shared semantic occupancy volume. Each aligns supervision with task-relevant semantics rather than dataset correlations alone."
+        },
+        "zh": {
+          "heading": "表示与任务相关的语义和关系",
+          "text": "类别标签不足以完整描述关系识别、手势生成、组合式图像描述或交互生成所需的语义。VrR-VG 区分由视觉证据支持的关系与物体、几何先验；SEEG 使手势与语音语义对齐；IcoCap 在数据增强中保留复合概念；Uni-Inter 则把人物、物体和场景编码到共享语义占据体中。每种方法都让监督信息与任务相关语义对齐，而不只依赖数据集相关性。"
+        }
+      },
+      {
+        "key": "model-worlds",
+        "paper_slugs": ["vast", "freelong", "teleworld"],
+        "en": {
+          "heading": "Model scene dynamics and persistent state",
+          "text": "Video requires modeling how a scene evolves, not only how individual frames appear. VAST introduces pose and layout conditions for controllable synthesis, FreeLong extends the temporal range of short-video diffusion models, and TeleWorld connects generated observations to dynamic 4D reconstruction and persistent memory. Together, they study three complementary requirements for long-horizon video generation and world modeling: controllability, temporal consistency, and persistent scene state."
+        },
+        "zh": {
+          "heading": "建模场景动态与持久状态",
+          "text": "视频要求模型理解场景如何演化，而不只是单帧画面如何呈现。VAST 引入姿态与布局条件以实现可控生成，FreeLong 扩展短视频扩散模型的时间范围，TeleWorld 则把生成观测连接到动态 4D 重建与持久记忆。三项工作研究长时视频生成与世界建模的三类互补要求：可控性、时间一致性与持久场景状态。"
+        }
+      },
+      {
+        "key": "explore",
+        "paper_slugs": ["vipo", "bpgo", "taros", "otca", "rats", "teleboost"],
+        "en": {
+          "heading": "Improve generative models with reliable feedback",
+          "text": "Visual post-training augments dataset-based pre-training with generated samples or denoising trajectories evaluated by reward or preference models. The central problems are reward reliability and credit assignment. ViPO localizes the update to spatial or spatiotemporal regions; BPGO downweights uncertain comparisons; TaRoS adapts multiple rewards; and OTCA assigns credit across denoising timesteps and objectives. RATS combines preference feedback with few-step distillation, while TeleBoost integrates multiple training stages. These methods remain within predefined prompt and reward distributions; interaction with an external environment is a separate research setting."
+        },
+        "zh": {
+          "heading": "利用可靠反馈改进生成模型",
+          "text": "视觉后训练在基于数据集的预训练之外，引入由奖励模型或偏好模型评价的生成样本与去噪轨迹。核心问题是奖励可靠性与信用分配。ViPO 将更新定位到空间或时空区域；BPGO 降低不确定比较的权重；TaRoS 调整多个奖励；OTCA 在去噪时间步与目标之间分配信用。RATS 把偏好反馈与少步蒸馏结合，TeleBoost 则整合多个训练阶段。这些方法仍在预先定义的提示与奖励分布内运行；与外部环境交互属于另一类研究设置。"
+        }
+      }
+    ],
+    "horizon": [
+      {
+        "key": "digital-agents",
+        "paper_slugs": ["anteval"],
+        "en": {
+          "heading": "Digital environments: persistent agents that learn over time",
+          "text": "AntEval evaluates information exchange and intention expression during multi-agent collaboration, not only final task success. My earlier Tachikuma project motivates a broader interest in persistent digital agents that retain experience, use tools, revise plans, and adapt across tasks. Open problems include long-term memory, exploration, curriculum generation, continual learning, and process-aware evaluation under distribution shift."
+        },
+        "zh": {
+          "heading": "数字环境：能够长期学习的持久智能体",
+          "text": "AntEval 评价多智能体协作中的信息交换与意图表达，而不只关注最终任务是否成功。更早的 Tachikuma 项目促使我关注能够保留经验、使用工具、修正计划并跨任务适应的持久数字智能体。开放问题包括长期记忆、探索、课程生成、持续学习，以及分布变化下对交互过程的评价。"
+        }
+      },
+      {
+        "key": "physical-agents",
+        "paper_slugs": ["maal", "intersyn", "uni-inter", "embodied-brains"],
+        "en": {
+          "heading": "Physical environments: learning from real-world consequences",
+          "text": "Physical agents must estimate feasible actions, coordinate with people and objects, and execute under geometric and dynamic constraints. MAAL studies action-conditioned affordance, InterSyn studies multi-person coordination, and Uni-Inter represents several interaction settings. The Embodied Brains roadmap connects these models with state estimation, tools and controllers, execution, and verification. The longer-term question is how observed state transitions can become reusable training experience."
+        },
+        "zh": {
+          "heading": "物理环境：从真实世界的行动后果中学习",
+          "text": "物理智能体需要判断行动是否可行，与人物和物体协调，并在几何与动力学约束下执行。MAAL 研究动作条件可供性，InterSyn 研究多人协调，Uni-Inter 表示多类交互场景。Embodied Brains 路线图进一步把这些模型与状态估计、工具和控制器、执行及验证连接起来。更长期的问题是怎样把观测到的状态转移转化为可复用的训练经验。"
+        }
+      }
+    ],
+    "methodology": [
+      {
+        "key": "evidence-not-shortcuts",
+        "paper_slugs": ["vrr-vg"],
+        "en": {
+          "heading": "Evidence, not shortcuts",
+          "text": "VrR-VG asks whether a relationship model is using image evidence or predicting from object labels and geometry. The no-image diagnostic turns shortcut detection into part of dataset construction rather than treating benchmark accuracy as sufficient proof of visual reasoning."
+        },
+        "zh": {
+          "heading": "视觉证据，而不是数据捷径",
+          "text": "VrR-VG 检查关系模型究竟使用了图像证据，还是仅凭物体类别和几何位置进行猜测。通过刻意移除像素信息，它把数据捷径诊断纳入数据集构建，而不是把基准准确率直接等同于视觉推理能力。"
+        }
+      },
+      {
+        "key": "representation-not-confidence",
+        "paper_slugs": ["elp", "mhem"],
+        "en": {
+          "heading": "Generalization, not confidence or difficulty alone",
+          "text": "ELP compares the main classifier with an episodically reinitialized linear probe trained on detached features, separating accumulated classifier confidence from current feature discriminability. MHEM limits the influence of extremely hard training examples that may otherwise be memorized rather than generalized."
+        },
+        "zh": {
+          "heading": "泛化能力，而不只是置信度或难度",
+          "text": "ELP 比较主分类器与在分离特征上训练、周期性重置的线性探针，从而区分分类器积累的置信度与当前特征可分性。MHEM 则限制极难训练样本的影响，避免模型主要记忆这些样本而没有形成可泛化的判别能力。"
+        }
+      },
+      {
+        "key": "supervision-follows-input",
+        "paper_slugs": ["icocap"],
+        "en": {
+          "heading": "Supervision must follow the changed input",
+          "text": "IcoCap couples image–video compounding with visual-semantic guided captioning. Once visual content changes, the original caption may no longer describe the input accurately; data augmentation and target construction therefore have to be specified jointly."
+        },
+        "zh": {
+          "heading": "输入改变后，监督也必须改变",
+          "text": "IcoCap 将图像—视频复合与视觉语义引导的描述学习结合起来。视觉内容改变后，原始描述可能不再准确对应输入，因此数据增强和目标构造需要被共同设计。"
+        }
+      },
+      {
+        "key": "process-not-outcome",
+        "paper_slugs": ["anteval"],
+        "en": {
+          "heading": "Process, not outcome alone",
+          "text": "AntEval evaluates task completion separately from information exchange and intention expression. Multi-agent systems can complete a task while exchanging little task-relevant information, so the interaction process must be evaluated in addition to the final outcome."
+        },
+        "zh": {
+          "heading": "交互过程，而不只是最终结果",
+          "text": "AntEval 将任务完成与信息交换、意图表达分开评价。多智能体系统可能完成任务，却只交换了很少与任务相关的信息，因此除最终结果之外，还需要评价交互过程。"
+        }
+      },
+      {
+        "key": "usable-feedback",
+        "paper_slugs": ["vipo", "bpgo", "taros", "otca", "teleboost"],
+        "en": {
+          "heading": "Usable feedback, not one final score",
+          "text": "The recent visual post-training work studies different limitations of sample-level scalar rewards. ViPO distributes the update over spatial or spatiotemporal regions, BPGO weights comparisons by reward confidence, TaRoS adapts multiple reward components during training, and OTCA assigns credit over denoising steps and objectives. TeleBoost integrates several such signals into a staged pipeline with diagnostics."
+        },
+        "zh": {
+          "heading": "可用的反馈，而不只是一个最终分数",
+          "text": "近期视觉后训练工作研究样本级标量奖励的不同局限。ViPO 将更新信号分配到空间或时空区域，BPGO 根据奖励置信度调整比较权重，TaRoS 在训练中动态调整多个奖励分量，OTCA 则在去噪步骤与目标之间分配信用。TeleBoost 将多类信号整合进带有诊断机制的分阶段管线。"
+        }
+      }
+    ],
+    "adjacent": [
+      {
+        "paper_slug": "rain-one-go",
+        "en": "This work combines complementary restoration orders with a real-world mixed-rain dataset. It contributes experience in compound degradation, architecture design, and dataset coverage, but it is not presented as a direct precursor to generative-model alignment.",
+        "zh": "该工作通过互补的恢复顺序和真实混合雨数据集处理复合退化，体现了在网络结构与数据覆盖方面的经验；这里不把它描述为生成模型对齐的直接前身。"
+      },
+      {
+        "paper_slug": "food-ingredient",
+        "en": "This project uses regional attention, joint food-ingredient prediction, and imbalance-aware loss design. Its concern with local semantic evidence and supervision remains relevant, while the application and evaluation stay specific to fine-grained food recognition.",
+        "zh": "该项目通过区域注意力、食物—食材联合预测和不平衡感知损失学习局部语义证据。其监督设计经验仍有参考价值，但应用与评估范围明确属于细粒度食物识别。"
+      }
+    ]
+  },
+  "paths": [
+    {
+      "slug": "video-generation-world-models",
+      "order": 1,
+      "status": "published",
+      "published_on": "2026-08-04",
+      "drafted_on": "2026-08-04",
+      "members": [
+        {
+          "paper_slug": "icocap",
+          "role": "foundation",
+          "stage_key": "semantic-supervision",
+          "en_relation": "IcoCap establishes an early supervision lesson for video-language learning: when visual content is compounded, the target caption must be reconsidered as part of the same operation.",
+          "zh_relation": "IcoCap 提供了视频—语言学习中的早期监督经验：当视觉内容被复合改变时，目标描述也必须在同一过程中重新选择。"
+        },
+        {
+          "paper_slug": "vast",
+          "role": "core",
+          "stage_key": "control-and-horizon",
+          "en_relation": "VAST inserts an explicit storyboard between text and video, using human pose and object layout as conditioning signals before synthesis.",
+          "zh_relation": "VAST 在文本与视频之间加入显式故事板，在合成之前把人物姿态和物体布局作为条件信号。"
+        },
+        {
+          "paper_slug": "freelong",
+          "role": "core",
+          "stage_key": "control-and-horizon",
+          "en_relation": "FreeLong extends pretrained short-video diffusion models through frequency-aware temporal feature blending, addressing duration without retraining the base generator.",
+          "zh_relation": "FreeLong 通过频率感知的时序特征融合扩展预训练短视频扩散模型，在不重新训练基础模型的情况下延长生成时长。"
+        },
+        {
+          "paper_slug": "teleworld",
+          "role": "core",
+          "stage_key": "persistent-world",
+          "en_relation": "TeleWorld closes a loop between video generation, dynamic reconstruction, and persistent 4D memory so later synthesis can depend on an accumulated world state.",
+          "zh_relation": "TeleWorld 把视频生成、动态重建和持久 4D 记忆连接成闭环，使后续合成能够依赖已经积累的世界状态。"
+        },
+        {
+          "paper_slug": "teleboost",
+          "role": "core",
+          "stage_key": "alignment-and-efficiency",
+          "en_relation": "TeleBoost organizes supervised policy shaping, reward-driven reinforcement learning, and preference refinement as distinct training stages, supported by diagnostics and training infrastructure.",
+          "zh_relation": "TeleBoost 将监督策略塑形、奖励驱动强化学习和偏好细化组织为不同训练阶段，并用诊断与训练基础设施支持完整管线。"
+        },
+        {
+          "paper_slug": "taros",
+          "role": "bridge",
+          "stage_key": "alignment-and-efficiency",
+          "en_relation": "TaRoS keeps composite video rewards informative when components disagree, group comparisons are sparse, or a metric has saturated during optimization.",
+          "zh_relation": "TaRoS 在奖励分量冲突、组内比较稀疏或指标已经饱和时动态调整视频奖励，使反馈继续保持信息量。"
+        },
+        {
+          "paper_slug": "otca",
+          "role": "bridge",
+          "stage_key": "alignment-and-efficiency",
+          "en_relation": "OTCA maps final image or video rewards back onto denoising time and multiple objectives instead of treating every generation decision as equally responsible.",
+          "zh_relation": "OTCA 将最终图像或视频奖励分配到不同去噪时刻和目标，而不是假设每个生成决策承担相同责任。"
+        },
+        {
+          "paper_slug": "rats",
+          "role": "bridge",
+          "stage_key": "alignment-and-efficiency",
+          "en_relation": "RATS combines few-step trajectory distillation with preference feedback, relaxing teacher guidance when the student matches or exceeds the teacher under the selected reward.",
+          "zh_relation": "RATS 把少步轨迹蒸馏与偏好反馈结合起来，当学生在所选奖励下达到或超过教师时，适当减弱教师约束。"
+        },
+        {
+          "paper_slug": "embodied-brains",
+          "role": "horizon",
+          "stage_key": "from-model-to-system",
+          "en_relation": "The Embodied Brains roadmap places predictive world and action models inside a larger stack of shared contracts, physical harnesses, verification, and closed-loop learning.",
+          "zh_relation": "Embodied Brains 路线图将预测式世界与动作模型放入由共享契约、物理执行层、验证和闭环学习组成的更大系统。"
+        }
+      ],
+      "en": {
+        "title": "Video Generation and World Models",
+        "short_title": "Video and world models",
+        "dek": "Studying the requirements that connect video generation to world modeling: spatial control, long-range temporal consistency, persistent state, and action-conditioned prediction.",
+        "question": "What separates a video generator that produces plausible clips from a world model that maintains state and predicts future observations consistently?",
+        "thesis": "Video generation provides a concrete test of temporal modeling, but visual realism alone does not establish a world model. A model intended for prediction or planning must also maintain state across time, represent how actions affect state transitions, and express uncertainty when future observations are not determined.",
+        "intro": [
+          "Compared with image generation, video generation must model dependencies across time. Entity identity, spatial layout, motion, and event order must remain consistent across frames. Longer sequences expose errors that a short clip can hide, including appearance drift, geometric inconsistency, and motion that is not supported by the preceding state.",
+          "Large-scale training improves coverage, but data scale alone does not define a world model. World modeling introduces additional requirements: a state representation that persists across observations, predictions conditioned on possible actions, and evaluation against observed transitions. The papers on this path address several prerequisites for that goal—consistent supervision, controllable generation, long temporal context, persistent reconstruction, and post-training—without claiming that any single paper solves the complete problem."
+        ],
+        "stages": [
+          {
+            "key": "semantic-supervision",
+            "heading": "Align visual augmentation with language supervision",
+            "paragraphs": [
+              "IcoCap changes the content density of video-captioning samples by compounding image semantics with video content. Visual-Semantic Guided Captioning then adapts caption learning to the compounded input. The result is a specific supervision principle: when augmentation changes the semantic content of an input, the target must be adjusted accordingly."
+            ]
+          },
+          {
+            "key": "control-and-horizon",
+            "heading": "Control spatial composition and extend temporal context",
+            "paragraphs": [
+              "VAST and FreeLong address two different limits of text-to-video generation. VAST introduces a storyboard with human poses and object layouts, providing explicit spatial conditions before synthesis. FreeLong extends a pretrained short-video diffusion model by changing temporal feature blending during denoising, balancing low-frequency global consistency with high-frequency local detail over longer sequences."
+            ]
+          },
+          {
+            "key": "persistent-world",
+            "heading": "Maintain state across generation and reconstruction",
+            "paragraphs": [
+              "TeleWorld connects video generation with dynamic 4D reconstruction and persistent memory. Generated observations update the reconstructed state, and that state conditions later synthesis. Unlike isolated clip generation, this formulation allows an error in one step to affect the state used by subsequent steps, making state consistency an explicit system concern."
+            ]
+          },
+          {
+            "key": "alignment-and-efficiency",
+            "heading": "Optimize generation with multiple feedback signals",
+            "paragraphs": [
+              "Video post-training often combines feedback on visual quality, text alignment, motion, and temporal consistency. TeleBoost separates supervised, reinforcement-learning, and preference-refinement stages; TaRoS adapts the influence of reward components during training; OTCA assigns outcome credit across denoising steps and objectives; and RATS conditions teacher guidance on relative reward quality. These methods improve visual generators under defined rewards, but do not by themselves provide action-conditioned world modeling."
+            ]
+          },
+          {
+            "key": "from-model-to-system",
+            "heading": "Connect predictive models to an embodied system",
+            "paragraphs": [
+              "The Embodied Brains roadmap considers the system requirements beyond prediction. A predictive model needs interfaces to tools and controllers, execution in the physical environment, verification of the resulting state transition, and a procedure for reusing verified interaction data. This is a forward-looking systems connection rather than an empirical result of the video-generation papers."
+            ]
+          }
+        ],
+        "boundaries": {
+          "heading": "What this path does—and does not—claim",
+          "paragraphs": [
+            "Controllable or temporally consistent video generation is not sufficient evidence of a world model suitable for planning. Such a model must also predict action-conditioned state transitions, represent uncertainty, and remain accurate under changes in state and environment. TeleWorld adds persistent reconstruction, but a persistent representation is still not an embodied agent. The path identifies technical connections among the papers without assigning them a shared architecture or evaluation protocol."
+          ]
+        },
+        "open_questions": {
+          "heading": "Open questions",
+          "paragraphs": [
+            "Open questions include how to represent state and action in a common predictive model, how to calibrate uncertainty over long horizons, and how to distinguish model-generated observations from measurements of the external world. A closed-loop system must also verify whether an executed action produced the predicted transition before that trajectory is reused for training."
+          ]
+        }
+      },
+      "zh": {
+        "title": "视频生成与世界模型",
+        "short_title": "视频与世界模型",
+        "dek": "研究视频生成走向世界模型所需的条件：空间控制、长时时间一致性、持久状态与以行动为条件的预测。",
+        "question": "能够生成合理视频片段的模型，与能够维护状态并稳定预测未来观测的世界模型之间，还缺少哪些能力？",
+        "thesis": "视频生成为时序建模提供了具体试验，但视觉真实感本身不能证明模型已经形成世界模型。用于预测或规划的模型还需要跨时间维护状态，表示行动怎样影响状态转移，并在未来观测不确定时表达不确定性。",
+        "intro": [
+          "与图像生成相比，视频生成必须建模跨时间依赖。人物与物体的身份、空间布局、运动和事件顺序都需要在连续帧中保持一致。序列变长后，短视频中不明显的外观漂移、几何不一致和缺乏前序状态支持的运动会持续积累。",
+          "大规模训练能够提高数据覆盖，但数据规模本身不能定义世界模型。世界建模还需要持久的状态表示、以可能行动为条件的预测，以及用真实观测到的状态转移进行评价。这条路径中的论文分别研究一致监督、可控生成、长时上下文、持久重建和后训练，它们是相关前提，但没有任何单篇论文被描述为已经解决完整问题。"
+        ],
+        "stages": [
+          {
+            "key": "semantic-supervision",
+            "heading": "让视觉增强与语言监督保持一致",
+            "paragraphs": [
+              "IcoCap 通过把图像语义复合进视频内容来改变视频描述样本的内容密度，再使用 Visual-Semantic Guided Captioning 调整复合输入对应的描述学习。这里的监督原则很具体：当数据增强改变了输入的语义内容，目标也必须随之调整。"
+            ]
+          },
+          {
+            "key": "control-and-horizon",
+            "heading": "控制空间构图并扩展时间上下文",
+            "paragraphs": [
+              "VAST 与 FreeLong 处理文本到视频生成的两个不同限制。VAST 在合成前加入包含人体姿态和物体布局的故事板，提供显式空间条件；FreeLong 保留预训练短视频扩散模型，在去噪过程中改变时序特征融合，以平衡长序列中的低频全局一致性与高频局部细节。"
+            ]
+          },
+          {
+            "key": "persistent-world",
+            "heading": "在生成与重建之间维护状态",
+            "paragraphs": [
+              "TeleWorld 将视频生成、动态 4D 重建和持久记忆连接起来。生成观测更新重建状态，该状态再作为后续合成的条件。与孤立视频生成不同，某一步的误差会改变后续步骤使用的状态，因此状态一致性成为显式的系统问题。"
+            ]
+          },
+          {
+            "key": "alignment-and-efficiency",
+            "heading": "使用多类反馈优化生成过程",
+            "paragraphs": [
+              "视频后训练通常同时使用画面质量、文本对齐、运动和时间一致性等反馈。TeleBoost 区分监督、强化学习和偏好细化阶段；TaRoS 在训练中调整不同奖励分量的影响；OTCA 在去噪步骤和目标之间分配结果信用；RATS 则根据相对奖励质量调整教师指导。这些方法在既定奖励下改进视觉生成器，但本身并不提供以行动为条件的世界建模。"
+            ]
+          },
+          {
+            "key": "from-model-to-system",
+            "heading": "把预测模型连接到具身系统",
+            "paragraphs": [
+              "Embodied Brains 路线图讨论预测之外的系统要求：预测模型需要连接工具与控制器，在物理环境中执行，验证实际状态转移，并将经过验证的交互数据重新用于训练。这是面向未来的系统联系，不是视频生成论文已经验证的实验结果。"
+            ]
+          }
+        ],
+        "boundaries": {
+          "heading": "这条路径主张什么，又不主张什么",
+          "paragraphs": [
+            "可控或时间一致的视频生成不足以证明模型适合用于规划。这样的世界模型还需要预测以行动为条件的状态转移、表达不确定性，并在状态和环境变化时保持准确。TeleWorld 加入了持久重建，但持久表示仍不等同于具身智能体。这条路径只说明论文之间的技术联系，不为它们虚构共同架构或评测协议。"
+          ]
+        },
+        "open_questions": {
+          "heading": "开放问题",
+          "paragraphs": [
+            "开放问题包括：怎样在同一预测模型中表示状态与行动，怎样校准长轨迹预测的不确定性，以及怎样区分模型生成的观测与外部世界的测量结果。闭环系统还需要验证执行后的状态转移是否符合预测，再决定能否将该轨迹重新用于训练。"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "trustworthy-visual-post-training",
+      "order": 2,
+      "status": "published",
+      "published_on": "2026-08-04",
+      "drafted_on": "2026-08-04",
+      "members": [
+        {
+          "paper_slug": "vrr-vg",
+          "role": "foundation",
+          "stage_key": "diagnose-the-signal",
+          "en_relation": "VrR-VG uses a no-image relationship predictor to expose benchmark shortcuts, establishing the principle that performance must be tested against the information a model actually used.",
+          "zh_relation": "VrR-VG 用不读取图像的关系预测器暴露数据捷径，强调性能必须结合模型实际使用的信息进行判断。"
+        },
+        {
+          "paper_slug": "elp",
+          "role": "foundation",
+          "stage_key": "diagnose-the-signal",
+          "en_relation": "ELP repeatedly resets a detached-feature reader, distinguishing representation quality from the confidence accumulated by a persistent classifier during training.",
+          "zh_relation": "ELP 反复重置读取分离特征的分类器，把表示质量与持续分类头在训练中积累的置信度区分开。"
+        },
+        {
+          "paper_slug": "mhem",
+          "role": "foundation",
+          "stage_key": "diagnose-the-signal",
+          "en_relation": "MHEM formalizes bounded emphasis for hard examples, preserving useful learning pressure without allowing extreme samples to dominate indefinitely.",
+          "zh_relation": "MHEM 对困难样本的强调强度设置边界，在保留有效学习压力的同时防止极端样本长期支配梯度。"
+        },
+        {
+          "paper_slug": "icocap",
+          "role": "foundation",
+          "stage_key": "diagnose-the-signal",
+          "en_relation": "IcoCap shows that modifying visual inputs requires corresponding changes to text supervision, an early instance of treating target construction as part of the learning system.",
+          "zh_relation": "IcoCap 表明视觉输入改变后文本监督也需要同步调整，是把目标构造视为学习系统组成部分的早期例子。"
+        },
+        {
+          "paper_slug": "vipo",
+          "role": "core",
+          "stage_key": "structure-and-trust",
+          "en_relation": "ViPO uses perceptual features to convert a sample-level GRPO advantage into spatial or spatiotemporal advantages, changing where the optimization update is applied.",
+          "zh_relation": "ViPO 使用感知特征把样本级 GRPO 优势转化为空间或时空优势，改变优化更新作用的位置。"
+        },
+        {
+          "paper_slug": "bpgo",
+          "role": "core",
+          "stage_key": "structure-and-trust",
+          "en_relation": "BPGO uses a semantic prior to weight group-level and within-group reward comparisons, reducing the influence of comparisons judged to be uncertain.",
+          "zh_relation": "BPGO 使用语义先验调整组间与组内奖励比较的权重，降低不确定比较对参数更新的影响。"
+        },
+        {
+          "paper_slug": "taros",
+          "role": "core",
+          "stage_key": "dynamic-and-process-credit",
+          "en_relation": "TaRoS changes reward-component influence when comparisons become sparse, objectives disagree, or a component saturates as training progresses.",
+          "zh_relation": "TaRoS 在比较变得稀疏、目标发生冲突或奖励分量随训练饱和时，动态改变各分量的影响。"
+        },
+        {
+          "paper_slug": "otca",
+          "role": "core",
+          "stage_key": "dynamic-and-process-credit",
+          "en_relation": "OTCA decomposes final reward responsibility over denoising time and allocates multiple objectives where they are most informative.",
+          "zh_relation": "OTCA 沿去噪时间分解最终奖励责任，并把多个目标分配到它们最有信息量的生成阶段。"
+        },
+        {
+          "paper_slug": "rats",
+          "role": "bridge",
+          "stage_key": "from-method-to-system",
+          "en_relation": "RATS makes teacher-student trajectory guidance conditional on relative reward quality, connecting preference alignment with efficient few-step generation.",
+          "zh_relation": "RATS 根据教师与学生的相对奖励质量调整轨迹指导，把偏好对齐与高效少步生成连接起来。"
+        },
+        {
+          "paper_slug": "teleboost",
+          "role": "core",
+          "stage_key": "from-method-to-system",
+          "en_relation": "TeleBoost places supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems constraints in one staged post-training pipeline.",
+          "zh_relation": "TeleBoost 将监督塑形、奖励驱动强化学习、偏好细化、诊断和系统约束放入统一的分阶段后训练管线。"
+        }
+      ],
+      "en": {
+        "title": "Trustworthy Visual Generation Post-Training",
+        "short_title": "Trustworthy visual post-training",
+        "dek": "Studying how reward validity, uncertainty, and credit assignment determine the reliability of post-training for visual generative models.",
+        "question": "How should a visual generative model be updated when the available reward is incomplete, uncertain, or too coarse to identify which parts of the generation process should change?",
+        "thesis": "Visual post-training can optimize perceptual quality, semantic alignment, motion, and preference objectives that are not fully specified by pre-training losses. Its reliability depends on three questions: whether the reward measures the intended property, how uncertainty in that reward affects the update, and how credit is assigned across samples, regions, timesteps, and objectives.",
+        "intro": [
+          "Pre-training optimizes a model on a fixed dataset with likelihood, reconstruction, or related surrogate objectives. Visual post-training instead samples outputs or denoising trajectories, evaluates them with reward models or preference signals, and updates the generator toward higher-scoring behavior. This changes the optimization target, but it does not by itself create an agent that learns from an external environment.",
+          "The central difficulty is that reward models are imperfect measurements. A scalar score may combine several objectives, may be unreliable for an unfamiliar prompt, and may provide no direct evidence about which region or denoising step caused the result. My recent work studies these failure modes separately: reward granularity, uncertainty-aware weighting, adaptation of multiple objectives, temporal credit assignment, efficient generation, and integration into a complete training pipeline."
+        ],
+        "stages": [
+          {
+            "key": "diagnose-the-signal",
+            "heading": "Distinguish the training signal from the target capability",
+            "paragraphs": [
+              "VrR-VG, ELP, MHEM, and IcoCap address different training settings, but they establish a common diagnostic principle. Benchmark accuracy can depend on dataset shortcuts, classifier confidence can differ from feature discriminability, hard-example losses can promote memorization, and labels can become inconsistent after augmentation. None of these signals should be interpreted without checking how it was produced."
+            ]
+          },
+          {
+            "key": "frame-the-objective",
+            "heading": "Define the objective and its domain of validity",
+            "paragraphs": [
+              "Visual generation is evaluated by several properties that are only partially captured by likelihood or reconstruction loss, including text alignment, perceptual quality, motion consistency, and human preference. Post-training introduces rewards for these properties, but every reward has a domain of validity defined by its training data, model assumptions, and calibration. Reward design and reward evaluation therefore remain part of the optimization problem."
+            ]
+          },
+          {
+            "key": "structure-and-trust",
+            "heading": "Represent spatial credit and reward uncertainty",
+            "paragraphs": [
+              "ViPO and BPGO address two distinct limitations of sample-level GRPO rewards. ViPO uses perceptual features to distribute relative advantages over spatial or spatiotemporal regions. BPGO uses a semantic prior to reweight comparisons according to reward confidence. ViPO changes where the update is applied; BPGO changes the contribution of uncertain comparisons."
+            ]
+          },
+          {
+            "key": "dynamic-and-process-credit",
+            "heading": "Adapt multiple rewards and assign temporal credit",
+            "paragraphs": [
+              "TaRoS adjusts the influence of multiple reward components when they disagree, provide weak group separation, or saturate during training. OTCA decomposes a final reward across denoising timesteps and allocates different objectives across the trajectory. The first addresses how a composite reward changes during optimization; the second addresses how an outcome-level reward is assigned to intermediate decisions."
+            ]
+          },
+          {
+            "key": "from-method-to-system",
+            "heading": "Extend reward-based training to efficient models and full pipelines",
+            "paragraphs": [
+              "RATS uses relative reward quality to determine when a few-step student should follow a multi-step teacher, connecting preference optimization with trajectory distillation. TeleBoost addresses a different level of the problem: it organizes supervised policy shaping, reward-driven reinforcement learning, and preference refinement into a staged video post-training pipeline, with diagnostics and infrastructure supporting training stability."
+            ]
+          }
+        ],
+        "boundaries": {
+          "heading": "What trustworthy means here",
+          "paragraphs": [
+            "Here, trustworthy does not mean that a reward model is correct for every prompt or that an attributed region or timestep is the true causal source of quality. The methods specify how available rewards are weighted or assigned within particular image and video training settings. Their conclusions remain conditional on reward-model coverage, prompt distribution, generator architecture, and whether evaluation uses evidence independent of the training rewards."
+          ]
+        },
+        "open_questions": {
+          "heading": "Open questions",
+          "paragraphs": [
+            "Open questions include how to calibrate reward uncertainty under distribution shift, detect reward exploitation even when aggregate metrics increase, and compare process-level credit across generator architectures. For deployment, another question is how verified outcomes should be used to update the reward model, generator, and evaluation protocol without allowing all three to reinforce the same bias."
+          ]
+        }
+      },
+      "zh": {
+        "title": "可信视觉生成后训练",
+        "short_title": "可信视觉后训练",
+        "dek": "研究奖励有效性、不确定性与信用分配怎样决定视觉生成模型后训练的可靠性。",
+        "question": "当奖励不完整、不确定，或粒度过粗而无法指出生成过程中的哪些部分需要改变时，应该怎样更新视觉生成模型？",
+        "thesis": "视觉后训练能够直接优化预训练损失没有完整表达的画面质量、语义对齐、运动和偏好目标。它是否可靠取决于三个问题：奖励是否测量了预期属性，奖励不确定性怎样影响更新，以及信用怎样分配到样本、区域、时间步和不同目标。",
+        "intro": [
+          "预训练在固定数据集上优化似然、重建或相关替代目标。视觉后训练则采样生成结果或去噪轨迹，使用奖励模型或偏好信号进行评价，再让生成器朝更高分的方向更新。它改变了优化目标，但不会自动产生一个能够从外部环境持续学习的智能体。",
+          "核心困难在于奖励模型只是有误差的测量工具。一个标量分数可能混合多个目标，在陌生提示上可能不可靠，也不能直接说明结果由哪个区域或哪个去噪步骤造成。近期工作分别研究这些失效来源：奖励粒度、不确定性感知加权、多目标动态调整、时间信用分配、高效生成，以及完整训练管线中的系统集成。"
+        ],
+        "stages": [
+          {
+            "key": "diagnose-the-signal",
+            "heading": "区分训练信号与目标能力",
+            "paragraphs": [
+              "VrR-VG、ELP、MHEM 和 IcoCap 面向不同训练设置，但建立了同一条诊断原则：基准准确率可能依赖数据捷径，分类器置信度可能不同于特征可分性，困难样本损失可能促进记忆，数据增强后标签也可能与输入不一致。任何信号都需要结合其产生方式解释。"
+            ]
+          },
+          {
+            "key": "frame-the-objective",
+            "heading": "定义优化目标及其有效范围",
+            "paragraphs": [
+              "视觉生成需要评价文本对齐、感知质量、运动一致性和人类偏好等属性，而似然或重建损失只能覆盖其中一部分。后训练为这些属性引入奖励，但每个奖励的有效范围都受到训练数据、模型假设和校准方式限制。因此，奖励设计与奖励评价始终是优化问题的一部分。"
+            ]
+          },
+          {
+            "key": "structure-and-trust",
+            "heading": "表示空间信用与奖励不确定性",
+            "paragraphs": [
+              "ViPO 与 BPGO 处理样本级 GRPO 奖励的两个不同局限。ViPO 利用感知特征将相对优势分配到空间或时空区域；BPGO 使用语义先验，根据奖励置信度重新加权比较。ViPO 改变更新作用的位置，BPGO 改变不确定比较对更新的贡献。"
+            ]
+          },
+          {
+            "key": "dynamic-and-process-credit",
+            "heading": "动态调整多类奖励并分配时间信用",
+            "paragraphs": [
+              "TaRoS 在奖励分量冲突、组内区分较弱或训练中出现饱和时，调整多个奖励分量的影响。OTCA 则将最终奖励分解到不同去噪时间步，并沿轨迹分配多个目标。前者处理复合奖励怎样随优化过程变化，后者处理结果级奖励怎样分配给中间决策。"
+            ]
+          },
+          {
+            "key": "from-method-to-system",
+            "heading": "将奖励训练扩展到高效模型和完整管线",
+            "paragraphs": [
+              "RATS 根据相对奖励质量决定少步学生何时遵循多步教师，将偏好优化与轨迹蒸馏连接起来。TeleBoost 处理的是另一层问题：把监督策略塑形、奖励驱动强化学习和偏好细化组织为分阶段视频后训练管线，再由诊断与训练基础设施支持稳定训练。"
+            ]
+          }
+        ],
+        "boundaries": {
+          "heading": "这里所说的可信意味着什么",
+          "paragraphs": [
+            "这里的可信不意味着奖励模型对所有提示都正确，也不意味着归因到某个区域或时间步的信用就是真实的因果贡献。这些方法规定的是在特定图像和视频训练设置中怎样加权或分配现有奖励。结论仍取决于奖励模型覆盖范围、提示分布、生成器架构，以及评价是否使用独立于训练奖励的证据。"
+          ]
+        },
+        "open_questions": {
+          "heading": "开放问题",
+          "paragraphs": [
+            "开放问题包括：怎样在分布变化下校准奖励不确定性，怎样在汇总指标上升时仍能发现奖励投机，以及怎样跨不同生成器架构比较过程级信用。面向部署，还需要研究经过验证的结果应如何更新奖励模型、生成器和评价协议，同时避免三者共同强化同一种偏差。"
+          ]
+        }
+      }
+    },
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "order": 3,
+      "status": "published",
+      "published_on": "2026-08-04",
+      "drafted_on": "2026-08-04",
+      "members": [
+        {
+          "paper_slug": "seeg",
+          "role": "foundation",
+          "stage_key": "meaning-in-motion",
+          "en_relation": "SEEG separates rhythmic and semantic cues in co-speech gesture, establishing that synchronized motion is not automatically communicative motion.",
+          "zh_relation": "SEEG 在伴随语音手势中区分节奏与语义线索，说明动作同步并不自动等同于具有交流意义。"
+        },
+        {
+          "paper_slug": "maal",
+          "role": "foundation",
+          "stage_key": "action-conditioned-affordance",
+          "en_relation": "MAAL models articulated-object affordance as compatibility among geometry, object state, contact, and candidate robot action rather than appearance alone.",
+          "zh_relation": "MAAL 将关节物体可供性建模为几何、物体状态、接触位置和候选机器人动作之间的兼容关系，而不只是外观。"
+        },
+        {
+          "paper_slug": "intersyn",
+          "role": "core",
+          "stage_key": "coordination-and-unification",
+          "en_relation": "InterSyn learns solo and multi-person dynamics together, then refines relative coordination so individual motion and mutual timing are not treated as separate problems.",
+          "zh_relation": "InterSyn 联合学习单人和多人动态，并进一步优化相对协调，使个体动作与相互时序不再被视为彼此割裂的问题。"
+        },
+        {
+          "paper_slug": "uni-inter",
+          "role": "core",
+          "stage_key": "coordination-and-unification",
+          "en_relation": "Uni-Inter maps humans, objects, and scenes into a shared semantic occupancy volume, enabling one synthesis framework to reuse spatial knowledge across three interaction settings.",
+          "zh_relation": "Uni-Inter 把人物、物体和场景映射到共享语义占据体，使一个合成框架能够在三类交互环境之间复用空间知识。"
+        },
+        {
+          "paper_slug": "laxmotion",
+          "role": "core",
+          "stage_key": "supervision-and-generalization",
+          "en_relation": "LaxMotion removes direct 3D pose regression and learns from trajectories, monocular cues, and structural regularization, questioning whether exact labels always improve generalization.",
+          "zh_relation": "LaxMotion 移除直接 3D 姿态回归，转而使用轨迹、单目线索和结构正则，重新审视精确标签是否总能带来更好泛化。"
+        },
+        {
+          "paper_slug": "anteval",
+          "role": "bridge",
+          "stage_key": "evaluate-and-ground",
+          "en_relation": "AntEval evaluates task completion separately from information exchange and intention expression, showing that successful outcomes do not establish that agents communicated effectively.",
+          "zh_relation": "AntEval 将任务完成与信息交换、意图表达分开评价，说明成功结果本身不能证明智能体进行了有效沟通。"
+        },
+        {
+          "paper_slug": "embodied-brains",
+          "role": "horizon",
+          "stage_key": "evaluate-and-ground",
+          "en_relation": "The Embodied Brains roadmap connects predictive models to physical harnesses, shared contracts, verification, and experience reuse, defining a system horizon for grounded interaction.",
+          "zh_relation": "Embodied Brains 路线图将预测模型连接到物理执行层、共享契约、验证和经验复用，为落地交互定义系统方向。"
+        }
+      ],
+      "en": {
+        "title": "Semantic Motion and Embodied Interaction",
+        "short_title": "Semantic and embodied interaction",
+        "dek": "Studying how motion generation can satisfy semantic, relational, and physical constraints across human–human, human–object, and human–scene interaction.",
+        "question": "What representations and evaluation criteria are needed to generate motion that conveys the intended semantics, remains physically feasible, and coordinates with other entities?",
+        "thesis": "This path studies three requirements for interaction-aware motion: semantic alignment between speech and gesture, action-conditioned affordance between a body and an object, and coordination among people, objects, and scenes. It then asks how generated interactions should be evaluated and connected to an executable embodied system.",
+        "intro": [
+          "A co-speech gesture can follow the rhythm while failing to express the semantic content of speech. A visible object part can be recognized even when the proposed contact and action are infeasible. Two motions can be plausible in isolation but inconsistent when performed together. These are different failures, but each shows that motion quality depends on context rather than kinematics alone.",
+          "The papers therefore address different conditional constraints on motion. SEEG uses speech semantics; MAAL conditions affordance on object state, contact, and robot action; InterSyn and Uni-Inter model coordination across multiple entities; LaxMotion studies the supervision needed for generalizable 3D motion. AntEval and the Embodied Brains roadmap extend the discussion from generation to process evaluation, execution, and verification."
+        ],
+        "stages": [
+          {
+            "key": "meaning-in-motion",
+            "heading": "Separate rhythmic alignment from semantic expression",
+            "paragraphs": [
+              "SEEG separates beat-related and semantic information in co-speech gesture generation. Its Decoupled Mining module learns the two sources separately, while the Semantic Energizing Module adds supervision for semantic expression. The method therefore evaluates semantic content as a distinct objective rather than assuming that synchronization with speech rhythm is sufficient."
+            ]
+          },
+          {
+            "key": "action-conditioned-affordance",
+            "heading": "Condition affordance on object state and action",
+            "paragraphs": [
+              "MAAL studies articulated-object affordance as a relation among object geometry, articulation state, contact location, and a candidate robot action. A visible object part is not assigned a fixed action label; the model estimates a multimodal distribution over interactions that are compatible with the current object and action conditions."
+            ]
+          },
+          {
+            "key": "coordination-and-unification",
+            "heading": "Represent coordination across interaction settings",
+            "paragraphs": [
+              "InterSyn jointly learns single-person and multi-person motion and refines relative coordination between participants. Uni-Inter encodes people, objects, and scenes in a Unified Interactive Volume and predicts motion within this shared spatial representation. The methods address different scopes, but both model an interaction through relations among entities rather than independent motion sequences."
+            ]
+          },
+          {
+            "key": "supervision-and-generalization",
+            "heading": "Study supervision for motion generalization",
+            "paragraphs": [
+              "LaxMotion removes direct 3D pose regression and learns from global trajectories, monocular 2D kinematic cues, and structural regularization. The paper tests whether exact coordinate targets encourage fitting fixed training patterns and whether relaxed supervision can improve motion generation under distribution shift."
+            ]
+          },
+          {
+            "key": "evaluate-and-ground",
+            "heading": "Evaluate interaction and verify execution",
+            "paragraphs": [
+              "AntEval separates task completion from information exchange and intention expression in language-mediated multi-agent interaction. The Embodied Brains roadmap considers the corresponding systems problem in the physical world: model outputs must be translated into tool or controller requests, execution must be verified against the resulting state, and verified trajectories need explicit interfaces before they can be reused for learning."
+            ]
+          }
+        ],
+        "boundaries": {
+          "heading": "What connects these papers—and what remains different",
+          "paragraphs": [
+            "These papers share a concern with context-dependent validity: whether motion expresses the intended semantics, is compatible with object state and action, coordinates across entities, or succeeds after execution. They do not share a common output space or evaluation protocol. SEEG generates co-speech gesture, MAAL estimates affordance, Uni-Inter generates 3D interaction motion, and AntEval evaluates language-mediated agents. Their grouping defines a research agenda, not a common model family."
+          ]
+        },
+        "open_questions": {
+          "heading": "Open questions",
+          "paragraphs": [
+            "Two gaps remain. Representation models must relate semantic intent and spatial context to feasible actions while expressing uncertainty about contact and dynamics. Evaluation must also move beyond offline motion quality to test whether an interaction can be executed, whether failure can be attributed to perception, prediction, planning, or control, and whether verified outcomes transfer across bodies, tasks, and environments."
+          ]
+        }
+      },
+      "zh": {
+        "title": "语义动作与具身交互",
+        "short_title": "语义与具身交互",
+        "dek": "研究动作生成怎样在人–人、人–物和人–场景交互中满足语义、关系与物理约束。",
+        "question": "需要怎样的表示与评价标准，才能让生成动作表达预期语义、满足物理可行性，并与其他实体协调？",
+        "thesis": "这条路径研究交互动作的三项要求：语音与手势之间的语义对齐，身体与物体之间以行动为条件的可供性，以及人物、物体和场景之间的协调。随后进一步讨论怎样评价生成交互，并将其连接到可执行的具身系统。",
+        "intro": [
+          "伴随语音的手势可以符合节奏，却没有表达语音中的语义；模型可以识别物体部件，但提出的接触位置和动作并不可行；两段动作分别看都合理，放在一起却缺乏协调。这些失效来源不同，但都说明动作质量取决于交互上下文，而不只取决于运动学。",
+          "这些论文因此研究动作所受的不同条件约束。SEEG 使用语音语义，MAAL 以物体状态、接触和机器人动作作为可供性条件，InterSyn 与 Uni-Inter 建模多实体协调，LaxMotion 研究有利于三维动作泛化的监督方式。AntEval 与 Embodied Brains 路线图再把讨论从生成扩展到过程评价、执行与验证。"
+        ],
+        "stages": [
+          {
+            "key": "meaning-in-motion",
+            "heading": "区分节奏对齐与语义表达",
+            "paragraphs": [
+              "SEEG 在伴随语音手势生成中分离节奏信息与语义信息。Decoupled Mining 模块分别学习两类信息，Semantic Energizing Module 则加入语义表达监督。因此，该方法将语义内容作为独立评价目标，而不假设手势与语音节奏同步就已经足够。"
+            ]
+          },
+          {
+            "key": "action-conditioned-affordance",
+            "heading": "以物体状态和行动为条件建模可供性",
+            "paragraphs": [
+              "MAAL 将关节物体可供性建模为物体几何、关节状态、接触位置与候选机器人动作之间的关系。模型不会为可见部件分配固定行动标签，而是在当前物体与行动条件下估计兼容交互的多模态分布。"
+            ]
+          },
+          {
+            "key": "coordination-and-unification",
+            "heading": "在不同交互设置中表示协调关系",
+            "paragraphs": [
+              "InterSyn 联合学习单人和多人动作，并进一步优化参与者之间的相对协调。Uni-Inter 将人物、物体和场景编码进 Unified Interactive Volume，在共享空间表示中预测动作。两种方法覆盖范围不同，但都通过实体之间的关系建模交互，而不是分别生成互不相关的动作序列。"
+            ]
+          },
+          {
+            "key": "supervision-and-generalization",
+            "heading": "研究有利于动作泛化的监督方式",
+            "paragraphs": [
+              "LaxMotion 移除直接 3D 姿态回归，改为从全局轨迹、单目 2D 运动学线索和结构正则中学习。论文检验精确坐标目标是否会鼓励模型拟合固定训练模式，以及放宽监督能否改善分布变化下的动作生成。"
+            ]
+          },
+          {
+            "key": "evaluate-and-ground",
+            "heading": "评价交互并验证执行结果",
+            "paragraphs": [
+              "AntEval 在语言多智能体交互中分别评价任务完成、信息交换和意图表达。Embodied Brains 路线图讨论物理世界中的对应系统问题：模型输出需要转化为工具或控制器请求，执行结果需要根据状态变化进行验证，经过验证的轨迹也需要通过明确接口才能重新用于学习。"
+            ]
+          }
+        ],
+        "boundaries": {
+          "heading": "这些论文为何相关，又有哪些本质差异",
+          "paragraphs": [
+            "这些论文共同关注依赖上下文的有效性：动作是否表达预期语义，是否兼容物体状态与候选行动，是否在多个实体之间协调，以及执行后是否成功。它们没有共同输出空间或评价协议。SEEG 生成伴随语音手势，MAAL 估计可供性，Uni-Inter 生成三维交互动作，AntEval 评价语言智能体。这样的组织定义的是研究议题，不是同一类模型。"
+          ]
+        },
+        "open_questions": {
+          "heading": "开放问题",
+          "paragraphs": [
+            "仍有两个主要缺口。表示模型需要把语义意图和空间上下文连接到可执行行动，同时表达接触与动力学的不确定性；评价则需要超越离线动作质量，检验交互能否执行，失败究竟来自感知、预测、规划还是控制，以及经过验证的结果能否跨不同身体、任务和环境迁移。"
+          ]
+        }
+      }
+    }
+  ]
+}

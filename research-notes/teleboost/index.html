@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeleBoost: Video Generation Post-Training as a Systems Problem | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/teleboost/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/teleboost/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="TeleBoost: Video Generation Post-Training as a Systems Problem">
+  <meta property="og:description" content="TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/teleboost/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TeleBoost: Video Generation Post-Training as a Systems Problem">
+  <meta name="twitter:description" content="TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/teleboost/#webpage",
+      "url": "https://akira-l.github.io/research-notes/teleboost/",
+      "name": "TeleBoost: Video Generation Post-Training as a Systems Problem",
+      "description": "TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/teleboost/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/teleboost/#article",
+      "url": "https://akira-l.github.io/research-notes/teleboost/",
+      "headline": "TeleBoost: Video Generation Post-Training as a Systems Problem",
+      "description": "TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/teleboost/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/teleboost/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/teleboost/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/teleboost/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "video generation",
+        "post-training",
+        "GRPO",
+        "DPO",
+        "TeleBoost"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/teleboost/#paper",
+      "url": "https://akira-l.github.io/publications/teleboost/",
+      "name": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "headline": "TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuan'er Wu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yirui Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yijie Fang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yizhen Fan"
+        },
+        {
+          "@type": "Person",
+          "name": "Ke Hao"
+        },
+        {
+          "@type": "Person",
+          "name": "Rui Li"
+        },
+        {
+          "@type": "Person",
+          "name": "Ruiying Liu"
+        },
+        {
+          "@type": "Person",
+          "name": "Ziqi Ni"
+        },
+        {
+          "@type": "Person",
+          "name": "Peng Yu"
+        },
+        {
+          "@type": "Person",
+          "name": "Yanbo Wang"
+        },
+        {
+          "@type": "Person",
+          "name": "Haibin Huang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qizhen Weng"
+        },
+        {
+          "@type": "Person",
+          "name": "Chi Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuelong Li"
+        }
+      ],
+      "datePublished": "2026-02-07",
+      "inLanguage": "en",
+      "keywords": [
+        "video generation",
+        "post-training",
+        "GRPO",
+        "DPO",
+        "TeleBoost"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "arXiv · 2026"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/teleboost/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "TeleBoost: Video Generation Post-Training as a Systems Problem",
+          "item": "https://akira-l.github.io/research-notes/teleboost/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">TeleBoost</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>TeleBoost: Video Generation Post-Training as a Systems Problem</h1>
+      <p class="subtitle">TeleBoost explains why high-quality video alignment depends on staged supervised shaping, reward-driven reinforcement learning, preference refinement, diagnostics, and systems engineering working together.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/teleboost/">TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Xuan&#x27;er Wu, Yirui Liu, Yijie Fang, Yizhen Fan, Ke Hao, Rui Li, Ruiying Liu, Ziqi Ni, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, Xuelong Li</p>
+      <p class="paper-venue"><strong>Venue:</strong> arXiv · 2026</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">video generation</span><span class="tag">post-training</span><span class="tag">GRPO</span><span class="tag">DPO</span><span class="tag">TeleBoost</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/video-generation-world-models/">Video and world models</a><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#why-video-alignment-resists-a-one-loss-solution">Why video alignment resists a one-loss solution</a></li><li><a href="#three-stages-with-different-responsibilities">Three stages with different responsibilities</a></li><li><a href="#diagnostics-are-part-of-the-method">Diagnostics are part of the method</a></li><li><a href="#what-the-reported-numbers-mean">What the reported numbers mean</a></li><li><a href="#what-belongs-to-the-method-and-what-belongs-to-the-system">What belongs to the method—and what belongs to the system</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>A video generator can fail in several incompatible ways. It may ignore the prompt, lose the subject halfway through, produce implausible motion, collapse under camera changes, or render an attractive clip that violates a requested constraint. Optimizing one aggregate reward rarely repairs all of these failures at once. Worse, a training recipe that looks good in an equation can be impractical when every rollout is expensive and a small data or reward defect is multiplied across thousands of frames.</p><p>TeleBoost treats post-training as an alignment pipeline rather than a contest to find one decisive loss. The framework stages supervised shaping, reward-driven reinforcement learning, and preference refinement, supported by diagnostics and resource-aware engineering. Each stage has a different job: establish controllable behavior, explore improvements under reward, and resolve preference details that a scalar objective may miss. The paper’s central claim is therefore systemic: the final behavior comes from the interfaces among stages, data, rewards, and infrastructure.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>TeleBoost’s main lesson is that robust video alignment emerges from a staged and diagnosed training system; no single objective should receive credit for the properties of the entire pipeline.</p></section>
+      <section id="why-video-alignment-resists-a-one-loss-solution"><h2>Why video alignment resists a one-loss solution</h2><p>Images already combine semantics, composition, style, and fidelity. Video adds temporal identity, motion coherence, physics, camera behavior, and much higher sampling cost. A reward that recognizes text alignment may overlook flicker; an aesthetic reward may prefer polished but static clips; a motion reward can be gamed by movement that is large yet meaningless. Combining all components into one weighted sum does not remove conflict. It hides decisions about scale, reliability, and the stage at which each objective can be learned safely.</p><p>The generator’s starting point also matters. Reinforcement learning is inefficient if the model cannot yet follow basic controls, while supervised learning alone is limited by the demonstrations it sees. Pairwise preferences can express subtle choices but are expensive to curate and do not automatically explore new behavior. TeleBoost organizes these tools according to their strengths. This makes the report useful as a map of post-training decisions, not just a model card attached to one set of final samples.</p></section><section id="three-stages-with-different-responsibilities"><h2>Three stages with different responsibilities</h2><p>The supervised shaping stage establishes a stable behavioral region. Carefully selected demonstrations teach prompt following, controllability, and baseline visual quality without requiring the model to discover everything through expensive rollouts. The reward-driven reinforcement learning stage then searches beyond those demonstrations, using group-relative signals to improve properties that can be evaluated at scale. Finally, preference refinement uses pairwise choices to sharpen distinctions that reward models or demonstrations represent poorly. The sequence matters because each later stage assumes capabilities created by the earlier one.</p><p>This is not a claim that supervised fine-tuning (SFT), Group Relative Policy Optimization (GRPO), or Direct Preference Optimization (DPO) must always appear in exactly one order. It is a statement about functional decomposition. If SFT data narrow diversity too aggressively, reinforcement learning begins from a restricted policy. If GRPO pursues a misspecified reward, DPO may only polish the wrong behavior. If preference pairs are inconsistent, refinement can undo broader gains. A reproducible account therefore records stage inputs, checkpoints, reward versions, and transition criteria rather than reporting only the final objective.</p></section><section id="diagnostics-are-part-of-the-method"><h2>Diagnostics are part of the method</h2><p>Video post-training can fail silently. A reward curve may rise because the model exploits a shortcut, because easier prompts dominate the batch, or because one component overwhelms the others. TeleBoost emphasizes diagnostics that separate behavior dimensions and trace failures back to data, reward, or optimization. This turns evaluation from a final leaderboard into an instrument used during training. The operational question is not only “did the score improve?” but “which behavior changed, on which prompt slice, after which stage, and at what cost?”</p><p>That framing is professionally important because end-to-end numbers obscure causal responsibility. If subject consistency improves after data filtering but the report attributes it to reinforcement learning, another team will tune the wrong mechanism. If preference win rate rises while robustness prompts regress, a single mean hides the trade-off. Stage-level ablations, prompt-stratified evaluation, reward audits, and qualitative failure review are not decorative appendices. They are the evidence needed to decide whether an alignment pipeline is actually under control.</p></section><section id="what-the-reported-numbers-mean"><h2>What the reported numbers mean</h2><p>In the reported comparison against the Wan2.2-14B image-to-video baseline, the report gives an overall win rate of 71.18%, a preference rate of 66.38%, and a margin of 32.71. These figures summarize a particular pipeline, evaluator setup, prompt distribution, and baseline. They are useful because they test the combined system under a common protocol. They should not be detached from that protocol or presented as a universal improvement attributable to one stage, one reward, or all video-generation backbones.</p><p>A win rate also needs a denominator and a judge. Human preferences, automated assessors, and mixed evaluation panels measure different things; ties and prompt difficulty affect interpretation. The system-level evidence is strongest when aggregate results are read beside component diagnostics and deployment-oriented analyses. TeleBoost’s claim is that the pipeline produces high-fidelity, controllable, and robust behavior as a package. Reproduction should therefore preserve model initialization, rollout budget, feedback sources, filtering, and stage schedule before treating a numerical gap as comparable.</p></section><section id="what-belongs-to-the-method-and-what-belongs-to-the-system"><h2>What belongs to the method—and what belongs to the system</h2><p>TeleBoost sits between algorithm design and training-systems research. It uses familiar families of objectives, but its contribution is the systematic arrangement of those objectives for video. That position matters in a survey. Classifying it only as a GRPO method misses supervised shaping and preference refinement; classifying it only as a dataset recipe misses reward-driven search and diagnostics. The relevant comparison set includes multimodal post-training pipelines, video preference learning, reward engineering, and resource-efficient rollout systems.</p><p>The limitations are equally systemic. Video rollouts are costly, reward models inherit biases, preference data can be inconsistent, and a multi-stage stack has many interaction effects. A pipeline that works at one compute scale may change when batch diversity or rollout length is reduced. Future work should expose stage-specific compute, sensitivity to reward replacement, and rollback criteria when a later stage harms an earlier capability. The durable insight is modest but consequential: alignment quality is an emergent property of the training system, so evidence and credit must be assigned at system level.</p><p>For teams adapting the recipe, a stage ledger is more useful than a single training log. Record the checkpoint entering each stage, data filters, reward versions, rollout counts, preference-source mix, compute, and evaluations that gate progression. Preserve a small regression set for capabilities established earlier and rerun it after every transition. Without that record, a final win rate cannot reveal whether a later stage created a new strength, merely recovered an earlier loss, or traded one form of robustness for another. The ledger also makes failed runs scientifically useful instead of invisible engineering cost, and makes later comparisons reproducible.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. present TeleBoost, a stability-constrained video-generation post-training framework that stages supervised policy shaping, reward-driven reinforcement learning, and preference refinement to improve fidelity, controllability, temporal coherence, and prompt adherence.</blockquote>
+        <p><strong>Scope:</strong> The framework requires expensive video rollouts, multiple feedback sources, diagnostic infrastructure, and careful stage-specific tuning. Reproduction and comparison should preserve the full training stack and initialization assumptions.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>TeleBoost is organized around supervised shaping, reward-driven reinforcement learning, and preference refinement rather than one isolated objective.</td><td>arXiv:2602.07595v1, framework sections describing the three post-training stages.</td></tr><tr><td>The report evaluates the combined pipeline with diagnostic and deployment-oriented analysis.</td><td>arXiv:2602.07595v1, diagnostic analysis and evaluation sections.</td></tr><tr><td>The Wan2.2-14B I2V comparison reports 71.18% overall win rate, 66.38% preference, and a 32.71 margin.</td><td>arXiv:2602.07595v1, Table 1 (GSB human evaluation against Wan2.2-14B I2V).</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/teleboost/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Xuan&#x27;er Wu, Yirui Liu, Yijie Fang, Yizhen Fan, Ke Hao, Rui Li, Ruiying Liu, Ziqi Ni, Peng Yu, Yanbo Wang, Haibin Huang, Qizhen Weng, Chi Zhang, and Xuelong Li. “TeleBoost: A Systematic Alignment Framework for High-Fidelity, Controllable, and Robust Video Generation.” arXiv (2026). arXiv:2602.07595.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/teleboost/citation.bib">BibTeX</a><a href="/publications/teleboost/citation.ris">RIS</a><a href="/publications/teleboost/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

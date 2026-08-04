@@ -79,6 +79,24 @@
       "citation_ready": "Zhang 等提出 VAST：StoryForge 先生成包含姿态与布局的 storyboard，VisionForge 再将其转换为时间和空间一致的视频。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "video-generation-world-models",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/video-generation-world-models/",
+        "zh-CN": "https://akira-l.github.io/zh/research/video-generation-world-models/"
+      },
+      "names": {
+        "en": "Video Generation and World Models",
+        "zh-CN": "视频生成与世界模型"
+      },
+      "relationship": {
+        "en": "VAST inserts an explicit storyboard between text and video, using human pose and object layout as conditioning signals before synthesis.",
+        "zh-CN": "VAST 在文本与视频之间加入显式故事板，在合成之前把人物姿态和物体布局作为条件信号。"
+      }
+    }
+  ],
   "citation": {
     "id": "zhang2024vast",
     "type": "article",

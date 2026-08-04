@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VrR-VG: Making Models Rely on Visual Evidence | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/vrr-vg/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/vrr-vg/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="VrR-VG: Making Models Rely on Visual Evidence">
+  <meta property="og:description" content="VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/vrr-vg/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="VrR-VG: Making Models Rely on Visual Evidence">
+  <meta name="twitter:description" content="VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/vrr-vg/#webpage",
+      "url": "https://akira-l.github.io/research-notes/vrr-vg/",
+      "name": "VrR-VG: Making Models Rely on Visual Evidence",
+      "description": "VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/vrr-vg/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/vrr-vg/#article",
+      "url": "https://akira-l.github.io/research-notes/vrr-vg/",
+      "headline": "VrR-VG: Making Models Rely on Visual Evidence",
+      "description": "VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/vrr-vg/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/vrr-vg/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/vrr-vg/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/vrr-vg/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "visual relationships",
+        "scene graphs",
+        "dataset bias",
+        "Visual Genome",
+        "VrR-VG"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/vrr-vg/#paper",
+      "url": "https://akira-l.github.io/publications/vrr-vg/",
+      "name": "VrR-VG: Refocusing Visually-Relevant Relationships",
+      "headline": "VrR-VG: Refocusing Visually-Relevant Relationships",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Yalong Bai"
+        },
+        {
+          "@type": "Person",
+          "name": "Wei Zhang"
+        },
+        {
+          "@type": "Person",
+          "name": "Xueming Qian"
+        },
+        {
+          "@type": "Person",
+          "name": "Li Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Tao Mei"
+        }
+      ],
+      "datePublished": "2019",
+      "inLanguage": "en",
+      "keywords": [
+        "visual relationships",
+        "scene graphs",
+        "dataset bias",
+        "Visual Genome",
+        "VrR-VG"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE/CVF International Conference on Computer Vision (ICCV 2019) · 2019 · pp. 10402-10411"
+      },
+      "pagination": "10402-10411"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/vrr-vg/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "VrR-VG: Making Models Rely on Visual Evidence",
+          "item": "https://akira-l.github.io/research-notes/vrr-vg/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">VrR-VG</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>VrR-VG: Making Models Rely on Visual Evidence</h1>
+      <p class="subtitle">VrR-VG uses a counterfactual dataset test: remove image pixels, measure which relationships remain predictable from object labels and geometry, and refocus learning on visual evidence.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/vrr-vg/">VrR-VG: Refocusing Visually-Relevant Relationships</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Yalong Bai, Wei Zhang, Xueming Qian, Li Zhu, Tao Mei</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE/CVF International Conference on Computer Vision (ICCV 2019) · 2019 · pp. 10402-10411</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">visual relationships</span><span class="tag">scene graphs</span><span class="tag">dataset bias</span><span class="tag">Visual Genome</span><span class="tag">VrR-VG</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/trustworthy-visual-post-training/">Trustworthy visual post-training</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> Scene-graph models have changed substantially, but using a no-image baseline to expose language and geometry shortcuts remains a practical dataset-audit principle.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#why-balancing-the-label-histogram-is-not-enough">Why balancing the label histogram is not enough</a></li><li><a href="#vd-net-is-intentionally-deprived-of-pixels">VD-Net is intentionally deprived of pixels</a></li><li><a href="#class-level-pruning-cannot-judge-every-instance">Class-level pruning cannot judge every instance</a></li><li><a href="#why-downstream-transfer-matters">Why downstream transfer matters</a></li><li><a href="#why-the-diagnostic-still-belongs-in-modern-evaluations">Why the diagnostic still belongs in modern evaluations</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>Give a model two boxes labeled “person” and “shirt,” and it may predict “wearing” without looking at the image. Give it one box above another, and geometry may make “on” an easy guess. If those correlations dominate the dataset, a relationship detector can score well while learning little about pixels. Class imbalance is only part of the problem; the stronger shortcut is conditional predictability from object categories and layout.</p><p>VrR-VG: Refocusing Visually-Relevant Relationships turns that concern into a dataset construction test. Its Visual Discriminator Network (VD-Net) deliberately receives no image features—only subject and object labels plus bounding-box geometry. Relations that remain highly predictable are candidates for pruning after the original vocabulary is normalized. The point is not that context is illegitimate. It is to create a benchmark where performance more often requires visual evidence and to test whether relationship-aware features transfer to captioning and visual question answering.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>VrR-VG audits relationship labels with a model that cannot see pixels, using its success to identify dataset shortcuts and refocus evaluation on visually grounded distinctions.</p></section>
+      <section id="why-balancing-the-label-histogram-is-not-enough"><h2>Why balancing the label histogram is not enough</h2><p>Visual Genome contains frequent relations such as “on,” “has,” and “wearing,” so long-tail imbalance is obvious. Resampling can reduce the dominance of head labels. It does not remove conditional shortcuts. Even a balanced set of person–clothing pairs may still make “wearing” predictable from the nouns, and bounding-box layout can reveal many spatial relations. A model that uses these priors may be statistically effective without learning the visual interaction the benchmark name appears to promise.</p><p>VrR-VG asks a counterfactual question: what can be predicted after image appearance is removed? High no-image accuracy signals that the relation category may not force visual reasoning in the present distribution. This is stricter than counting frequency and more operational than declaring certain words visually relevant by intuition. It also reveals that dataset bias is conditional on the available annotations and model class, not simply a property of a label in isolation.</p></section><section id="vd-net-is-intentionally-deprived-of-pixels"><h2>VD-Net is intentionally deprived of pixels</h2><p>VD-Net receives word embeddings for subject and object categories together with geometric features from their boxes. It predicts the relation without convolutional image features. If it succeeds consistently on one class, labels and layout already contain much of the answer. The model acts as an adversarial auditor for dataset design. Its weakness is the point: a visual benchmark should not be solved too easily by a system that has no access to visual appearance.</p><p>The paper first consolidates duplicate and synonymous relationship terms into 180 normalized classes. Using a 50% VD-Net accuracy threshold, it retains 117 classes for VrR-VG. That threshold is a design trade-off between dataset size and visual dependence, not a universal definition of visual relevance. A stronger diagnostic model, different object vocabulary, or noisier boxes would shift the measured predictability. Rebuilding the dataset elsewhere requires rerunning the audit rather than copying 50% as a law.</p></section><section id="class-level-pruning-cannot-judge-every-instance"><h2>Class-level pruning cannot judge every instance</h2><p>A relation with a strong prior can still require pixels in a particular image. A person and garment might be holding, wearing, or standing beside one another in unusual configurations. Conversely, a generally visual relation may have easy instances. VrR-VG’s category-level decision improves the aggregate benchmark but cannot certify the visual necessity of each sample. Pruning may remove legitimate mixed relations that combine appearance with ordinary contextual knowledge.</p><p>This limitation suggests complementary instance-level audits. One can compare a visual model with VD-Net per sample, introduce counterfactual object pairs, or measure whether predictions change when appearance is masked while labels and boxes remain. The objective is not to eliminate all priors—real-world relations are statistically structured—but to ensure that visual evidence adds measurable information. Treating every contextual correlation as contamination would produce an artificial world just as surely as ignoring shortcuts would produce an artificial benchmark.</p></section><section id="why-downstream-transfer-matters"><h2>Why downstream transfer matters</h2><p>Making a no-image model worse is not sufficient evidence of a better dataset. Randomizing labels would also defeat VD-Net while destroying useful semantics. The paper therefore learns relationship-aware visual representations from VrR-VG and evaluates them in image captioning and visual question answering. Improvements in those downstream tasks support the claim that the filtered relationships encourage features carrying information beyond the dataset’s own classification score.</p><p>The experimental argument has several layers: analyze the relation distribution, compare learnable visual models with statistical or no-image methods, and test transferred features. Exact margins belong to the ICCV tables because architecture, split, and downstream setup determine them. The important logic is triangulation. A dataset is more plausibly visually grounded when human semantics remain coherent, image-based models gain an advantage over prior-only baselines, and learned representations help tasks that use relationships.</p></section><section id="why-the-diagnostic-still-belongs-in-modern-evaluations"><h2>Why the diagnostic still belongs in modern evaluations</h2><p>VrR-VG belongs in related work on scene-graph and visual-relation dataset debiasing, not as a new relation-detection architecture or simple rebalanced subset. Its distinctive contribution is to make no-visual predictability a filtering signal. The same pattern now applies beyond scene graphs: remove the modality a benchmark claims to test, build the strongest reasonable baseline from remaining metadata, and ask how much performance survives. What remains reveals shortcuts that headline metrics conceal.</p><p>Modern multimodal models make the audit harder because language priors are stronger and object labels may be inferred rather than supplied. The principle still holds if interventions are designed carefully. Evaluators can ablate pixels, captions, coordinates, temporal order, or retrieved context while preserving the rest of the task. VrR-VG’s lasting lesson is not to demand that models forget statistics. It is to verify that the named modality contributes. A relationship benchmark should reward seeing relationships, not only knowing which words usually occur together.</p><p>A contemporary audit should include more than one no-image baseline. A shallow classifier measures obvious correlations; a strong language model may recover subtler compositional priors from object names; a geometry-only model isolates layout. Comparing them with image ablations reveals which shortcut is doing the work. The visual model should then be tested on counterfactual pairs where labels and boxes are held constant but the depicted relation changes. That design makes visual contribution observable instead of inferring it only from aggregate accuracy.</p><p>Dataset documentation should preserve the normalized relation vocabulary and mapping rules. Merging synonyms too coarsely can erase meaningful distinctions, while keeping near-duplicates recreates sparse classes. A result on “117 relations” is interpretable only with that mapping and split. The same requirement applies when later work borrows the VrR-VG idea for a new dataset: report whether it uses the original benchmark or only the no-visual diagnostic principle, because those experiments answer different research questions.</p><p>Finally, the no-image baseline should remain in later benchmark reports instead of disappearing after dataset construction. If both the visual model and VD-Net improve by similar amounts, a new method may still be exploiting stronger priors. A widening gap in favor of the visual model is more consistent with better use of appearance. Tracking that gap over time turns debiasing into an ongoing measurement rather than a one-off claim attached to the original release.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. construct VrR-VG by pruning visually irrelevant relationships from Visual Genome and learn relationship-aware features that jointly model instances, attributes, and relations.</blockquote>
+        <p><strong>Scope:</strong> Pruning is tied to the paper&#x27;s definition and detector of visual irrelevance; some relationships can legitimately combine visual and contextual knowledge. Dataset debiasing does not eliminate every possible shortcut.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>VD-Net predicts relationships from object labels and bounding-box geometry without image features.</td><td>ICCV 2019 paper, p. 4, Figure 5 and Visual Discriminator Network section.</td></tr><tr><td>Vocabulary normalization yields 180 classes, and the 50% diagnostic threshold retains 117 relations.</td><td>ICCV 2019 paper, dataset construction section and relationship-distribution analysis.</td></tr><tr><td>The paper evaluates relationship-aware features through image captioning and visual question answering.</td><td>ICCV 2019 paper, p. 5, Figure 6 and downstream experiment tables.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/vrr-vg/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Yalong Bai, Wei Zhang, Xueming Qian, Li Zhu, and Tao Mei. “VrR-VG: Refocusing Visually-Relevant Relationships.” 2019 IEEE/CVF International Conference on Computer Vision (ICCV) (2019), 10402-10411. https://doi.org/10.1109/ICCV.2019.01050.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/vrr-vg/citation.bib">BibTeX</a><a href="/publications/vrr-vg/citation.ris">RIS</a><a href="/publications/vrr-vg/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

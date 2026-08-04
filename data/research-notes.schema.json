@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://akira-l.github.io/data/research-notes.schema.json",
+  "title": "Yuanzhi Liang Research Notes",
+  "type": "object",
+  "required": ["schema_version", "notes"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "notes": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 13,
+      "items": {"$ref": "#/$defs/note"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "section": {
+      "type": "object",
+      "required": ["heading", "paragraphs"],
+      "properties": {
+        "heading": {"type": "string", "minLength": 5},
+        "paragraphs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "string", "minLength": 80}
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["claim", "locator"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 20},
+        "locator": {"type": "string", "minLength": 8}
+      },
+      "additionalProperties": false
+    },
+    "note": {
+      "type": "object",
+      "required": [
+        "paper_slug",
+        "title",
+        "dek",
+        "status",
+        "drafted_on",
+        "retrospective",
+        "retrospective_context",
+        "keywords",
+        "lede",
+        "takeaway",
+        "sections",
+        "evidence"
+      ],
+      "properties": {
+        "paper_slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "title": {"type": "string", "minLength": 20},
+        "dek": {"type": "string", "minLength": 50},
+        "status": {"enum": ["ready_for_review", "published"]},
+        "drafted_on": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "published_on": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "retrospective": {"type": "boolean"},
+        "retrospective_context": {"type": "string"},
+        "keywords": {
+          "type": "array",
+          "minItems": 3,
+          "items": {"type": "string", "minLength": 2}
+        },
+        "lede": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"type": "string", "minLength": 160}
+        },
+        "takeaway": {"type": "string", "minLength": 80},
+        "sections": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 8,
+          "items": {"$ref": "#/$defs/section"}
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/evidence"}
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

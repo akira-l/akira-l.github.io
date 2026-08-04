@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEEG: From Rhythmic Motion to Semantic Gesture | Research Notes — Yuanzhi Liang</title>
+  <meta name="description" content="SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.">
+  <meta name="author" content="Yuanzhi Liang">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://akira-l.github.io/research-notes/seeg/">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="alternate" type="application/x-bibtex" title="Paper citation in BibTeX" href="/publications/seeg/citation.bib">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SEEG: From Rhythmic Motion to Semantic Gesture">
+  <meta property="og:description" content="SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.">
+  <meta property="og:url" content="https://akira-l.github.io/research-notes/seeg/">
+  <meta property="og:image" content="https://akira-l.github.io/img/liangyzh.jpg">
+  <meta property="og:image:alt" content="Portrait of Yuanzhi Liang">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SEEG: From Rhythmic Motion to Semantic Gesture">
+  <meta name="twitter:description" content="SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.">
+  <link rel="stylesheet" href="/dist/css/screen.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://akira-l.github.io/research-notes/seeg/#webpage",
+      "url": "https://akira-l.github.io/research-notes/seeg/",
+      "name": "SEEG: From Rhythmic Motion to Semantic Gesture",
+      "description": "SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://akira-l.github.io/research-notes/seeg/#article"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://akira-l.github.io/research-notes/seeg/#article",
+      "url": "https://akira-l.github.io/research-notes/seeg/",
+      "headline": "SEEG: From Rhythmic Motion to Semantic Gesture",
+      "description": "SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://akira-l.github.io/#person"
+      },
+      "isPartOf": {
+        "@id": "https://akira-l.github.io/#website"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://akira-l.github.io/research-notes/seeg/#webpage"
+      },
+      "about": {
+        "@id": "https://akira-l.github.io/publications/seeg/#paper"
+      },
+      "citation": {
+        "@id": "https://akira-l.github.io/publications/seeg/#paper"
+      },
+      "isBasedOn": "https://akira-l.github.io/publications/seeg/",
+      "dateModified": "2026-08-04",
+      "creativeWorkStatus": "Published",
+      "keywords": [
+        "co-speech gesture",
+        "motion generation",
+        "semantic gesture",
+        "multimodal learning",
+        "SEEG"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://akira-l.github.io/publications/seeg/#paper",
+      "url": "https://akira-l.github.io/publications/seeg/",
+      "name": "SEEG: Semantic Energized Co-speech Gesture Generation",
+      "headline": "SEEG: Semantic Energized Co-speech Gesture Generation",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Yuanzhi Liang"
+        },
+        {
+          "@type": "Person",
+          "name": "Qianyu Feng"
+        },
+        {
+          "@type": "Person",
+          "name": "Linchao Zhu"
+        },
+        {
+          "@type": "Person",
+          "name": "Li Hu"
+        },
+        {
+          "@type": "Person",
+          "name": "Pan Pan"
+        },
+        {
+          "@type": "Person",
+          "name": "Yi Yang"
+        }
+      ],
+      "datePublished": "2022",
+      "inLanguage": "en",
+      "keywords": [
+        "co-speech gesture",
+        "motion generation",
+        "semantic gesture",
+        "multimodal learning",
+        "SEEG"
+      ],
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) · 2022 · pp. 10463-10472"
+      },
+      "pagination": "10463-10472"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://akira-l.github.io/research-notes/seeg/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://akira-l.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Research Notes",
+          "item": "https://akira-l.github.io/research-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SEEG: From Rhythmic Motion to Semantic Gesture",
+          "item": "https://akira-l.github.io/research-notes/seeg/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="pub-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="pub-nav" aria-label="Main navigation">
+  <a class="pub-nav-brand" href="/">Yuanzhi Liang</a>
+  <ul class="pub-nav-links"><li><a href="/#about">Biography</a></li><li><a href="/publications/">Publications</a></li><li><a class="active" href="/research/">Research</a></li></ul>
+</nav>
+  <main id="main" class="note-container">
+    <nav class="page-home-return" aria-label="Return to homepage"><a href="/"><span aria-hidden="true">←</span>Back to homepage</a></nav>
+    <nav class="note-breadcrumb" aria-label="Breadcrumb">
+      <a href="/research-notes/">Research Notes</a><span aria-hidden="true">/</span>
+      <span aria-current="page">SEEG</span>
+    </nav>
+    <header class="note-header research-note-header">
+      <div class="kicker">Research Note</div>
+      <h1>SEEG: From Rhythmic Motion to Semantic Gesture</h1>
+      <p class="subtitle">SEEG separates rhythmic and semantic cues, constrains generated motion with semantic information, and shows why gesture evaluation needs content-aware data and metrics.</p>
+      <p class="paper-venue"><strong>Paper:</strong> <a href="/publications/seeg/">SEEG: Semantic Energized Co-speech Gesture Generation</a></p>
+      <p class="paper-authors"><strong>Authors:</strong> Yuanzhi Liang, Qianyu Feng, Linchao Zhu, Li Hu, Pan Pan, Yi Yang</p>
+      <p class="paper-venue"><strong>Venue:</strong> IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) · 2022 · pp. 10463-10472</p>
+      <div class="note-tags" aria-label="Topics"><span class="tag">co-speech gesture</span><span class="tag">motion generation</span><span class="tag">semantic gesture</span><span class="tag">multimodal learning</span><span class="tag">SEEG</span></div>
+    </header>
+<aside class="note-path-context" aria-label="Research context"><strong>Research context</strong><div class="path-chips"><a class="path-chip" href="/research/semantic-motion-embodied-interaction/">Semantic and embodied interaction</a></div></aside>
+<p class="retrospective-note"><strong>Current perspective.</strong> Diffusion and foundation-model approaches now dominate much of motion generation, but the decomposition of beat and semantic gesture—and the question of what a test set measures—remains methodologically useful.</p>
+<nav class="note-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Overview</a></li><li><a href="#in-one-sentence">In one sentence</a></li><li><a href="#why-audio-driven-gesture-favors-the-easy-majority">Why audio-driven gesture favors the easy majority</a></li><li><a href="#dem-gives-rhythm-and-semantics-separate-learning-paths">DEM gives rhythm and semantics separate learning paths</a></li><li><a href="#sem-asks-whether-meaning-can-be-recovered-from-motion">SEM asks whether meaning can be recovered from motion</a></li><li><a href="#evaluation-must-contain-the-behavior-being-claimed">Evaluation must contain the behavior being claimed</a></li><li><a href="#what-remains-useful-beyond-the-original-architecture">What remains useful beyond the original architecture</a></li><li><a href="#related-work-summary">Related-work summary</a></li><li><a href="#evidence-map">Evidence map</a></li><li><a href="#cite-paper">Cite the paper</a></li></ol></nav>
+    <article class="note-body research-note-body">
+      <section id="overview" class="note-lede"><h2>Overview</h2><p>A digital character can move its hands on every stressed syllable and still communicate almost nothing. Beat gestures track rhythm and emphasis; semantic gestures depict size, direction, refusal, location, or an idea carried by the utterance. Training data contain many regular rhythmic motions but fewer semantically distinctive ones. A model minimizing average reconstruction error can therefore look synchronized while collapsing toward safe, generic gestures that ignore what the speaker actually says.</p><p>SEEG—Semantic Energized Co-Speech Gesture Generation—addresses both the input and output sides of that imbalance. The DEcoupled Mining module (DEM) separates semantic-relevant cues from semantic-irrelevant beat cues and learns them through different paths. The Semantic Energizing Module (SEM) constrains generated motion to retain recognizable meaning using a semantic prompt gallery and a fixed prompter. The answer is not strict word-to-pose alignment; it is explicit semantic learning that tolerates natural timing offsets.</p></section>
+      <section id="in-one-sentence" class="note-callout"><h2>In one sentence</h2><p>SEEG separates rhythm from meaning in the conditioning signal and checks that generated motion preserves semantic content, rather than assuming synchronized movement is communicative movement.</p></section>
+      <section id="why-audio-driven-gesture-favors-the-easy-majority"><h2>Why audio-driven gesture favors the easy majority</h2><p>Audio amplitude, onset, and speaker rhythm provide dense signals. Beat gestures correlate with them and occur frequently, so a model can reduce loss by learning rhythmic movement first. Semantic gesture is rarer and more variable: different people can express the same concept with different trajectories, and many valid utterances need no iconic motion at all. Without an explicit learning route, text may be present in the network yet contribute little to the generated pose because the audio path already explains the dominant patterns.</p><p>Timing adds another difficulty. A speaker may begin a gesture before saying the relevant word and complete it afterward. Frame-aligned regression treats that lead or lag as error, even though anticipation and follow-through are natural. The problem is therefore not only that semantic examples are sparse. Their supervision is weakly aligned in time. SEEG’s design seeks semantic similarity over an appropriate motion context rather than requiring one lexical token to correspond to one pose at the same timestamp.</p></section><section id="dem-gives-rhythm-and-semantics-separate-learning-paths"><h2>DEM gives rhythm and semantics separate learning paths</h2><p>DEcoupled Mining uses input decomposition to distinguish cues closely related to speech content from cues carrying mostly beat information. Separate encoders and decoders mine information for semantic and rhythmic gesture. This prevents high-frequency prosodic patterns from monopolizing a single shared representation. The decomposition is not a claim that real gestures divide perfectly into two boxes; many movements carry both emphasis and meaning. It is an inductive bias that makes the underlearned semantic signal visible to the model.</p><p>The exact expansion matters for accurate citation: DEM is the DEcoupled Mining module, not a generic disentangled embedding layer. Its purpose is to reduce pressure to infer semantics from inputs that largely lack semantic denotation. By handling beat and semantic cues explicitly, DEM changes what the generator has an opportunity to learn. It does not by itself prove that the output gesture conveys meaning, which is why the paper adds a second mechanism on the generated motion.</p></section><section id="sem-asks-whether-meaning-can-be-recovered-from-motion"><h2>SEM asks whether meaning can be recovered from motion</h2><p>The Semantic Energizing Module uses a semantic prompt gallery and a prompter trained to map gesture clips into semantic categories. During gesture generation, the prompter is fixed and supplies a constraint that encourages the generated motion to express semantics similar to the reference. The signal operates at the level of a clip or semantic context, making it more tolerant of gestures that begin before or end after their associated words than an exact frame-wise target.</p><p>A prompter is still a learned evaluator. A generator could repeat exaggerated patterns that the prompter recognizes without producing diverse or natural behavior. Semantic classification also covers only the categories represented by the gallery. SEM should therefore be read together with distributional quality, beat alignment, qualitative videos, and human judgment. DEM organizes the conditions; SEM checks the semantic content of the output. Treating them as two interchangeable attention modules misses this division of responsibility.</p></section><section id="evaluation-must-contain-the-behavior-being-claimed"><h2>Evaluation must contain the behavior being claimed</h2><p>If a test set is dominated by beat gestures, a model can score well while rarely expressing specific content. The paper constructs SatTED to increase the share of semantic gestures and introduces semantic-aware evaluation, including accuracy based on whether semantics can be recognized from generated motion. It also reports conventional and qualitative measures across multiple benchmarks. The aim is not to replace naturalness metrics but to prevent them from standing in for semantic communication.</p><p>Each metric can be gamed in isolation. Fréchet-style distribution scores can reward realistic but generic movement. Semantic-aware accuracy can reward a small set of obvious, repeated gestures. Beat alignment says little about meaning. Strong evidence requires the measures to agree and the evaluation clips to include the relevant phenomenon. SEEG’s test design is part of the contribution because it asks whether the benchmark actually contains enough semantic gesture to support a semantic-generation claim.</p></section><section id="what-remains-useful-beyond-the-original-architecture"><h2>What remains useful beyond the original architecture</h2><p>SEEG belongs in semantic-aware co-speech gesture generation, not merely audio-to-motion synthesis. It differs from pure prosody models by explicitly learning speech content and from strict alignment approaches by tolerating temporal offset through semantic motion constraints. Newer generative backbones may improve diversity and realism, but they do not automatically solve class imbalance, weak semantic alignment, or evaluation composition. A diffusion model can also learn the safest high-frequency gesture if the objective rewards it.</p><p>The boundary remains important. Semantic categories reflect a dataset and culture; a recognized gesture may carry different force across speakers, languages, and contexts. The paper does not model every emotion, identity style, facial cue, or long-range conversational intention. Modern extensions should separate content meaning from expressive style, report cross-language transfer, and evaluate long conversations rather than selected clips. The durable lesson is that motion can synchronize without communicating, so semantics must appear in the model’s signal and in the evidence used to judge it.</p><p>For an evaluation set, semantic density should be reported rather than assumed. Annotate which intervals contain identifiable semantic gestures, their relation to words, and the lead or lag between speech and motion. Then provide scores separately for semantic and beat-dominant intervals. This avoids two opposite distortions: a natural corpus whose majority beat gestures hides semantic failure, and a curated corpus of exaggerated gestures that overstates how often explicit meaning appears in ordinary conversation.</p><p>Prompter robustness is another necessary control. Train or evaluate semantic recognition with speakers, motion styles, and recording sessions held out, then inspect whether high accuracy survives changes in gesture amplitude and timing. If the prompter recognizes one performer’s habitual pose rather than the intended meaning, SEM can reward identity leakage. Cross-speaker confusion matrices and human judgments of the same generated clips help distinguish semantic content from shortcuts in the motion classifier. A timing-shift test can move the same gesture relative to speech and reveal whether the evaluator recognizes meaning or memorizes alignment.</p></section>
+      <section id="related-work-summary" class="citation-ready">
+        <h2>Related-work summary</h2>
+        <blockquote>Liang et al. propose SEEG, which decouples beat and semantic gesture cues and applies semantic-aware supervision through a Semantic Energizing Module for co-speech gesture generation.</blockquote>
+        <p><strong>Scope:</strong> The semantic categories and supervision available to SEM shape what counts as expressive meaning. The method does not imply that all culturally dependent gesture semantics or open-domain communicative intent are captured.</p>
+        <p class="fine-print">Use this short summary to identify the paper's contribution and scope. Consult the primary paper before citing a specific experimental result.</p>
+      </section>
+      <section id="evidence-map">
+        <h2>Evidence map</h2>
+        <p>The locations below point to the primary paper so readers can verify the method and reported evidence directly.</p>
+        <div class="table-wrap"><table><thead><tr><th>Claim to verify</th><th>Primary-paper location</th></tr></thead><tbody><tr><td>SEEG separates semantic-relevant and beat-related cues through the DEcoupled Mining module.</td><td>CVPR 2022 paper, pp. 10473–10476, Figure 3 and DEM section.</td></tr><tr><td>SEM uses a semantic prompt gallery and a fixed prompter to constrain generated gesture semantics.</td><td>CVPR 2022 paper, Semantic Energizing Module section and prompter figure.</td></tr><tr><td>The paper adds semantic-aware evaluation and a semantic-focused SatTED test setting.</td><td>CVPR 2022 paper, evaluation section and semantic-aware quantitative tables.</td></tr></tbody></table></div>
+      </section>
+      <section id="cite-paper" class="citation-ready">
+        <h2>Cite the paper</h2>
+        <p>For scientific claims and reported results, cite the paper itself. This note provides context and interpretation.</p>
+        <p><a class="primary" href="/publications/seeg/">Open the source-checked publication record</a></p>
+        <pre class="paper-citation">Yuanzhi Liang, Qianyu Feng, Linchao Zhu, Li Hu, Pan Pan, and Yi Yang. “SEEG: Semantic Energized Co-speech Gesture Generation.” 2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2022), 10463-10472. https://doi.org/10.1109/CVPR52688.2022.01022.</pre>
+        <div class="citation-downloads" aria-label="Download paper citation"><a href="/publications/seeg/citation.bib">BibTeX</a><a href="/publications/seeg/citation.ris">RIS</a><a href="/publications/seeg/citation.json">CSL-JSON</a></div>
+      </section>
+      <section>
+        <h2>Reuse</h2>
+        <p>Original commentary in this note is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. The paper title and bibliographic material retain their original rights.</p>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer"><p>© Yuanzhi Liang · <a href="/LICENSE-CONTENT.md">Content license</a> · <a href="/feed.xml">Research feed</a></p></footer>
+  <script data-local-file-preview src="../../dist/js/file-preview.js"></script>
+</body>
+</html>

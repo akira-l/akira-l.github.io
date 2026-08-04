@@ -114,15 +114,38 @@ def graph_types(document: dict) -> set[str]:
 
 def main() -> int:
     errors: list[str] = []
+    file_preview_path = ROOT / "dist" / "js" / "file-preview.js"
+    if not file_preview_path.exists():
+        errors.append("dist/js/file-preview.js: local navigation helper is missing")
+    else:
+        file_preview_source = file_preview_path.read_text(encoding="utf-8")
+        for required in (
+            'window.location.protocol !== "file:"',
+            'const previewMarker = "/.preview-site/"',
+            'localPath += "index.html"',
+        ):
+            if required not in file_preview_source:
+                errors.append(f"dist/js/file-preview.js: missing guard {required}")
     data = json.loads((ROOT / "data" / "publications.json").read_text(encoding="utf-8"))
     papers = data["papers"]
     if len(papers) != 23:
         errors.append(f"expected 23 publication records, found {len(papers)}")
 
-    html_files = sorted(ROOT.glob("**/*.html"))
+    html_files = sorted(
+        path
+        for path in ROOT.glob("**/*.html")
+        if ".preview-site" not in path.relative_to(ROOT).parts
+    )
     for path in html_files:
         text, page = parse_page(path)
         relative = path.relative_to(ROOT).as_posix()
+        depth = len(path.relative_to(ROOT).parent.parts)
+        expected_preview_script = f'{"../" * depth}dist/js/file-preview.js'
+        if (
+            "data-local-file-preview" not in text
+            or f'src="{expected_preview_script}"' not in text
+        ):
+            errors.append(f"{relative}: missing file-safe local navigation helper")
         if "\ufffd" in text or any(token in text for token in ("锛", "銆", "鈥", "闄")):
             errors.append(f"{relative}: possible mojibake")
         if re.search(r'href=["\'][^"\']*index\.html', text):
@@ -131,6 +154,34 @@ def main() -> int:
             errors.append(f"{relative}: insecure http:// URL")
         if not page.html_attrs.get("lang"):
             errors.append(f"{relative}: missing html lang")
+        if relative != "index.html":
+            home_returns = re.findall(
+                r'<nav class="page-home-return"[^>]*>\s*<a href="/">',
+                text,
+            )
+            if len(home_returns) != 1:
+                errors.append(
+                    f"{relative}: expected one explicit return-to-home control"
+                )
+        navigation_match = re.search(
+            r'<nav class="pub-nav".*?</nav>', text, flags=re.S
+        )
+        if navigation_match:
+            navigation = navigation_match.group(0)
+            if page.html_attrs.get("lang") == "en":
+                if navigation.count(">Research</a>") != 1:
+                    errors.append(f"{relative}: expected one unified Research nav item")
+                if "Research Notes" in navigation:
+                    errors.append(f"{relative}: separate Research Notes nav item remains")
+                if ">Highlights</a>" in navigation:
+                    errors.append(f"{relative}: redundant Highlights nav item remains")
+                if navigation.find(">Publications</a>") > navigation.find(">Research</a>"):
+                    errors.append(f"{relative}: Research nav item must follow Publications")
+            else:
+                if ">代表工作</a>" in navigation:
+                    errors.append(f"{relative}: redundant 代表工作 nav item remains")
+                if navigation.find(">论文与解读</a>") > navigation.find(">研究方向</a>"):
+                    errors.append(f"{relative}: 研究方向 nav item must follow 论文与解读")
         for image in page.images:
             if not image.get("alt"):
                 errors.append(f"{relative}: image missing alt: {image.get('src', '')}")
@@ -168,6 +219,32 @@ def main() -> int:
             }
             if set(alternate_map) != {"en", "zh-CN", "x-default"}:
                 errors.append(f"{path.relative_to(ROOT)}: incomplete hreflang cluster")
+            citation_alternates = {
+                link.get("type"): link.get("href")
+                for link in page.alternates
+                if link.get("href", "").startswith(f"/publications/{slug}/citation.")
+            }
+            expected_citation_alternates = {
+                "application/vnd.citationstyles.csl+json": f"/publications/{slug}/citation.json",
+                "application/x-bibtex": f"/publications/{slug}/citation.bib",
+                "application/x-research-info-systems": f"/publications/{slug}/citation.ris",
+            }
+            if citation_alternates != expected_citation_alternates:
+                errors.append(
+                    f"{path.relative_to(ROOT)}: citation discovery links mismatch"
+                )
+            downloads_match = re.search(
+                r'<div class="citation-downloads"[^>]*>(.*?)</div>',
+                text,
+                flags=re.S,
+            )
+            if not downloads_match or any(
+                f'href="/publications/{slug}/{name}"' not in downloads_match.group(1)
+                for name in ("citation.bib", "citation.ris", "citation.json")
+            ):
+                errors.append(
+                    f"{path.relative_to(ROOT)}: visible citation downloads incomplete"
+                )
             if paper["abstract"] not in " ".join(page.body_text):
                 errors.append(f"{path.relative_to(ROOT)}: official abstract is not visible")
             if not page.jsonld:
@@ -253,14 +330,39 @@ def main() -> int:
         errors.append("index.html: portrait missing from entity/social metadata")
     if "https://orcid.org/0009-0008-2746-5947" not in homepage_text:
         errors.append("index.html: canonical ORCID missing")
+    if '"mainEntity": { "@id": "https://akira-l.github.io/#person" }' not in homepage_text:
+        errors.append("index.html: ProfilePage mainEntity is missing")
+    if '<meta name="keywords"' in homepage_text:
+        errors.append("index.html: obsolete keyword metadata remains")
+    if re.search(r"\(online\s+\d{4}\)", homepage_text, flags=re.I):
+        errors.append("index.html: ambiguous parenthetical online-year label remains")
+    if "Accepted by" in homepage_text:
+        errors.append("index.html: inconsistent Accepted by venue prefix remains")
     if "Yuanzhi (Liam) Liang" in homepage_text:
         errors.append("index.html: deprecated Liam alias remains")
     if "Browse my source-checked research records" in homepage_text:
         errors.append("index.html: promotional publication copy remains in About Me")
     if ">Research record<" in homepage_text:
         errors.append("index.html: old Research record badge label remains")
+    if f'{BASE_URL}/publications/rl-vgm/' in homepage_text:
+        errors.append("index.html: background RL survey remains in the homepage featured list")
+    if "Recent Preprints and Surveys" in homepage_text:
+        errors.append("index.html: survey-oriented homepage section heading remains")
     if 'href="/publications/' in homepage_text:
         errors.append("index.html: root-relative publication link breaks file previews")
+    homepage_navigation_match = re.search(
+        r'<nav class="navbar.*?</nav>', homepage_text, flags=re.S
+    )
+    if not homepage_navigation_match:
+        errors.append("index.html: primary navigation is missing")
+    else:
+        homepage_navigation = homepage_navigation_match.group(0)
+        if homepage_navigation.count(">Research</b></a>") != 1:
+            errors.append("index.html: expected one unified Research navigation item")
+        if "Research Notes" in homepage_navigation:
+            errors.append("index.html: separate Research Notes navigation item remains")
+        if homepage_navigation.find(">Publications</b></a>") > homepage_navigation.find(">Research</b></a>"):
+            errors.append("index.html: Research navigation item must follow Publications")
     overview_links = re.findall(
         r'class="badge-tldr" href="([^"]+)">Overview</a>',
         homepage_text,
@@ -269,6 +371,14 @@ def main() -> int:
         not url.startswith(f"{BASE_URL}/publications/") for url in overview_links
     ):
         errors.append("index.html: publication Overview links are not production-safe")
+    title_links = re.findall(
+        r'class="publication-title" href="([^"]+)">([^<]+)</a>',
+        homepage_text,
+    )
+    if len(title_links) != len(overview_links):
+        errors.append("index.html: every featured publication title must link to its record")
+    elif [url for url, _ in title_links] != overview_links:
+        errors.append("index.html: title and Overview links disagree")
 
     sitemap_root = ET.parse(ROOT / "sitemap.xml").getroot()
     sitemap_ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
@@ -284,6 +394,29 @@ def main() -> int:
         *[f"{BASE_URL}/publications/{paper['slug']}/" for paper in papers],
         *[f"{BASE_URL}/zh/publications/{paper['slug']}/" for paper in papers],
     }
+    note_data = json.loads(
+        (ROOT / "data" / "research-notes.json").read_text(encoding="utf-8")
+    )
+    expected_sitemap.update(
+        f"{BASE_URL}/research-notes/{note['paper_slug']}/"
+        for note in note_data["notes"]
+        if note["status"] == "published"
+    )
+    if any(note["status"] == "published" for note in note_data["notes"]):
+        expected_sitemap.add(f"{BASE_URL}/research-notes/")
+    path_data = json.loads(
+        (ROOT / "data" / "research-paths.json").read_text(encoding="utf-8")
+    )
+    if path_data.get("hub") and path_data["hub"]["status"] == "published":
+        expected_sitemap.update({f"{BASE_URL}/research/", f"{BASE_URL}/zh/research/"})
+    for path_record in path_data["paths"]:
+        if path_record["status"] == "published":
+            expected_sitemap.update(
+                {
+                    f"{BASE_URL}/research/{path_record['slug']}/",
+                    f"{BASE_URL}/zh/research/{path_record['slug']}/",
+                }
+            )
     if sitemap_urls != expected_sitemap:
         errors.append(
             f"sitemap.xml: expected {len(expected_sitemap)} canonical pages, "

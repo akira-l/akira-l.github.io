@@ -84,6 +84,24 @@
       "citation_ready": "Liu 等提出 Uni-Inter，在 Unified Interactive Volume 中统一编码人物、物体和场景实体，并通过逐关节概率预测生成三维交互动作。"
     }
   },
+  "research_paths": [
+    {
+      "slug": "semantic-motion-embodied-interaction",
+      "role": "core",
+      "urls": {
+        "en": "https://akira-l.github.io/research/semantic-motion-embodied-interaction/",
+        "zh-CN": "https://akira-l.github.io/zh/research/semantic-motion-embodied-interaction/"
+      },
+      "names": {
+        "en": "Semantic Motion and Embodied Interaction",
+        "zh-CN": "语义动作与具身交互"
+      },
+      "relationship": {
+        "en": "Uni-Inter maps humans, objects, and scenes into a shared semantic occupancy volume, enabling one synthesis framework to reuse spatial knowledge across three interaction settings.",
+        "zh-CN": "Uni-Inter 把人物、物体和场景映射到共享语义占据体，使一个合成框架能够在三类交互环境之间复用空间知识。"
+      }
+    }
+  ],
   "citation": {
     "id": "liu2025uniinter",
     "type": "paper-conference",
